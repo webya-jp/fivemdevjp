@@ -1,0 +1,59 @@
+---
+title: "Installation Guide"
+sidebar_label: "Installation"
+sidebar_position: 1
+keywords: [qbox, fivem, installation, setup, server, txadmin, recipe, deployment]
+description: Step-by-step guide for installing the Qbox framework on your FiveM server. Learn how to deploy using txAdmin and choose the right recipe for your needs.
+slug: /installation
+---
+
+# Installation
+
+### Visual learner? Watch this video instead!
+
+<ReactPlayer
+ width='100%'
+url='https://www.youtube.com/watch?v=FQGsXn0bRcI' controls='true' volume='0.7' pip='true' stopOnUnmount='false' />
+ㅤ
+
+:::info
+* We highly recommend using **txAdmin** to install your FiveM server.
+* For detailed instructions, refer to [Setting up a server using txAdmin](https://docs.fivem.net/docs/server-manual/setting-up-a-server-txadmin/).
+:::
+
+:::danger[XAMPP IS NOT SUPPORTED AND SHOULD NEVER EVEN BE USED.]
+* We expect you to already have ``MariaDB`` installed.
+* Please download ``MariaDB`` from the official website: [MariaDB Downloads](https://mariadb.org/download/).
+:::
+
+## Installation Steps
+
+### 1. Download the server
+
+Download the latest [FiveM artifacts](https://runtime.fivem.net/artifacts/fivem/build_server_windows/master/) and extract the files. Do not use the buttons at the top. Download directly from the list.
+
+![Latest Artifacts](/img/artifacts.png)
+
+### 2. Extract the artifacts
+
+Now extract the `server.7z` with any archive manager of your choosing. We recommend using [7-Zip](https://www.7-zip.org/). Extract it as `/server` so you keep the server folder name.
+
+### 3. Starting the server
+
+Open the folder you just extracted it to. It should look a little like this. And then run `FXServer.exe`.
+
+![Server Folder](/img/artifact-list.png)
+
+### 4. Start the recipe installation
+
+Run `FXServer.exe` to start txAdmin and follow all the steps.
+
+### 5. Deploy the recipe
+
+When prompted, select `Popular Recipes` and then `QBox Framework`:
+
+![Deployment Type](/img/txadmin-deployment-type.jpg)
+
+### 6. Run the server
+
+Once you have completed all of the installation steps, run the server.

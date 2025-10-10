@@ -1,0 +1,32 @@
+---
+sidebar_label: jobs
+keywords: [qbox, fivem, qbx_core, types]
+---
+
+# Jobs
+
+## JobData
+
+**Fields**
+
+- label: `string`
+- type?: `string`
+- defaultDuty: `boolean`
+- offDutyPay: `boolean`
+
+## Job
+
+Extends [`JobData`](#jobdata)
+
+**Fields**
+
+- grades: [`table<integer, JobGradeData>`](#jobgradedata)
+
+## JobGradeData
+
+**Fields**
+
+- name: `string`
+- isboss?: `boolean`
+- bankAuth?: `boolean`
+- payment: `number`
