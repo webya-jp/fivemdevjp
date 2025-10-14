@@ -50,19 +50,19 @@ local values = {
 ## 約束
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local success = MySQL.transaction.await(queries, values --[[leave nil for specific format]])
     print(success)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     const success = await MySQL.transaction(queries, values /*leave nil for specific format*/)
     console.log(success)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**
@@ -74,7 +74,7 @@ local values = {
 ## コールバック
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     -- specific
     MySQL.transaction(queries, values, function(success)
@@ -87,9 +87,9 @@ local values = {
     end)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     // specific
     MySQL.transaction(queries, (success) => {
@@ -102,7 +102,7 @@ local values = {
     })
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**

@@ -9,7 +9,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## 約束
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local response = MySQL.query.await('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', {
         identifier
@@ -23,9 +23,9 @@ import { Tab, Tabs } from 'nextra/components';
     end
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     const response = await MySQL.query('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', [
       identifier
@@ -38,7 +38,7 @@ import { Tab, Tabs } from 'nextra/components';
     }
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**
@@ -50,7 +50,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## コールバック
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     MySQL.query('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', {
         identifier
@@ -63,9 +63,9 @@ import { Tab, Tabs } from 'nextra/components';
         end
     end)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     MySQL.query('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', [
       identifier
@@ -77,7 +77,7 @@ import { Tab, Tabs } from 'nextra/components';
       }
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**

@@ -3,7 +3,7 @@ export default {
   '##': {
     type: 'separator',
   },
-  ox: 'Ox',
+  ox_doc: 'Ox',
   '###': {
     type: 'separator',
     // title: 'My Items', // Title is optional

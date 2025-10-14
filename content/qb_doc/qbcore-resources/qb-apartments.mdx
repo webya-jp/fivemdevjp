@@ -6,23 +6,23 @@ description: Welcome to your complimentary apartment
 
 ## 導入
 
-* このリソースは、プレイヤーのアパートメントシステムを管理します。qb-interior を使用して特定の座標にシェルを生成し、ハウジングと同じように機能しますが、デフォルトではアパートメントに費用はかかりません。
+- このリソースは、プレイヤーのアパートメントシステムを管理します。qb-interior を使用して特定の座標にシェルを生成し、ハウジングと同じように機能しますが、デフォルトではアパートメントに費用はかかりません。
 
 ## プレビュー
 
-![](<../.gitbook/assets/image (3) (1).png>)
+![](</.gitbook/assets/image (3) (1).png>)
 
 ## 構成
 
 ```lua
 Apartments = {}
-Apartments.Starting = true/false -- Enable or disable starting apartments 
+Apartments.Starting = true/false -- Enable or disable starting apartments
 Apartments.SpawnOffset = 30 -- How far under the map the apartment shell will spawn
 Apartments.Locations = { -- Create new apartment locations
     ["apartment1"] = {
         name = "apartment1", -- The apartment name that saves in the database
         label = "South Rockford Drive", -- The label of the apartment (shown in preview)
-        coords = { -- The apartment entrance location 
+        coords = { -- The apartment entrance location
             enter = vector4(-667.02, -1105.24, 14.63, 242.32),
         },
         polyzoneBoxData = { -- The polyzone box information for the entrance

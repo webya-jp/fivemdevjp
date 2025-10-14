@@ -1,10 +1,7 @@
 import { NpmButton } from '@components/button';
-import ResourceLinks from '@components/resource-links';
 import { Callout, Steps, Tab, Tabs } from 'nextra/components';
 
-# オックスコア
-
-<ResourceLinks repo="https://github.com/communityox/ox_core" />
+# OX_CORE
 
 OneSync、ステートバッグ、サーバー側エンティティなどの機能を適切にサポートするように設計された最新の FiveM フレームワーク。
 
@@ -45,7 +42,8 @@ pnpm build
 - [ox_inventory](../ox_inventory/)
 - [障害者](https://github.com/project-error/npwd)
 - [イレニウム出現](https://github.com/iLLeniumStudios/illenium-appearance/archive/refs/heads/main.zip)
-  </Steps>
+
+</Steps>
 
 ## リソースでox_coreを使用する
 
@@ -54,30 +52,28 @@ pnpm build
 ox_coreの定義を読み込むには、`@ox_core/lib/init.lua`リソースに追加します。
 
 <Tabs items={['fxmanifest.lua', 'require']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     必要に応じて、client\_script または server\_script にすることができます。
 
     ```lua
     shared_script '@ox_core/lib/init.lua'
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ご希望の場合は、[必要とする](../ox_lib/Modules/Require/Shared)関数から[ox\_lib](../ox_lib)。
 
     ```lua
     local Ox = require '@ox_core.lib.init'
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### JavaScript
 
 JavaScript リソースで ox_core を使用するには、TypeScript と Intellisense を完全にサポートする npm パッケージを使用する必要があります。
-
-<NpmButton link="https://www.npmjs.com/package/@communityox/ox_core" />
 
 まずは、[fivem-typescript-ボイラープレート](https://github.com/communityox/fivem-typescript-boilerplate)ox_core パッケージをインストールします。
 

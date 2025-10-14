@@ -55,7 +55,7 @@ Loki は、Prometheus にインスパイアされた、水平スケーラブル�
 非常に費用対効果が高く、操作が簡単なように設計されている。
 
 <Tabs items={["Cloud", "Self-hosted"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     * いくつかの制限がある無料層がある
     * 管理が容易
     * セットアップが簡単
@@ -72,9 +72,9 @@ Loki は、Prometheus にインスパイアされた、水平スケーラブル�
       パスワードを生成し、API キーを保存するだけでなく、あなたの`user`そして`url`.
     </Steps>
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     grafanaインスタンスをセットアップするには、dockerと、コンテナやkubernetesに関する知識が必要だ。\
     grafanaスタックをセットアップするためのガイド（最小要件のgrafanaとgrafana loki）を見つけて、それに従ってください。
 
@@ -82,7 +82,7 @@ Loki は、Prometheus にインスパイアされた、水平スケーラブル�
 
     * デフォルトでは、セルフホストlokiインスタンスは、任意の認証レイヤーを提供しませんし、NGINXの基本的な認証やCloudflareアクセスなどの外部認証レイヤーが必要になります。
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### コンフィグ

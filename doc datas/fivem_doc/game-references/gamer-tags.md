@@ -3,89 +3,88 @@ title: Gamer tags
 weight: 760
 ---
 
-![All flags enabled](/HeadDisplayExample2.png "All flags enabled")
+![All flags enabled](/HeadDisplayExample2.png 'All flags enabled')
 
 **Gamer tag** (also known as **head display**) - is an UI element above player character, which can display text and various icons. The control is carried out by enabling components. Usually used to display player's name.
 
 For each component you can: show/hide, change opacity, change colour.
 
-Components list
----------------
+## Components list
 
-| ID  | Name                      |
-|-----|---------------------------|
-| 0   | GAMER\_NAME               |
-| 1   | CREW\_TAG                 |
-| 2   | healthArmour              |
-| 3   | BIG\_TEXT                 |
-| 4   | AUDIO\_ICON               |
-| 5   | MP\_USING\_MENU           |
-| 6   | MP\_PASSIVE\_MODE         |
-| 7   | WANTED\_STARS             |
-| 8   | MP\_DRIVER                |
-| 9   | MP\_CO\_DRIVER            |
-| 10  | MP\_TAGGED                |
-| 11  | GAMER\_NAME\_NEARBY       |
-| 12  | ARROW                     |
-| 13  | MP\_PACKAGES              |
-| 14  | INV\_IF\_PED\_FOLLOWING   |
-| 15  | RANK\_TEXT                |
-| 16  | MP\_TYPING                |
-| 17  | MP\_BAG\_LARGE            |
-| 18  | MP\_TAG\_ARROW            |
-| 19  | MP\_GANG\_CEO             |
-| 20  | MP\_GANG\_BIKER           |
-| 21  | BIKER\_ARROW              |
-| 22  | MC\_ROLE\_PRESIDENT       |
-| 23  | MC\_ROLE\_VICE\_PRESIDENT |
-| 24  | MC\_ROLE\_ROAD\_CAPTAIN   |
-| 25  | MC\_ROLE\_SARGEANT        |
-| 26  | MC\_ROLE\_ENFORCER        |
-| 27  | MC\_ROLE\_PROSPECT        |
-| 28  | MP\_TRANSMITTER           |
-| 29  | MP\_BOMB                  |
+| ID  | Name                   |
+| --- | ---------------------- |
+| 0   | GAMER_NAME             |
+| 1   | CREW_TAG               |
+| 2   | healthArmour           |
+| 3   | BIG_TEXT               |
+| 4   | AUDIO_ICON             |
+| 5   | MP_USING_MENU          |
+| 6   | MP_PASSIVE_MODE        |
+| 7   | WANTED_STARS           |
+| 8   | MP_DRIVER              |
+| 9   | MP_CO_DRIVER           |
+| 10  | MP_TAGGED              |
+| 11  | GAMER_NAME_NEARBY      |
+| 12  | ARROW                  |
+| 13  | MP_PACKAGES            |
+| 14  | INV_IF_PED_FOLLOWING   |
+| 15  | RANK_TEXT              |
+| 16  | MP_TYPING              |
+| 17  | MP_BAG_LARGE           |
+| 18  | MP_TAG_ARROW           |
+| 19  | MP_GANG_CEO            |
+| 20  | MP_GANG_BIKER          |
+| 21  | BIKER_ARROW            |
+| 22  | MC_ROLE_PRESIDENT      |
+| 23  | MC_ROLE_VICE_PRESIDENT |
+| 24  | MC_ROLE_ROAD_CAPTAIN   |
+| 25  | MC_ROLE_SARGEANT       |
+| 26  | MC_ROLE_ENFORCER       |
+| 27  | MC_ROLE_PROSPECT       |
+| 28  | MP_TRANSMITTER         |
+| 29  | MP_BOMB                |
 
-Simple usage
-------------
+## Simple usage
+
 ### Lua
+
 For a more complete example, see the stock `playernames` resource included in the server package, or the documentation for the resource.
 
-``` lua
-local mpGamerTags = {}
+```lua
+local mpGamerTabs = {}
 
 for i = 0, 255 do
   if NetworkIsPlayerActive(i) and i ~= PlayerId() then
     local ped = GetPlayerPed(i)
 
     -- change the ped, because changing player models may recreate the ped
-    if not mpGamerTags[i] or mpGamerTags[i].ped ~= ped then
+    if not mpGamerTabs[i] or mpGamerTabs[i].ped ~= ped then
       local nameTag = ('%s [%d]'):format(GetPlayerName(i), GetPlayerServerId(i))
 
-      if mpGamerTags[i] then
-        RemoveMpGamerTag(mpGamerTags[i].tag)
+      if mpGamerTabs[i] then
+        RemoveMpGamerTag(mpGamerTabs[i].tag)
       end
 
-      mpGamerTags[i] = {
+      mpGamerTabs[i] = {
         tag = CreateMpGamerTagWithCrewColor(i, nameTag, false, false, '', 0, 0, 0, 0),
         ped = ped
       }
     end
 
-    SetMpGamerTagVisibility(mpGamerTags[i].tag, 4, NetworkIsPlayerTalking(i))
-  elseif mpGamerTags[i] then
-    RemoveMpGamerTag(mpGamerTags[i].tag)
+    SetMpGamerTagVisibility(mpGamerTabs[i].tag, 4, NetworkIsPlayerTalking(i))
+  elseif mpGamerTabs[i] then
+    RemoveMpGamerTag(mpGamerTabs[i].tag)
 
-    mpGamerTags[i] = nil
+    mpGamerTabs[i] = nil
   end
 end
 ```
 
-Example
--------
+## Example
 
 ### Lua
 
-``` lua
+```lua
 -- Create gamer info
 local gamerTagId = CreateMpGamerTagWithCrewColor(
   ped, -- Ped to which gamer info will be assigned
@@ -102,7 +101,7 @@ local gamerTagId = CreateMpGamerTagWithCrewColor(
 
 ### C\#
 
-``` csharp
+```csharp
 // Create gamer info
 // assuming using static CitizenFX.Core.API;
 int gamerTagId = CreateMpGamerTagWithCrewColor(
@@ -118,14 +117,11 @@ int gamerTagId = CreateMpGamerTagWithCrewColor(
 );
 ```
 
-
-
-Toggling flags
---------------
+## Toggling flags
 
 ### Lua
 
-``` lua
+```lua
 -- Toggle components
 SetMpGamerTagVisibility(
   gamerTagId,
@@ -136,7 +132,7 @@ SetMpGamerTagVisibility(
 
 ### C\#
 
-``` csharp
+```csharp
 // Toggle flags
 SetMpGamerTagVisibility(
   gamerTagId,
@@ -145,14 +141,11 @@ SetMpGamerTagVisibility(
 );
 ```
 
-
-
-Changing flags colour
----------------------
+## Changing flags colour
 
 ### Lua
 
-``` lua
+```lua
 -- Change component colour
 SetMpGamerTagColour(
   gamerTagId,
@@ -163,7 +156,7 @@ SetMpGamerTagColour(
 
 ### C\#
 
-``` csharp
+```csharp
 // Change component colour
 Function.Call(
   (Hash)0x613ED644950626AE,
@@ -173,14 +166,11 @@ Function.Call(
 );
 ```
 
-
-
-Changing flags opacity
-----------------------
+## Changing flags opacity
 
 ### Lua
 
-``` lua
+```lua
 -- Change component opacity
 SetMpGamerTagAlpha(
   gamerTagId,
@@ -191,7 +181,7 @@ SetMpGamerTagAlpha(
 
 ### C\#
 
-``` csharp
+```csharp
 // Changes flag opacity
 Function.Call(
   (Hash)0xD48FE545CD46F857,
@@ -201,9 +191,7 @@ Function.Call(
 );
 ```
 
-
-Special flags controls
-----------------------
+## Special flags controls
 
 ### Wanted level
 
@@ -211,7 +199,7 @@ For the **WantedStar** flag you can set number that will be shown inside of star
 
 ### Lua
 
-``` lua
+```lua
 -- Set the number that will be set inside the wanted star icon
 SetMpGamerTagWantedLevel(
   gamerTagId,
@@ -221,7 +209,7 @@ SetMpGamerTagWantedLevel(
 
 ### C\#
 
-``` csharp
+```csharp
 // Set the number that will be set inside the wanted star icon
 Function.Call(
   Hash._SET_HEAD_DISPLAY_WANTED,
@@ -236,7 +224,7 @@ Health bar has 0 opacity by default. Colour of health bar changes using it's own
 
 ### Lua
 
-``` lua
+```lua
 -- Change health bar colour
 SetMpGamerTagHealthBarColour(
   gamerTagId,
@@ -246,7 +234,7 @@ SetMpGamerTagHealthBarColour(
 
 ### C\#
 
-``` csharp
+```csharp
 // Change health bar colour
 Function.Call(
   (Hash)0x3158C77A7E888AB4,

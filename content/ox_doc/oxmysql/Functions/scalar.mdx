@@ -9,7 +9,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## 約束
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local firstName = MySQL.scalar.await('SELECT `firstname` FROM `users` WHERE `identifier` = ? LIMIT 1', {
         identifier
@@ -18,9 +18,9 @@ import { Tab, Tabs } from 'nextra/components';
     print(firstName)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     const firstName = await MySQL.scalar('SELECT `firstname` FROM `users` WHERE `identifier` = ? LIMIT 1', [
       identifier
@@ -29,7 +29,7 @@ import { Tab, Tabs } from 'nextra/components';
     console.log(firstName)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**
@@ -41,7 +41,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## コールバック
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     MySQL.scalar('SELECT `firstname` FROM `users` WHERE `identifier` = ? LIMIT 1', {
         identifier
@@ -49,9 +49,9 @@ import { Tab, Tabs } from 'nextra/components';
         print(firstName)
     end)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     MySQL.scalar('SELECT `firstname` FROM `users` WHERE `identifier` = ? LIMIT 1', [
       identifier
@@ -59,7 +59,7 @@ import { Tab, Tabs } from 'nextra/components';
       console.log(firstName)
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**

@@ -9,20 +9,20 @@ import { Tab, Tabs } from 'nextra/components';
 定義された難易度でスキルチェックを行う。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.skillCheck(difficulty, inputs)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.skillCheck(difficulty, inputs);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - 難易度が高い：`'easy'`または`'medium'`または`'hard'`または`table`
@@ -44,20 +44,20 @@ import { Tab, Tabs } from 'nextra/components';
 スキルチェックが現在有効な場合に真を返す。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.skillCheckActive()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client'
 
     lib.skillCheckActive()
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## lib.cancelSkillCheck
@@ -65,32 +65,32 @@ import { Tab, Tabs } from 'nextra/components';
 現在進行中のスキルチェックをキャンセルする。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.cancelSkillCheck()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client'
 
     lib.cancelSkillCheck()
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## 使用例
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}, 'hard'}, {'w', 'a', 's', 'd'})
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
@@ -100,7 +100,7 @@ import { Tab, Tabs } from 'nextra/components';
     );
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![skillcheck_example](https://i.imgur.com/rgfkn0S.png)

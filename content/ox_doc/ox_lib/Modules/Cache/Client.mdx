@@ -30,7 +30,7 @@ import { Tab, Tabs } from 'nextra/components';
 キャッシュされた値が更新されたときにトリガーされるイベントハンドラを登録します。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.onCache(key, function(value, oldValue) end)
     ```
@@ -50,9 +50,9 @@ import { Tab, Tabs } from 'nextra/components';
     end)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import { onCache } from '@communityox/ox_lib/client';
 
@@ -76,5 +76,5 @@ import { Tab, Tabs } from 'nextra/components';
     });
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>

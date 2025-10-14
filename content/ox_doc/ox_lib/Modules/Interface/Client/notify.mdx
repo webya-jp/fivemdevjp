@@ -9,31 +9,31 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 多くのスタイリングオプションがあるカスタム通知。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     <Tabs items={["Client", "Server"]}>
-      <Tags.Tab>
+      <Tabs.Tab>
         ```lua
         lib.notify(data)
         ```
-      </Tags.Tab>
+      </Tabs.Tab>
 
-      <Tags.Tab>
+      <Tabs.Tab>
         ```lua
         TriggerClientEvent('ox_lib:notify', source, data)
         ```
-      </Tags.Tab>
+      </Tabs.Tab>
     </Tabs>
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.notify(data);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - id？`string`
@@ -76,7 +76,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ### スタンダード
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.notify({
         title = 'Notification title',
@@ -84,9 +84,9 @@ import { Callout, Tab, Tabs } from 'nextra/components';
         type = 'success'
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
@@ -97,7 +97,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     });
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![notification](https://i.imgur.com/UOISjlm.png)
@@ -105,7 +105,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ### カスタム
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.notify({
         id = 'some_identifier',
@@ -124,9 +124,9 @@ import { Callout, Tab, Tabs } from 'nextra/components';
         iconColor = '#C53030'
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
@@ -148,7 +148,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     });
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![custom_notification](https://i.imgur.com/1qwsJsH.png)

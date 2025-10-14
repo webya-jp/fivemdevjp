@@ -45,7 +45,7 @@ xPlayer のアイテムに関連するすべての関数。`xPlayer.getInventory
 詳しくは機能のセクションを読んでほしいが、以下のセクションを読めば、だいたいのことはわかるだろう。
 
 <Tabs items={["ESX", "Ox Inventory"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     if xPlayer.getInventoryItem('acetone').count > 2 and xPlayer.getInventoryItem('antifreeze').count > 4 and xPlayer.getInventoryItem('sudo').count > 9 then
         xPlayer.removeInventoryItem("acetone", 3)
@@ -53,9 +53,9 @@ xPlayer のアイテムに関連するすべての関数。`xPlayer.getInventory
         xPlayer.removeInventoryItem("sudo", 10)
     end
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     リソースのどこかに以下のコードを追加し、エクスポート・メタテーブルをキャッシュする。
 
     ```lua
@@ -73,5 +73,5 @@ xPlayer のアイテムに関連するすべての関数。`xPlayer.getInventory
     end
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>

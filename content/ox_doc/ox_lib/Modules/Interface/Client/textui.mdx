@@ -13,20 +13,20 @@ TextUI ウィンドウを表示する。
 </Callout>
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.showTextUI(text, options)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.showTextUI(text, options);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - テキスト`string`
@@ -45,20 +45,20 @@ TextUI ウィンドウを表示する。
 現在表示されている TextUI ウィンドウを隠す
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.hideTextUI()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.hideTextUI();
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## lib.isTextUIOpen
@@ -66,20 +66,20 @@ TextUI ウィンドウを表示する。
 Text UI が開かれているかどうかを返します。現在表示されているテキストが 2 番目の値として返されます。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local isOpen, text = lib.isTextUIOpen()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     const [isOpen, text] = lib.isTextUIOpen();
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## 使用例
@@ -87,20 +87,20 @@ Text UI が開かれているかどうかを返します。現在表示されて
 ### ベーシック
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.showTextUI('[E] - Fuel vehicle')
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.showTextUI('[E] - Fuel vehicle');
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![basic_example](https://i.imgur.com/uZS40fD.png)
@@ -108,7 +108,7 @@ Text UI が開かれているかどうかを返します。現在表示されて
 ### カスタムスタイリング
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.showTextUI('[E] - Pick apple', {
         position = "top-center",
@@ -120,9 +120,9 @@ Text UI が開かれているかどうかを返します。現在表示されて
         }
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
@@ -137,7 +137,7 @@ Text UI が開かれているかどうかを返します。現在表示されて
     });
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![custom_example](https://i.imgur.com/sy9lPC0.png)

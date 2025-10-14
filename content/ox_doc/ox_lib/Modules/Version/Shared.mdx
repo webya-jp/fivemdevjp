@@ -14,13 +14,13 @@ lib.checkDependency(resource, version)
 - バージョンである：`string`
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     if not lib.checkDependency('ox_lib', '1.5.0') then error() end
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/shared'
     // import { checkDependency } from '@communityox/ox_lib/shared'
@@ -28,5 +28,5 @@ lib.checkDependency(resource, version)
     if (!lib.checkDependency('ox_lib', '1.5.0')) error()
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>

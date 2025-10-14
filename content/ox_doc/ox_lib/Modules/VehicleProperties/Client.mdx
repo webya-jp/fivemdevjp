@@ -15,20 +15,20 @@ lib.getVehicleProperties(vehicle);
   - のプロパティを取得するための車両のハンドル。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.getVehicleProperties(GetVehiclePedIsUsing(PlayerPedId()))
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client'
 
     lib.getVehicleProperties(GetVehiclePedIsUsing(PlayerPedId()))
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## lib.setVehicleProperties
@@ -43,15 +43,15 @@ lib.setVehicleProperties(vehicle, props)
 - プロップス`table`
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     RegisterNetEvent('ox_lib:setVehicleProperties', function(netid, data)
         lib.setVehicleProperties(NetToVeh(netid), data)
     end)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import { setVehicleProperties } from '@communityox/ox_lib/client'
 
@@ -60,7 +60,7 @@ lib.setVehicleProperties(vehicle, props)
     })
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **リターンズ**

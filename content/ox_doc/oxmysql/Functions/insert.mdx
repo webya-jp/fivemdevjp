@@ -9,7 +9,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## 約束
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local id = MySQL.insert.await('INSERT INTO `users` (identifier, firstname, lastname) VALUES (?, ?, ?)', {
         identifier, firstName, lastName
@@ -18,9 +18,9 @@ import { Tab, Tabs } from 'nextra/components';
     print(id)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     const id = await MySQL.insert('INSERT INTO `users` (identifier, firstname, lastname) VALUES (?, ?, ?)', [
       identifier, firstName, lastName
@@ -29,7 +29,7 @@ import { Tab, Tabs } from 'nextra/components';
     console.log(id)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**
@@ -41,7 +41,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## コールバック
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     MySQL.insert('INSERT INTO `users` (identifier, firstname, lastname) VALUES (?, ?, ?)', {
         identifier, firstName, lastName
@@ -49,9 +49,9 @@ import { Tab, Tabs } from 'nextra/components';
         print(id)
     end)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     MySQL.insert('INSERT INTO `users` (identifier, firstname, lastname) VALUES (?, ?, ?)', [
       identifier, firstName, lastName
@@ -59,7 +59,7 @@ import { Tab, Tabs } from 'nextra/components';
       console.log(id)
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**

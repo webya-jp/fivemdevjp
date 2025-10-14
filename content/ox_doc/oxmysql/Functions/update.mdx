@@ -9,7 +9,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## 約束
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local affectedRows = MySQL.update.await('UPDATE users SET firstname = ? WHERE identifier = ?', {
         newName, identifier
@@ -18,9 +18,9 @@ import { Tab, Tabs } from 'nextra/components';
     print(affectedRows)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     const affectedRows = await MySQL.update('UPDATE users SET firstname = ? WHERE identifier = ?', [
       newName, identifier
@@ -29,7 +29,7 @@ import { Tab, Tabs } from 'nextra/components';
     console.log(affectedRows)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**
@@ -41,7 +41,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## コールバック
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     MySQL.update('UPDATE users SET firstname = ? WHERE identifier = ?', {
         newName, identifier
@@ -49,9 +49,9 @@ import { Tab, Tabs } from 'nextra/components';
         print(affectedRows)
     end)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     MySQL.update('UPDATE users SET firstname = ? WHERE identifier = ?', [
       newName, identifier
@@ -59,7 +59,7 @@ import { Tab, Tabs } from 'nextra/components';
       console.log(affectedRows)
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**

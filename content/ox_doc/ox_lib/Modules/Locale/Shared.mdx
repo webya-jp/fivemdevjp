@@ -42,40 +42,40 @@ files {
 リソース内のロケールモジュールを初期化する（1 回）。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.locale()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import {initLocale} from '@communityox/ox_lib/shared'
 
     initLocale()
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 新しいロケールグローバルで文字列をフォーマットする。
 ロケール出力をフォーマットするために追加の引数を送ることができます。
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     locale(str, ...)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import { locale } from '@communityox/ox_lib/shared'
 
     locale(str, ...)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - スト：`string`
@@ -84,7 +84,7 @@ files {
 <u>**例**</u>
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     -- Load the locale module
     lib.locale()
@@ -95,9 +95,9 @@ files {
     end, 5000)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import { initLocale, locale } from '@communityox/ox_lib/shared
 
@@ -110,7 +110,7 @@ files {
     }, 5000)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## フレーズ
@@ -126,20 +126,20 @@ locale を何度も呼び出すのではなく、他のロケールを参照し�
 ```
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     print(locale('hello_my_name_is', 'doka', 'linden'))
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import { locale } from '@communityox/ox_lib/shared'
 
     console.log(locale('hello_my_name_is', 'doka', 'linden'))
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## lib.getLocale

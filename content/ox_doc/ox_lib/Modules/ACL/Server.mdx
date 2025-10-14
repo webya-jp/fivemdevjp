@@ -10,16 +10,16 @@ import { Tab, Tabs } from 'nextra/components';
 プリンシパルにエースパーミッションを割り当てる。3 番目のパラメータのデフォルトは 'allow' です。`false`はパーミッションを'deny'に設定する。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.addAce(principal, ace, allow)
 
     lib.addAce('group.admin', 'command.say')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/server'
 
@@ -28,7 +28,7 @@ import { Tab, Tabs } from 'nextra/components';
     lib.addAce('group.admin', 'command.say')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - 校長：`string`
@@ -40,16 +40,16 @@ import { Tab, Tabs } from 'nextra/components';
 プリンシパルからエースパーミッションを削除する。3 番目のパラメータのデフォルトは 'allow' です。`false`はパーミッションを'deny'に設定する。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.removeAce(principal, ace, allow)
 
     lib.removeAce('group.admin', 'command.say')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/server'
 
@@ -58,7 +58,7 @@ import { Tab, Tabs } from 'nextra/components';
     lib.removeAce('group.admin', 'command.say')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - 校長：`string`
@@ -70,16 +70,16 @@ import { Tab, Tabs } from 'nextra/components';
 プリンシパルを親プリンシパルに割り当てます。子プリンシパルは親プリンシパルからパーミッションを継承します。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.addPrincipal(child, parent)
 
     lib.addPrincipal('player.1', 'group.moderator')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/server'
 
@@ -88,7 +88,7 @@ import { Tab, Tabs } from 'nextra/components';
     lib.addPrincipal('player.1', 'group.moderator')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - 子供`string`
@@ -99,16 +99,16 @@ import { Tab, Tabs } from 'nextra/components';
 親プリンシパルからプリンシパルを削除します。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.removePrincipal(child, parent)
 
     lib.removePrincipal('player.1', 'group.moderator')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/server'
 
@@ -117,7 +117,7 @@ import { Tab, Tabs } from 'nextra/components';
     lib.removePrincipal('player.1', 'group.moderator')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - 子供`string`

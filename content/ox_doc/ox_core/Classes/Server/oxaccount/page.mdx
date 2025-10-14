@@ -54,7 +54,7 @@ account.addBalance(data)
   - というメッセージを送った：`'amount_not_number'`|`'no_balance'`|`'something_went_wrong'`
 
 <Tabs items={['Lua']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua 
     account.addBalance( -- Add $1000 to the account
       {
@@ -65,7 +65,7 @@ account.addBalance(data)
       }
     )
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## OxAccount.removeBalance
@@ -91,7 +91,7 @@ account.removeBalance(data)
   - というメッセージを送った：`'amount_not_number'`|`'no_balance'`|`'something_went_wrong'`
 
 <Tabs items={['Lua']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     account.removeBalance(
       {
@@ -103,7 +103,7 @@ account.removeBalance(data)
       }
     )
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## OxAccount.transferBalance
@@ -135,7 +135,7 @@ account.transferBalance(data)
   - というメッセージを送った：`'amount_not_number'`|`'no_balance'`|`'something_went_wrong'`
 
 <Tabs items={['Lua']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     account.transferBalance({
       toId = 100000000,
@@ -145,7 +145,7 @@ account.transferBalance(data)
       note = 'Impound payment',
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## OxAccount.depositMoney

@@ -9,20 +9,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 実行中のプログレスバーを表示します。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.progressBar(data)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client'
 
     lib.progressBar(data)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - 期間である：`number`
@@ -80,7 +80,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ### 使用例
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     if lib.progressBar({
         duration = 2000,
@@ -101,9 +101,9 @@ import { Callout, Tab, Tabs } from 'nextra/components';
         },
     }) then print('Do stuff when complete') else print('Do stuff when cancelled') end
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     <Callout>
       この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
     </Callout>
@@ -132,7 +132,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     else console.log('Do stuff when cancelled')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![progress_bar](https://i.imgur.com/7ZJgLjl.png)
@@ -142,20 +142,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 に似ている。`lib.progressBar`ただし、円が表示され、位置を定義することができる。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.progressCircle(data)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client'
 
     lib.progressCircle(data)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - 期間である：`number`
@@ -215,7 +215,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ### 使用例
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     if lib.progressCircle({
         duration = 2000,
@@ -236,9 +236,9 @@ import { Callout, Tab, Tabs } from 'nextra/components';
         },
     }) then print('Do stuff when complete') else print('Do stuff when cancelled') end
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     <Callout>
       この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
     </Callout>
@@ -267,7 +267,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     else console.log('Do stuff when cancelled')
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![progress_circle](https://i.imgur.com/2tLbgrW.png)
@@ -277,20 +277,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 プログレス・バーが現在アクティブであれば真を返す。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.progressActive()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client'
 
     lib.progressActive()
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## lib.cancelProgress
@@ -299,18 +299,18 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 プログレスバーがアクティブで、それをキャンセルできる場合は、それをキャンセルする。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.cancelProgress()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client'
 
     lib.cancelProgress()
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>

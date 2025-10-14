@@ -60,7 +60,7 @@ mysql -u root -p
 
 コンソールに入ると、こんな感じになります
 
-![MariaDB Command Line](../.gitbook/assets/Terminus_LjifucOy4i.png)
+![MariaDB Command Line](/.gitbook/assets/Terminus_LjifucOy4i.png)
 
 管理者ユーザーアカウントの作成に進みます。以下のコマンドを番号順に入力してください。ユーザー名、パスワード、ホスト名など、いくつかの項目を編集するだけで済みます。
 
@@ -87,15 +87,15 @@ FLUSH PRIVILEGES;
 
 以下のスクリーンショットは、変更が必要な行を示しています。デフォルト設定では、バインドアドレスは127.0.0.1に設定されており、ローカルホストからの接続のみが許可されます。これを0.0.0.0に変更し、データベースへのあらゆる接続を許可します。
 
-![50-server.cnf](../.gitbook/assets/Terminus_SOG5oqcssc.png)
+![50-server.cnf](/.gitbook/assets/Terminus_SOG5oqcssc.png)
 
 nanoでの編集は非常に簡単で、マウスを使わずにメモ帳を使うのと同じです。矢印キーを使ってコード内を移動し、通常の環境と同じようにファイルを編集します。
 
 バインド アドレスを 0.0.0.0 に編集した後、CTRL+X を使用してファイルを終了し、変更を保存するかどうかを確認するメッセージが表示されたら Y を押し、ファイルの保存名を確認するメッセージが表示されたら Enter キーを押します (開いたときと同じファイル名になります)。
 
-![After pressing CTRL+X we press Y to save changes](<../.gitbook/assets/Terminus_Sf4x4s5sbx (1).png>)
+![After pressing CTRL+X we press Y to save changes](</.gitbook/assets/Terminus_Sf4x4s5sbx (1).png>)
 
-![Leave the file name the same and press enter.](<../.gitbook/assets/Terminus_Ot5jFzizkD (1).png>)
+![Leave the file name the same and press enter.](</.gitbook/assets/Terminus_Ot5jFzizkD (1).png>)
 
 その後、以下のコマンドを使用してファイルの変更を確認するためにmariadbサービスを再起動します。
 
@@ -109,7 +109,7 @@ sudo systemctl restart mariadb
 sudo systemctl status mariadb
 ```
 
-![systemctl status of MariaDB](../.gitbook/assets/Terminus_f7VVyPHkLC.png)
+![systemctl status of MariaDB](/.gitbook/assets/Terminus_f7VVyPHkLC.png)
 
 他のすべてのホストからのリモートアクセスを許可しました。これで接続できましたか？まだです。あと一つだけやるべきことがあります。
 
@@ -127,7 +127,7 @@ sudo iptables --version
 
 以下のスクリーンショットのような応答が得られれば、iptables がインストールされ、使用できる状態になっています。
 
-![iptables returning its version](../.gitbook/assets/Terminus_8ovVMYD2CK.png)
+![iptables returning its version](/.gitbook/assets/Terminus_8ovVMYD2CK.png)
 
 iptables がインストールされていることを確認したら、次のコマンドを実行して、MySQL 接続用の 3306 ポートを開きます。
 

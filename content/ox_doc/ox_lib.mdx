@@ -1,11 +1,8 @@
-import ResourceLinks from '@components/resource-links';
 import { Callout, Steps, Tab, Tabs } from 'nextra/components';
 
 # オックスリブ
 
 インポート可能なモジュールおよびエクスポートとして簡単に再利用できるコードを提供するスタンドアロン ライブラリ。
-
-<ResourceLinks repo="https://github.com/communityox/ox_lib" />
 
 ## インストール
 
@@ -16,7 +13,8 @@ import { Callout, Steps, Tab, Tabs } from 'nextra/components';
 </Callout>
 
 <Steps>
-  ### ダウンロード[リリース](https://github.com/communityox/ox_lib/releases)またはソースコードをビルドします。
+
+### ダウンロード[リリース](https://github.com/communityox/ox_lib/releases)またはソースコードをビルドします。
 
 ```bash
 git clone https://github.com/communityox/ox_lib.git
@@ -50,7 +48,7 @@ add_ace resource.ox_lib command.remove_principal allow
 ## 使用法
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     リソース内でライブラリを有効にするには、以下を追加するだけです。`@ox_lib/init.lua`shared\_scriptとして`fxmanifest.lua` ファイル。
 
     ```lua
@@ -81,9 +79,9 @@ add_ace resource.ox_lib command.remove_principal allow
     * `require`独自のスクリプトからモジュールをインポートします。
     * `cache` 見る [ここ](./ox_lib/Modules/Cache/Shared)。
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     <Callout>
       ライブラリのnpmパッケージは**ない**Lua で利用可能なすべての機能をサポートします。
 
@@ -103,7 +101,7 @@ add_ace resource.ox_lib command.remove_principal allow
     import { versionCheck } from "@communityox/ox_lib/server";
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 これで、リソース内でライブラリ関数を使用できるようになりました。その使用方法については、ドキュメントの残りの部分を確認してください。
@@ -114,17 +112,17 @@ add_ace resource.ox_lib command.remove_principal allow
 別のアイコンタイプ、例えばブランドとしてappleを使用したい場合、アイコンをtableとして定義する必要があります（`array`）の最初の値はアイコンの種類（`fas`、`far`、`fab`) を string として保存し、2 番目にアイコン名を指定します。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     icon = {'fab', 'apple'}
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     icon: ["fab", "apple"];
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## UIの構築

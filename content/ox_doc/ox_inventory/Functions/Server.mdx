@@ -41,7 +41,7 @@ exports.ox_inventory:forceOpenInventory(playerId, invType, data)
 - のデータがある：`number`または`string`または`table`
 
 <Tabs items={["Player", "Stash"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     対象プレイヤーのインベントリを開く。
 
     ```lua
@@ -56,9 +56,9 @@ exports.ox_inventory:forceOpenInventory(playerId, invType, data)
     end, true)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     カスタムStash（RegisterStashでサーバー上に作成）を開きます。
 
     ```lua
@@ -71,7 +71,7 @@ exports.ox_inventory:forceOpenInventory(playerId, invType, data)
     exports.ox_inventory:forceOpenInventory(1, 'stash', { id = 'police_locker', owner = 'license:xxxxxxxx' })
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## 車両の更新

@@ -6,232 +6,256 @@ description: Manage your server and players efficiently
 
 ## 導入
 
-* 管理者メニューは幅広い機能を備えており、人気のメニューリソース menuV を依存関係として利用しています。メニューを開くための基本権限レベルは管理者ですが、godレベルの権限でもアクセスできます。メニューは簡単に拡張でき、ユーザーが望むだけのオプションを追加できます。
+- 管理者メニューは幅広い機能を備えており、人気のメニューリソース menuV を依存関係として利用しています。メニューを開くための基本権限レベルは管理者ですが、godレベルの権限でもアクセスできます。メニューは簡単に拡張でき、ユーザーが望むだけのオプションを追加できます。
 
 ## プレビュー
 
-![](../.gitbook/assets/adminmenu.png)
+![](/.gitbook/assets/adminmenu.png)
 
 ## コマンド
 
 <details>
   <summary>/admin <strong>-</strong> opens the admin menu</summary>
 
-  管理メニューを開きます
+管理メニューを開きます
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/blips - toggles player blips</summary>
 
-  全プレイヤーのマップにアイコンを追加します。playerの位置を監視するのに役立ちます。
+全プレイヤーのマップにアイコンを追加します。playerの位置を監視するのに役立ちます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/names - toggles player names</summary>
 
-  頭の上にplayerの名前とIDを表示します
+頭の上にplayerの名前とIDを表示します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/coords - shows your current coords</summary>
 
-  現在の座標を表示します`vector3(x, y, z)`フォーマット
+現在の座標を表示します`vector3(x, y, z)`フォーマット
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/maxmods - sets vehicle to max mods</summary>
 
-  現在のvehicleを最大のパフォーマンス変更に設定します
+現在のvehicleを最大のパフォーマンス変更に設定します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/noclip - toggles noclip</summary>
 
-  noclip を切り替える
+noclip を切り替える
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/admincar - adds current vehicle to garage</summary>
 
-  現在のvehicleをデータベースtableに保存します`player_vehicles`ガレージのvehicleへのアクセスを許可する
+現在のvehicleをデータベースtableに保存します`player_vehicles`ガレージのvehicleへのアクセスを許可する
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/announce \[message] - creates an announcement</summary>
 
-  チャット内のすべてのプレイヤーに送信されるアナウンスを作成します。
+チャット内のすべてのプレイヤーに送信されるアナウンスを作成します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/report \[message] - create a report to staff</summary>
 
-  チャットでスタッフにメッセージを送信し、メッセージをレポートとして保存します
+チャットでスタッフにメッセージを送信し、メッセージをレポートとして保存します
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/reportr \[message] - replies to a user report</summary>
 
-  指定されたユーザーレポートに返信します`message`
+指定されたユーザーレポートに返信します`message`
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **メッセージ**- (必須) 返信で送信するメッセージ
+- **メッセージ**- (必須) 返信で送信するメッセージ
+
 </details>
 
 <details>
   <summary>/reporttoggle - opt in/out of receiving player reports</summary>
 
-  チャットでplayerレポートを受信するかどうかを選択する
+チャットでplayerレポートを受信するかどうかを選択する
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/staffchat \[message] - sends a staff-only message</summary>
 
-  「管理者」権限レベルのユーザーのみに表示されるチャットメッセージを送信します
+「管理者」権限レベルのユーザーのみに表示されるチャットメッセージを送信します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/warn \[id] \[reason] - warn a player</summary>
 
-  指定されたメッセージでplayerにメッセージを送信します`id`と`reason`与えられた。また、データベースtable内のplayerに対して警告を追加する。`player_warns`
+指定されたメッセージでplayerにメッセージを送信します`id`と`reason`与えられた。また、データベースtable内のplayerに対して警告を追加する。`player_warns`
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須) 警告対象のplayerのID
-  * **理由**- (必須) 警告を与える理由
+- **id**- (必須) 警告対象のplayerのID
+- **理由**- (必須) 警告を与える理由
+
 </details>
 
 <details>
   <summary>/checkwarns \[id] \[opt: number] - view a warning for a given player</summary>
 
-  指定されたplayerに対して既存の警告をチェックします`id`コマンドに警告 number が指定されていない場合、player が受信した警告の number が表示されます。コマンドに警告 number が指定されている場合は、その警告が表示されます。
+指定されたplayerに対して既存の警告をチェックします`id`コマンドに警告 number が指定されていない場合、player が受信した警告の number が表示されます。コマンドに警告 number が指定されている場合は、その警告が表示されます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須) チェック対象のplayerのID
-  * **number**- (オプション) 警告 number (1、2、3 など)
+- **id**- (必須) チェック対象のplayerのID
+- **number**- (オプション) 警告 number (1、2、3 など)
+
 </details>
 
 <details>
   <summary>/delwarn \[id] \[number] - deletes a warning from a player</summary>
 
-  playerから警告を削除し、データベースエントリを削除します
+playerから警告を削除し、データベースエントリを削除します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須) playerのID
-  * **number**- (必須) 削除する警告 number (1、2、3 など)
+- **id**- (必須) playerのID
+- **number**- (必須) 削除する警告 number (1、2、3 など)
+
 </details>
 
 <details>
   <summary>/givenuifocus \[id] \[hasFocus] \[hasCursor] - Sets nuifocus state for player</summary>
 
-  このコマンドは、指定されたplayerのNUIフォーカス状態を設定します。`id`これにより、次のネイティブを手動で設定できます。[https://docs.fivem.net/natives/?\_0x5B98AE30](https://docs.fivem.net/natives/?_0x5B98AE30)\
-  player が NUI オーバーレイでスタックしている場合に役立ちます。
+このコマンドは、指定されたplayerのNUIフォーカス状態を設定します。`id`これにより、次のネイティブを手動で設定できます。[https://docs.fivem.net/natives/?\_0x5B98AE30](https://docs.fivem.net/natives/?_0x5B98AE30)\
+ player が NUI オーバーレイでスタックしている場合に役立ちます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須) playerのID
-  * **フォーカスあり**- (必須) \[true/false] NUIにフォーカスがあるかどうか
-  * **カーソルを持つ**- (必須) \[true/false] NUI使用時にplayerにカーソルがあるかどうか
+- **id**- (必須) playerのID
+- **フォーカスあり**- (必須) \[true/false] NUIにフォーカスがあるかどうか
+- **カーソルを持つ**- (必須) \[true/false] NUI使用時にplayerにカーソルがあるかどうか
+
 </details>
 
 <details>
   <summary>/setmodel \[model] \[id] - changes the players ped model</summary>
 
-  pedを変更する`model`playerと与えられた`id`。
+pedを変更する`model`playerと与えられた`id`。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **モデル**- (必須) 変更するpedモデル
-  * **id**- (必須) ped モデルが変更される player の ID
+- **モデル**- (必須) 変更するpedモデル
+- **id**- (必須) ped モデルが変更される player の ID
+
 </details>
 
 <details>
   <summary>/setspeed \[opt: speed] - sets players foot speed</summary>
 
-  足の速さをデフォルトと「速い」の間で設定します
+足の速さをデフォルトと「速い」の間で設定します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **スピード**- (オプション) \["fast"] は足の速度を「fast」に設定します。この引数を空白にすると、足の速度は「normal」に設定されます。
+- **スピード**- (オプション) \["fast"] は足の速度を「fast」に設定します。この引数を空白にすると、足の速度は「normal」に設定されます。
+
 </details>
 
 <details>
   <summary>/kickall - kick all players from server</summary>
 
-  すべてのプレイヤーをサーバーから追い出します。
+すべてのプレイヤーをサーバーから追い出します。
 
-  **権限レベル:** 神
+**権限レベル:** 神
+
 </details>
 
 <details>
   <summary>/setammo \[amount] \[opt: weapon] - set weapon ammo</summary>
 
-  現在手持ちの銃の弾薬数を設定するか`weapon`与えられた場合
+現在手持ちの銃の弾薬数を設定するか`weapon`与えられた場合
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **額**- (必須) 設定する弾薬の量
-  * **武器**- (オプション) 弾薬を設定する武器。空白のままにすると、現在手に持っている銃の弾薬が設定されます。
+- **額**- (必須) 設定する弾薬の量
+- **武器**- (オプション) 弾薬を設定する武器。空白のままにすると、現在手に持っている銃の弾薬が設定されます。
+
 </details>
 
 <details>
   <summary>/vector2 - Copies vector2 to clipboard</summary>
 
-  コピー`vector2(x, y)`現在の座標をクリップボードに保存します。
+コピー`vector2(x, y)`現在の座標をクリップボードに保存します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/vector3 - Copies vector3 to clipboard</summary>
 
-  コピー`vector3(x, y, z)`現在の座標をクリップボードに保存
+コピー`vector3(x, y, z)`現在の座標をクリップボードに保存
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/vector4 - Copies vector4 to clipboard</summary>
 
-  コピー`vector4(x, y, z, w)`現在の座標をクリップボードに保存
+コピー`vector4(x, y, z, w)`現在の座標をクリップボードに保存
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/heading - Copies heading</summary>
 
-  コピーの見出し`w`現在の進行方向（向いている方向）をクリップボードに保存します
+コピーの見出し`w`現在の進行方向（向いている方向）をクリップボードに保存します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>

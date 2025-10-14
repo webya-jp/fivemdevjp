@@ -13,20 +13,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 グローバルラジアルメニューに追加される項目または項目の配列。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.addRadialItem(items)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.addRadialItem(items);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - の項目がある：`table`(`object`または`array`)
@@ -50,20 +50,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 グローバルメニューから削除する項目の ID。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.removeRadialItem(item)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.removeRadialItem(item);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - id.K.である：`string`
@@ -73,20 +73,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ラジアルメニューからすべての項目を削除する。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.clearRadialItems()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.clearRadialItems();
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## lib.registerRadial
@@ -94,20 +94,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 あらかじめ定義されたオプションを持つ放射状のサブメニューを登録する。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.registerRadial(radial)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.registerRadial(radial);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - ラジアル：`table`(`object`)
@@ -127,20 +127,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ラジアルメニューが開いている場合は非表示にする。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.hideRadial()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.hideRadial();
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## lib.disableRadial
@@ -148,20 +148,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ラジアルメニューを開けないようにする。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.disableRadial(state)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.disableRadial(state);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - の状態だ：`boolean`
@@ -172,20 +172,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 現在開いているラジアルメニューの ID を返します。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local id = lib.getCurrentRadialId()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     let id = lib.getCurrentRadialId();
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## 使用例
@@ -198,7 +198,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 以下は、いくつかのグローバルオプションと、リブのポイントシステムを利用したオプションの使用例です。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     exports('myMenuHandler', function(menu, item)
         print(menu, item)
@@ -274,9 +274,9 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     end
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     <Callout>
       libのポイントシステムはnpmパッケージでは利用できない。
     </Callout>
@@ -340,7 +340,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     ])
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![radial1](https://i.imgur.com/4eYU94s.png)

@@ -11,20 +11,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 指定された ID でメニューを登録し、キャッシュします。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.registerMenu(data, cb)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.registerMenu(data, cb);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - のデータがある：`table`(`object`)
@@ -77,20 +77,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 指定された ID のメニューを表示する。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.showMenu(id)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.showMenu(id);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - id.K.である：`string`
@@ -98,20 +98,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ## lib.hideMenu
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.hideMenu(onExit)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.hideMenu(onExit);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - onExit？`boolean`
@@ -122,39 +122,39 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 現在開いているメニューの ID を返します。
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.getOpenMenu()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.getOpenMenu();
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## lib.setMenuOptions
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.setMenuOptions(id, options, index)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.setMenuOptions(id, options, index);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - id.K.である：`string`
@@ -167,20 +167,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 指定されたメニューの3番目のインデックスオプションを置き換える
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.setMenuOptions('some_menu_id', {label = 'New option', icon = 'plus'}, 3)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.setMenuOptions('some_menu_id', { label: 'New option', icon: 'plus' }, 3);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## 使用例
@@ -192,7 +192,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 </Callout>
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.registerMenu({
         id = 'some_menu_id',
@@ -242,9 +242,9 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     end)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
@@ -311,7 +311,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     );
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![Example](https://i.imgur.com/2zxbsnN.png)

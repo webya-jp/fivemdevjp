@@ -9,20 +9,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ## lib.inputDialog
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.inputDialog(heading, rows, options)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.inputDialog(heading, rows, options);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 - を見出しにした：`string`
@@ -176,20 +176,20 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 アクティブな入力ダイアログを強制的に閉じ、その戻り値を`nil`.
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     lib.closeInputDialog()
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```ts
     import lib from '@communityox/ox_lib/client';
 
     lib.closeInputDialog();
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## 使用例
@@ -197,7 +197,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ### ベーシック
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local input = lib.inputDialog('Basic dialog', {'First row', 'Second row'})
 
@@ -205,9 +205,9 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     print(json.encode(input), input[1], input[2])
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     <Callout>
       この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
     </Callout>
@@ -219,7 +219,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     console.log(input, input[0], input[1]);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![Example image](https://i.imgur.com/KnZ0sEW.png)
@@ -227,7 +227,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
 ### 上級
 
 <Tabs items={["Lua", "JS"]}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local input = lib.inputDialog('Dialog title', {
       {type = 'input', label = 'Text input', description = 'Some input description', required = true, min = 4, max = 16},
@@ -247,9 +247,9 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     local date = os.date('%Y-%m-%d %H:%M:%S', timestamp)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     <Callout>
       この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
     </Callout>
@@ -276,7 +276,7 @@ import { Callout, Tab, Tabs } from 'nextra/components';
     console.log(+color[1], +color[2], +color[3]);
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![Example image](https://i.imgur.com/v44YEkC.png)

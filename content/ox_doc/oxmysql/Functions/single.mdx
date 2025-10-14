@@ -9,7 +9,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## 約束
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local row = MySQL.single.await('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ? LIMIT 1', {
         identifier
@@ -20,9 +20,9 @@ import { Tab, Tabs } from 'nextra/components';
     print(row.firstname, row.lastname)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     const row = await MySQL.single('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ? LIMIT 1', [
       identifier
@@ -33,7 +33,7 @@ import { Tab, Tabs } from 'nextra/components';
     console.log(row.firstname, row.lastname)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**
@@ -43,7 +43,7 @@ import { Tab, Tabs } from 'nextra/components';
 ## コールバック
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     MySQL.single('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ? LIMIT 1', {
         identifier
@@ -54,9 +54,9 @@ import { Tab, Tabs } from 'nextra/components';
     end)
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     MySQL.single('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ? LIMIT 1', [
       identifier
@@ -67,7 +67,7 @@ import { Tab, Tabs } from 'nextra/components';
     })
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**

@@ -16,7 +16,7 @@ SELECT を使用する場合、戻り値は`query`,`single`あるいは`scalar`�
 ## 約束
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     local response = MySQL.rawExecute.await('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', {
         identifier
@@ -25,9 +25,9 @@ SELECT を使用する場合、戻り値は`query`,`single`あるいは`scalar`�
     print(json.encode(response, { indent = true, sort_keys = true }))
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     const response = await MySQL.rawExecute('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', [
       identifier
@@ -36,7 +36,7 @@ SELECT を使用する場合、戻り値は`query`,`single`あるいは`scalar`�
     console.log(JSON.stringify(response))
     ```
 
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**
@@ -46,7 +46,7 @@ SELECT を使用する場合、戻り値は`query`,`single`あるいは`scalar`�
 ## コールバック
 
 <Tabs items={['Lua', 'JS']}>
-  <Tags.Tab>
+  <Tabs.Tab>
     ```lua
     MySQL.rawExecute('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', {
         identifier
@@ -54,9 +54,9 @@ SELECT を使用する場合、戻り値は`query`,`single`あるいは`scalar`�
         print(json.encode(response, { indent = true, sort_keys = true }))
     end)
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 
-  <Tags.Tab>
+  <Tabs.Tab>
     ```js
     MySQL.rawExecute('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', [
       identifier
@@ -64,7 +64,7 @@ SELECT を使用する場合、戻り値は`query`,`single`あるいは`scalar`�
       console.log(JSON.stringify(response))
     })
     ```
-  </Tags.Tab>
+  </Tabs.Tab>
 </Tabs>
 
 **別名**
