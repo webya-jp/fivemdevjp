@@ -1,14 +1,13 @@
-***
-
-タイトル: フック
-sidebar\_label: フック
-キーワード\[qbox, fivem, qbx\_vehicles, エクスポート, フック].
-説明qbx\_vehicles リソースのイベントフックのドキュメント。これらのフックにより、サードパーティリソースは qbx\_vehicles コードを直接修正することなく新しい動作を定義することができ、車両の作成と所有者の変更のための統合ポイントを提供する。
-------------------------------------------------------------------------------------------------------------------------------------
+---
+title: フック
+sidebar_label: フック
+keywords: [qbox, fivem, qbx_vehicles, エクスポート, フック]
+description: qbx_vehicles リソースのイベントフックのドキュメント。これらのフックにより、サードパーティリソースは qbx_vehicles コードを直接修正することなく新しい動作を定義することができ、車両の作成と所有者の変更のための統合ポイントを提供する。
+---
 
 # フック
 
-イベントフックにより、サードパーティリソースはqbx\_vehiclesコードを直接修正することなく、新しい動作を定義することができます。
+イベントフックにより、サードパーティリソースはqbx_vehiclesコードを直接修正することなく、新しい動作を定義することができます。
 
 ## レジスタフック
 
@@ -18,29 +17,29 @@ sidebar\_label: フック
 exports.qbx_vehicles:registerHook(eventName, function(payload) end)
 ```
 
-* イベント名`string`
-* ペイロード：`table`
+- イベント名`string`
+- ペイロード：`table`
 
 戻る：
 
-* hookId：`number`
+- hookId：`number`
 
 ### createPlayer車両
 
 新しい車両が作成されたときにトリガーされます。戻る`false`作成をキャンセルする
 
-* ペイロード：`table`
-  * 市民ID`string`
-  * ガレージ`string`
-  * 小道具：テーブル
+- ペイロード：`table`
+  - 市民ID`string`
+  - ガレージ`string`
+  - 小道具：テーブル
 
 ### チェンジビークルオーナー
 
 車両の所有者が変更されたときにトリガーされます。戻る`false`をクリックして変更を取り消す。
 
-* ペイロード：`table`
-  * vehicleId：`integer`
-  * newCitizenId：`string`
+- ペイロード：`table`
+  - vehicleId：`integer`
+  - newCitizenId：`string`
 
 ## 削除フック
 
@@ -51,4 +50,4 @@ idが指定されない場合は、リソースによって登録されたすべ
 exports.qbx_vehicles:removeHooks(id)
 ```
 
-* id？`number`
+- id？`number`

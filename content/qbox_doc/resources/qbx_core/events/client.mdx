@@ -1,10 +1,9 @@
-***
-
-タイトルクライアントイベント
-sidebar\_label: クライアント
-キーワード\[qbox, fivem, qbx\_core, イベント].
-説明このドキュメントはQbox Coreフレームワークのクライアントサイドイベントの包括的なドキュメントを提供します。このドキュメントでは、クライアント上でトリガーされる非ネットワークイベントとネットワークイベントの両方について概説し、その目的、使用方法、関連するデータ構造（タイプ）の詳細を提供します。
---------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+title: クライアントイベント
+sidebar_label: クライアント
+keywords: [qbox, fivem, qbx_core, イベント]
+description: このドキュメントはQbox Coreフレームワークのクライアントサイドイベントの包括的なドキュメントを提供します。このドキュメントでは、クライアント上でトリガーされる非ネットワークイベントとネットワークイベントの両方について概説し、その目的、使用方法、関連するデータ構造（タイプ）の詳細を提供します。
+---
 
 # 顧客イベント
 
@@ -37,7 +36,7 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function() end)
 RegisterNetEvent('QBCore:Client:SetDuty', function(onDuty) end)
 ```
 
-* 勤務中：`boolean`
+- 勤務中：`boolean`
 
 ### OnPermissionUpdate
 
@@ -50,7 +49,7 @@ RegisterNetEvent('QBCore:Client:OnPermissionUpdate', function() end)
 
 ### プレイヤーログアウト
 
-プレイヤーがログアウトし、qbx\_coreのメモリに存在しなくなったときにトリガーされます。
+プレイヤーがログアウトし、qbx_coreのメモリに存在しなくなったときにトリガーされます。
 
 ```lua
 RegisterNetEvent('qbx_core:client:playerLoggedOut', function() end)
@@ -64,7 +63,7 @@ RegisterNetEvent('qbx_core:client:playerLoggedOut', function() end)
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(job) end)
 ```
 
-* 仕事だ：[`PlayerJob`](../types/player.mdx#playerjob)
+- 仕事だ：[`PlayerJob`](../types/player.mdx#playerjob)
 
 ### OnGangUpdate
 
@@ -74,7 +73,7 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(job) end)
 RegisterNetEvent('QBCore:Client:OnGangUpdate', function(gang) end)
 ```
 
-* 一味だ：[`PlayerGang`](../types/player.mdx#playergang)
+- 一味だ：[`PlayerGang`](../types/player.mdx#playergang)
 
 ### グループ更新
 
@@ -84,8 +83,8 @@ RegisterNetEvent('QBCore:Client:OnGangUpdate', function(gang) end)
 RegisterNetEvent('qbx_core:client:onGroupUpdate', function(groupName, groupGrade) end)
 ```
 
-* グループ名：`string`
-* groupGrade?`number`
+- グループ名：`string`
+- groupGrade?`number`
 
 ### オンマネーチェンジ
 
@@ -95,10 +94,10 @@ RegisterNetEvent('qbx_core:client:onGroupUpdate', function(groupName, groupGrade
 RegisterNetEvent('QBCore:Client:OnMoneyChange', function(moneytype, amount, operation, reason) end)
 ```
 
-* moneyType：`'cash' | 'bank' | 'crypto'`
-* の量だ：`number`
-* オペレーションを行う：`'add' | 'remove' | 'set'`
-* 理由`string`
+- moneyType：`'cash' | 'bank' | 'crypto'`
+- の量だ：`number`
+- オペレーションを行う：`'add' | 'remove' | 'set'`
+- 理由`string`
 
 ### onSetMetaData
 
@@ -108,6 +107,6 @@ player.Functions.setMetaData() が使用されたときにトリガーされま�
 RegisterNetEvent('qbx_core:client:onSetMetaData', function(key, oldValue, newValue) end)
 ```
 
-* キーだ：`string`
-* oldValue：`any`
-* newValue：`any`
+- キーだ：`string`
+- oldValue：`any`
+- newValue：`any`

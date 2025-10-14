@@ -1,10 +1,9 @@
-***
-
-タイトルサーバーイベント
-sidebar\_label: サーバ
-キーワード\[qbox, fivem, qbx\_core, イベント].
-説明このドキュメントはQbox Coreフレームワークのサーバサイドイベントに関する包括的なドキュメントを提供します。クライアント上でトリガーされる非ネットワークイベントとネットワークイベントの両方の概要を説明し、それらの目的、使用方法、関連するデータ構造（タイプ）の詳細を提供します。
------------------------------------------------------------------------------------------------------------------------------------------------
+---
+title: サーバーイベント
+sidebar_label: サーバー
+keywords: [qbox, fivem, qbx_core, イベント]
+description: このドキュメントはQbox Coreフレームワークのサーバサイドイベントに関する包括的なドキュメントを提供します。クライアント上でトリガーされる非ネットワークイベントとネットワークイベントの両方の概要を説明し、それらの目的、使用方法、関連するデータ構造（タイプ）の詳細を提供します。
+---
 
 # サーバーイベント
 
@@ -22,13 +21,13 @@ sidebar\_label: サーバ
 ### OnPlayerUnload
 
 プレーヤーがログアウトを開始したときにトリガーされる。\
-このイベントがトリガーされた時点で、qbx\_coreのメモリ内にプレーヤーがまだ存在しているという保証はありません。
+このイベントがトリガーされた時点で、qbx_coreのメモリ内にプレーヤーがまだ存在しているという保証はありません。
 
 ```lua
 AddEventHandler('QBCore:Server:OnPlayerUnload', function(source) end)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 ### OnPermissionUpdate
 
@@ -39,7 +38,7 @@ QBパーミッション機能によって作成されたパーミッションに
 AddEventHandler('QBCore:Server:OnPermissionUpdate', function(source) end)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 ### オンジョブ更新
 
@@ -49,8 +48,8 @@ AddEventHandler('QBCore:Server:OnPermissionUpdate', function(source) end)
 AddEventHandler('QBCore:Server:OnJobUpdate', function(source, job) end)
 ```
 
-* ソース`integer`
-* 仕事だ：[`PlayerJob`](../types/player.mdx#playerjob)
+- ソース`integer`
+- 仕事だ：[`PlayerJob`](../types/player.mdx#playerjob)
 
 ### OnGangUpdate
 
@@ -60,8 +59,8 @@ AddEventHandler('QBCore:Server:OnJobUpdate', function(source, job) end)
 AddEventHandler('QBCore:Server:OnGangUpdate', function(source, gang) end)
 ```
 
-* ソース`integer`
-* 一味だ：[`PlayerGang`](../types/player.mdx#playergang)
+- ソース`integer`
+- 一味だ：[`PlayerGang`](../types/player.mdx#playergang)
 
 ### セットデューティ
 
@@ -71,8 +70,8 @@ AddEventHandler('QBCore:Server:OnGangUpdate', function(source, gang) end)
 AddEventHandler('QBCore:Server:SetDuty', function(source, onDuty) end)
 ```
 
-* ソース`integer`
-* 勤務中：`boolean`
+- ソース`integer`
+- 勤務中：`boolean`
 
 ### グループ更新
 
@@ -82,9 +81,9 @@ AddEventHandler('QBCore:Server:SetDuty', function(source, onDuty) end)
 AddEventHandler('qbx_core:server:onGroupUpdate', function(source, groupName, groupGrade) end)
 ```
 
-* ソース`integer`
-* グループ名：`string`
-* groupGrade?`number`
+- ソース`integer`
+- グループ名：`string`
+- groupGrade?`number`
 
 ### オンマネーチェンジ
 
@@ -94,11 +93,11 @@ AddEventHandler('qbx_core:server:onGroupUpdate', function(source, groupName, gro
 AddEventHandler('QBCore:Server:OnMoneyChange', function(source, moneyType, amount, operation, reason) end)
 ```
 
-* ソース`integer`
-* moneyType：`'cash' | 'bank' | 'crypto'`
-* の量だ：`number`
-* オペレーションを行う：`'add' | 'remove' | 'set'`
-* 理由`string`
+- ソース`integer`
+- moneyType：`'cash' | 'bank' | 'crypto'`
+- の量だ：`number`
+- オペレーションを行う：`'add' | 'remove' | 'set'`
+- 理由`string`
 
 ### onSetMetaData
 
@@ -108,10 +107,10 @@ player.Functions.setMetaData() が使用されたときにトリガーされま�
 AddEventHandler('qbx_core:server:onSetMetaData', function(key, oldValue, newValue, source) end)
 ```
 
-* キーだ：`string`
-* oldValue：`any`
-* newValue：`any`
-* ソース`number`
+- キーだ：`string`
+- oldValue：`any`
+- newValue：`any`
+- ソース`number`
 
 ## ネットワークイベント
 

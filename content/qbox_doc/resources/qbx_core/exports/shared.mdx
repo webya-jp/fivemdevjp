@@ -1,10 +1,9 @@
-***
-
-タイトル共有エクスポート
-sidebar\_label: 共有
-キーワード\[qbox, fivem, qbx\_core, エクスポート].
-説明共有エクスポートのドキュメント。すべてのジョブ、ギャング、...のようなデータを取得するための利用可能な関数について学ぶ。
----------------------------------------------------------------
+---
+title: 共有エクスポート
+sidebar_label: 共有
+keywords: [qbox, fivem, qbx_core, エクスポート]
+description: 共有エクスポートのドキュメント。すべてのジョブ、ギャング、...のようなデータを取得するための利用可能な関数について学ぶ。
+---
 
 # シェアード・エクスポート
 
@@ -36,7 +35,7 @@ exports.qbx_core:GetGangs()
 exports.qbx_core:GetJob(jobName)
 ```
 
-* ジョブ名`string`
+- ジョブ名`string`
 
 リターンズ[`Job?`](../types/job.mdx)
 
@@ -48,7 +47,7 @@ exports.qbx_core:GetJob(jobName)
 exports.qbx_core:GetGang(gangName)
 ```
 
-* gangName：`string`
+- gangName：`string`
 
 リターンズ[`Gang?`](../types/gang.mdx)
 
@@ -60,7 +59,7 @@ exports.qbx_core:GetGang(gangName)
 exports.qbx_core:GetVehiclesByName(vehicle)
 ```
 
-* 車？`string`
+- 車？`string`
 
 リターンズ[`table<string, Vehicle>`](../types/vehicle.mdx#vehicle)
 
@@ -72,7 +71,7 @@ exports.qbx_core:GetVehiclesByName(vehicle)
 exports.qbx_core:GetVehiclesByHash(vehicle)
 ```
 
-* 車？`number`
+- 車？`number`
 
 リターンズ[`table<number, Vehicle>`](../types/vehicle.mdx#vehicle)
 
@@ -94,7 +93,7 @@ exports.qbx_core:GetVehiclesByCategory()
 exports.qbx_core:GetWeapons(weapon)
 ```
 
-* 武器？`number`
+- 武器？`number`
 
 リターンズ`table<number, Weapon>`
 

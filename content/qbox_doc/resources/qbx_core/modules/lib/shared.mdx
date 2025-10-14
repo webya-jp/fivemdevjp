@@ -1,10 +1,9 @@
-***
-
-タイトル共有リブ
-sidebar\_label: 共有
-キーワード\[qbox, fivem, qbx\_core, モジュール, lib].
-説明qbx\_core リソースの共有ライブラリ関数のドキュメント。これらの関数は、文字列操作、数学演算、テーブル処理、車両関連機能のための共通ユーティリティを提供し、クライアントサイドとサーバーサイドの両方で使用することができます。
----------------------------------------------------------------------------------------------------------------------
+---
+title: 共有リブ
+sidebar_label: 共有
+keywords: [qbox, fivem, qbx_core, モジュール, lib]
+description: qbx_core リソースの共有ライブラリ関数のドキュメント。これらの関数は、文字列操作、数学演算、テーブル処理、車両関連機能のための共通ユーティリティを提供し、クライアントサイドとサーバーサイドの両方で使用することができます。
+---
 
 # シェアード・リブ
 
@@ -38,7 +37,7 @@ qbx.armsWithoutGloves.female
 qbx.string.trim(str)
 ```
 
-* スト：`string`
+- スト：`string`
 
 リターンズ`string`
 
@@ -50,7 +49,7 @@ qbx.string.trim(str)
 qbx.string.capitalize(str)
 ```
 
-* スト：`string`
+- スト：`string`
 
 リターンズ`string`
 
@@ -62,8 +61,8 @@ qbx.string.capitalize(str)
 qbx.math.round(num, decimalPlaces)
 ```
 
-* num：`number`
-* decimalPlaces?`integer`
+- num：`number`
+- decimalPlaces?`integer`
 
 リターンズ`number`
 
@@ -75,7 +74,7 @@ qbx.math.round(num, decimalPlaces)
 qbx.table.size(tbl)
 ```
 
-* tbl：`table`
+- tbl：`table`
 
 リターンズ`integer`
 
@@ -87,8 +86,8 @@ qbx.table.size(tbl)
 qbx.table.mapBySubfield(tbl, subfield)
 ```
 
-* tbl：`table`
-* サブフィールド`any`
+- tbl：`table`
+- サブフィールド`any`
 
 リターンズ`table<any, table[]>`
 
@@ -118,7 +117,7 @@ print(json.encode(mapped))
 qbx.getVehiclePlate(vehicle)
 ```
 
-* 車である：`integer`
+- 車である：`integer`
 
 リターンズ`string?`
 
@@ -128,14 +127,14 @@ qbx.getVehiclePlate(vehicle)
 なお、生成されたプレートは、既存の車両ですでに使用されている場合もあれば、そうでない場合もある。
 
 :::info
-パターンについての詳細は[`lib.string.random`](https://coxdocs.dev/ox_lib/Modules/String/Shared#stringrandom)from ox\_lib.
+パターンについての詳細は[`lib.string.random`](https://coxdocs.dev/ox_lib/Modules/String/Shared#stringrandom)from ox_lib.
 :::
 
 ```lua
 qbx.generateRandomPlate(pattern)
 ```
 
-* パターン？`string`
+- パターン？`string`
 
 リターンズ`string`
 
@@ -165,7 +164,7 @@ West  |           X           |  East
 qbx.getCardinalDirection(entity)
 ```
 
-* 実体を持つ：`integer`
+- 実体を持つ：`integer`
 
 リターンズ`'North' | 'South' | 'East' | 'West'`
 
@@ -177,7 +176,7 @@ qbx.getCardinalDirection(entity)
 qbx.array.contains(arr, value)
 ```
 
-* アール：`table`
-* 値である：`any`
+- アール：`table`
+- 値である：`any`
 
 リターンズ`boolean`

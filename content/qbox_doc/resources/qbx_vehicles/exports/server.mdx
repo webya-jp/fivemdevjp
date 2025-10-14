@@ -1,10 +1,9 @@
-***
-
-タイトルサーバー輸出
-sidebar\_label: サーバ
-キーワード\[qbox, fivem, qbx\_vehicles, エクスポート].
-説明qbx\_vehicles リソースのサーバサイドエクスポートのドキュメント。これらのエクスポートは、プレイヤーのビークルを管理し、ビークル情報をクエリし、Qboxフレームワーク内でビークルの所有権を処理するための機能を提供します。
-----------------------------------------------------------------------------------------------------------------------
+---
+title: サーバーエクスポート
+sidebar_label: サーバ
+keywords: [qbox, fivem, qbx_vehicles, エクスポート]
+description: qbx_vehicles リソースのサーバサイドエクスポートのドキュメント。これらのエクスポートは、プレイヤーのビークルを管理し、ビークル情報をクエリし、Qboxフレームワーク内でビークルの所有権を処理するための機能を提供します。
+---
 
 # サーバー輸出
 
@@ -16,16 +15,16 @@ sidebar\_label: サーバ
 exports.qbx_vehicles:CreatePlayerVehicle(request)
 ```
 
-* をリクエストする：`table`
-  * モデルである：`string`
-  * citizensid？`string`
-  * ガレージ？`string`
-  * 小道具？[ox\_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
+- をリクエストする：`table`
+  - モデルである：`string`
+  - citizensid？`string`
+  - ガレージ？`string`
+  - 小道具？[ox_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
 
 リターンズ
 
-* vehicleId?`integer`
-* errorResult?`{code: string, message: string}`
+- vehicleId?`integer`
+- errorResult?`{code: string, message: string}`
 
 エラーコード該当なし
 
@@ -37,13 +36,13 @@ exports.qbx_vehicles:CreatePlayerVehicle(request)
 exports.qbx_vehicles:DeletePlayerVehicles(idType, idValue)
 ```
 
-* idType：`'citizenid' | 'license' | 'plate' | 'vehicleId'`
-* id値：`string | number`
+- idType：`'citizenid' | 'license' | 'plate' | 'vehicleId'`
+- id値：`string | number`
 
 リターンズ
 
-* 成功した：`boolean`
-* errorResult?`{code: string, message: string}`
+- 成功した：`boolean`
+- errorResult?`{code: string, message: string}`
 
 エラーコード該当なし
 
@@ -55,7 +54,7 @@ exports.qbx_vehicles:DeletePlayerVehicles(idType, idValue)
 exports.qbx_vehicles:DoesPlayerVehiclePlateExist(plate)
 ```
 
-* プレート：`string`
+- プレート：`string`
 
 リターンズ`boolean`
 
@@ -67,8 +66,8 @@ vehicleIdで選手の車両を検索します。オプションでフィルタ�
 exports.qbx_vehicles:GetPlayerVehicle(vehicleId, filters)
 ```
 
-* vehicleId：`number`
-* フィルター？[プレイヤー・ビークル・フィルター](#playervehiclesfilters)
+- vehicleId：`number`
+- フィルター？[プレイヤー・ビークル・フィルター](#playervehiclesfilters)
 
 リターンズ[プレイヤー車両](#playervehicle)?
 
@@ -80,7 +79,7 @@ exports.qbx_vehicles:GetPlayerVehicle(vehicleId, filters)
 exports.qbx_vehicles:GetPlayerVehicles(filters)
 ```
 
-* フィルター？[プレイヤー・ビークル・フィルター](#playervehiclesfilters)
+- フィルター？[プレイヤー・ビークル・フィルター](#playervehiclesfilters)
 
 リターンズ[プレイヤー車両](#playervehicle)\[]
 
@@ -92,13 +91,13 @@ exports.qbx_vehicles:GetPlayerVehicles(filters)
 exports.qbx_vehicles:SetPlayerVehicleOwner(vehicleId, citizenid)
 ```
 
-* vehicleId：`integer`
-* citizensid？`string`
+- vehicleId：`integer`
+- citizensid？`string`
 
 リターンズ
 
-* 成功した：`boolean`
-* errorResult?`{code: string, message: string}`
+- 成功した：`boolean`
+- errorResult?`{code: string, message: string}`
 
 エラーコード該当なし
 
@@ -110,7 +109,7 @@ exports.qbx_vehicles:SetPlayerVehicleOwner(vehicleId, citizenid)
 exports.qbx_vehicles:GetVehicleIdByPlate(plate)
 ```
 
-* プレート：`string`
+- プレート：`string`
 
 vehicleId を返します：`integer`
 
@@ -122,42 +121,42 @@ vehicleId を返します：`integer`
 exports.qbx_vehicles:SaveVehicle(vehicle, options)
 ```
 
-* 車である：`number`エンティティ
-* のオプションがある：`table`
-  * ガレージ？`string`
-  * 州？[車両状態](#vehiclestate)
-  * デポプライス？`integer`
-  * 小道具？[ox\_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
+- 車である：`number`エンティティ
+- のオプションがある：`table`
+  - ガレージ？`string`
+  - 州？[車両状態](#vehiclestate)
+  - デポプライス？`integer`
+  - 小道具？[ox_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
 
 リターンズ
 
-* 成功した：`boolean`
-* errorResult?`{code: string, message: string}`
+- 成功した：`boolean`
+- errorResult?`{code: string, message: string}`
 
 エラーコード
 
-* not\_owned：player\_vehiclesテーブルで車両の行が見つからない。
+- not_owned：player_vehiclesテーブルで車両の行が見つからない。
 
 ## 一般的なタイプ
 
 ### 車両状態
 
-* OUT = 0
-* GARAGED = 1
-* IMPOUNDED = 2
+- OUT = 0
+- GARAGED = 1
+- IMPOUNDED = 2
 
 ### プレイヤー車両
 
-* id.K.である：`integer`
-* citizensid？`string`
-* モデル名`string`
-* ガレージ`string`
-* の状態だ：[車両状態](#vehiclestate)
-* デポプライス`integer`
-* プロップス[ox\_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
+- id.K.である：`integer`
+- citizensid？`string`
+- モデル名`string`
+- ガレージ`string`
+- の状態だ：[車両状態](#vehiclestate)
+- デポプライス`integer`
+- プロップス[ox_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
 
 ### プレイヤー・ビークル・フィルター
 
-* citizensid？`string`
-* 州？`VehicleState | VehicleState[]`
-* ガレージ？`string`
+- citizensid？`string`
+- 州？`VehicleState | VehicleState[]`
+- ガレージ？`string`

@@ -1,13 +1,13 @@
-***
+---
+title: オックスプレーヤー
+---
 
-## タイトルオックスプレーヤー
+# オックスプレーヤー
 
-## オックスプレーヤー
-
-* の状態だ：`StateBagInterface`
-* userId：`number`
-* charId?`number`
-* stateId?`string`
+- の状態だ：`StateBagInterface`
+- userId：`number`
+- charId?`number`
+- stateId?`string`
 
 ## OxPlayer.addStatus
 
@@ -19,12 +19,12 @@ player.addStatus(statusName, value)
 
 **パラメータ**
 
-* statusName：`string`
-* 値である：`number`
+- statusName：`string`
+- 値である：`number`
 
 **リターン**
 
-* 成功した：`boolean`
+- 成功した：`boolean`
 
 ## OxPlayer.get
 
@@ -36,11 +36,11 @@ player.get(key)
 
 **パラメータ**
 
-* キーだ：`string`
+- キーだ：`string`
 
 **リターン**
 
-* `unknown`
+- `unknown`
 
 ## OxPlayer.getCoords
 
@@ -52,7 +52,7 @@ player.getCoords()
 
 **パラメータ**
 
-* `vector3`
+- `vector3`
 
 ## OxPlayer.getGroup
 
@@ -64,11 +64,11 @@ player.getGroup(filter)
 
 **パラメータ**
 
-* フィルターにかける：`string`|`string[]`|`{ [string]: number }`
+- フィルターにかける：`string`|`string[]`|`{ [string]: number }`
 
 **リターン**
 
-* `unknown`
+- `unknown`
 
 ## OxPlayer.getGroupByType
 
@@ -80,12 +80,12 @@ player.getGroupByType(type)
 
 **パラメータ**
 
-* タイプだ：`string`
+- タイプだ：`string`
 
 **リターン**
 
-* `string`
-* `number`
+- `string`
+- `number`
 
 ## OxPlayer.getGroups
 
@@ -97,7 +97,7 @@ player.getGroups()
 
 **リターン**
 
-* `{ [string]: number }`
+- `{ [string]: number }`
 
 ## OxPlayer.getStatus
 
@@ -109,11 +109,11 @@ player.getStatus(statusName)
 
 **パラメータ**
 
-* statusName：`string`
+- statusName：`string`
 
 **リターン**
 
-* `number`
+- `number`
 
 ## OxPlayer.getStatuses
 
@@ -125,7 +125,7 @@ player.getStatuses()
 
 **リターン**
 
-* `{ [string]: number }`
+- `{ [string]: number }`
 
 ## OxPlayer.hasPermission
 
@@ -137,11 +137,11 @@ player.hasPermission(permission)
 
 **パラメータ**
 
-* を許可した：`string`
+- を許可した：`string`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 **例**
 
@@ -165,12 +165,12 @@ player.removeStatus(statusName, value)
 
 **パラメータ**
 
-* statusName：`string`
-* 値である：`number`
+- statusName：`string`
+- 値である：`number`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.on
 
@@ -182,10 +182,10 @@ player.on(key, cb(data))
 
 **パラメータ**
 
-* キーだ：`string`
-* cb：`function`
+- キーだ：`string`
+- cb：`function`
 
 **リターン**
 
-* のデータがある：`unknown`
-  * の新しい値`key`
+- のデータがある：`unknown`
+  - の新しい値`key`

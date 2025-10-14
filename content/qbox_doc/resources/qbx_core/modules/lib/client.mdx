@@ -1,10 +1,9 @@
-***
-
-タイトルクライアントリブ
-sidebar\_label: クライアント
-キーワード\[qbox, fivem, qbx\_core, モジュール, lib].
-説明qbx\_core リソースのクライアントサイドライブラリ関数のドキュメント。これらの関数は、Qbox フレームワーク内でテキストを描画し、エンティティを処理し、ビークルを管理し、オーディオを再生するためのユーティリティを提供します。
------------------------------------------------------------------------------------------------------------------------
+---
+title: クライアントリブ
+sidebar_label: クライアント
+keywords: [qbox, fivem, qbx_core, モジュール, lib]
+description: qbx_core リソースのクライアントサイドライブラリ関数のドキュメント。これらの関数は、Qbox フレームワーク内でテキストを描画し、エンティティを処理し、ビークルを管理し、オーディオを再生するためのユーティリティを提供します。
+---
 
 # クライアント・リブ
 
@@ -16,24 +15,24 @@ sidebar\_label: クライアント
 qbx.drawText2d(params)
 ```
 
-* params：`table`
-  * テキスト`string`
-  * コーデ：`vector2`
-    * 画面上の座標。
-  * スケール？`integer`
-    * デフォルト：`0.35`
-  * フォント？`integer`
-    * デフォルト：`4`
-  * 色？`vector4`
-    * RGBA値。デフォルトは白。
-  * 幅？`number`
-    * デフォルト：`1.0`
-  * 高さ？`number`
-    * デフォルト：`1.0`
-  * enableDropShadow?`boolean`
-    * テキストに黒いドロップシャドウを有効にする。
-  * enableOutline？`boolean`
-    * テキストの黒い輪郭を有効にする。
+- params：`table`
+  - テキスト`string`
+  - コーデ：`vector2`
+    - 画面上の座標。
+  - スケール？`integer`
+    - デフォルト：`0.35`
+  - フォント？`integer`
+    - デフォルト：`4`
+  - 色？`vector4`
+    - RGBA値。デフォルトは白。
+  - 幅？`number`
+    - デフォルト：`1.0`
+  - 高さ？`number`
+    - デフォルト：`1.0`
+  - enableDropShadow?`boolean`
+    - テキストに黒いドロップシャドウを有効にする。
+  - enableOutline？`boolean`
+    - テキストの黒い輪郭を有効にする。
 
 ## drawText3d
 
@@ -43,23 +42,23 @@ qbx.drawText2d(params)
 qbx.drawText3d(params)
 ```
 
-* params：`table`
-  * テキスト`string`
-  * コーデ：`vector3`
-    * インワールドの座標
-  * スケール？`integer`|`vector2`
-    * 整数を使用して一様にスケーリングするか、vec2を使用してxとyを異なる量にスケーリングする。
-    * デフォルト：`vec2(0.35, 0.35)`
-  * フォント？`integer`
-    * デフォルト：`4`
-  * 色？`vector4`
-    * RGBA値。デフォルトは白。
-  * disableDrawRect?`boolean`
-    * テキストに矩形の背景を描画しない。
-  * enableDropShadow?`boolean`
-    * テキストに黒いドロップシャドウを有効にする。
-  * enableOutline？`boolean`
-    * テキストの黒い輪郭を有効にする。
+- params：`table`
+  - テキスト`string`
+  - コーデ：`vector3`
+    - インワールドの座標
+  - スケール？`integer`|`vector2`
+    - 整数を使用して一様にスケーリングするか、vec2を使用してxとyを異なる量にスケーリングする。
+    - デフォルト：`vec2(0.35, 0.35)`
+  - フォント？`integer`
+    - デフォルト：`4`
+  - 色？`vector4`
+    - RGBA値。デフォルトは白。
+  - disableDrawRect?`boolean`
+    - テキストに矩形の背景を描画しない。
+  - enableDropShadow?`boolean`
+    - テキストに黒いドロップシャドウを有効にする。
+  - enableOutline？`boolean`
+    - テキストの黒い輪郭を有効にする。
 
 ## GetEntityAndNetIdFromBagName
 
@@ -70,12 +69,12 @@ qbx.drawText3d(params)
 qbx.getEntityAndNetIdFromBagName(bagName)
 ```
 
-* バッグ名：`string`
+- バッグ名：`string`
 
 リターンズ
 
-* 実体を持つ：`integer`
-* netId：`integer`
+- 実体を持つ：`integer`
+- netId：`integer`
 
 ## エンティティステートハンドラー
 
@@ -85,8 +84,8 @@ qbx.getEntityAndNetIdFromBagName(bagName)
 qbx.entityStateHandler(keyFilter, cb)
 ```
 
-* キーフィルター`string`
-* cb：`fun(entity: number, netId: number, value: any, bagName: string)`
+- キーフィルター`string`
+- cb：`fun(entity: number, netId: number, value: any, bagName: string)`
 
 リターンズ`number`
 
@@ -98,7 +97,7 @@ qbx.entityStateHandler(keyFilter, cb)
 qbx.deleteVehicle(vehicle)
 ```
 
-* 車である：`integer`
+- 車である：`integer`
 
 リターンズ`boolean`
 
@@ -110,7 +109,7 @@ qbx.deleteVehicle(vehicle)
 qbx.getVehicleDisplayName(vehicle)
 ```
 
-* 車である：`integer`
+- 車である：`integer`
 
 リターンズ`string`
 
@@ -122,7 +121,7 @@ qbx.getVehicleDisplayName(vehicle)
 qbx.getVehicleMakeName(vehicle)
 ```
 
-* 車である：`integer`
+- 車である：`integer`
 
 リターンズ`string`
 
@@ -134,9 +133,9 @@ qbx.getVehicleMakeName(vehicle)
 qbx.getVehicleModName(vehicle, modType, modIndex)
 ```
 
-* 車である：`integer`
-* modType：`integer`
-* modIndex：`integer`
+- 車である：`integer`
+- modType：`integer`
+- modIndex：`integer`
 
 リターンズ`string`
 
@@ -148,8 +147,8 @@ qbx.getVehicleModName(vehicle, modType, modIndex)
 qbx.getVehicleLiveryName(vehicle, liveryIndex)
 ```
 
-* 車である：`integer`
-* liveryIndex：`integer`
+- 車である：`integer`
+- liveryIndex：`integer`
 
 リターンズ`string`
 
@@ -161,13 +160,13 @@ qbx.getVehicleLiveryName(vehicle, liveryIndex)
 qbx.getStreetName(coords)
 ```
 
-* コーデ：`vector3`
+- コーデ：`vector3`
 
 リターンズ
 
-* streetName：`table`
-  * メイン`string`
-  * クロス`string`
+- streetName：`table`
+  - メイン`string`
+  - クロス`string`
 
 ## ゾーン名
 
@@ -177,7 +176,7 @@ qbx.getStreetName(coords)
 qbx.getZoneName(coords)
 ```
 
-* コーデ：`vector3`
+- コーデ：`vector3`
 
 リターンズ`string`
 
@@ -189,10 +188,10 @@ qbx.getZoneName(coords)
 qbx.setVehicleExtra(vehicle, extra, enable)
 ```
 
-* 車である：`integer`
-* エクストラ`integer`
-* イネーブル`boolean`
-  * エクストラを有効にするかどうか。
+- 車である：`integer`
+- エクストラ`integer`
+- イネーブル`boolean`
+  - エクストラを有効にするかどうか。
 
 ## リセット車両エクストラ
 
@@ -202,7 +201,7 @@ qbx.setVehicleExtra(vehicle, extra, enable)
 qbx.resetVehicleExtras(vehicle)
 ```
 
-* 車である：`integer`
+- 車である：`integer`
 
 ## セット・ビークル・エクストラ
 
@@ -212,8 +211,8 @@ qbx.resetVehicleExtras(vehicle)
 qbx.setVehicleExtra(vehicle, extras)
 ```
 
-* 車である：`integer`
-* エキストラ`table<integer, boolean>`
+- 車である：`integer`
+- エキストラ`table<integer, boolean>`
 
 ## 手袋をしている
 
@@ -244,8 +243,8 @@ qbx.isWearingDuffelbag()
 qbx.loadAudioBank(audioBank, timeout)
 ```
 
-* オーディオバンク`string`
-* タイムアウト？`number`
+- オーディオバンク`string`
+- タイムアウト？`number`
 
 リターンズ`boolean`
 
@@ -259,13 +258,13 @@ qbx.loadAudioBank(audioBank, timeout)
 qbx.playAudio(params)
 ```
 
-* params：`table`
-  * audioName：`string`
-  * audioRef：`string`
-  * returnSoundId?`boolean`
-  * audioSource？`number | vector3`
-    * エンティティハンドルまたはベクトル3座標。
-  * レンジ？`number`
-    * 以下の場合にのみ使用される。`audioSource`はvector3座標である。
+- params：`table`
+  - audioName：`string`
+  - audioRef：`string`
+  - returnSoundId?`boolean`
+  - audioSource？`number | vector3`
+    - エンティティハンドルまたはベクトル3座標。
+  - レンジ？`number`
+    - 以下の場合にのみ使用される。`audioSource`はvector3座標である。
 
 リターンズ`number?`

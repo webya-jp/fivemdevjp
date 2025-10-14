@@ -1,16 +1,16 @@
-***
+---
+title: オックスプレーヤー
+---
 
-## タイトルオックスプレーヤー
+# オックスプレーヤー
 
-## オックスプレーヤー
-
-* charId：`number`
-* 識別子`string`
-* ペダル`number`
-* ソース`number`
-* stateId：`string`
-* userId：`number`
-* ユーザー名`string`
+- charId：`number`
+- 識別子`string`
+- ペダル`number`
+- ソース`number`
+- stateId：`string`
+- userId：`number`
+- ユーザー名`string`
 
 ## OxPlayer.addLicense
 
@@ -22,11 +22,11 @@ player.addLicense(licenseName)
 
 **パラメータ**
 
-* ライセンス名`string`
+- ライセンス名`string`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.addStatus
 
@@ -38,12 +38,12 @@ player.addStatus(statusName, value)
 
 **パラメータ**
 
-* statusName：`string`
-* 値である：`number`
+- statusName：`string`
+- 値である：`number`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.createCharacter
 
@@ -55,16 +55,16 @@ player.createCharacter(data)
 
 **パラメータ**
 
-* のデータがある：`object`
-  * firstName：`string`
-  * ラストネーム`string`
-  * 性別`string`
-  * 日付が変わった：`number`
+- のデータがある：`object`
+  - firstName：`string`
+  - ラストネーム`string`
+  - 性別`string`
+  - 日付が変わった：`number`
 
 **リターン**
 
-* `number`
-  * プレイヤーが所有するすべてのキャラクタの配列における、新しいキャラクタのインデックス。
+- `number`
+  - プレイヤーが所有するすべてのキャラクタの配列における、新しいキャラクタのインデックス。
 
 ## OxPlayer.deleteCharacter
 
@@ -76,11 +76,11 @@ player.deleteCharacter(charId)
 
 **パラメータ**
 
-* charId：`number`
+- charId：`number`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.emit
 
@@ -92,8 +92,8 @@ player.emit(eventName, ...args)
 
 **パラメータ**
 
-* イベント名`string`
-* ...args：`any`
+- イベント名`string`
+- ...args：`any`
 
 ## OxPlayer.get
 
@@ -105,11 +105,11 @@ player.get(key)
 
 **パラメータ**
 
-* キーだ：`string`
+- キーだ：`string`
 
 **リターン**
 
-* `unknown`
+- `unknown`
 
 ## OxPlayer.getAccount
 
@@ -121,7 +121,7 @@ player.getAccount()
 
 **リターン**
 
-* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+- [`OxAccount`](/ox_core/Classes/Server/OxAccount)
 
 ## OxPlayer.getCoords
 
@@ -133,7 +133,7 @@ player.getCoords()
 
 **リターン**
 
-* `vector3`
+- `vector3`
 
 ## OxPlayer.getGroup
 
@@ -145,12 +145,12 @@ player.getGroup(filter)
 
 **パラメータ**
 
-* フィルターにかける：`string`|`string[]`|`{ [string]: number }`
+- フィルターにかける：`string`|`string[]`|`{ [string]: number }`
 
 **リターン**
 
-* `number`|`string`
-* `number?`
+- `number`|`string`
+- `number?`
 
 ## OxPlayer.getGroupByType
 
@@ -162,12 +162,12 @@ player.getGroupByType(type)
 
 **パラメータ**
 
-* タイプだ：`string`
+- タイプだ：`string`
 
 **リターン**
 
-* `string?`
-* `number?`
+- `string?`
+- `number?`
 
 ## OxPlayer.getGroups
 
@@ -179,7 +179,7 @@ player.getGroups()
 
 **リターン**
 
-* `{ [string]: number }`
+- `{ [string]: number }`
 
 ## OxPlayer.getLicense
 
@@ -191,14 +191,14 @@ player.getLicense(licenseName: string): object
 
 **パラメータ**
 
-* ライセンス名`string`
+- ライセンス名`string`
 
 **リターン**
 
-* `object`
-  * `issued: number`
-  * `suspended?: [number, number]`
-  * `[key: string]: any`
+- `object`
+  - `issued: number`
+  - `suspended?: [number, number]`
+  - `[key: string]: any`
 
 ## OxPlayer.getLicenses
 
@@ -210,11 +210,11 @@ player.getLicenses()
 
 **リターン**
 
-* `object`
-  * `{ [string]: object }`
-    * `issued: number`
-    * `suspended?: [number, number]`
-    * `[key: string]: any`
+- `object`
+  - `{ [string]: object }`
+    - `issued: number`
+    - `suspended?: [number, number]`
+    - `[key: string]: any`
 
 ## OxPlayer.getStatus
 
@@ -226,11 +226,11 @@ player.getStatus(statusName)
 
 **パラメータ**
 
-* statusName：`string`
+- statusName：`string`
 
 **リターン**
 
-* 値である：`number`
+- 値である：`number`
 
 ## OxPlayer.getStatuses
 
@@ -242,7 +242,7 @@ player.getStatuses()
 
 **リターン**
 
-* `{ [string]: number }`
+- `{ [string]: number }`
 
 ## OxPlayer.hasPermission
 
@@ -254,11 +254,11 @@ player.hasPermission(permission)
 
 **パラメータ**
 
-* を許可した：`string`
+- を許可した：`string`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 **例**
 
@@ -282,10 +282,10 @@ player.logout(save, dropped)
 
 **パラメータ**
 
-* 節約？`boolean`
-  * 有効文字データをデータベースに保存する場合、デフォルトは`true`.
-* を落としたのか？`boolean`
-  * プレイヤーがサーバーから切断された場合。
+- 節約？`boolean`
+  - 有効文字データをデータベースに保存する場合、デフォルトは`true`.
+- を落としたのか？`boolean`
+  - プレイヤーがサーバーから切断された場合。
 
 ## OxPlayer.payInvoice
 
@@ -297,13 +297,13 @@ player.payInvoice(invoiceId)
 
 **パラメータ**
 
-* invoiceId：`number`
+- invoiceId：`number`
 
 **リターン**
 
-* `object`
-  * 成功した：`boolean`
-  * メッセージは？`"no_charId"`|`"no_permission"`|`"no_balance"`|`"no_invoice"`|`"invoice_paid"`|`"insufficient_balance"`
+- `object`
+  - 成功した：`boolean`
+  - メッセージは？`"no_charId"`|`"no_permission"`|`"no_balance"`|`"no_invoice"`|`"invoice_paid"`|`"insufficient_balance"`
 
 ## OxPlayer.removeLicense
 
@@ -315,11 +315,11 @@ player.removeLicense(licenseName)
 
 **パラメータ**
 
-* ライセンス名`string`
+- ライセンス名`string`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.removeStatus
 
@@ -331,12 +331,12 @@ player.removeStatus(statusName, value)
 
 **パラメータ**
 
-* statusName：`string`
-* 値である：`number`
+- statusName：`string`
+- 値である：`number`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.save
 
@@ -356,9 +356,9 @@ player.set(key, value, replicated)
 
 **パラメータ**
 
-* キーだ：`string`
-* 値である：`any`
-* 複製？`boolean`
+- キーだ：`string`
+- 値である：`any`
+- 複製？`boolean`
 
 ## OxPlayer.setActiveCharacter
 
@@ -370,27 +370,27 @@ player.setActiveCharacter(data)
 
 **パラメータ**
 
-* のデータがある：`number`|`object`
-  * firstName：`string`
-  * ラストネーム`string`
-  * 性別`string`
-  * 日付が変わった：`number`
+- のデータがある：`number`|`object`
+  - firstName：`string`
+  - ラストネーム`string`
+  - 性別`string`
+  - 日付が変わった：`number`
 
 **リターン**
 
-* `object`
-  * charId：`number`
-  * stateId：`string`
-  * firstName：`string`
-  * ラストネーム`string`
-  * x?:`number`
-  * y?:`number`
-  * z?:`number`
-  * ヘディング？`number`
-  * lastPlayed?`string`
-  * 健康？`number`
-  * アーマー？`number`
-  * isNew?`boolean`
+- `object`
+  - charId：`number`
+  - stateId：`string`
+  - firstName：`string`
+  - ラストネーム`string`
+  - x?:`number`
+  - y?:`number`
+  - z?:`number`
+  - ヘディング？`number`
+  - lastPlayed?`string`
+  - 健康？`number`
+  - アーマー？`number`
+  - isNew?`boolean`
 
 ## OxPlayer.setActiveGroup
 
@@ -402,13 +402,13 @@ player.setActiveGroup(groupName?: string, temporary?: boolean)
 
 **パラメータ**
 
-* グループ名：`string`
-* 一時的な？`boolean`
-  * もし`true`セッション中も持続しない。
+- グループ名：`string`
+- 一時的な？`boolean`
+  - もし`true`セッション中も持続しない。
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.setGroup
 
@@ -420,12 +420,12 @@ player.setGroup(groupName, grade)
 
 **パラメータ**
 
-* グループ名：`string`
-* グレード？`number`
+- グループ名：`string`
+- グレード？`number`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.setStatus
 
@@ -437,12 +437,12 @@ player.setStatus(statusName, value)
 
 **パラメータ**
 
-* statusName：`string`
-* 値である：`number`
+- statusName：`string`
+- 値である：`number`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## OxPlayer.updateLicense
 
@@ -454,10 +454,10 @@ player.updateLicense(licenseName, key, value)
 
 **パラメータ**
 
-* ライセンス名`string`
-* キーだ：`string`
-* 値である：`unknown`
+- ライセンス名`string`
+- キーだ：`string`
+- 値である：`unknown`
 
 **リターン**
 
-* `boolean`
+- `boolean`

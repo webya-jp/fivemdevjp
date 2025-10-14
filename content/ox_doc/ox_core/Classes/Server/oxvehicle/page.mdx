@@ -1,18 +1,18 @@
-***
+---
+title: オックスビークル
+---
 
-## タイトルオックスビークル
+# オックスビークル
 
-## オックスビークル
-
-* 実体を持つ：`number`
-* を作る：`string`
-* モデルである：`string`
-* netId：`number`
-* プレート：`string`
-* グループ？`string`
-* id？`number`
-* オーナー？`number`
-* ヴィン？`string`
+- 実体を持つ：`number`
+- を作る：`string`
+- モデルである：`string`
+- netId：`number`
+- プレート：`string`
+- グループ？`string`
+- id？`number`
+- オーナー？`number`
+- ヴィン？`string`
 
 ## OxVehicle.delete
 
@@ -32,7 +32,7 @@ vehicle.despawn(save)
 
 **パラメータ**
 
-* 節約？`boolean`
+- 節約？`boolean`
 
 ## OxVehicle.get
 
@@ -44,11 +44,11 @@ vehicle.get(key)
 
 **パラメータ**
 
-* キーだ：`string`
+- キーだ：`string`
 
 **リターン**
 
-* `unknown`
+- `unknown`
 
 ## OxVehicle.getCoords
 
@@ -60,7 +60,7 @@ vehicle.getCoords()
 
 **リターン**
 
-* `vector3`
+- `vector3`
 
 ## OxVehicle.getProperties
 
@@ -72,7 +72,7 @@ vehicle.getProperties()
 
 **リターン**
 
-* `VehicleProperties`
+- `VehicleProperties`
 
 ## OxVehicle.getState
 
@@ -84,7 +84,7 @@ vehicle.getState()
 
 **リターン**
 
-* `StateBagInterface`
+- `StateBagInterface`
 
 ## OxVehicle.getStored
 
@@ -96,7 +96,7 @@ vehicle.getStored()
 
 **リターン**
 
-* `string?`
+- `string?`
 
 ## OxVehicle.respawn
 
@@ -108,8 +108,8 @@ vehicle.respawn(coords, rotation)
 
 **パラメータ**
 
-* コーデ？`vector3`
-* 回転？`vector3`
+- コーデ？`vector3`
+- 回転？`vector3`
 
 ## OxVehicle.save
 
@@ -121,11 +121,11 @@ vehicle.save()
 
 **リターン**
 
-* `number`
+- `number`
 
 ## オックスビークル・セット
 
-車両のメタデータに値を格納し、データベースに保存する(*この行動は削除される可能性が高い*).
+車両のメタデータに値を格納し、データベースに保存する(_この行動は削除される可能性が高い_).
 
 ```lua
 vehicle.set(key, value)
@@ -133,8 +133,8 @@ vehicle.set(key, value)
 
 **パラメータ**
 
-* キーだ：`string`
-* 値である：`any`
+- キーだ：`string`
+- 値である：`any`
 
 ## OxVehicle.setグループ
 
@@ -146,7 +146,7 @@ vehicle.setGroup(groupName)
 
 **パラメータ**
 
-* groupName?`string`
+- groupName?`string`
 
 ## OxVehicle.setオーナー
 
@@ -158,7 +158,7 @@ vehicle.setOwner(charId)
 
 **パラメータ**
 
-* charId?`number`
+- charId?`number`
 
 ## OxVehicle.setPlate
 
@@ -180,8 +180,8 @@ vehicle.setProperties(properties, apply)
 
 **パラメータ**
 
-* の特性を持つ：`VehicleProperties`
-* を適用するか？`boolean`
+- の特性を持つ：`VehicleProperties`
+- を適用するか？`boolean`
 
 ## OxVehicle.setStored
 
@@ -193,5 +193,5 @@ vehicle.setStored(value, despawn)
 
 **パラメータ**
 
-* 価値？`string`
-* デスポーン？`boolean`
+- 価値？`string`
+- デスポーン？`boolean`

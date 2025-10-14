@@ -1,10 +1,9 @@
-***
-
-タイトルクライアント・エクスポート
-sidebar\_label: クライアント
-キーワード\[qbox, fivem, qbx\_core, エクスポート].
-説明クライアントサイドエクスポートのドキュメント。通知、グループ管理、その他のクライアントサイドユーティリティのための利用可能な関数について学ぶ。
--------------------------------------------------------------------------
+---
+title: クライアント・エクスポート
+sidebar_label: クライアント
+keywords: [qbox, fivem, qbx_core, エクスポート]
+description: クライアントサイドエクスポートのドキュメント。通知、グループ管理、その他のクライアントサイドユーティリティのための利用可能な関数について学ぶ。
+---
 
 # クライアント・エクスポート
 
@@ -20,26 +19,26 @@ sidebar\_label: クライアント
 exports.qbx_core:Notify(text, notifyType, duration, subTitle, notifyPosition, notifyStyle, notifyIcon, notifyIconColor)
 ```
 
-* テキスト`table | string`
-  * 通知文。
-  * 文字列、またはテーブル：
-    * テキスト？`string`
-    * キャプションは？`string`
-* notifyType？`'inform' | 'error' | 'success' | 'warning'`
-  * デフォルト：`'inform'`
-* 期間？`integer`
-  * 通知が画面に表示され続ける時間をミリ秒単位で指定します。
-  * デフォルト：`5000`
-* subTitle?`string`
-  * タイトルの下に追加テキスト。
-* notifyPosition?`'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | 'center-right' | 'center-left'`
-  * デフォルト：`top-right`(コンフィグで変更可能）
-* notifyStyle？`table`
-  * カスタムスタイリング。参照[`lib.notify`].
-* notifyIcon？`string`
-  * Font Awesome 6 アイコン名。
-* notifyIconColor？`string`
-  * カスタムカラー`notifyIcon`.
+- テキスト`table | string`
+  - 通知文。
+  - 文字列、またはテーブル：
+    - テキスト？`string`
+    - キャプションは？`string`
+- notifyType？`'inform' | 'error' | 'success' | 'warning'`
+  - デフォルト：`'inform'`
+- 期間？`integer`
+  - 通知が画面に表示され続ける時間をミリ秒単位で指定します。
+  - デフォルト：`5000`
+- subTitle?`string`
+  - タイトルの下に追加テキスト。
+- notifyPosition?`'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | 'center-right' | 'center-left'`
+  - デフォルト：`top-right`(コンフィグで変更可能）
+- notifyStyle？`table`
+  - カスタムスタイリング。参照[`lib.notify`].
+- notifyIcon？`string`
+  - Font Awesome 6 アイコン名。
+- notifyIconColor？`string`
+  - カスタムカラー`notifyIcon`.
 
 [`lib.notify`]: https://coxdocs.dev/ox_lib/Modules/Interface/Client/notify#libnotify
 
@@ -51,12 +50,12 @@ exports.qbx_core:Notify(text, notifyType, duration, subTitle, notifyPosition, no
 exports.qbx_core:HasPrimaryGroup(filter)
 ```
 
-* フィルターにかける：`string`または`string[]`または`table<string, number>`
-  * チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
+- フィルターにかける：`string`または`string[]`または`table<string, number>`
+  - チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
 
 リターンズ
 
-* 成功した：`boolean`
+- 成功した：`boolean`
 
 ## ハスグループ
 
@@ -66,12 +65,12 @@ exports.qbx_core:HasPrimaryGroup(filter)
 exports.qbx_core:HasGroup(filter)
 ```
 
-* フィルターにかける：`string`または`string[]`または`table<string, number>`
-  * チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
+- フィルターにかける：`string`または`string[]`または`table<string, number>`
+  - チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
 
 リターンズ
 
-* 成功した：`boolean`
+- 成功した：`boolean`
 
 ## GetGroups
 
@@ -83,4 +82,4 @@ exports.qbx_core:GetGroups()
 
 リターンズ
 
-* のグループだ：`table<string, number>`
+- のグループだ：`table<string, number>`

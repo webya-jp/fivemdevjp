@@ -1,10 +1,9 @@
-***
-
-タイトルサーバーリブ
-sidebar\_label: サーバ
-キーワード\[qbox, fivem, qbx\_core, モジュール, lib].
-説明qbx\_core リソースのサーバサイドライブラリ関数のドキュメント。これらの関数は、ビークルのスポーン、エンティティの管理、Qbox フレームワーク内でのサーバーサイドの操作を行うためのユーティリティを提供します。
----------------------------------------------------------------------------------------------------------------
+---
+title: サーバーリブ
+sidebar_label: サーバ
+keywords: [qbox, fivem, qbx_core, モジュール, lib]
+description: qbx_core リソースのサーバサイドライブラリ関数のドキュメント。これらの関数は、ビークルのスポーン、エンティティの管理、Qbox フレームワーク内でのサーバーサイドの操作を行うためのユーティリティを提供します。
+---
 
 # サーバーリブ
 
@@ -16,23 +15,23 @@ sidebar\_label: サーバ
 qbx.spawnVehicle(params)
 ```
 
-* params：`table`
-  * モデルである：`integer`
-    * 車両モデルのハッシュ。
-  * スポーンソース`integer | vector3 | vector4`
-    * ビークルをスポーンするエンティティまたは座標のハンドル。
-  * ワープ？`boolean | integer`
-    * スポーン後に車両にワープするためのオプションのペッドID。
-    * もし`spawnSource`を渡すことができます。`true`でワープさせる。
-  * 小道具？`table`
-    * ox\_libの[車両特性](https://coxdocs.dev/ox_lib/Modules/VehicleProperties/Client#vehicle-properties).
-  * バケツ？`integer`
-    * スポーンされたエンティティを移動させるオプションのルーティングバケット。
+- params：`table`
+  - モデルである：`integer`
+    - 車両モデルのハッシュ。
+  - スポーンソース`integer | vector3 | vector4`
+    - ビークルをスポーンするエンティティまたは座標のハンドル。
+  - ワープ？`boolean | integer`
+    - スポーン後に車両にワープするためのオプションのペッドID。
+    - もし`spawnSource`を渡すことができます。`true`でワープさせる。
+  - 小道具？`table`
+    - ox_libの[車両特性](https://coxdocs.dev/ox_lib/Modules/VehicleProperties/Client#vehicle-properties).
+  - バケツ？`integer`
+    - スポーンされたエンティティを移動させるオプションのルーティングバケット。
 
 リターンズ
 
-* netId：`integer`
-* 実体を持つ：`integer`
+- netId：`integer`
+- 実体を持つ：`integer`
 
 ```lua
 -- spawns the vehicle at `myVectorCoords` and warps `myPed` inside

@@ -1,12 +1,11 @@
-***
+---
+title: サーバーエクスポート
+sidebar_label: サーバー
+keywords: [qbox, fivem, qbx_core, エクスポート]
+description: サーバサイドエクスポートのドキュメント。通知、グループ管理、その他のサーバーサイドユーティリティのために利用可能な関数について学んで下さい。
+---
 
-タイトルサーバー輸出
-sidebar\_label: サーバ
-キーワード\[qbox, fivem, qbx\_core, エクスポート].
-説明サーバサイドエクスポートのドキュメント。通知、グループ管理、その他のサーバーサイドユーティリティのために利用可能な関数について学んで下さい。
-------------------------------------------------------------------------
-
-# サーバー輸出
+# サーバーエクスポート
 
 :::info
 これらのエクスポートの中には、カスタム・タイプを使用するものがあります。
@@ -25,13 +24,13 @@ sidebar\_label: サーバ
 exports.qbx_core:CreateJob(jobName, job)
 ```
 
-* ジョブ名`string`
-* 仕事だ：[`table<Job>`](../types/job.mdx)
+- ジョブ名`string`
+- 仕事だ：[`table<Job>`](../types/job.mdx)
 
 リターンズ
 
-* 成功した：`boolean`
-* というメッセージを送った：`string`
+- 成功した：`boolean`
+- というメッセージを送った：`string`
 
 ## 求人情報作成
 
@@ -45,12 +44,12 @@ exports.qbx_core:CreateJob(jobName, job)
 exports.qbx_core:CreateJobs(jobs)
 ```
 
-* 仕事だ：[`table<string, Job>`](../types/job.mdx)
+- 仕事だ：[`table<string, Job>`](../types/job.mdx)
 
 リターンズ
 
-* 成功した：`boolean`
-* というメッセージを送った：`string`
+- 成功した：`boolean`
+- というメッセージを送った：`string`
 
 ## ジョブ削除
 
@@ -64,12 +63,12 @@ exports.qbx_core:CreateJobs(jobs)
 exports.qbx_core:RemoveJob(jobName)
 ```
 
-* ジョブ名`string`
+- ジョブ名`string`
 
 リターンズ
 
-* 成功した：`boolean`
-* というメッセージを送った：`'success' | 'invalid_job_name' | 'job_not_exists'`
+- 成功した：`boolean`
+- というメッセージを送った：`'success' | 'invalid_job_name' | 'job_not_exists'`
 
 ## CreateGangs（クリエイト ギャングス
 
@@ -83,7 +82,7 @@ exports.qbx_core:RemoveJob(jobName)
 exports.qbx_core:CreateGangs(gangs)
 ```
 
-* ギャングだ：[`table<string, Gang>`](../types/gang.mdx)
+- ギャングだ：[`table<string, Gang>`](../types/gang.mdx)
 
 ## 暴力団排除
 
@@ -97,12 +96,12 @@ exports.qbx_core:CreateGangs(gangs)
 exports.qbx_core:RemoveGang(gangName)
 ```
 
-* gangName：`string`
+- gangName：`string`
 
 リターンズ
 
-* 成功した：`boolean`
-* というメッセージを送った：`'success' | 'invalid_gang_name' | 'gang_not_exists'`
+- 成功した：`boolean`
+- というメッセージを送った：`'success' | 'invalid_gang_name' | 'gang_not_exists'`
 
 ## GetCoreVersion
 
@@ -112,7 +111,7 @@ exports.qbx_core:RemoveGang(gangName)
 exports.qbx_core:GetCoreVersion(InvokingResource)
 ```
 
-* InvokingResource：`string`
+- InvokingResource：`string`
 
 リターンズ`string`
 
@@ -124,8 +123,8 @@ exports.qbx_core:GetCoreVersion(InvokingResource)
 exports.qbx_core:ExploitBan(playerId, origin)
 ```
 
-* playerId：`integer`
-* 原点だ：`string`
+- playerId：`integer`
+- 原点だ：`string`
 
 ## ゲッツソース
 
@@ -135,7 +134,7 @@ exports.qbx_core:ExploitBan(playerId, origin)
 exports.qbx_core:GetSource(identifier)
 ```
 
-* 識別子`string`
+- 識別子`string`
 
 リターンズ`integer`
 
@@ -147,7 +146,7 @@ exports.qbx_core:GetSource(identifier)
 exports.qbx_core:GetUserId(identifier)
 ```
 
-* 識別子`string`
+- 識別子`string`
 
 リターンズ`integer`
 
@@ -159,7 +158,7 @@ exports.qbx_core:GetUserId(identifier)
 exports.qbx_core:GetPlayer(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 リターンズ[`Player?`](../types/player.mdx#player)
 
@@ -171,7 +170,7 @@ exports.qbx_core:GetPlayer(source)
 exports.qbx_core:GetPlayerByCitizenId(citizenid)
 ```
 
-* 市民ID`string`
+- 市民ID`string`
 
 リターンズ[`Player?`](../types/player.mdx#player)
 
@@ -183,7 +182,7 @@ exports.qbx_core:GetPlayerByCitizenId(citizenid)
 exports.qbx_core:GetPlayerByUserId(citizenid)
 ```
 
-* userId：`string`
+- userId：`string`
 
 リターンズ[`Player?`](../types/player.mdx#player)
 
@@ -195,7 +194,7 @@ exports.qbx_core:GetPlayerByUserId(citizenid)
 exports.qbx_core:GetPlayerByPhone(number)
 ```
 
-* という数字になる：`string`
+- という数字になる：`string`
 
 リターンズ[`Player?`](../types/player.mdx#player)
 
@@ -227,9 +226,9 @@ exports.qbx_core:GetPlayersData()
 exports.qbx_core:SetPlayerData(identifier, key, value)
 ```
 
-* 識別子`source | citizenid`
-* キーだ：`string`
-* 値である：`any`
+- 識別子`source | citizenid`
+- キーだ：`string`
+- 値である：`any`
 
 ## 選手データの更新
 
@@ -239,7 +238,7 @@ exports.qbx_core:SetPlayerData(identifier, key, value)
 exports.qbx_core:UpdatePlayerData(identifier)
 ```
 
-* 識別子`source | citizenid`
+- 識別子`source | citizenid`
 
 ## GetMetadata
 
@@ -249,8 +248,8 @@ exports.qbx_core:UpdatePlayerData(identifier)
 exports.qbx_core:GetMetadata(identifier, metadata)
 ```
 
-* 識別子`source | citizenid`
-* というメタデータがある：`string`
+- 識別子`source | citizenid`
+- というメタデータがある：`string`
 
 ## セットメタデータ
 
@@ -260,9 +259,9 @@ exports.qbx_core:GetMetadata(identifier, metadata)
 exports.qbx_core:SetMetadata(identifier, metadata, value)
 ```
 
-* 識別子`source | citizenid`
-* というメタデータがある：`string`
-* 値である：`any`
+- 識別子`source | citizenid`
+- というメタデータがある：`string`
+- 値である：`any`
 
 ## SetCharInfo
 
@@ -272,9 +271,9 @@ exports.qbx_core:SetMetadata(identifier, metadata, value)
 exports.qbx_core:SetCharInfo(identifier, charInfo, value)
 ```
 
-* 識別子`source | citizenid`
-* charInfo：`string`
-* 値である：`any`
+- 識別子`source | citizenid`
+- charInfo：`string`
+- 値である：`any`
 
 ## GetDutyCountJob
 
@@ -284,12 +283,12 @@ exports.qbx_core:SetCharInfo(identifier, charInfo, value)
 exports.qbx_core:GetDutyCountJob(job)
 ```
 
-* 仕事だ：`string`
+- 仕事だ：`string`
 
 リターンズ
 
-* カウントする：`integer`
-* の選手だ：`integer[]`
+- カウントする：`integer`
+- の選手だ：`integer[]`
 
 ## GetDutyCountType
 
@@ -299,12 +298,12 @@ exports.qbx_core:GetDutyCountJob(job)
 exports.qbx_core:GetDutyCountType(jobType)
 ```
 
-* ジョブタイプ`string`
+- ジョブタイプ`string`
 
 リターンズ
 
-* カウントする：`integer`
-* の選手だ：`integer[]`
+- カウントする：`integer`
+- の選手だ：`integer[]`
 
 ## GetBucketObjects
 
@@ -316,8 +315,8 @@ exports.qbx_core:GetBucketObjects()
 
 リターンズ
 
-* プレイヤーバケット`table<integer, integer>`
-* エンティティバケット：`table<integer, integer>`
+- プレイヤーバケット`table<integer, integer>`
+- エンティティバケット：`table<integer, integer>`
 
 ## セットプレーヤーバケット
 
@@ -328,8 +327,8 @@ exports.qbx_core:GetBucketObjects()
 exports.qbx_core:SetPlayerBucket(source, bucket)
 ```
 
-* ソース`integer`
-* バケツ`integer`
+- ソース`integer`
+- バケツ`integer`
 
 リターンズ`boolean`
 
@@ -342,8 +341,8 @@ exports.qbx_core:SetPlayerBucket(source, bucket)
 exports.qbx_core:SetEntityBucket(entity, bucket)
 ```
 
-* 実体を持つ：`integer`
-* バケツ`integer`
+- 実体を持つ：`integer`
+- バケツ`integer`
 
 リターンズ`boolean`
 
@@ -355,7 +354,7 @@ exports.qbx_core:SetEntityBucket(entity, bucket)
 exports.qbx_core:GetPlayersInBucket(bucket)
 ```
 
-* バケツ`integer`
+- バケツ`integer`
 
 リターンズ`integer[] | false`
 
@@ -367,7 +366,7 @@ exports.qbx_core:GetPlayersInBucket(bucket)
 exports.qbx_core:GetEntitiesInBucket(bucket)
 ```
 
-* バケツ`integer`
+- バケツ`integer`
 
 リターンズ`integer[] | false`
 
@@ -379,8 +378,8 @@ exports.qbx_core:GetEntitiesInBucket(bucket)
 exports.qbx_core:CreateUseableItem(item, data)
 ```
 
-* アイテム：`string`
-* のデータがある：`fun(source: integer, item: unknown)`
+- アイテム：`string`
+- のデータがある：`fun(source: integer, item: unknown)`
 
 ## アイテムの使用
 
@@ -390,7 +389,7 @@ exports.qbx_core:CreateUseableItem(item, data)
 exports.qbx_core:CanUseItem(item)
 ```
 
-* アイテム：`string`
+- アイテム：`string`
 
 リターンズ`unknown`
 
@@ -402,14 +401,14 @@ exports.qbx_core:CanUseItem(item)
 exports.qbx_core:IsWhitelisted(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 リターンズ`boolean`
 
 ## ~~パーミッションの追加
 
 ::警告
-v1.8.0で非推奨。代わりに ox\_lib ACE パーミッションを使ってください。
+v1.8.0で非推奨。代わりに ox_lib ACE パーミッションを使ってください。
 :::
 
 指定されたパーミッションを指定されたプレーヤーに追加します。
@@ -418,13 +417,13 @@ v1.8.0で非推奨。代わりに ox\_lib ACE パーミッションを使って�
 exports.qbx_core:AddPermission(source, permission)
 ```
 
-* ソース`integer`
-* を許可した：`string`
+- ソース`integer`
+- を許可した：`string`
 
 ## ~~パーミッションの削除
 
 ::警告
-v1.8.0で非推奨。代わりに ox\_lib ACE パーミッションを使ってください。
+v1.8.0で非推奨。代わりに ox_lib ACE パーミッションを使ってください。
 :::
 
 指定された権限を指定されたプレーヤーから削除します。
@@ -433,8 +432,8 @@ v1.8.0で非推奨。代わりに ox\_lib ACE パーミッションを使って�
 exports.qbx_core:RemovePermission(source, permission)
 ```
 
-* ソース`integer`
-* を許可した：`string`
+- ソース`integer`
+- を許可した：`string`
 
 ## ~~許可がある
 
@@ -448,8 +447,8 @@ v1.8.0で非推奨。代わりにACEパーミッションを使用してくだ�
 exports.qbx_core:HasPermission(source, permission)
 ```
 
-* ソース`integer`
-* を許可した：`string`
+- ソース`integer`
+- を許可した：`string`
 
 リターンズ`boolean`
 
@@ -465,7 +464,7 @@ v1.8.0で非推奨。代わりにACEパーミッションを使用してくだ�
 exports.qbx_core:GetPermission(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 リターンズ`table<string, boolean>`
 
@@ -477,7 +476,7 @@ exports.qbx_core:GetPermission(source)
 exports.qbx_core:IsOptin(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 リターンズ`boolean`
 
@@ -489,7 +488,7 @@ exports.qbx_core:IsOptin(source)
 exports.qbx_core:ToggleOptin(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 ## IsPlayerBanned
 
@@ -499,13 +498,13 @@ exports.qbx_core:ToggleOptin(source)
 exports.qbx_core:IsPlayerBanned(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 リターンズ
 
-* 禁止されている：`boolean`
-* playerMessage：`string`
-  * 選手に見せるために書かれたメッセージ。
+- 禁止されている：`boolean`
+- playerMessage：`string`
+  - 選手に見せるために書かれたメッセージ。
 
 ## 通知
 
@@ -519,27 +518,27 @@ exports.qbx_core:IsPlayerBanned(source)
 exports.qbx_core:Notify(source, text, notifyType, duration, subTitle, notifyPosition, notifyStyle, notifyIcon, notifyIconColor)
 ```
 
-* ソース`integer`
-* テキスト`table | string`
-  * 通知文。
-  * 文字列、またはテーブル：
-    * テキスト？`string`
-    * キャプションは？`string`
-* notifyType？`'inform' | 'error' | 'success' | 'warning'`
-  * デフォルト：`'inform'`
-* 期間？`integer`
-  * 通知が画面に表示され続ける時間をミリ秒単位で指定します。
-  * デフォルト：`5000`
-* subTitle?`string`
-  * タイトルの下に追加テキスト。
-* notifyPosition?`'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | 'center-right' | 'center-left'`
-  * デフォルト：`top-right`(コンフィグで変更可能）
-* notifyStyle？`table`
-  * カスタムスタイリング。参照[`lib.notify`].
-* notifyIcon？`string`
-  * Font Awesome 6 アイコン名。
-* notifyIconColor？`string`
-  * カスタムカラー`notifyIcon`.
+- ソース`integer`
+- テキスト`table | string`
+  - 通知文。
+  - 文字列、またはテーブル：
+    - テキスト？`string`
+    - キャプションは？`string`
+- notifyType？`'inform' | 'error' | 'success' | 'warning'`
+  - デフォルト：`'inform'`
+- 期間？`integer`
+  - 通知が画面に表示され続ける時間をミリ秒単位で指定します。
+  - デフォルト：`5000`
+- subTitle?`string`
+  - タイトルの下に追加テキスト。
+- notifyPosition?`'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | 'center-right' | 'center-left'`
+  - デフォルト：`top-right`(コンフィグで変更可能）
+- notifyStyle？`table`
+  - カスタムスタイリング。参照[`lib.notify`].
+- notifyIcon？`string`
+  - Font Awesome 6 アイコン名。
+- notifyIconColor？`string`
+  - カスタムカラー`notifyIcon`.
 
 [`lib.notify`]: https://coxdocs.dev/ox_lib/Modules/Interface/Client/notify#libnotify
 
@@ -552,9 +551,9 @@ exports.qbx_core:Notify(source, text, notifyType, duration, subTitle, notifyPosi
 exports.qbx_core:Login(source, citizenid, newData)
 ```
 
-* ソース`integer`
-* citizensid？`string`
-* newData?[`PlayerEntity`](../types/player.mdx#playerentity)
+- ソース`integer`
+- citizensid？`string`
+- newData?[`PlayerEntity`](../types/player.mdx#playerentity)
 
 リターンズ`boolean`
 
@@ -566,7 +565,7 @@ exports.qbx_core:Login(source, citizenid, newData)
 exports.qbx_core:GetOfflinePlayer(citizenid)
 ```
 
-* 市民ID`string`
+- 市民ID`string`
 
 リターンズ[`Player?`](../types/player.mdx#player)
 
@@ -578,7 +577,7 @@ exports.qbx_core:GetOfflinePlayer(citizenid)
 exports.qbx_core:Logout(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 ## プレイヤー作成
 
@@ -588,8 +587,8 @@ exports.qbx_core:Logout(source)
 exports.qbx_core:CreatePlayer(playerData, offline)
 ```
 
-* playerData：`PlayerData`
-* オフラインで`boolean`
+- playerData：`PlayerData`
+- オフラインで`boolean`
 
 リターンズ[`Player`](../types/player.mdx#player)
 
@@ -601,7 +600,7 @@ exports.qbx_core:CreatePlayer(playerData, offline)
 exports.qbx_core:Save(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 ## セーブオフライン
 
@@ -611,7 +610,7 @@ exports.qbx_core:Save(source)
 exports.qbx_core:SaveOffline(playerData)
 ```
 
-* playerData：[`PlayerEntity`](../types/player.mdx#playerentity)
+- playerData：[`PlayerEntity`](../types/player.mdx#playerentity)
 
 ## 削除文字
 
@@ -625,7 +624,7 @@ exports.qbx_core:SaveOffline(playerData)
 exports.qbx_core:DeleteCharacter(citizenid)
 ```
 
-* 市民ID`string`
+- 市民ID`string`
 
 ## 固有識別子の生成
 
@@ -635,7 +634,7 @@ exports.qbx_core:DeleteCharacter(citizenid)
 exports.qbx_core:GenerateUniqueIdentifier(type)
 ```
 
-* タイプだ：`'citizenid' | 'AccountNumber' | 'PhoneNumber' | 'FingerId' | 'WalletId' | 'SerialNumber'`
+- タイプだ：`'citizenid' | 'AccountNumber' | 'PhoneNumber' | 'FingerId' | 'WalletId' | 'SerialNumber'`
 
 リターンズ`string | number`
 
@@ -651,8 +650,8 @@ exports.qbx_core:GenerateUniqueIdentifier(type)
 exports.qbx_core:UpsertJobData(jobName, data)
 ```
 
-* ジョブ名`string`
-* のデータがある：[`JobData`](../types/job.mdx#jobdata)
+- ジョブ名`string`
+- のデータがある：[`JobData`](../types/job.mdx#jobdata)
 
 ## アップサートギャングデータ
 
@@ -666,8 +665,8 @@ exports.qbx_core:UpsertJobData(jobName, data)
 exports.qbx_core:UpsertGangData(gangName, data)
 ```
 
-* gangName：`string`
-* のデータがある：[`GangData`](../types/gang.mdx#gangdata)
+- gangName：`string`
+- のデータがある：[`GangData`](../types/gang.mdx#gangdata)
 
 ## アップサートジョブグレード
 
@@ -681,9 +680,9 @@ exports.qbx_core:UpsertGangData(gangName, data)
 exports.qbx_core:UpsertJobGrade(jobName, grade, data)
 ```
 
-* ジョブ名`string`
-* のグレードである：`integer`
-* のデータがある：[`JobGradeData`](../types/job.mdx#jobgradedata)
+- ジョブ名`string`
+- のグレードである：`integer`
+- のデータがある：[`JobGradeData`](../types/job.mdx#jobgradedata)
 
 ## アップサート・ガングレード
 
@@ -697,9 +696,9 @@ exports.qbx_core:UpsertJobGrade(jobName, grade, data)
 exports.qbx_core:UpsertGangGrade(gangName, grade, data)
 ```
 
-* gangName：`string`
-* のグレードである：`integer`
-* のデータがある：[`GangGradeData`](../types/gang.mdx#ganggradedata)
+- gangName：`string`
+- のグレードである：`integer`
+- のデータがある：[`GangGradeData`](../types/gang.mdx#ganggradedata)
 
 ## ジョブグレードの削除
 
@@ -713,8 +712,8 @@ exports.qbx_core:UpsertGangGrade(gangName, grade, data)
 exports.qbx_core:RemoveJobGrade(jobName, grade)
 ```
 
-* ジョブ名`string`
-* のグレードである：`integer`
+- ジョブ名`string`
+- のグレードである：`integer`
 
 ## ギャンググレードの削除
 
@@ -728,8 +727,8 @@ exports.qbx_core:RemoveJobGrade(jobName, grade)
 exports.qbx_core:RemoveGangGrade(gangName, grade)
 ```
 
-* gangName：`string`
-* のグレードである：`integer`
+- gangName：`string`
+- のグレードである：`integer`
 
 ## セットジョブ
 
@@ -739,9 +738,9 @@ exports.qbx_core:RemoveGangGrade(gangName, grade)
 exports.qbx_core:SetJob(identifier, jobName, grade)
 ```
 
-* 識別子`source | citizenid`
-* ジョブ名`string`
-* のグレードである：`integer`
+- 識別子`source | citizenid`
+- ジョブ名`string`
+- のグレードである：`integer`
 
 ## セットジョブデューティ
 
@@ -751,8 +750,8 @@ exports.qbx_core:SetJob(identifier, jobName, grade)
 exports.qbx_core:SetJobDuty(identifier, onDuty)
 ```
 
-* 識別子`source | citizenid`
-* 勤務中：`boolean`
+- 識別子`source | citizenid`
+- 勤務中：`boolean`
 
 ## セットプレーヤープライマリジョブ
 
@@ -762,8 +761,8 @@ exports.qbx_core:SetJobDuty(identifier, onDuty)
 exports.qbx_core:SetPlayerPrimaryJob(citizenid, jobName)
 ```
 
-* 市民ID`string`
-* ジョブ名`string`
+- 市民ID`string`
+- ジョブ名`string`
 
 ## AddPlayerToJob
 
@@ -773,9 +772,9 @@ exports.qbx_core:SetPlayerPrimaryJob(citizenid, jobName)
 exports.qbx_core:AddPlayerToJob(citizenid, jobName, grade)
 ```
 
-* 市民ID`string`
-* ジョブ名`string`
-* のグレードである：`integer`
+- 市民ID`string`
+- ジョブ名`string`
+- のグレードである：`integer`
 
 ## ジョブから選手を削除する
 
@@ -786,8 +785,8 @@ exports.qbx_core:AddPlayerToJob(citizenid, jobName, grade)
 exports.qbx_core:RemovePlayerFromJob(citizenid, jobName)
 ```
 
-* 市民ID`string`
-* ジョブ名`string`
+- 市民ID`string`
+- ジョブ名`string`
 
 ## セットギャング
 
@@ -797,9 +796,9 @@ exports.qbx_core:RemovePlayerFromJob(citizenid, jobName)
 exports.qbx_core:SetGang(identifier, gangName, grade)
 ```
 
-* 識別子`source | citizenid`
-* gangName：`string`
-* のグレードである：`integer`
+- 識別子`source | citizenid`
+- gangName：`string`
+- のグレードである：`integer`
 
 ## SetPlayerPrimaryGang
 
@@ -809,8 +808,8 @@ exports.qbx_core:SetGang(identifier, gangName, grade)
 exports.qbx_core:SetPlayerPrimaryGang(citizenid, gangName)
 ```
 
-* 市民ID`string`
-* gangName：`string`
+- 市民ID`string`
+- gangName：`string`
 
 ## AddPlayerToGang
 
@@ -820,9 +819,9 @@ exports.qbx_core:SetPlayerPrimaryGang(citizenid, gangName)
 exports.qbx_core:AddPlayerToGang(citizenid, gangName, grade)
 ```
 
-* 市民ID`string`
-* gangName：`string`
-* のグレードである：`integer`
+- 市民ID`string`
+- gangName：`string`
+- のグレードである：`integer`
 
 ## 暴力団から選手を排除する
 
@@ -833,8 +832,8 @@ exports.qbx_core:AddPlayerToGang(citizenid, gangName, grade)
 exports.qbx_core:RemovePlayerFromGang(citizenid, gangName)
 ```
 
-* 市民ID`string`
-* gangName：`string`
+- 市民ID`string`
+- gangName：`string`
 
 ## ハス・プライマリー・グループ
 
@@ -844,13 +843,13 @@ exports.qbx_core:RemovePlayerFromGang(citizenid, gangName)
 exports.qbx_core:HasPrimaryGroup(source, filter)
 ```
 
-* ソース`integer`
-* フィルターにかける：`string`または`string[]`または`table<string, number>`
-  * チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
+- ソース`integer`
+- フィルターにかける：`string`または`string[]`または`table<string, number>`
+  - チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
 
 リターンズ
 
-* 成功した：`boolean`
+- 成功した：`boolean`
 
 ## ハスグループ
 
@@ -860,13 +859,13 @@ exports.qbx_core:HasPrimaryGroup(source, filter)
 exports.qbx_core:HasGroup(source, filter)
 ```
 
-* ソース`integer`
-* フィルターにかける：`string`または`string[]`または`table<string, number>`
-  * チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
+- ソース`integer`
+- フィルターにかける：`string`または`string[]`または`table<string, number>`
+  - チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
 
 リターンズ
 
-* 成功した：`boolean`
+- 成功した：`boolean`
 
 ## GetGroups
 
@@ -876,11 +875,11 @@ exports.qbx_core:HasGroup(source, filter)
 exports.qbx_core:GetGroups(source)
 ```
 
-* ソース`integer`
+- ソース`integer`
 
 リターンズ
 
-* `table<string, number>`
+- `table<string, number>`
 
 ## IsGradeBoss
 
@@ -890,12 +889,12 @@ exports.qbx_core:GetGroups(source)
 exports.qbx_core:IsGradeBoss(group, grade)
 ```
 
-* グループである：`string`
-* のグレードである：`integer`
+- グループである：`string`
+- のグレードである：`integer`
 
 リターンズ
 
-* 成功した：`boolean`
+- 成功した：`boolean`
 
 ## GetGroupMembers
 
@@ -905,12 +904,12 @@ exports.qbx_core:IsGradeBoss(group, grade)
 exports.qbx_core:GetGroupMembers(group, type)
 ```
 
-* グループである：`string`
-* タイプだ：`job | gang`
+- グループである：`string`
+- タイプだ：`job | gang`
 
 リターンズ
 
-* `table<citizenid, number>`
+- `table<citizenid, number>`
 
 ## 車両削除
 
@@ -920,7 +919,7 @@ exports.qbx_core:GetGroupMembers(group, type)
 exports.qbx_core:DeleteVehicle(entity)
 ```
 
-* 実体を持つ：`number`
+- 実体を持つ：`number`
 
 ## パーシステンスを有効にする
 
@@ -930,7 +929,7 @@ exports.qbx_core:DeleteVehicle(entity)
 exports.qbx_core:EnablePersistence(entity)
 ```
 
-* 実体を持つ：`number`
+- 実体を持つ：`number`
 
 ## パーシステンスを無効にする
 
@@ -940,7 +939,7 @@ exports.qbx_core:EnablePersistence(entity)
 exports.qbx_core:DisablePersistence(entity)
 ```
 
-* 実体を持つ：`number`
+- 実体を持つ：`number`
 
 ## GetVehicleClass
 
@@ -951,7 +950,7 @@ exports.qbx_core:DisablePersistence(entity)
 exports.qbx_core:GetVehicleClass(hash)
 ```
 
-* ハッシュ`number`
+- ハッシュ`number`
 
 ## サーチプレーヤー
 
@@ -959,21 +958,21 @@ exports.qbx_core:GetVehicleClass(hash)
 
 フィルター
 
-* license?：ライセンス文字列。
-* job?
-* ギャング？
-* メタデータ？`table<string, number|string|boolean>`
-  * 厳しい？`boolean`もしtrueなら、メタデータの数値は完全に等価である場合にマッチし、そうでなければ、数値がfilterより大きいか等しい場合にマッチする。
+- license?：ライセンス文字列。
+- job?
+- ギャング？
+- メタデータ？`table<string, number|string|boolean>`
+  - 厳しい？`boolean`もしtrueなら、メタデータの数値は完全に等価である場合にマッチし、そうでなければ、数値がfilterより大きいか等しい場合にマッチする。
 
 ```lua
 exports.qbx_core:SearchPlayers(filters)
 ```
 
-* フィルターがある：`table<string, any>`
+- フィルターがある：`table<string, any>`
 
 リターンズ
 
-* [`Player[]`](../types/player.mdx#player)
+- [`Player[]`](../types/player.mdx#player)
 
 ### 使用例
 
@@ -996,11 +995,11 @@ SessionIdsは、エンティティが削除されたり再作成されたりす�
 exports.qbx_core:CreateSessionId(entity)
 ```
 
-* 実体を持つ：`integer`
+- 実体を持つ：`integer`
 
 リターンズ
 
-* sessionId：`integer`
+- sessionId：`integer`
 
 ## ゲットマネー
 
@@ -1010,12 +1009,12 @@ exports.qbx_core:CreateSessionId(entity)
 exports.qbx_core:GetMoney(identifier, moneyType)
 ```
 
-* 識別子`source | citizenid`
-* moneyType：`'cash' | 'bank' | 'crypto'`
+- 識別子`source | citizenid`
+- moneyType：`'cash' | 'bank' | 'crypto'`
 
 リターンズ
 
-* の量だ：`number`無効なマネー・タイプまたはプレーヤーが見つからない場合は偽
+- の量だ：`number`無効なマネー・タイプまたはプレーヤーが見つからない場合は偽
 
 ## アドマネー
 
@@ -1025,14 +1024,14 @@ exports.qbx_core:GetMoney(identifier, moneyType)
 exports.qbx_core:AddMoney(identifier, moneyType, amount, reason)
 ```
 
-* 識別子`source | citizenid`
-* moneyType：`'cash' | 'bank' | 'crypto'`
-* の量だ：`number`
-* 理由は？`string`
+- 識別子`source | citizenid`
+- moneyType：`'cash' | 'bank' | 'crypto'`
+- の量だ：`number`
+- 理由は？`string`
 
 リターンズ
 
-* 成功した：`boolean`
+- 成功した：`boolean`
 
 ## お金を取り除く
 
@@ -1042,14 +1041,14 @@ exports.qbx_core:AddMoney(identifier, moneyType, amount, reason)
 exports.qbx_core:RemoveMoney(identifier, moneyType, amount, reason)
 ```
 
-* 識別子`source | citizenid`
-* moneyType：`'cash' | 'bank' | 'crypto'`
-* の量だ：`number`
-* 理由は？`string`
+- 識別子`source | citizenid`
+- moneyType：`'cash' | 'bank' | 'crypto'`
+- の量だ：`number`
+- 理由は？`string`
 
 リターンズ
 
-* 成功した：`boolean`
+- 成功した：`boolean`
 
 ## セットマネー
 
@@ -1059,11 +1058,11 @@ exports.qbx_core:RemoveMoney(identifier, moneyType, amount, reason)
 exports.qbx_core:SetMoney(identifier, moneyType, amount, reason)
 ```
 
-* 識別子`source | citizenid`
-* moneyType：`'cash' | 'bank' | 'crypto'`
-* の量だ：`number`
-* 理由は？`string`
+- 識別子`source | citizenid`
+- moneyType：`'cash' | 'bank' | 'crypto'`
+- の量だ：`number`
+- 理由は？`string`
 
 リターンズ
 
-* 成功した：`boolean`
+- 成功した：`boolean`

@@ -1,12 +1,11 @@
-***
+---
+title: サーバーエクスポート
+sidebar_label: サーバ
+keywords: [qbox, fivem, qbx_vehiclekeys, エクスポート]
+description: qbx_vehiclekeys リソースのサーバサイドエクスポートのドキュメント。これらのエクスポートは、Qboxフレームワーク内で車両キーの所有権をチェックし、管理するための機能を提供する。
+---
 
-タイトルサーバー輸出
-sidebar\_label: サーバ
-キーワード\[qbox, fivem, qbx\_vehiclekeys, エクスポート].
-説明qbx\_vehiclekeys リソースのサーバサイドエクスポートのドキュメント。これらのエクスポートは、Qboxフレームワーク内で車両キーの所有権をチェックし、管理するための機能を提供する。
----------------------------------------------------------------------------------------------------
-
-# サーバー輸出
+# サーバーエクスポート
 
 ## ハスキー
 
@@ -16,8 +15,8 @@ sidebar\_label: サーバ
 exports.qbx_vehiclekeys:HasKeys(source, vehicle)
 ```
 
-* ソース`number`
-* 車である：`number`
+- ソース`number`
+- 車である：`number`
 
 ## ギブ・キー
 
@@ -28,9 +27,9 @@ skipNotificationがtrueでない限り、プレイヤーに通知します。
 exports.qbx_vehiclekeys:GiveKeys(source, vehicle, skipNotification)
 ```
 
-* ソース`number`
-* 車である：`number`
-* skipNotification?`boolean`
+- ソース`number`
+- 車である：`number`
+- skipNotification?`boolean`
 
 ## キーを削除する
 
@@ -40,6 +39,6 @@ exports.qbx_vehiclekeys:GiveKeys(source, vehicle, skipNotification)
 exports.qbx_vehiclekeys:RemoveKeys(source, vehicle, skipNotification)
 ```
 
-* ソース`number`
-* 車である：`number`
-* skipNotification?`boolean`
+- ソース`number`
+- 車である：`number`
+- skipNotification?`boolean`

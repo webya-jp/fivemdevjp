@@ -1,10 +1,9 @@
-***
-
-タイトル: フック
-sidebar\_label: フック
-キーワード\[qbox, fivem, qbx\_core, モジュール, フック].
-説明qbx\_core リソースの hooks モジュールのドキュメント。このモジュールはイベントフックを登録、管理する機能を提供し、サードパーティリソースがリソースのコードを直接変更することなく動作を変更できるようにします。
------------------------------------------------------------------------------------------------------------------
+---
+title: フック
+sidebar_label: フック
+keywords: [qbox, fivem, qbx_core, モジュール, フック]
+description: qbx_core リソースの hooks モジュールのドキュメント。このモジュールはイベントフックを登録、管理する機能を提供し、サードパーティリソースがリソースのコードを直接変更することなく動作を変更できるようにします。
+---
 
 # ホック
 
@@ -18,12 +17,12 @@ sidebar\_label: フック
 exports.my_resource:registerHook(eventName, cb)
 ```
 
-* イベント名`string`
-* ペイロード：`table`
+- イベント名`string`
+- ペイロード：`table`
 
 戻る：
 
-* hookId：`number`
+- hookId：`number`
 
 ## 削除フック
 
@@ -34,7 +33,7 @@ idが指定されない場合は、リソースによって登録されたすべ
 exports.my_resource:removeHooks(id)
 ```
 
-* id？`number`
+- id？`number`
 
 ## 使用方法
 
@@ -46,7 +45,7 @@ local triggerEventHooks = require '@qbx_core.modules.hooks' -- Import triggerEve
 -- Example of some sort of event that could be in your resource
 RegisterNetEvent('your_resource:server:check_condition', function(source)
     -- Checks to see if any registered hooks return false
-	if not triggerEventHooks('checkCondition', {source = source, myNumber = 10}) then return end 
+	if not triggerEventHooks('checkCondition', {source = source, myNumber = 10}) then return end
     -- Do stuff
 end)
 ```

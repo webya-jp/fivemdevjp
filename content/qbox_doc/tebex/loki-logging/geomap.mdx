@@ -1,8 +1,9 @@
-***
-
-タイトルGTA Vマップ
-サイドバーの位置4
----------
+---
+title: GTA Vマップ
+sidebar_label: GTA Vマップ
+keywords: [qbox, fivem, loki-logging, GTA Vマップ]
+description: GrafanaでGTA Vのデータを地図上に視覚化する方法について説明します。
+---
 
 Grafanaのもう一つの素晴らしい機能は、データを地図上に視覚化できることだ。これは特にFiveMで、どこで何が起こったかを視覚的に確認したい場合に便利だ。
 :::info
@@ -24,7 +25,14 @@ Grafanaのもう一つの素晴らしい機能は、データを地図上に視�
 右上に大きな青いボタンがあります。`New`.それをクリックして`Import`をドロップダウンメニューから選択する。次に`geomap.json`ファイルをテキストエリアに入力し`Load`そして`Import`.
 そしてそこにある！新しいジオマップダッシュボード。
 
-<ReactPlayer url="https://media.qbox.re/video/c6wX8jrRqNp3uNgGN_93OCvgrutgIwzy.mp4" controls={true} width="100%" height="100%" loop={true} playing={true} />
+<ReactPlayer
+  url="https://media.qbox.re/video/c6wX8jrRqNp3uNgGN_93OCvgrutgIwzy.mp4"
+  controls={true}
+  width="100%"
+  height="100%"
+  loop={true}
+  playing={true}
+/>
 
 ## 代替利用
 
@@ -62,9 +70,6 @@ Grafanaのもう一つの素晴らしい機能は、データを地図上に視�
   </Column>
 </Columns>
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 <Columns>
   <Column style={{ maxWidth: '300px'}}>
     <CardHeader>
@@ -72,6 +77,7 @@ import TabItem from '@theme/TabItem';
     </CardHeader>
 
     <CardImage cardImageUrl="https://media.qbox.re/image/tUcW4OwJbbSuRa0bvbjUAE4o6b0lEOkulAlTVU1OwShY.png" />
+
   </Column>
 
   <Column style={{ maxWidth: '300px'}}>
@@ -80,6 +86,7 @@ import TabItem from '@theme/TabItem';
     </CardHeader>
 
     <CardImage cardImageUrl="https://media.qbox.re/image/aIrx9DVQj-Kk9lRRCeP-BubhmKLb_WYI.png" />
+
   </Column>
 
   <Column style={{ maxWidth: '300px'}}>
@@ -88,5 +95,6 @@ import TabItem from '@theme/TabItem';
     </CardHeader>
 
     <CardImage cardImageUrl="https://media.qbox.re/image/6la89HhcEFqsRMTcAbREQlWrahcyvs6YXffRPBeZwFhn3.png" />
+
   </Column>
 </Columns>
