@@ -6,9 +6,9 @@ description: Could someone please turn off the rain?
 
 ## 導入
 
-* 天気の変更と同期のロジックを処理します
-* 天気の同期/非同期を設定する機能
-* エクスポートを使用して、任意のリソースに気象変化イベントを呼び出す
+- 天気の変更と同期のロジックを処理します
+- 天気の同期/非同期を設定する機能
+- エクスポートを使用して、任意のリソースに気象変化イベントを呼び出す
 
 ## 構成
 
@@ -31,7 +31,7 @@ Config.Disabled         = false -- set weather disabled
 
 ### 天気の種類
 
-> \[!警告]
+> [!WARNING]
 > 何をしているのか理解していない限り、触らないでください
 
 ```lua
@@ -69,7 +69,7 @@ local success = exports["qb-weathersync"]:nextWeatherStage();
 JavaScriptの例
 
 ```javascript
-const success = global.exports["qb-weathersync"].nextWeatherStage();
+const success = global.exports['qb-weathersync'].nextWeatherStage();
 ```
 
 #### setWeather \[タイプ]
@@ -85,7 +85,7 @@ local success = exports["qb-weathersync"]:setWeather("snow");
 JavaScriptの例
 
 ```javascript
-const success = global.exports["qb-weathersync"].setWeather("snow");
+const success = global.exports['qb-weathersync'].setWeather('snow');
 ```
 
 #### setTime \[時] (分)
@@ -101,7 +101,7 @@ local success = exports["qb-weathersync"]:setTime(8, 10); -- 8:10 AM
 JavaScriptの例
 
 ```javascript
-const success = global.exports["qb-weathersync"].setTime(15, 30); // 3:30PM
+const success = global.exports['qb-weathersync'].setTime(15, 30); // 3:30PM
 ```
 
 #### ブラックアウトの設定 (true|false)
@@ -117,7 +117,7 @@ local newStatus = exports["qb-weathersync"]:setBlackout(); -- Toggle
 JavaScriptの例
 
 ```javascript
-const newStatus = global.exports["qb-weathersync"].setBlackout(true); // Enable
+const newStatus = global.exports['qb-weathersync'].setBlackout(true); // Enable
 ```
 
 #### setTimeFreeze (true|false)
@@ -133,7 +133,8 @@ local newStatus = exports["qb-weathersync"]:setTimeFreeze(); -- Toggle
 JavaScriptの例
 
 ```javascript
-const newStatus = global.exports["qb-weathersync"].setTimeFreeze(true); // Enable
+const newStatus =
+  global.exports['qb-weathersync'].setTimeFreeze(true); // Enable
 ```
 
 #### setDynamicWeather (true|false)
@@ -149,7 +150,8 @@ local newStatus = exports["qb-weathersync"]:setDynamicWeather(); -- Toggle
 JavaScriptの例
 
 ```javascript
-const newStatus = global.exports["qb-weathersync"].setDynamicWeather(true); // Enable
+const newStatus =
+  global.exports['qb-weathersync'].setDynamicWeather(true); // Enable
 ```
 
 #### ブラックアウト状態を取得する
@@ -165,7 +167,7 @@ local state = exports["qb-weathersync"]:getBlackoutState();
 JavaScriptの例
 
 ```javascript
-const state = global.exports["qb-weathersync"].getBlackoutState();
+const state = global.exports['qb-weathersync'].getBlackoutState();
 ```
 
 #### getTimeFreezeState
@@ -181,7 +183,7 @@ local state = exports["qb-weathersync"]:getTimeFreezeState();
 JavaScriptの例
 
 ```javascript
-const state = global.exports["qb-weathersync"].getTimeFreezeState();
+const state = global.exports['qb-weathersync'].getTimeFreezeState();
 ```
 
 #### getWeatherState
@@ -197,7 +199,8 @@ local currentWeather = exports["qb-weathersync"]:getWeatherState();
 JavaScriptの例
 
 ```javascript
-const currentWeather = global.exports["qb-weathersync"].getWeatherState();
+const currentWeather =
+  global.exports['qb-weathersync'].getWeatherState();
 ```
 
 #### ダイナミックウェザーの取得
@@ -213,12 +216,12 @@ local state = exports["qb-weathersync"]:getDynamicWeather();
 JavaScriptの例
 
 ```javascript
-const state = global.exports["qb-weathersync"].getDynamicWeather();
+const state = global.exports['qb-weathersync'].getDynamicWeather();
 ```
 
 ## イベント
 
-> \[!警告]
+> [!WARNING]
 > これらの例はすべてクライアント側でトリガーされます。
 
 #### リクエスト状態同期

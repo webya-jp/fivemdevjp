@@ -4,7 +4,7 @@
 
 これらのイベント**べきではない**他のスクリプトによってトリガーされる。
 
-### ox\_doorlock:stateChanged
+### oxdoorlock:stateChanged
 
 ドアの状態が更新されたときにトリガーされる。
 
@@ -12,7 +12,7 @@
 AddEventHandler('ox_doorlock:stateChanged', function(source, doorId, state, usedItem) end)
 ```
 
-* ソース`number`または`nil`
-* doorId：`number`
-* の状態だ：`boolean`
-* usedItem：`string`または`false`または`nil`
+- ソース`number`または`nil`
+- doorId：`number`
+- の状態だ：`boolean`
+- usedItem：`string`または`false`または`nil`

@@ -6,21 +6,21 @@ description: Learn how to manage your server's jobs, vehicles, items, etc!
 
 ## 導入
 
-* qb-core内の共有フォルダには、ジョブ、車両、アイテムなど、あらゆる情報が含まれています。このフォルダで、すべてを自分の仕様に合わせて設定するのに多くの時間を費やすことになります。Jenkinsハッシュは頻繁に使用されます。詳細については、こちらをご覧ください。[ここ](https://cookbook.fivem.net/2019/06/23/lua-support-for-compile-time-jenkins-hashes/)
+- qb-core内の共有フォルダには、ジョブ、車両、アイテムなど、あらゆる情報が含まれています。このフォルダで、すべてを自分の仕様に合わせて設定するのに多くの時間を費やすことになります。Jenkinsハッシュは頻繁に使用されます。詳細については、こちらをご覧ください。[ここ](https://cookbook.fivem.net/2019/06/23/lua-support-for-compile-time-jenkins-hashes/)
 
-> \[!INFO]
-> QBCoreは、データベースに依存せずにLuaテーブルを使用して静的情報を保存します。これにより、頻繁なデータベースクエリが不要になり、操作が高速化されます。[共有エクスポート.md](shared-exports.md "mention")それは非常に強力なツールになります!
+> [!NOTE]
+> QBCoreは、データベースに依存せずにLuaテーブルを使用して静的情報を保存します。これにより、頻繁なデータベースクエリが不要になり、操作が高速化されます。[共有エクスポート.md](shared-exports.md 'mention')それは非常に強力なツールになります!
 
 ### ユーティリティ
 
-* 見つかった場所`qb-core/shared/main.lua`
+- 見つかった場所`qb-core/shared/main.lua`
 
 #### 開始アイテム
 
 スターターアイテムは、playerが初めてサーバーに参加したときに受け取る定義済みのアイテムです。
 
-* アイテム名:`string`
-* 額： `number`
+- アイテム名:`string`
+- 額： `number`
 
 ```lua
 QBShared.StarterItems = {
@@ -47,8 +47,8 @@ end
 QBShared.RandomStr(length)
 ```
 
-* 長さ： `number`
-* <mark style="color:yellow;">returns</mark>:`string`
+- 長さ： `number`
+- returns:`string`
 
 使用例:
 
@@ -65,8 +65,8 @@ print(randomString) -- Example Output: "aBcD1234"
 QBShared.RandomInt(length)
 ```
 
-* 長さ： `number`
-* <mark style="color:yellow;">returns</mark>:`string`
+- 長さ： `number`
+- returns:`string`
 
 使用例:
 
@@ -83,9 +83,9 @@ print(randomInt) -- Example Output: "473829"
 QBShared.SplitStr(str, delimiter)
 ```
 
-* 文字列:`string`- 分割するstring
-* 区切り文字:`string`- stringを分割するために使用される文字またはシーケンス
-* <mark style="color:yellow;">returns</mark>:`table`
+- 文字列:`string`- 分割するstring
+- 区切り文字:`string`- stringを分割するために使用される文字またはシーケンス
+- returns:`table`
 
 使用例:
 
@@ -102,8 +102,8 @@ stringから先頭と末尾の空白を削除します
 QBShared.Trim(value)
 ```
 
-* 価値： `string`- トリムするstring
-* <mark style="color:yellow;">returns</mark>:`string`
+- 価値： `string`- トリムするstring
+- returns:`string`
 
 使用例:
 
@@ -120,9 +120,9 @@ number を最も近い整数 number または指定された小数点以下の�
 QBShared.Round(value, numDecimalPlaces)
 ```
 
-* 価値： `number`- numberを丸める
-* numDecimalPlaces（オプション）:`number`- 四捨五入する小数点以下の桁数
-* <mark style="color:yellow;">returns</mark>:`number`
+- 価値： `number`- numberを丸める
+- numDecimalPlaces（オプション）:`number`- 四捨五入する小数点以下の桁数
+- returns:`number`
 
 使用例:
 
@@ -139,9 +139,9 @@ vehicleのエクストラを切り替えます
 QBShared.ChangeVehicleExtra(vehicle, extra, enable)
 ```
 
-* vehicle:`number`- vehicleエンティティ
-* 余分な： `number`- 追加ID
-* 有効にする： `boolean`- 追加機能を有効/無効にするかどうか
+- vehicle:`number`- vehicleエンティティ
+- 余分な： `number`- 追加ID
+- 有効にする： `boolean`- 追加機能を有効/無効にするかどうか
 
 使用例:
 
@@ -157,8 +157,8 @@ vehicleのすべての追加機能をリセットし、指定された設定を�
 QBShared.SetDefaultVehicleExtras(vehicle, config)
 ```
 
-* vehicle:`number`- vehicleエンティティ
-* 設定:`table`- 有効/無効にする追加機能を定義する table
+- vehicle:`number`- vehicleエンティティ
+- 設定:`table`- 有効/無効にする追加機能を定義する table
 
 使用例:
 
@@ -173,21 +173,21 @@ QBCore.Shared.SetDefaultVehicleExtras(vehicle, config)
 
 ### アイテム
 
-* 見つかった場所`qb-core/shared/items.lua`
+- 見つかった場所`qb-core/shared/items.lua`
 
 その`Items`table で**qb-core**サーバーで利用可能なすべてのアイテムを定義します。各アイテムは、その動作、外観、機能を決定するいくつかのプロパティを持つオブジェクトとして表現されます。
 
-| プロパティ | タイプ | 説明 |
-| ------------- | --------- | ------------------------------------------------------------------------------------- |
-|`name`|`string`| アイテムの生成、付与、削除に使用される内部名。 |
-|`label`|`string`| インベントリに表示される表示名。 |
-|`weight`|`number`| アイテムの重量。インベントリの容量に影響します。 |
-|`type`|`string`| アイテムの種類（例：`item`、`weapon`）。|
-|`image`|`string`| アイテムの画像のファイル名は`qb-inventory/html/images`. |
-|`unique`|`boolean`| アイテムがユニークかどうか（`true`) またはスタック可能 (`false`）。|
-|`useable`|`boolean`| アイテムが使用可能かどうか。使用可能アイテムとして登録されている必要があります。 |
-|`shouldClose`|`boolean`| アイテムを使用するとインベントリが閉じられるかどうか（`true` または `false`）。|
-|`description`|`string`| インベントリに表示されるアイテムの簡単な説明。 |
+| プロパティ    | タイプ    | 説明                                                                             |
+| ------------- | --------- | -------------------------------------------------------------------------------- |
+| `name`        | `string`  | アイテムの生成、付与、削除に使用される内部名。                                   |
+| `label`       | `string`  | インベントリに表示される表示名。                                                 |
+| `weight`      | `number`  | アイテムの重量。インベントリの容量に影響します。                                 |
+| `type`        | `string`  | アイテムの種類（例：`item`、`weapon`）。                                         |
+| `image`       | `string`  | アイテムの画像のファイル名は`qb-inventory/html/images`.                          |
+| `unique`      | `boolean` | アイテムがユニークかどうか（`true`) またはスタック可能 (`false`）。              |
+| `useable`     | `boolean` | アイテムが使用可能かどうか。使用可能アイテムとして登録されている必要があります。 |
+| `shouldClose` | `boolean` | アイテムを使用するとインベントリが閉じられるかどうか（`true` または `false`）。  |
+| `description` | `string`  | インベントリに表示されるアイテムの簡単な説明。                                   |
 
 **使用例: 基本アイテム定義**
 
@@ -209,7 +209,7 @@ QBShared.Items = {
 
 ### 求人
 
-* 見つかった場所`qb-core/shared/jobs.lua`
+- 見つかった場所`qb-core/shared/jobs.lua`
 
 その`Jobs`table で**qb-core**サーバー上で利用可能なすべての求人について、ランク、給与、具体的な特徴などを定義します。これにより、雇用における役割、責任、給与体系を効果的に管理できます。
 
@@ -221,25 +221,25 @@ QBShared.Items = {
 QBShared.ForceJobDefaultDutyAtLogin = true -- true: Use job's defaultDuty | false: Use last saved duty state from database
 ```
 
-***
+---
 
 **ジョブオブジェクトのレイアウト**
 
-| プロパティ | タイプ | 説明 |
-| ------------- | --------- | -------------------------------------------------------------------------------------------- |
-|`label`|`string`| ジョブの表示名。|
-|`type`|`string`| 仕事の種類（例：`leo`（法執行官向け） |
-|`defaultDuty`|`boolean`| player がログイン時に自動的に勤務開始になるかどうか。 |
-|`offDutyPay`|`boolean`| player が勤務時間外に給与を受け取るかどうか。 |
-|`grades`|`table`| 名前、支払い、その他のランク固有の属性を含む職務等級を定義する table。 |
+| プロパティ    | タイプ    | 説明                                                                   |
+| ------------- | --------- | ---------------------------------------------------------------------- |
+| `label`       | `string`  | ジョブの表示名。                                                       |
+| `type`        | `string`  | 仕事の種類（例：`leo`（法執行官向け）                                  |
+| `defaultDuty` | `boolean` | player がログイン時に自動的に勤務開始になるかどうか。                  |
+| `offDutyPay`  | `boolean` | player が勤務時間外に給与を受け取るかどうか。                          |
+| `grades`      | `table`   | 名前、支払い、その他のランク固有の属性を含む職務等級を定義する table。 |
 
 **成績表のレイアウト**
 
-| プロパティ | タイプ | 説明 |
-| --------- | --------- | --------------------------------------------------------------------- |
-|`name`|`string`| 階級名（例：新兵、士官）。|
-|`payment`|`number`| この等級の給与。 |
-|`isboss`|`boolean`| （オプション）`true`、このグレードはボス（例：Chief）としてマークされます。 |
+| プロパティ | タイプ    | 説明                                                                        |
+| ---------- | --------- | --------------------------------------------------------------------------- |
+| `name`     | `string`  | 階級名（例：新兵、士官）。                                                  |
+| `payment`  | `number`  | この等級の給与。                                                            |
+| `isboss`   | `boolean` | （オプション）`true`、このグレードはボス（例：Chief）としてマークされます。 |
 
 **使用例: 基本ジョブ定義**
 
@@ -282,25 +282,25 @@ QBShared.Jobs = {
 
 ### ギャング
 
-* 見つかった場所`qb-core/shared/gangs.lua`
+- 見つかった場所`qb-core/shared/gangs.lua`
 
 その`Gangs`table で**qb-core**サーバー上で利用可能なすべてのギャングについて、ランク、給与、特定の機能などを定義します。これにより、メンバーの役割、責任、給与体系を効果的に管理できます。
 
-***
+---
 
 **ギャングオブジェクトのレイアウト**
 
-| プロパティ | タイプ | 説明 |
-| -------- | -------- | --------------------------------------------------------------------------------- |
-|`label`|`string`| ギャングの表示名 |
-|`grades`|`table`| 名前やその他のランク固有の属性を含むギャングの等級を定義する table。 |
+| プロパティ | タイプ   | 説明                                                                 |
+| ---------- | -------- | -------------------------------------------------------------------- |
+| `label`    | `string` | ギャングの表示名                                                     |
+| `grades`   | `table`  | 名前やその他のランク固有の属性を含むギャングの等級を定義する table。 |
 
 **成績表のレイアウト**
 
-| プロパティ | タイプ | 説明 |
-| -------- | --------- | -------------------------------------------------------------------- |
-|`name`|`string`| 階級名（例：新兵、執行官）。|
-|`isboss`|`boolean`| （オプション）`true`、このグレードはボスとしてマークされます (例: ボス)。 |
+| プロパティ | タイプ    | 説明                                                                      |
+| ---------- | --------- | ------------------------------------------------------------------------- |
+| `name`     | `string`  | 階級名（例：新兵、執行官）。                                              |
+| `isboss`   | `boolean` | （オプション）`true`、このグレードはボスとしてマークされます (例: ボス)。 |
 
 **使用例: 基本的なギャングの定義**
 
@@ -337,22 +337,22 @@ QBShared.Gangs = {
 
 ### 車両
 
-> \[!警告]
+> [!WARNING]
 > 所有権のために vehicle をデータベースに保存する場合は、共有車両の table で定義する必要があります。
 
-* 見つかった場所`qb-core/shared/vehicles.lua`
+- 見つかった場所`qb-core/shared/vehicles.lua`
 
 その`Vehicles`table で**qb-core**サーバー上で利用可能なすべての車両（プロパティとカテゴリを含む）を定義します。このtableを使用すると、各vehicleに特定の属性を設定し、ゲーム内での動作を制御できます。
 
-| プロパティ | タイプ | 説明 |
-| ---------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-|`model`|`string`| vehicle のスポーンコード (ゲーム内のモデル名と一致する必要があります)。 |
-|`name`|`string`| プレイヤーに表示される vehicle の表示名。 |
-|`brand`|`string`| vehicle のブランドまたはメーカー (例: 「Maxwell」、「Karin」)。|
-|`price`|`number`| vehicle のゲーム内通貨での価格。 |
-|`category`|`string`| vehicleのカテゴリー（例：「コンパクト」、「スポーツ」）。[車両クラスの取得](https://docs.fivem.net/natives/?_0x29439776AAA00A62)|
-|`type`|`string`| vehicleの種類（例：「自動車」、「自転車」）。[車両の種類](https://docs.fivem.net/natives/?_0x6AE51D4B)|
-|`shop`|`string \| table`| vehicleを入手できるショップ。単一のショップ（例：pdm）または複数のショップ（table）を指定できます。 |
+| プロパティ | タイプ            | 説明                                                                                                                             |
+| ---------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `model`    | `string`          | vehicle のスポーンコード (ゲーム内のモデル名と一致する必要があります)。                                                          |
+| `name`     | `string`          | プレイヤーに表示される vehicle の表示名。                                                                                        |
+| `brand`    | `string`          | vehicle のブランドまたはメーカー (例: 「Maxwell」、「Karin」)。                                                                  |
+| `price`    | `number`          | vehicle のゲーム内通貨での価格。                                                                                                 |
+| `category` | `string`          | vehicleのカテゴリー（例：「コンパクト」、「スポーツ」）。[車両クラスの取得](https://docs.fivem.net/natives/?_0x29439776AAA00A62) |
+| `type`     | `string`          | vehicleの種類（例：「自動車」、「自転車」）。[車両の種類](https://docs.fivem.net/natives/?_0x6AE51D4B)                           |
+| `shop`     | `string \| table` | vehicleを入手できるショップ。単一のショップ（例：pdm）または複数のショップ（table）を指定できます。                              |
 
 ```lua
 QBShared.Vehicles = {
@@ -368,7 +368,7 @@ QBShared.Vehicles = {
 }
 ```
 
-> \[!INFO]
+> [!NOTE]
 > QBShared.Vehicles の table は、vehicle のモデルで自動的にインデックス化されます。そのため、以下のコマンドでプロパティにアクセスできます。`QBCore.Shared.Vehicles[model]`&#x20;
 
 また、tableを作成します。`QBShared.VehicleHashes`vehicle のハッシュをキーとして保存します。
@@ -395,22 +395,22 @@ end
 
 ### 兵器
 
-> \[!警告]
+> [!WARNING]
 > 武器はアイテムとして使用するためにshared/items.luaにも追加されます。このtableは、以下のメソッドで返されるハッシュ値を使って武器情報を参照するためのものです。[現在の歩行兵器を取得する](https://docs.fivem.net/natives/?_0xB0237302)または武器ハッシュを返す同様のネイティブ関数
 
-* 見つかった場所`qb-core/shared/weapons.lua`
+- 見つかった場所`qb-core/shared/weapons.lua`
 
 その`Weapons`table で**qb-core**サーバーで利用可能なすべての武器を定義します。武器の名前、ラベル、種類、弾薬の種類、死亡通知のダメージ理由などの属性が含まれます。このtableを使用すると、プレイヤーがアクセスできる武器を管理およびカスタマイズできます。
 
 **武器オブジェクトのレイアウト**
 
-| プロパティ | タイプ | 説明 |
-| -------------- | -------- | ----------------------------------------------------------------------------------------------------- |
-|`name`|`string`| 武器の内部スポーン名（例：`weapon_pistol`）。|
-|`label`|`string`| プレイヤーに表示される武器の表示名。 |
-|`weapontype`|`string`| 武器の種類（例：「ピストル」、「ショットガン」、「ライフル」）。
-|`ammotype`|`string`| 武器が使用する弾薬の種類（例：`AMMO_PISTOL`、`AMMO_SHOTGUN`）。|
-|`damagereason`|`string`| 死亡通知に表示される、死亡原因を説明するカスタマイズ可能なメッセージ。 |
+| プロパティ     | タイプ   | 説明                                                                   |
+| -------------- | -------- | ---------------------------------------------------------------------- |
+| `name`         | `string` | 武器の内部スポーン名（例：`weapon_pistol`）。                          |
+| `label`        | `string` | プレイヤーに表示される武器の表示名。                                   |
+| `weapontype`   | `string` | 武器の種類（例：「ピストル」、「ショットガン」、「ライフル」）。       |
+| `ammotype`     | `string` | 武器が使用する弾薬の種類（例：`AMMO_PISTOL`、`AMMO_SHOTGUN`）。        |
+| `damagereason` | `string` | 死亡通知に表示される、死亡原因を説明するカスタマイズ可能なメッセージ。 |
 
 ```lua
 QBShared.Weapons = {

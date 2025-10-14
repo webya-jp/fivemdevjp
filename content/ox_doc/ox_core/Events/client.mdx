@@ -3,7 +3,7 @@ import { Callout, Tabs } from 'nextra/components';
 # 顧客イベント
 
 <Callout type="warning">
-  これらのイベントは、アクションが発生するとox\_coreによってトリガーされます。他のスクリプトからトリガーしてはいけません。
+  これらのイベントは、アクションが発生するとoxcoreによってトリガーされます。他のスクリプトからトリガーしてはいけません。
 </Callout>
 
 ## ox:playerLoaded
@@ -28,8 +28,8 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* isNew?`boolean`
+- playerId：`number`
+- isNew?`boolean`
 
 ## ox:statusTick
 
@@ -44,6 +44,7 @@ import { Callout, Tabs } from 'nextra/components';
     ```
 
     * のステータスがある：`table<string, number>`
+
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -54,6 +55,7 @@ import { Callout, Tabs } from 'nextra/components';
     ```
 
     * のステータスがある：`Record<string, number>`
+
   </Tabs.Tab>
 </Tabs>
 
@@ -93,7 +95,7 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-***
+---
 
 # ネットイベント
 
@@ -119,8 +121,8 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* グループ名：`string`
-* グレード？`number`
+- グループ名：`string`
+- グレード？`number`
 
 ## ox:ライセンス追加
 
@@ -144,7 +146,7 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* ライセンス名`string`
+- ライセンス名`string`
 
 ## ox:ライセンス削除
 
@@ -168,7 +170,7 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* ライセンス名`string`
+- ライセンス名`string`
 
 ## ox:startCharacterSelect（スタートキャラクターセレクト
 
@@ -198,6 +200,7 @@ import { Callout, Tabs } from 'nextra/components';
       * z?:`number`
       * lastPlayed?`string`
         * 日付形式`%d/%m/%Y (dd/mm/yyyy)`
+
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -223,6 +226,7 @@ import { Callout, Tabs } from 'nextra/components';
       * z?:`number`
       * lastPlayed?`string`
         * 日付形式`%d/%m/%Y (dd/mm/yyyy)`
+
   </Tabs.Tab>
 </Tabs>
 
@@ -257,6 +261,7 @@ import { Callout, Tabs } from 'nextra/components';
       * 健康？`number`
       * アーマー？`number`
       * isNew?`boolean`
+
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -285,5 +290,6 @@ import { Callout, Tabs } from 'nextra/components';
       * 健康？`number`
       * アーマー？`number`
       * isNew?`boolean`
+
   </Tabs.Tab>
 </Tabs>

@@ -4,16 +4,157 @@ description: Learn how to use exports to update the shared dynamically!
 
 # ↗ 共有エクスポート
 
-<table><thead><tr><th>Function or Event</th><th width="150" align="center">Scope</th><th width="206.79646017699116" align="center">Description</th><th align="center">returns</th></tr></thead><tbody><tr><td>exports\['qb-core']:AddItem(itemName, item)</td><td align="center">Server</td><td align="center">Accepts an item name and item object - will add new entry to QBCore.Shared.Items</td><td align="center">boolean, string</td></tr><tr><td>exports\['qb-core']:AddJob(jobName, job)</td><td align="center">Server</td><td align="center">Accepts an job name and job object - will add new entry to QBCore.Shared.Jobs</td><td align="center">boolean, string</td></tr><tr><td>exports\['qb-core']:AddGang(gangName, gang)</td><td align="center">Server</td><td align="center">Accepts an gang name and gang object - will add new entry to QBCore.Shared.Gangs</td><td align="center">boolean, string</td></tr><tr><td>exports\['qb-core']:AddItems(items)</td><td align="center">Server</td><td align="center">Accepts a table or array - will loop through the table and add new entries to QBCore.Shared.Items</td><td align="center">boolean, string, errorItem</td></tr><tr><td>exports\['qb-core']:AddJobs(jobs)</td><td align="center">Server</td><td align="center">Accepts a table or array - will loop through the table and add new entries to QBCore.Shared.Jobs</td><td align="center">boolean, string, errorItem</td></tr><tr><td>exports\['qb-core']:AddGangs(gangs)</td><td align="center">Server</td><td align="center">Accepts a table or array - will loop through the table and add new entries to QBCore.Shared.Gangs</td><td align="center">boolean, string, errorItem</td></tr><tr><td>QBCore.Functions.AddItem(itemName, item)</td><td align="center">Server</td><td align="center">Accepts an item name and item object - will add new entry to QBCore.Shared.Items</td><td align="center">boolean, string</td></tr><tr><td>QBCore.Functions.AddJob(jobName, Job)</td><td align="center">Server</td><td align="center">Accepts an job name and job object - will add new entry to QBCore.Shared.Jobs</td><td align="center">boolean, string</td></tr><tr><td>QBCore.Functions.AddGang(gangName, gang)</td><td align="center">Server</td><td align="center">Accepts an gang name and gang object - will add new entry to QBCore.Shared.Gangs</td><td align="center">boolean, string</td></tr><tr><td>QBCore.Functions.AddItems(items)</td><td align="center">Server</td><td align="center">Accepts a table or array - will loop through the table and add new entries to QBCore.Shared.Items</td><td align="center">boolean, string, errorItem</td></tr><tr><td>QBCore.Functions.AddJobs(jobs)</td><td align="center">Server</td><td align="center">Accepts a table or array - will loop through the table and add new entries to QBCore.Shared.Jobs</td><td align="center">boolean, string, errorItem</td></tr><tr><td>QBCore.Functions.AddGangs(gangs)</td><td align="center">Server</td><td align="center">Accepts a table or array - will loop through the table and add new entries to QBCore.Shared.Gangs</td><td align="center">boolean, string, errorItem</td></tr><tr><td>TriggerServerEvent('QBCore:Sever:UpdateObject')</td><td align="center">Server</td><td align="center">Accepts nothing - used to update the core object (PLEASE USE THE BELOW EXAMPLE)</td><td align="center">none</td></tr><tr><td>TriggerClientEvent('QBCore:Client:UpdateObject')</td><td align="center">Client</td><td align="center">Accepts nothing - used to update the core object (PLEASE USE THE BELOW EXAMPLE)</td><td align="center">none</td></tr></tbody></table>
+<table>
+  <thead>
+    <tr>
+      <th>Function or Event</th>
+      <th width="150" align="center">
+        Scope
+      </th>
+      <th width="206.79646017699116" align="center">
+        Description
+      </th>
+      <th align="center">returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>exports\['qb-core']:AddItem(itemName, item)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts an item name and item object - will add new entry to
+        QBCore.Shared.Items
+      </td>
+      <td align="center">boolean, string</td>
+    </tr>
+    <tr>
+      <td>exports\['qb-core']:AddJob(jobName, job)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts an job name and job object - will add new entry to
+        QBCore.Shared.Jobs
+      </td>
+      <td align="center">boolean, string</td>
+    </tr>
+    <tr>
+      <td>exports\['qb-core']:AddGang(gangName, gang)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts an gang name and gang object - will add new entry to
+        QBCore.Shared.Gangs
+      </td>
+      <td align="center">boolean, string</td>
+    </tr>
+    <tr>
+      <td>exports\['qb-core']:AddItems(items)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts a table or array - will loop through the table and add
+        new entries to QBCore.Shared.Items
+      </td>
+      <td align="center">boolean, string, errorItem</td>
+    </tr>
+    <tr>
+      <td>exports\['qb-core']:AddJobs(jobs)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts a table or array - will loop through the table and add
+        new entries to QBCore.Shared.Jobs
+      </td>
+      <td align="center">boolean, string, errorItem</td>
+    </tr>
+    <tr>
+      <td>exports\['qb-core']:AddGangs(gangs)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts a table or array - will loop through the table and add
+        new entries to QBCore.Shared.Gangs
+      </td>
+      <td align="center">boolean, string, errorItem</td>
+    </tr>
+    <tr>
+      <td>QBCore.Functions.AddItem(itemName, item)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts an item name and item object - will add new entry to
+        QBCore.Shared.Items
+      </td>
+      <td align="center">boolean, string</td>
+    </tr>
+    <tr>
+      <td>QBCore.Functions.AddJob(jobName, Job)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts an job name and job object - will add new entry to
+        QBCore.Shared.Jobs
+      </td>
+      <td align="center">boolean, string</td>
+    </tr>
+    <tr>
+      <td>QBCore.Functions.AddGang(gangName, gang)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts an gang name and gang object - will add new entry to
+        QBCore.Shared.Gangs
+      </td>
+      <td align="center">boolean, string</td>
+    </tr>
+    <tr>
+      <td>QBCore.Functions.AddItems(items)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts a table or array - will loop through the table and add
+        new entries to QBCore.Shared.Items
+      </td>
+      <td align="center">boolean, string, errorItem</td>
+    </tr>
+    <tr>
+      <td>QBCore.Functions.AddJobs(jobs)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts a table or array - will loop through the table and add
+        new entries to QBCore.Shared.Jobs
+      </td>
+      <td align="center">boolean, string, errorItem</td>
+    </tr>
+    <tr>
+      <td>QBCore.Functions.AddGangs(gangs)</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts a table or array - will loop through the table and add
+        new entries to QBCore.Shared.Gangs
+      </td>
+      <td align="center">boolean, string, errorItem</td>
+    </tr>
+    <tr>
+      <td>TriggerServerEvent('QBCore:Sever:UpdateObject')</td>
+      <td align="center">Server</td>
+      <td align="center">
+        Accepts nothing - used to update the core object (PLEASE USE
+        THE BELOW EXAMPLE)
+      </td>
+      <td align="center">none</td>
+    </tr>
+    <tr>
+      <td>TriggerClientEvent('QBCore:Client:UpdateObject')</td>
+      <td align="center">Client</td>
+      <td align="center">
+        Accepts nothing - used to update the core object (PLEASE USE
+        THE BELOW EXAMPLE)
+      </td>
+      <td align="center">none</td>
+    </tr>
+  </tbody>
+</table>
 
 ## インポートジョブ
 
-* この方法により、任意のリソースからコアの共有ファイルにジョブデータを挿入できます。つまり、リソースを作成し、ロード時にそれらのジョブを使用可能にすることが可能です。これは、以下に示すいずれかの方法で実現できます。この機能を使用するにはコアをインポートする必要がありますが、エクスポートを使用する場合は不要です。
+- この方法により、任意のリソースからコアの共有ファイルにジョブデータを挿入できます。つまり、リソースを作成し、ロード時にそれらのジョブを使用可能にすることが可能です。これは、以下に示すいずれかの方法で実現できます。この機能を使用するにはコアをインポートする必要がありますが、エクスポートを使用する場合は不要です。
 
-> \[!警告]
-> 読んで理解を深めてください[共有.md](shared.md "mention")これらを使用する前に構造を確認してください
+> [!WARNING]
+> 読んで理解を深めてください[共有.md](shared.md 'mention')これらを使用する前に構造を確認してください
 
-> \[!警告]
+> [!WARNING]
 > コアオブジェクトが必要な場合は、これらを使用する際に、リソースのクライアント側ファイルにこのコードを追加する必要があります。
 
 ```lua
@@ -22,7 +163,7 @@ RegisterNetEvent('QBCore:Client:UpdateObject', function()
 end)
 ```
 
-> \[!警告]
+> [!WARNING]
 > コアオブジェクトが必要な場合は、これらを使用する際に、リソースのサーバー側ファイルにこのコードを追加する必要があります。
 
 ```lua
@@ -132,7 +273,7 @@ exports['qb-core']:AddJobs({
 
 ## 輸入ギャング
 
-* この方法により、任意のリソースからコアの共有ファイルにギャングデータを挿入できます。つまり、リソースを作成し、ロード時にそれらのギャングを使用可能にすることが可能です。これは、以下に示すいずれかの方法で実現できます。この機能を使用するにはコアをインポートする必要がありますが、エクスポートを使用する場合は不要です。
+- この方法により、任意のリソースからコアの共有ファイルにギャングデータを挿入できます。つまり、リソースを作成し、ロード時にそれらのギャングを使用可能にすることが可能です。これは、以下に示すいずれかの方法で実現できます。この機能を使用するにはコアをインポートする必要がありますが、エクスポートを使用する場合は不要です。
 
 ### QBCore.Functions.AddGang
 
@@ -220,7 +361,7 @@ exports['qb-core']:AddGangs({
 
 ## アイテムのインポート
 
-* この方法により、任意のリソースからコアの共有ファイルにアイテムデータを挿入できます。つまり、リソースを作成し、ロード時にそれらのアイテムを使用可能にすることが可能です。これは、以下に示すいずれかの方法で実現できます。この機能を使用するにはコアをインポートする必要がありますが、エクスポートを使用する場合は不要です。
+- この方法により、任意のリソースからコアの共有ファイルにアイテムデータを挿入できます。つまり、リソースを作成し、ロード時にそれらのアイテムを使用可能にすることが可能です。これは、以下に示すいずれかの方法で実現できます。この機能を使用するにはコアをインポートする必要がありますが、エクスポートを使用する場合は不要です。
 
 ### QBCore.Functions.AddItem
 

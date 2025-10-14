@@ -10,7 +10,7 @@ import { Callout } from 'nextra/components';
   これらのイベント**べきではない**他のスクリプトによってトリガーされる。
 </Callout>
 
-### ox\_inventory:openedInventory（オープン・インベントリー
+### oxinventory:openedInventory（オープン・インベントリー
 
 プレイヤーがインベントリを開いた後にトリガーされる。
 
@@ -18,10 +18,10 @@ import { Callout } from 'nextra/components';
 AddEventHandler('ox_inventory:openedInventory', function(playerId, inventoryId) end)
 ```
 
-* playerId：`number`
-* inventoryId：`string`
+- playerId：`number`
+- inventoryId：`string`
 
-### ox\_inventory:closedインベントリ
+### oxinventory:closedインベントリ
 
 インベントリがプレイヤーによって閉じられた後にトリガーされる。
 
@@ -29,13 +29,13 @@ AddEventHandler('ox_inventory:openedInventory', function(playerId, inventoryId) 
 AddEventHandler('ox_inventory:closedInventory', function(playerId, inventoryId) end)
 ```
 
-### ox\_inventory:usedItem
+### oxinventory:usedItem
 
 ```lua
 AddEventHandler('ox_inventory:usedItem', function(playerId, name, slotId, metadata) end)
 ```
 
-* playerId：`number`
-* と名付けた：`string`
-* slotId：`number`
-* メタデータ？`table`
+- playerId：`number`
+- と名付けた：`string`
+- slotId：`number`
+- メタデータ？`table`

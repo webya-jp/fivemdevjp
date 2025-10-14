@@ -1,8 +1,18 @@
 ---
-title: "Release Readiness Guidelines"
-sidebar_label: "Release Guidelines"
+title: 'Release Readiness Guidelines'
+sidebar_label: 'Release Guidelines'
 sidebar_position: 5
-keywords: [qbox, fivem, development, release, guidelines, quality, standards, stability]
+keywords:
+  [
+    qbox,
+    fivem,
+    development,
+    release,
+    guidelines,
+    quality,
+    standards,
+    stability,
+  ]
 description: Guidelines and requirements for releasing stable Qbox resources. Learn about code quality standards, database practices, configuration requirements, and release automation.
 slug: /release
 ---
@@ -15,7 +25,7 @@ slug: /release
 
 1. リントエラーは存在しません。
 2. 全て `print`文は次のように置き換えられる`lib.print`。
-3. 可能な場合は、ネイティブを置き換えるために ox\_lib が使用されます。
+3. 可能な場合は、ネイティブを置き換えるために oxlib が使用されます。
 4. コードはベストプラクティスを使用し、貢献ガイドラインに従います。
 5. コードは読みやすく、整理されています。
 6. 非推奨の関数は呼び出されていません。
@@ -23,7 +33,7 @@ slug: /release
 ## データベースプラクティス
 
 1. 所有していないテーブルから直接読み取ることはせず、代わりに所有リソースからのエクスポートと関数を使用してデータを取得します。
-2. リソースの指定されたストレージ層に所有するテーブルへの直接データベース呼び出しがあります（`server/storage.lua`qbx\_core 内)。
+2. リソースの指定されたストレージ層に所有するテーブルへの直接データベース呼び出しがあります（`server/storage.lua`qbxcore 内)。
 
 ## 設定の実践
 
@@ -31,7 +41,7 @@ slug: /release
 
 ## コアプラクティス
 
-1. クライアント PlayerData には、qbx\_core エクスポートではなく、playerdata モジュールを使用してアクセスします。
+1. クライアント PlayerData には、qbxcore エクスポートではなく、playerdata モジュールを使用してアクセスします。
 2. Lib モジュールは、DrawText などの重複コードを置き換えるために使用されます。
 
 ## リソースの品質

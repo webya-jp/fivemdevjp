@@ -3,7 +3,6 @@
 import { Navbar } from 'nextra-theme-docs';
 import { Group, Text } from '@mantine/core';
 import { ColorSchemeControl } from '../ColorSchemeControl/ColorSchemeControl';
-import { Logo } from '../Logo/Logo';
 import { MantineNextraThemeObserver } from '../MantineNextraThemeObserver/MantineNextraThemeObserver';
 
 /**
@@ -20,7 +19,6 @@ export const MantineNavBar = () => {
       <Navbar
         logo={
           <Group align="center" gap={4}>
-            <Logo />
             <Text size="lg" fw={800} c="blue" visibleFrom="xl">
               FiveM スクリプト開発用ドキュメント
             </Text>
@@ -28,7 +26,7 @@ export const MantineNavBar = () => {
         }
         // Mantine discord server
         chatLink="https://discord.com/invite/wbH82zuWMN"
-        projectLink="https://github.com/gfazioli/next-app-nextra-template"
+        projectLink="https://github.com/webya-jp/fivemdevjp"
       >
         <>
           <ColorSchemeControl />

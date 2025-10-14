@@ -6,9 +6,9 @@ description: Learn about and how to use common core client events!
 
 ### QBCore:Client?:OnPlayerLoaded
 
-* キャラクター選択後のplayerの読み込みを処理します
+- キャラクター選択後のplayerの読み込みを処理します
 
-> \[!INFO]
+> [!NOTE]
 > このイベントは、player がサーバーに正常にロードされたことを示すため、コードをトリガーするイベント ハンドラーとして使用できます。
 
 ```lua
@@ -19,9 +19,9 @@ end)
 
 ### QBCore:Client?:OnPlayerUnload
 
-* playerのログインからキャラクター選択まで処理します
+- playerのログインからキャラクター選択まで処理します
 
-> \[!INFO]
+> [!NOTE]
 > このイベントは、player が正常にアンロードされたか、サーバーからログアウトしたことを示すため、コードをトリガーするイベント ハンドラーとして使用できます。
 
 ```lua
@@ -32,7 +32,7 @@ end)
 
 ### QBCore:Client?:Pvpがトグルされました
 
-> \[!INFO]
+> [!NOTE]
 > player のロード時に、このイベントチェックは qb-core の設定をチェックして PVP を有効にするか無効にするかを確認した後にトリガーされます。
 
 ```lua
@@ -43,11 +43,11 @@ end)
 
 ### QBCore:コマンド:スポーン車両
 
-| 引数 | タイプ | 必須 | デフォルト |
-| :-----------: | :----: | :------: | :-----: |
-| vehicle モデル | string | yes | none |
+|      引数      | タイプ | 必須 | デフォルト |
+| :------------: | :----: | :--: | :--------: |
+| vehicle モデル | string | yes  |    none    |
 
-> \[!INFO]
+> [!NOTE]
 > クライアントの例
 
 ```lua
@@ -59,7 +59,7 @@ RegisterCommand('spawnveh', function(_, args)
 end)
 ```
 
-> \[!INFO]
+> [!NOTE]
 > サーバーの例
 
 ```lua
@@ -73,11 +73,11 @@ end)
 
 ### QBCore:コマンド:車両を削除
 
-| 引数 | タイプ | 必須 | デフォルト |
-| :-------: | :--: | :------: | :-----: |
-| なし | なし | いいえ | なし |
+| 引数 | タイプ |  必須  | デフォルト |
+| :--: | :----: | :----: | :--------: |
+| なし |  なし  | いいえ |    なし    |
 
-> \[!INFO]
+> [!NOTE]
 > クライアントの例
 
 ```lua
@@ -86,7 +86,7 @@ RegisterCommand('deleteveh', function(_, args)
 end)
 ```
 
-> \[!INFO]
+> [!NOTE]
 > サーバーの例
 
 ```lua
@@ -97,7 +97,7 @@ end)
 
 ### QBCore:Player:SetPlayerData
 
-> \[!INFO]
+> [!NOTE]
 > このイベントは、プレイヤーのデータが変更されたことを示すため、コードをトリガーするイベントハンドラーとして使用できます。
 
 ```lua
@@ -109,13 +109,13 @@ end)
 
 ### QBCore:通知
 
-| 引数 | タイプ | 必須 | デフォルト |
-| :-------: | :-------------: | :------: | :------------: |
-| メッセージ | string | table | yes | 'プレースホルダ' |
-| タイプ | string | yes | 'プライマリ' |
-| 長さ | number | yes | 5000 |
+|    引数    | タイプ | 必須  |  デフォルト  |
+| :--------: | :----: | :---: | :----------: | ---------------- |
+| メッセージ | string | table |     yes      | 'プレースホルダ' |
+|   タイプ   | string |  yes  | 'プライマリ' |
+|    長さ    | number |  yes  |     5000     |
 
-> \[!INFO]
+> [!NOTE]
 > クライアントの例
 
 ```lua
@@ -146,7 +146,7 @@ RegisterCommand('testnotify', function(_, args)
 end)
 ```
 
-> \[!INFO]
+> [!NOTE]
 > サーバーの例
 
 ```lua
@@ -179,11 +179,11 @@ end)
 
 ### QBCore:Client?:使用アイテム
 
-| 引数 | タイプ | 必須 | デフォルト |
-| :-------: | :----: | :------: | :-----: |
-| アイテム名 | string | yes | none |
+|    引数    | タイプ | 必須 | デフォルト |
+| :--------: | :----: | :--: | :--------: |
+| アイテム名 | string | yes  |    none    |
 
-> \[!INFO]
+> [!NOTE]
 > クライアントの例（インベントリにアイテムが含まれている必要があります）
 
 ```lua
@@ -198,7 +198,7 @@ RegisterCommand('useitem', function(_, args)
 end)
 ```
 
-> \[!INFO]
+> [!NOTE]
 > サーバー例（インベントリにアイテムが存在している必要があります）
 
 ```lua
@@ -215,12 +215,12 @@ end)
 
 ### QBCore:コマンド:ShowMe3D
 
-| 引数 | タイプ | 必須 | デフォルト |
-| :-------: | :----: | :------: | :-----: |
-| player id | number | yes | none |
-| message | string | yes | none |
+|   引数    | タイプ | 必須 | デフォルト |
+| :-------: | :----: | :--: | :--------: |
+| player id | number | yes  |    none    |
+|  message  | string | yes  |    none    |
 
-> \[!INFO]
+> [!NOTE]
 > クライアントの例
 
 ```lua
@@ -232,7 +232,7 @@ RegisterCommand('3dtext', function(_, args)
 end)
 ```
 
-> \[!INFO]
+> [!NOTE]
 > サーバーの例
 
 ```lua
@@ -246,8 +246,8 @@ end)
 
 ### QBCore:Client?:UpdateObject
 
-> \[!INFO]
-> このイベントは、[共有エクスポート.md](shared-exports.md "mention")リソース内のコアオブジェクトを更新するため
+> [!NOTE]
+> このイベントは、[共有エクスポート.md](shared-exports.md 'mention')リソース内のコアオブジェクトを更新するため
 
 ```lua
 RegisterNetEvent('QBCore:Client:UpdateObject', function()

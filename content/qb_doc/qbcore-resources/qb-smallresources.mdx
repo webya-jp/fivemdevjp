@@ -6,41 +6,41 @@ description: Resource for handling **alot** of misc stuff.
 
 ## 導入
 
-* このリソースはフレームワークの多くの小さなタスクを処理します
-* Discordログ
-* 時間制限のある仕事
-* 消費可能な食品/飲料/ドリンク/医薬品（サンドイッチ、水筒、トスティ、ビール、ウォッカなど）
-* GTAのデフォルトの武器ドロップの削除
-* 薬の効果
-* GTA のデフォルトの vehicle スポーン (飛行機、ヘリコプター、緊急車両など) の削除
-* GTAのデフォルトの緊急サービスNPCの削除
-* GTAのデフォルトの指名手配システムの削除
-* 使える双眼鏡
-* 武器の引き抜きアニメーション（通常/ホルスター）
-* テレポートマーカーを追加する機能（ある場所から別の場所へ）
-* 人質をとる
-* 指で指すアニメーション（「B」を押す）
-* シートベルトとクルーズコントロール
-* 使用可能なパラシュート
-* 使用可能な鎧
-* 武器の反動（武器ごとに異なります）
-* 取り組む
-* 穏やかなAI（NPCの攻撃性を調整）
-* レースハーネス
-* NPC/vehicle/駐車中のvehicleの出現率を調整する
-* 消火器とガソリン缶の弾薬は無限
-* GTA のデフォルトの HUD (武器ホイール、現金など) の削除
-* 花火
-* vehicleを入力すると自動的にエンジンがオンになります
-* Discordのリッチプレゼンス
-* しゃがんでうつ伏せになる
-* AFK検出
+- このリソースはフレームワークの多くの小さなタスクを処理します
+- Discordログ
+- 時間制限のある仕事
+- 消費可能な食品/飲料/ドリンク/医薬品（サンドイッチ、水筒、トスティ、ビール、ウォッカなど）
+- GTAのデフォルトの武器ドロップの削除
+- 薬の効果
+- GTA のデフォルトの vehicle スポーン (飛行機、ヘリコプター、緊急車両など) の削除
+- GTAのデフォルトの緊急サービスNPCの削除
+- GTAのデフォルトの指名手配システムの削除
+- 使える双眼鏡
+- 武器の引き抜きアニメーション（通常/ホルスター）
+- テレポートマーカーを追加する機能（ある場所から別の場所へ）
+- 人質をとる
+- 指で指すアニメーション（「B」を押す）
+- シートベルトとクルーズコントロール
+- 使用可能なパラシュート
+- 使用可能な鎧
+- 武器の反動（武器ごとに異なります）
+- 取り組む
+- 穏やかなAI（NPCの攻撃性を調整）
+- レースハーネス
+- NPC/vehicle/駐車中のvehicleの出現率を調整する
+- 消火器とガソリン缶の弾薬は無限
+- GTA のデフォルトの HUD (武器ホイール、現金など) の削除
+- 花火
+- vehicleを入力すると自動的にエンジンがオンになります
+- Discordのリッチプレゼンス
+- しゃがんでうつ伏せになる
+- AFK検出
 
 ## 構成
 
 ### 一般的な
 
-> \[!INFO]
+> [!NOTE]
 > クロスヘアのようなデフォルトのHUDコンポーネントが必要な場合は、client/hudcomponents.luaでラベル付けされています。
 
 ```lua
@@ -125,7 +125,7 @@ Config.BlacklistedPeds = { -- these NPCs will delete themslves on spawn
 
 ## **消耗品** <a href="#blob-path" id="blob-path" />
 
-> \[!警告]
+> [!WARNING]
 > 新しい消耗品を追加する場合は、server/consumables.lua を開いて、そのアイテムを`QBCore.Functions.CreateUseableItem`機能の詳細については、[サーバー機能リファレンス.md](../qb-core/server-function-reference.md "mention")
 
 \["itemname"] = math.random(-20, -10) または単一の number で渇きや空腹を増やすこともできます。重要なのは、下の number が最初だということです。
@@ -153,12 +153,12 @@ ConsumeablesAlcohol = { -- how much thirst is relieved on use
 
 ## 時間指定ジョブ / Cron
 
-> \[!INFO]
+> [!NOTE]
 > 時間指定ジョブは、毎日特定の時間にコードを実行するために使用されます。例えば、毎週月曜日の午前8時20分に関数xを実行するなどです。
 
 ### 使用状況（サーバーエクスポート）:
 
-* CreateTimedJob(時: number、分: number、コールバック: 関数)
+- CreateTimedJob(時: number、分: number、コールバック: 関数)
 
   > 実際の時間指定ジョブを登録するために使用されます。時間指定ジョブのインデックスを返します。このインデックスを使用して、時間指定ジョブを強制的に実行または停止できます。\
   > **使用例:**
@@ -172,7 +172,7 @@ ConsumeablesAlcohol = { -- how much thirst is relieved on use
   > end)
   > ```
 
-* 強制実行時間指定ジョブ(idx: number)
+- 強制実行時間指定ジョブ(idx: number)
 
   > 時刻が正しくない場合でも、指定されたジョブを強制的に実行するために使用します。ただし、実際のコールバックではローカルチェックをバイパスしません。\
   > **使用例:**
@@ -181,7 +181,7 @@ ConsumeablesAlcohol = { -- how much thirst is relieved on use
   > exports["qb-smallresources"]:ForceRunTimedJob(2)
   > ```
 
-* StopTimedJob(idx: number)
+- StopTimedJob(idx: number)
 
   > 時間指定ジョブを永久に停止します (再度登録しない限り)。\
   > **使用例:**
@@ -192,7 +192,7 @@ ConsumeablesAlcohol = { -- how much thirst is relieved on use
 
 ## ログ
 
-> \[!INFO]
+> [!NOTE]
 > ログはサーバー側に配置され、クライアントからWebhookを隠すことができます。ログはserver/logs.luaにあります。Discord Webhookの作成方法がわからない場合は、こちらをクリックしてください。[ここ](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
 
 ```lua
@@ -270,7 +270,7 @@ end
 
 ## Discordのリッチプレゼンス
 
-> \[!INFO]
+> [!NOTE]
 > これに関する詳細なドキュメントは以下をご覧ください。[ここ](https://support.discord.com/hc/en-us/articles/115001557452-Game-Invites-and-Detailed-Status-Rich-Presence-)この設定はclient/discord.luaにあります。
 
 ```lua
@@ -317,42 +317,42 @@ end)
 
 ### コマンド
 
-* /editor - ロックスターエディターを起動します
-* /record - 録音を開始します
-* /clip- クリップの録画を開始します
-* /saveclip - クリップを保存する
-* /delclip - クリップを削除する
+- /editor - ロックスターエディターを起動します
+- /record - 録音を開始します
+- /clip- クリップの録画を開始します
+- /saveclip - クリップを保存する
+- /delclip - クリップを削除する
 
 ## アイテム
 
-* ウォッカ - 消費財
-* ビール - 消費財
-* ウイスキー - 消費財
-* サンドイッチ - 消費財
-* twerks\_candy - 消耗品
-* snikkel\_candy - 消耗品
-* トスティ - 消耗品
-* water\_bottle - 消耗品
-* コーヒー - 消費財
-* 作業中 - 消耗品
-* ジョイント - 薬物
-* cokebaggy - ドラッグ
-* crack\_baggy - ドラッグ
-* xtcbaggy - ドラッグ
-* オキシ - 薬物
-* メタンフェタミン - 薬物
-* 鎧 - 使用すると鎧が付与されます
-* heavyarmor - 使用すると鎧が付与されます
-* 双眼鏡 - 遠くを見るのに使える双眼鏡
-* パラシュート - playerにパラシュートを追加して空中で展開できるようにします
-* 花火1 - 爆発させる
-* firework2 - もっと花火
-* firework3 - たくさんの花火
-* firework4 - 素敵ですね
-* ロックピック - トリガーに使用するアイテム[リンク切れ](broken-reference "mention")
-* advancedlockpick - トリガーとして使用される別のアイテム[リンク切れ](broken-reference "mention")
+- ウォッカ - 消費財
+- ビール - 消費財
+- ウイスキー - 消費財
+- サンドイッチ - 消費財
+- twerkscandy - 消耗品
+- snikkelcandy - 消耗品
+- トスティ - 消耗品
+- waterbottle - 消耗品
+- コーヒー - 消費財
+- 作業中 - 消耗品
+- ジョイント - 薬物
+- cokebaggy - ドラッグ
+- crackbaggy - ドラッグ
+- xtcbaggy - ドラッグ
+- オキシ - 薬物
+- メタンフェタミン - 薬物
+- 鎧 - 使用すると鎧が付与されます
+- heavyarmor - 使用すると鎧が付与されます
+- 双眼鏡 - 遠くを見るのに使える双眼鏡
+- パラシュート - playerにパラシュートを追加して空中で展開できるようにします
+- 花火1 - 爆発させる
+- firework2 - もっと花火
+- firework3 - たくさんの花火
+- firework4 - 素敵ですね
+- ロックピック - トリガーに使用するアイテム[リンク切れ](broken-reference "mention")
+- advancedlockpick - トリガーとして使用される別のアイテム[リンク切れ](broken-reference "mention")
 
 ## コマンド
 
-* /resetparachute - パラシュートをplayerに戻します
-* /resetarmor- 鎧を外して重装甲を戻します
+- /resetparachute - パラシュートをplayerに戻します
+- /resetarmor- 鎧を外して重装甲を戻します

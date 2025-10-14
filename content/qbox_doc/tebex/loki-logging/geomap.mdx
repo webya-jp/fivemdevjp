@@ -1,17 +1,22 @@
 ---
 title: GTA Vマップ
 sidebar_label: GTA Vマップ
-keywords: [qbox, fivem, loki-logging, GTA Vマップ]
 description: GrafanaでGTA Vのデータを地図上に視覚化する方法について説明します。
 ---
 
+import { Callout } from 'nextra/components';
+
 Grafanaのもう一つの素晴らしい機能は、データを地図上に視覚化できることだ。これは特にFiveMで、どこで何が起こったかを視覚的に確認したい場合に便利だ。
-:::info
+
+<Callout type="info">
 デフォルトでは、このリソースはすべてのプレーヤーの切断を記録します。これには通常の切断やクラッシュなども含まれます。また、サーバー上の爆発もすべて記録します。
-:::
-:::warning
+
+</Callout>
+
+<Callout type="warning">
 コメントアウトされたコードもあります。**すべて**プレイヤーの位置は15秒ごとに表示されます。サーバーの規模にもよりますが、これは**トン**のログが記録され、パフォーマンスが低下する可能性が高くなります。自己責任で使用してください！
-:::
+
+</Callout>
 
 ![Preview Example](https://media.qbox.re/image/qJeZjKiL8aGnUiXNvzngid9uwqicgpdJ6KR0.png)
 
@@ -25,14 +30,7 @@ Grafanaのもう一つの素晴らしい機能は、データを地図上に視�
 右上に大きな青いボタンがあります。`New`.それをクリックして`Import`をドロップダウンメニューから選択する。次に`geomap.json`ファイルをテキストエリアに入力し`Load`そして`Import`.
 そしてそこにある！新しいジオマップダッシュボード。
 
-<ReactPlayer
-  url="https://media.qbox.re/video/c6wX8jrRqNp3uNgGN_93OCvgrutgIwzy.mp4"
-  controls={true}
-  width="100%"
-  height="100%"
-  loop={true}
-  playing={true}
-/>
+[video](https://media.qbox.re/video/c6wX8jrRqNp3uNgGN_93OCvgrutgIwzy.mp4)
 
 ## 代替利用
 
@@ -59,42 +57,3 @@ Grafanaのもう一つの素晴らしい機能は、データを地図上に視�
 ## 別の地図が欲しい！
 
 幸いなことにこれは可能で、3つの地図から選ぶことができます！地図にカーソルを合わせ、3つの点をクリックしてください。`Edit`.右側の`Basemap layer`を選択すると、URLテンプレートを以下の3つのオプションに変更できる。
-
-<Columns>
-  <Column>
-    ![Preview Example](https://media.qbox.re/image/GMl5STcVpsl_vQZA0o0QyidyYkrVWJ5pvrI.png)
-  </Column>
-
-  <Column>
-    ![Preview Example](https://media.qbox.re/image/FcYKuE6-zWQhcZYimn0EhITy3EvdaY3F9GPigbbHKh4Yhbe.png)
-  </Column>
-</Columns>
-
-<Columns>
-  <Column style={{ maxWidth: '300px'}}>
-    <CardHeader>
-      `https://s.rsg.sc/sc/images/games/GTAV/map/render/{z}/{x}/{y}.jpg`
-    </CardHeader>
-
-    <CardImage cardImageUrl="https://media.qbox.re/image/tUcW4OwJbbSuRa0bvbjUAE4o6b0lEOkulAlTVU1OwShY.png" />
-
-  </Column>
-
-  <Column style={{ maxWidth: '300px'}}>
-    <CardHeader>
-      `https://s.rsg.sc/sc/images/games/GTAV/map/game/{z}/{x}/{y}.jpg`
-    </CardHeader>
-
-    <CardImage cardImageUrl="https://media.qbox.re/image/aIrx9DVQj-Kk9lRRCeP-BubhmKLb_WYI.png" />
-
-  </Column>
-
-  <Column style={{ maxWidth: '300px'}}>
-    <CardHeader>
-      `https://s.rsg.sc/sc/images/games/GTAV/map/print/{z}/{x}/{y}.jpg`
-    </CardHeader>
-
-    <CardImage cardImageUrl="https://media.qbox.re/image/6la89HhcEFqsRMTcAbREQlWrahcyvs6YXffRPBeZwFhn3.png" />
-
-  </Column>
-</Columns>

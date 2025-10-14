@@ -2,9 +2,10 @@
 title: マルチキャラクター
 sidebar_label: マルチキャラクター
 sidebar_position: 2
-keywords: [qbox, fivem, qbx_core, マルチキャラクター, キャラクター]
 description: qbx_core のマルチキャラクターシステムのドキュメント。外部キャラクターシステムの使用を含む、キャラクター管理の設定とカスタマイズ方法について説明します。
 ---
+
+import { Callout } from 'nextra/components';
 
 ### 独自のマルチキャラクターを使うことはできますか？
 
@@ -15,9 +16,11 @@ description: qbx_core のマルチキャラクターシステムのドキュメ�
 useExternalCharacters = false,
 ```
 
-:::info\[ローディング画面から抜け出せない？］
+<Callout type="info">
+[ローディング画面から抜け出せない？］
 あなたのマルチキャラクターはシャットダウンするためにローディング画面を呼び出さない可能性が高い。これを解決するには2つの方法があります：
 
 1. あなたの店を開く`server.cfg`と編集`setr loadscreen:externalShutdown`である。`false`
 2. を呼び出すように、マルチキャラクターリソースを編集してください。`ShutdownLoadingScreen()`そして`ShutdownLoadingScreenNui()`のネイティブです。qbx_coreがそうであるように[これ](https://github.com/Qbox-project/qbx_core/blob/6e50abaf966295a4245c901a37ecb64343d63677/client/character.lua#L387-L388)
-   :::
+
+</Callout>

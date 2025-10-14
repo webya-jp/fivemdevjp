@@ -1,9 +1,10 @@
 ---
 title: 共有リブ
 sidebar_label: 共有
-keywords: [qbox, fivem, qbx_core, モジュール, lib]
 description: qbx_core リソースの共有ライブラリ関数のドキュメント。これらの関数は、文字列操作、数学演算、テーブル処理、車両関連機能のための共通ユーティリティを提供し、クライアントサイドとサーバーサイドの両方で使用することができます。
 ---
+
+import { Callout } from 'nextra/components';
 
 # シェアード・リブ
 
@@ -126,9 +127,10 @@ qbx.getVehiclePlate(vehicle)
 指定されたパターンの乱数プレートを生成して返します。\
 なお、生成されたプレートは、既存の車両ですでに使用されている場合もあれば、そうでない場合もある。
 
-:::info
+<Callout type="info">
 パターンについての詳細は[`lib.string.random`](https://coxdocs.dev/ox_lib/Modules/String/Shared#stringrandom)from ox_lib.
-:::
+
+</Callout>
 
 ```lua
 qbx.generateRandomPlate(pattern)

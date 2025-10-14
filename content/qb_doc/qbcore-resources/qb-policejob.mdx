@@ -6,12 +6,12 @@ description: Obey & survive!
 
 ## 導入
 
-* このリソースは警察の機能とやり取りを管理します
-* 警察が設置する物品[qb-ラジアルメニュー.md](qb-radialmenu.md "mention")交通コーンやスパイクストリップなど
-* 警察の隠し場所、ガレージ、武器庫
-* 選手のカフ機能
-* 血液DNA滴や指紋を含む証拠システム
-* 警察が選手を追跡するためのアンクレットトラッカー
+- このリソースは警察の機能とやり取りを管理します
+- 警察が設置する物品[qb-ラジアルメニュー.md](qb-radialmenu.md 'mention')交通コーンやスパイクストリップなど
+- 警察の隠し場所、ガレージ、武器庫
+- 選手のカフ機能
+- 血液DNA滴や指紋を含む証拠システム
+- 警察が選手を追跡するためのアンクレットトラッカー
 
 ## 構成
 
@@ -259,13 +259,13 @@ Config.AmmoLabels = { -- the type of ammo and it's label when dropped
 
 ## 証拠システム
 
-* playerが射撃しているときに弾丸の薬莢がランダムにドロップする確率
-* playerが手袋を着用していない場合に指紋が残る確率
-* 特定のアクションを実行するとプレイヤーのステータスが設定されます
+- playerが射撃しているときに弾丸の薬莢がランダムにドロップする確率
+- playerが手袋を着用していない場合に指紋が残る確率
+- 特定のアクションを実行するとプレイヤーのステータスが設定されます
 
 ### 構成
 
-* qb-policejob/client/evidence.lua で見つかりました
+- qb-policejob/client/evidence.lua で見つかりました
 
 ```lua
 local StatusList = { -- set a players status using an event
@@ -296,7 +296,7 @@ local WhitelistedWeapons = { -- weapons to ignore
 
 ### 使用例
 
-> \[!警告]
+> [!WARNING]
 > サンプルコードはサーバー側で実行されます
 
 #### ステータスの設定
@@ -343,278 +343,304 @@ end)
 <details>
   <summary>/911p \[message] - sends an alert to the police</summary>
 
-  このコマンドは、ジョブ「警察」を持つすべてのプレイヤーにアラートを送信します。アラートには指定された内容が含まれます。`message`そして、あなたの現在位置の警察の player マップにマークが追加されます。
+このコマンドは、ジョブ「警察」を持つすべてのプレイヤーにアラートを送信します。アラートには指定された内容が含まれます。`message`そして、あなたの現在位置の警察の player マップにマークが追加されます。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **メッセージ**- (必須) アラートとともに送信するメッセージ
+- **メッセージ**- (必須) アラートとともに送信するメッセージ
+
 </details>
 
 <details>
   <summary>/spikestrip - Place a spike strip</summary>
 
-  地面にスパイクストリップオブジェクトを設置します。使用するには、player が「警察」の職務に就き、勤務中である必要があります。
+地面にスパイクストリップオブジェクトを設置します。使用するには、player が「警察」の職務に就き、勤務中である必要があります。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/grantlicense \[id] \[license] - give a player a license</summary>
 
-  指定されたplayerを返す`id`与えられたライセンス`license` タイプ。
+指定されたplayerを返す`id`与えられたライセンス`license` タイプ。
 
-  このコマンドは、設定された最低グレード以上の「警察」ジョブを持つプレイヤーのみが使用できます。`Config.LicenseRank`(デフォルトはグレード2以上)。
+このコマンドは、設定された最低グレード以上の「警察」ジョブを持つプレイヤーのみが使用できます。`Config.LicenseRank`(デフォルトはグレード2以上)。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) playerのID
-  * **ライセンス**- (必須) ライセンスの種類 (例: 「武器」または「ドライバー」)
+- **id**- (必須) playerのID
+- **ライセンス**- (必須) ライセンスの種類 (例: 「武器」または「ドライバー」)
+
 </details>
 
 <details>
   <summary>/revokelicense \[id] \[license] - remove a player's license</summary>
 
-  指定されたライセンスを削除します`license`指定されたplayerから入力する`id`。
+指定されたライセンスを削除します`license`指定されたplayerから入力する`id`。
 
-  このコマンドは、設定された最低グレード以上の「警察」ジョブを持つプレイヤーのみが使用できます。`Config.LicenseRank`(デフォルトはグレード2以上)。
+このコマンドは、設定された最低グレード以上の「警察」ジョブを持つプレイヤーのみが使用できます。`Config.LicenseRank`(デフォルトはグレード2以上)。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) playerのID
-  * **ライセンス**- (必須) ライセンスの種類 (例: 「武器」または「ドライバー」)
+- **id**- (必須) playerのID
+- **ライセンス**- (必須) ライセンスの種類 (例: 「武器」または「ドライバー」)
+
 </details>
 
 <details>
   <summary>/pobject \[type] - allows officer to spawn an object</summary>
 
-  「警察」の任務を持つplayerがオブジェクトを生成することを許可する
+「警察」の任務を持つplayerがオブジェクトを生成することを許可する
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **タイプ**- (必須) オブジェクトの種類。使用可能なタイプ:
-    * **円錐**- 交通コーン
-    * **バリア**- 道路封鎖障壁
-    * **道路標識**- 道路標識
-    * **テント**- 犯罪現場用のガゼボ
-    * **ライト**- 作業灯
-    * **消去**- オブジェクトを削除する
+- **タイプ**- (必須) オブジェクトの種類。使用可能なタイプ:
+  _ **円錐**- 交通コーン
+  _ **バリア**- 道路封鎖障壁
+  _ **道路標識**- 道路標識
+  _ **テント**- 犯罪現場用のガゼボ
+  _ **ライト**- 作業灯
+  _ **消去**- オブジェクトを削除する
+
 </details>
 
 <details>
   <summary>/cuff - cuff the nearest player</summary>
 
-  このコマンドは、最も近い player をハード カフします (移動を防止します)。
+このコマンドは、最も近い player をハード カフします (移動を防止します)。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/sc - soft cuff the nearest player</summary>
 
-  このコマンドは、最も近い player をソフト カフします (移動を許可します)。
+このコマンドは、最も近い player をソフト カフします (移動を許可します)。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/escort - escort the nearest player</summary>
 
-  このコマンドは最も近い player を護衛します。
+このコマンドは最も近い player を護衛します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/callsign \[name] - allows officer to set a callsign</summary>
 
-  「警察」のジョブを持つplayerがコールサインを設定できます。コールサインは、マップ上のplayerのブリップ名として表示されます。
+「警察」のジョブを持つplayerがコールサインを設定できます。コールサインは、マップ上のplayerのブリップ名として表示されます。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **名前**- (必須) 使用するコールサイン
+- **名前**- (必須) 使用するコールサイン
+
 </details>
 
 <details>
   <summary>/jail - sends nearest player to jail</summary>
 
-  このコマンドは、最も近いplayerを刑務所に送ります。メニューが開き、警官が刑務所の所要時間を設定できるようになります。
+このコマンドは、最も近いplayerを刑務所に送ります。メニューが開き、警官が刑務所の所要時間を設定できるようになります。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/unjail \[id] - unjail a player</summary>
 
-  与えられたplayerを解放する`id`
+与えられたplayerを解放する`id`
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) playerのID
+- **id**- (必須) playerのID
+
 </details>
 
 <details>
   <summary>/clearcasings - clears bullet casings in the area</summary>
 
-  現在の位置から 10.0 単位以内にあるすべての弾丸の薬莢を消去します。
+現在の位置から 10.0 単位以内にあるすべての弾丸の薬莢を消去します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/clearblood - clears blood drops in the area</summary>
 
-  現在の位置の 10.0 単位にある血液滴をすべて消去します。
+現在の位置の 10.0 単位にある血液滴をすべて消去します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/seizecash - seize cash from the nearest player</summary>
 
-  最寄りの player から現金を押収します。
+最寄りの player から現金を押収します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/cam \[id] - allows officer to see cam footage from selected spots</summary>
 
-  「警察」ジョブを持つplayerがセキュリティカメラを監視できるようにします。セキュリティカメラの位置はqb-policejobの設定ファイルで設定できます。`Config.SecurityCameras`。
+「警察」ジョブを持つplayerがセキュリティカメラを監視できるようにします。セキュリティカメラの位置はqb-policejobの設定ファイルで設定できます。`Config.SecurityCameras`。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) カメラのID
+- **id**- (必須) カメラのID
+
 </details>
 
 <details>
   <summary>/flagplate \[plate] \[reason] - allows speed cameras to find a plate flagged</summary>
 
-  設定で設定できるスピードカメラがナンバープレートの標識を検出できるようにします。`Config.Radars`
+設定で設定できるスピードカメラがナンバープレートの標識を検出できるようにします。`Config.Radars`
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **皿**- （必須）フラグを立てるプレート
-  * **理由**- (必須) フラグの理由
+- **皿**- （必須）フラグを立てるプレート
+- **理由**- (必須) フラグの理由
+
 </details>
 
 <details>
   <summary>/unflagplate \[plate] - removes the flag from the plate</summary>
 
-  プレート上の旗を削除して、カメラがプレートを捉えないようにします。
+プレート上の旗を削除して、カメラがプレートを捉えないようにします。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **皿**- （必須）プレートの旗を消す
+- **皿**- （必須）プレートの旗を消す
+
 </details>
 
 <details>
   <summary>/plateinfo \[plate] - shows the info of the plate</summary>
 
-  プレートがフラグ付けされているかどうかを示し、フラグ付けされている場合はその理由を示します。
+プレートがフラグ付けされているかどうかを示し、フラグ付けされている場合はその理由を示します。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **皿**- （必須）確認するプレート
+- **皿**- （必須）確認するプレート
+
 </details>
 
 <details>
   <summary>/depot \[price] - allows officer to impound vehicle for a price</summary>
 
-  '警察'の職務を持つplayerが、指定された期間内にvehicleを押収物として送ることを許可します。`price`
+'警察'の職務を持つplayerが、指定された期間内にvehicleを押収物として送ることを許可します。`price`
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **価格**- (必須) vehicle をデポから削除するための価格設定
+- **価格**- (必須) vehicle をデポから削除するための価格設定
+
 </details>
 
 <details>
   <summary>/impound - impounds a vehicle without a price</summary>
 
-  価格なしでvehicleを押収
+価格なしでvehicleを押収
 
-  「警察」のジョブを持つplayerでのみ使用できます
+「警察」のジョブを持つplayerでのみ使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/paytow \[id]  - pays the tow driver $500</summary>
 
-  与えられたplayerを支払う`id`500ドル。支払われるplayerは「牽引」の任務を担う必要があります。
+与えられたplayerを支払う`id`500ドル。支払われるplayerは「牽引」の任務を担う必要があります。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) 支払われるplayerのID
+- **id**- (必須) 支払われるplayerのID
+
 </details>
 
 <details>
   <summary>/paylawyer \[id] - pays a lawyer $500</summary>
 
-  与えられたplayerを支払う`id`500ドル。報酬を受け取るplayerは「弁護士」の職業に就いている必要があります。
+与えられたplayerを支払う`id`500ドル。報酬を受け取るplayerは「弁護士」の職業に就いている必要があります。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) 支払われるplayerのID
+- **id**- (必須) 支払われるplayerのID
+
 </details>
 
 <details>
   <summary>/anklet - adds a tracking device to the closest player</summary>
 
-  最も近い player に追跡デバイスを追加します。
+最も近い player に追跡デバイスを追加します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/ankletlocation \[cid] - shows the location of the player</summary>
 
-  指定されたplayerの位置を表示します`ci`d
+指定されたplayerの位置を表示します`ci`d
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **シド**- (必須) チェック対象の player の市民 ID
+- **シド**- (必須) チェック対象の player の市民 ID
+
 </details>
 
 <details>
   <summary>/takedrivinglicense - takes the players drivers license</summary>
 
-  最も近いplayerの運転免許証を取得します
+最も近いplayerの運転免許証を取得します
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/takedna \[id] - takes the players dna</summary>
 
-  与えられたplayerのDNAを取得します`id`空の証拠バッグが必要です。
+与えられたplayerのDNAを取得します`id`空の証拠バッグが必要です。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) playerのID
+- **id**- (必須) playerのID
+
 </details>
 
 ## アイテム
 
-* 手錠 - 使用時にplayerを手錠します
+- 手錠 - 使用時にplayerを手錠します

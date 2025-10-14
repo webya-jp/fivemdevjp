@@ -12,12 +12,12 @@ description: A list of all the commands and their respective resource
 QBCore.Commands.Add(name, help, arguments, argsrequired, callback, permission, ...)
 ```
 
-* 名前： `string`
-* ヘルプ： `string`
-* 引数:`table`
-* 必要な引数:`boolean`
-* 折り返し電話： `function`
-* 許可： `string`
+- 名前： `string`
+- ヘルプ： `string`
+- 引数:`table`
+- 必要な引数:`boolean`
+- 折り返し電話： `function`
+- 許可： `string`
 
 使用例:
 
@@ -42,7 +42,7 @@ end, 'user')
 QBCore.Commands.Refresh(source)
 ```
 
-* ソース： `number`
+- ソース： `number`
 
 使用例:
 
@@ -58,223 +58,247 @@ end, true)
 <details>
   <summary>/admin <strong>-</strong> opens the admin menu</summary>
 
-  管理メニューを開きます
+管理メニューを開きます
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/blips - toggles player blips</summary>
 
-  全プレイヤーのマップにアイコンを追加します。playerの位置を監視するのに役立ちます。
+全プレイヤーのマップにアイコンを追加します。playerの位置を監視するのに役立ちます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/names - toggles player names</summary>
 
-  頭の上にplayerの名前とIDを表示します
+頭の上にplayerの名前とIDを表示します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/coords - shows your current coords</summary>
 
-  現在の座標を表示します`vector3(x, y, z)`フォーマット
+現在の座標を表示します`vector3(x, y, z)`フォーマット
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/maxmods - sets vehicle to max mods</summary>
 
-  現在のvehicleを最大のパフォーマンス変更に設定します
+現在のvehicleを最大のパフォーマンス変更に設定します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/noclip - toggles noclip</summary>
 
-  noclip を切り替える
+noclip を切り替える
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/admincar - adds current vehicle to garage</summary>
 
-  現在のvehicleをデータベースtableに保存します`player_vehicles`ガレージ内のvehicleへのアクセスを許可する
+現在のvehicleをデータベースtableに保存します`player_vehicles`ガレージ内のvehicleへのアクセスを許可する
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/announce \[message] - creates an announcement</summary>
 
-  チャット内のすべてのプレイヤーに送信されるアナウンスを作成します。
+チャット内のすべてのプレイヤーに送信されるアナウンスを作成します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/report \[message] - create a report to staff</summary>
 
-  チャットでスタッフにメッセージを送信し、メッセージをレポートとして保存します
+チャットでスタッフにメッセージを送信し、メッセージをレポートとして保存します
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/reportr \[message] - replies to a user report</summary>
 
-  指定されたユーザーレポートに返信します`message`
+指定されたユーザーレポートに返信します`message`
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **メッセージ**- (必須) 返信で送信するメッセージ
+- **メッセージ**- (必須) 返信で送信するメッセージ
+
 </details>
 
 <details>
   <summary>/reporttoggle - opt in/out of receiving player reports</summary>
 
-  チャットでplayerレポートを受信するかどうかの選択
+チャットでplayerレポートを受信するかどうかの選択
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/staffchat \[message] - sends a staff-only message</summary>
 
-  「管理者」権限レベルのユーザーのみに表示されるチャットメッセージを送信します
+「管理者」権限レベルのユーザーのみに表示されるチャットメッセージを送信します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/warn \[id] \[reason] - warn a player</summary>
 
-  指定されたメッセージをplayerに送信します`id`と`reason`与えられた。また、データベースtableのplayerに対して警告を追加する。`player_warns`
+指定されたメッセージをplayerに送信します`id`と`reason`与えられた。また、データベースtableのplayerに対して警告を追加する。`player_warns`
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須) 警告対象のplayerのID
-  * **理由**- (必須) 警告を与える理由
+- **id**- (必須) 警告対象のplayerのID
+- **理由**- (必須) 警告を与える理由
+
 </details>
 
 <details>
   <summary>/checkwarns \[id] \[opt: number] - view a warning for a given player</summary>
 
-  指定されたplayerに対して既存の警告をチェックします`id`コマンドに警告 number が指定されていない場合、player が受信した警告の number が表示されます。コマンドに警告 number が指定されている場合は、その警告が表示されます。
+指定されたplayerに対して既存の警告をチェックします`id`コマンドに警告 number が指定されていない場合、player が受信した警告の number が表示されます。コマンドに警告 number が指定されている場合は、その警告が表示されます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須) チェック対象のplayerのID
-  * **number**- (オプション) 警告 number (1、2、3 など)
+- **id**- (必須) チェック対象のplayerのID
+- **number**- (オプション) 警告 number (1、2、3 など)
+
 </details>
 
 <details>
   <summary>/delwarn \[id] \[number] - deletes a warning from a player</summary>
 
-  playerから警告を削除し、データベースエントリを削除します
+playerから警告を削除し、データベースエントリを削除します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須) playerのID
-  * **number**- (必須) 削除する警告 number (1、2、3 など)
+- **id**- (必須) playerのID
+- **number**- (必須) 削除する警告 number (1、2、3 など)
+
 </details>
 
 <details>
   <summary>/givenuifocus \[id] \[hasFocus] \[hasCursor] - Sets nuifocus state for player</summary>
 
-  このコマンドは、指定されたplayerのNUIフォーカス状態を設定します。`id`これにより、次のネイティブを手動で設定できます。[https://docs.fivem.net/natives/?\_0x5B98AE30](https://docs.fivem.net/natives/?_0x5B98AE30)\
-  player が NUI オーバーレイでスタックしている場合に役立ちます。
+このコマンドは、指定されたplayerのNUIフォーカス状態を設定します。`id`これにより、次のネイティブを手動で設定できます。[https://docs.fivem.net/natives/?0x5B98AE30](https://docs.fivem.net/natives/?_0x5B98AE30)\
+ player が NUI オーバーレイでスタックしている場合に役立ちます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須) playerのID
-  * **フォーカスあり**- (必須) \[true/false] NUIにフォーカスがあるかどうか
-  * **カーソルを持つ**- (必須) \[true/false] NUI使用時にplayerにカーソルがあるかどうか
+- **id**- (必須) playerのID
+- **フォーカスあり**- (必須) \[true/false] NUIにフォーカスがあるかどうか
+- **カーソルを持つ**- (必須) \[true/false] NUI使用時にplayerにカーソルがあるかどうか
+
 </details>
 
 <details>
   <summary>/setmodel \[model] \[id] - changes the players ped model</summary>
 
-  pedを変更する`model`playerの指定された`id`。
+pedを変更する`model`playerの指定された`id`。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **モデル**- (必須) 変更するpedモデル
-  * **id**- (必須) ped モデルが変更される player の ID
+- **モデル**- (必須) 変更するpedモデル
+- **id**- (必須) ped モデルが変更される player の ID
+
 </details>
 
 <details>
   <summary>/setspeed \[opt: speed] - sets players foot speed</summary>
 
-  足の速さをデフォルトと「速い」の間で設定します
+足の速さをデフォルトと「速い」の間で設定します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **スピード**- (オプション) \["fast"] は足の速度を「fast」に設定します。この引数を空白にすると、足の速度は「normal」に設定されます。
+- **スピード**- (オプション) \["fast"] は足の速度を「fast」に設定します。この引数を空白にすると、足の速度は「normal」に設定されます。
+
 </details>
 
 <details>
   <summary>/kickall - kick all players from server</summary>
 
-  すべてのプレイヤーをサーバーから追い出します。
+すべてのプレイヤーをサーバーから追い出します。
 
-  **権限レベル:** 神
+**権限レベル:** 神
+
 </details>
 
 <details>
   <summary>/setammo \[amount] \[opt: weapon] - set weapon ammo</summary>
 
-  現在手持ちの銃の弾薬数を設定するか`weapon`与えられた場合
+現在手持ちの銃の弾薬数を設定するか`weapon`与えられた場合
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **額**- (必須) 設定する弾薬の量
-  * **武器**- (オプション) 弾薬を設定する武器。空白のままにすると、現在手に持っている銃の弾薬が設定されます。
+- **額**- (必須) 設定する弾薬の量
+- **武器**- (オプション) 弾薬を設定する武器。空白のままにすると、現在手に持っている銃の弾薬が設定されます。
+
 </details>
 
 <details>
   <summary>/vector2 - Copies vector2 to clipboard</summary>
 
-  コピー`vector2(x, y)`現在の座標をクリップボードに保存します。
+コピー`vector2(x, y)`現在の座標をクリップボードに保存します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/vector3 - Copies vector3 to clipboard</summary>
 
-  コピー`vector3(x, y, z)`現在の座標をクリップボードに保存
+コピー`vector3(x, y, z)`現在の座標をクリップボードに保存
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/vector4 - Copies vector4 to clipboard</summary>
 
-  コピー`vector4(x, y, z, w)`現在の座標をクリップボードに保存
+コピー`vector4(x, y, z, w)`現在の座標をクリップボードに保存
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/heading - Copies heading</summary>
 
-  コピーの見出し`w`現在の進行方向（向いている方向）をクリップボードに保存します
+コピーの見出し`w`現在の進行方向（向いている方向）をクリップボードに保存します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 ### コア
@@ -282,171 +306,189 @@ end, true)
 <details>
   <summary>/tp \[id / x] \[opt: y] \[opt: z]- teleport to player or location</summary>
 
-  指定されたplayerにテレポートします`id`または特定の`x, y, z` 位置
+指定されたplayerにテレポートします`id`または特定の`x, y, z` 位置
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **idまたはx**- (必須) player IDまたはX座標
-  * **そして**- (オプション) y座標 (最初の引数にxを使用する場合は必須)
-  * **と**- (オプション) Z座標（最初の引数にxを使用する場合は必須）
+- **idまたはx**- (必須) player IDまたはX座標
+- **そして**- (オプション) y座標 (最初の引数にxを使用する場合は必須)
+- **と**- (オプション) Z座標（最初の引数にxを使用する場合は必須）
+
 </details>
 
 <details>
   <summary>/tpm - teleport to a marked location</summary>
 
-  マップ上のマークされた場所にテレポートします。
+マップ上のマークされた場所にテレポートします。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/togglepvp - toggle PVP on server</summary>
 
-  サーバー上のプレイヤー対プレイヤーモードを切り替えます
+サーバー上のプレイヤー対プレイヤーモードを切り替えます
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/addpermission \[id] \[permission] - gives a player a permission</summary>
 
-  与えられたplayerを返す`id`与えられた`permission`レベル。playerがオンラインである必要があります。
+与えられたplayerを返す`id`与えられた`permission`レベル。playerがオンラインである必要があります。
 
-  **権限レベル:** 神
+**権限レベル:** 神
+
 </details>
 
 <details>
   <summary>/removepermission \[id] \[permission] - removes a player permission</summary>
 
-  指定された`permission`与えられたplayerから`id`player はオンラインである必要があります。
+指定された`permission`与えられたplayerから`id`player はオンラインである必要があります。
 
-  **権限レベル:** 神
+**権限レベル:** 神
+
 </details>
 
 <details>
   <summary>/openserver - open the server for everyone</summary>
 
-  誰でも参加できるサーバーを開きます。
+誰でも参加できるサーバーを開きます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/closeserver \[reason] - close the server for people without permission</summary>
 
-  適切な権限を持たないプレイヤーのサーバーを閉鎖します。必要な権限を持たないプレイヤーをキックし、`reason`キックメッセージ内。
+適切な権限を持たないプレイヤーのサーバーを閉鎖します。必要な権限を持たないプレイヤーをキックし、`reason`キックメッセージ内。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/car \[model] - spawns a vehicle</summary>
 
-  指定されたvehicleを生成する`model` タイプ。
+指定されたvehicleを生成する`model` タイプ。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/dv - delete vehicle</summary>
 
-  あなたが乗っている vehicle を削除するか、あなたの位置から 5.0 ユニット以内にあるすべての車両を削除します。
+あなたが乗っている vehicle を削除するか、あなたの位置から 5.0 ユニット以内にあるすべての車両を削除します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/givemoney \[id] \[type] \[amount] - give money to a player</summary>
 
-  playerにお金を与える
+playerにお金を与える
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須)`id`playerの
-  * **タイプ**- (必須) お金の種類 \[現金、銀行など]
-  * **額**- (必須) 寄付する金額
+- **id**- (必須)`id`playerの
+- **タイプ**- (必須) お金の種類 \[現金、銀行など]
+- **額**- (必須) 寄付する金額
+
 </details>
 
 <details>
   <summary>/setmoney \[id] \[type] \[amount] - set the amount of money a player has</summary>
 
-  player が持つ金額を設定します。
+player が持つ金額を設定します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須)`id`playerの
-  * **タイプ**- (必須) お金の種類 \[現金、銀行など]
-  * **額**- (必須) 設定する金額
+- **id**- (必須)`id`playerの
+- **タイプ**- (必須) お金の種類 \[現金、銀行など]
+- **額**- (必須) 設定する金額
+
 </details>
 
 <details>
   <summary>/job - display your current job</summary>
 
-  現在の職名と等級を表示します
+現在の職名と等級を表示します
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/setjob \[id] \[job] \[grade] - sets a players job</summary>
 
-  指定されたplayerを設定します`id`与えられたものを持つ`job`与えられた`grade`
+指定されたplayerを設定します`id`与えられたものを持つ`job`与えられた`grade`
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id -**（必須）`id`playerの
-  * **仕事**- (必須) ジョブ名
-  * **学年**- (必須) 職位
+- **id -**（必須）`id`playerの
+- **仕事**- (必須) ジョブ名
+- **学年**- (必須) 職位
+
 </details>
 
 <details>
   <summary>/gang - display your current gang</summary>
 
-  現在のギャング名とグレードを表示します
+現在のギャング名とグレードを表示します
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/setgang \[id] \[gang] \[grade] - sets a players gang</summary>
 
-  指定されたplayerを設定します`id`与えられたものの一部となる`gang`与えられた`grade`
+指定されたplayerを設定します`id`与えられたものの一部となる`gang`与えられた`grade`
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (必須)`id`playerの
-  * **時間**- (必須) ギャング名
-  * **学年**(必須) ギャングのグレード
+- **id**- (必須)`id`playerの
+- **時間**- (必須) ギャング名
+- **学年**(必須) ギャングのグレード
+
 </details>
 
 <details>
   <summary>/clearinv \[opt: id]- clears a players inventory</summary>
 
-  指定されたplayerのインベントリをクリアします`id`または、ない場合は独自の在庫`id`与えられる
+指定されたplayerのインベントリをクリアします`id`または、ない場合は独自の在庫`id`与えられる
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (オプション) playerのID
+- **id**- (オプション) playerのID
+
 </details>
 
 <details>
   <summary>/ooc \[message] - ooc chat command</summary>
 
-  チャットにキャラクター外 (ooc) メッセージを送信します。
+チャットにキャラクター外 (ooc) メッセージを送信します。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/me \[message] - shows a message above your head</summary>
 
-  頭上に3Dテキストメッセージを表示します。ロールプレイの強化に役立ちます。
+頭上に3Dテキストメッセージを表示します。ロールプレイの強化に役立ちます。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **メッセージ**- (必須) 表示するメッセージ
+- **メッセージ**- (必須) 表示するメッセージ
+
 </details>
 
 ### 救急車の仕事
@@ -454,71 +496,79 @@ end, true)
 <details>
   <summary>/911e \[message] - sends a message to EMS</summary>
 
-  ジョブ「救急車」を持つ EMS プレイヤーにメッセージを送信します。
+ジョブ「救急車」を持つ EMS プレイヤーにメッセージを送信します。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/status - check the status of the nearest player</summary>
 
-  これにより、最も近いplayerが見つかり、その健康状態が確認されます。
+これにより、最も近いplayerが見つかり、その健康状態が確認されます。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/heal - heals the nearest player</summary>
 
-  これにより、最も近いplayerが見つかり、回復します。
+これにより、最も近いplayerが見つかり、回復します。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/revivep - revives the nearest player</summary>
 
-  これにより、最も近いplayerが見つかり、復活します。
+これにより、最も近いplayerが見つかり、復活します。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/revive - revive yourself</summary>
 
-  完全な健康状態まで回復します
+完全な健康状態まで回復します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/setpain \[opt: id] - sets the pain level to the player</summary>
 
-  痛みのレベルをplayerに設定します。`id`ID が指定されていない場合は自分自身に送信されます。
+痛みのレベルをplayerに設定します。`id`ID が指定されていない場合は自分自身に送信されます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/kill \[opt: id] - kills the player</summary>
 
-  指定されたplayerを強制終了する`id`または、ID が指定されていない場合は自殺します。
+指定されたplayerを強制終了する`id`または、ID が指定されていない場合は自殺します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (オプション) player ID
+- **id**- (オプション) player ID
+
 </details>
 
 <details>
   <summary>/aheal \[opt: id] - heals a player</summary>
 
-  与えられたplayerを回復する`id`または、ID が指定されていない場合は自分自身を回復します。
+与えられたplayerを回復する`id`または、ID が指定されていない場合は自分自身を回復します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (オプション) player ID
+- **id**- (オプション) player ID
+
 </details>
 
 ### 警察
@@ -526,404 +576,430 @@ end, true)
 <details>
   <summary>/911p \[message] - sends an alert to the police</summary>
 
-  このコマンドは、ジョブ「警察」を持つすべてのプレイヤーにアラートを送信します。アラートには指定された内容が含まれます。`message`そして、あなたの現在位置の警察の player の地図にマークが追加されます。
+このコマンドは、ジョブ「警察」を持つすべてのプレイヤーにアラートを送信します。アラートには指定された内容が含まれます。`message`そして、あなたの現在位置の警察の player の地図にマークが追加されます。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **メッセージ**- (必須) アラートとともに送信するメッセージ
+- **メッセージ**- (必須) アラートとともに送信するメッセージ
+
 </details>
 
 <details>
   <summary>/spikestrip - Place a spike strip</summary>
 
-  地面にスパイクストリップオブジェクトを設置します。使用するには、player が「警察」の任務を遂行し、勤務中である必要があります。
+地面にスパイクストリップオブジェクトを設置します。使用するには、player が「警察」の任務を遂行し、勤務中である必要があります。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/grantlicense \[id] \[license] - give a player a license</summary>
 
-  与えられたplayerを与える`id`与えられたライセンス`license` タイプ。
+与えられたplayerを与える`id`与えられたライセンス`license` タイプ。
 
-  このコマンドは、設定された最低グレード以上の「警察」ジョブを持つプレイヤーのみが使用できます。`Config.LicenseRank`(デフォルトはグレード2以上)。
+このコマンドは、設定された最低グレード以上の「警察」ジョブを持つプレイヤーのみが使用できます。`Config.LicenseRank`(デフォルトはグレード2以上)。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) playerのID
-  * **ライセンス**- (必須) ライセンスの種類 (例: 「武器」または「ドライバー」)
+- **id**- (必須) playerのID
+- **ライセンス**- (必須) ライセンスの種類 (例: 「武器」または「ドライバー」)
+
 </details>
 
 <details>
   <summary>/revokelicense \[id] \[license] - remove a player's license</summary>
 
-  指定されたライセンスを削除します`license`指定されたplayerから入力する`id`。
+指定されたライセンスを削除します`license`指定されたplayerから入力する`id`。
 
-  このコマンドは、設定された最低グレード以上の「警察」ジョブを持つプレイヤーのみが使用できます。`Config.LicenseRank`(デフォルトはグレード2以上)。
+このコマンドは、設定された最低グレード以上の「警察」ジョブを持つプレイヤーのみが使用できます。`Config.LicenseRank`(デフォルトはグレード2以上)。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) playerのID
-  * **ライセンス**- (必須) ライセンスの種類 (例: 「武器」または「ドライバー」)
+- **id**- (必須) playerのID
+- **ライセンス**- (必須) ライセンスの種類 (例: 「武器」または「ドライバー」)
+
 </details>
 
 <details>
   <summary>/pobject \[type] - allows officer to spawn an object</summary>
 
-  「警察」の任務を持つplayerがオブジェクトを生成することを許可する
+「警察」の任務を持つplayerがオブジェクトを生成することを許可する
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **タイプ**- (必須) オブジェクトの種類。使用可能なタイプ:
-    * **円錐**- 交通コーン
-    * **バリア**- 道路封鎖障壁
-    * **道路標識**- 道路標識
-    * **テント**- 犯罪現場用のガゼボ
-    * **ライト**- 作業灯
-    * **消去**- オブジェクトを削除する
+- **タイプ**- (必須) オブジェクトの種類。使用可能なタイプ:
+  _ **円錐**- 交通コーン
+  _ **バリア**- 道路封鎖障壁
+  _ **道路標識**- 道路標識
+  _ **テント**- 犯罪現場用のガゼボ
+  _ **ライト**- 作業灯
+  _ **消去**- オブジェクトを削除する
+
 </details>
 
 <details>
   <summary>/cuff - cuff the nearest player</summary>
 
-  このコマンドは、最も近い player をハード カフします (移動を防止します)。
+このコマンドは、最も近い player をハード カフします (移動を防止します)。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/sc - soft cuff the nearest player</summary>
 
-  このコマンドは、最も近い player をソフト カフします (移動を許可します)。
+このコマンドは、最も近い player をソフト カフします (移動を許可します)。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/escort - escort the nearest player</summary>
 
-  このコマンドは最も近い player を護衛します。
+このコマンドは最も近い player を護衛します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/callsign \[name] - allows officer to set a callsign</summary>
 
-  「警察」のジョブを持つplayerがコールサインを設定できます。コールサインは、マップ上のplayerのブリップ名として表示されます。
+「警察」のジョブを持つplayerがコールサインを設定できます。コールサインは、マップ上のplayerのブリップ名として表示されます。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **名前**- (必須) 使用するコールサイン
+- **名前**- (必須) 使用するコールサイン
+
 </details>
 
 <details>
   <summary>/jail - sends nearest player to jail</summary>
 
-  このコマンドは、最も近いplayerを刑務所に送ります。メニューが開き、警官が刑務所の所要時間を設定できるようになります。
+このコマンドは、最も近いplayerを刑務所に送ります。メニューが開き、警官が刑務所の所要時間を設定できるようになります。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/unjail \[id] - unjail a player</summary>
 
-  与えられたplayerを解放する`id`
+与えられたplayerを解放する`id`
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) playerのID
+- **id**- (必須) playerのID
+
 </details>
 
 <details>
   <summary>/clearcasings - clears bullet casings in the area</summary>
 
-  現在の位置から 10.0 単位以内にあるすべての弾丸の薬莢を消去します。
+現在の位置から 10.0 単位以内にあるすべての弾丸の薬莢を消去します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/clearblood - clears blood drops in the area</summary>
 
-  現在の位置の 10.0 単位にある血液滴をすべて消去します。
+現在の位置の 10.0 単位にある血液滴をすべて消去します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/seizecash - seize cash from the nearest player</summary>
 
-  最寄りの player から現金を押収します。
+最寄りの player から現金を押収します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/cam \[id] - allows officer to see cam footage from selected spots</summary>
 
-  「警察」ジョブを持つplayerがセキュリティカメラを閲覧できるようにします。セキュリティカメラの位置はqb-policejobの設定ファイルで設定できます。`Config.SecurityCameras`。
+「警察」ジョブを持つplayerがセキュリティカメラを閲覧できるようにします。セキュリティカメラの位置はqb-policejobの設定ファイルで設定できます。`Config.SecurityCameras`。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) カメラのID
+- **id**- (必須) カメラのID
+
 </details>
 
 <details>
   <summary>/flagplate \[plate] \[reason] - allows speed cameras to find a plate flagged</summary>
 
-  設定で設定できるスピードカメラがナンバープレートの標識を検出できるようにします。`Config.Radars`
+設定で設定できるスピードカメラがナンバープレートの標識を検出できるようにします。`Config.Radars`
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **皿**- （必須）フラグを立てるプレート
-  * **理由**- (必須) フラグの理由
+- **皿**- （必須）フラグを立てるプレート
+- **理由**- (必須) フラグの理由
+
 </details>
 
 <details>
   <summary>/unflagplate \[plate] - removes the flag from the plate</summary>
 
-  プレート上の旗を削除して、カメラがプレートを捉えないようにします。
+プレート上の旗を削除して、カメラがプレートを捉えないようにします。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **皿**- （必須）プレートの旗を消す
+- **皿**- （必須）プレートの旗を消す
+
 </details>
 
 <details>
   <summary>/plateinfo \[plate] - shows the info of the plate</summary>
 
-  プレートがフラグ付けされているかどうかを示し、フラグ付けされている場合はその理由を示します。
+プレートがフラグ付けされているかどうかを示し、フラグ付けされている場合はその理由を示します。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **皿**- （必須）確認するプレート
+- **皿**- （必須）確認するプレート
+
 </details>
 
 <details>
   <summary>/depot \[price] - allows officer to impound vehicle for a price</summary>
 
-  「警察」の職務を持つplayerが、指定された期間内にvehicleを押収物に送ることを許可します。`price`
+「警察」の職務を持つplayerが、指定された期間内にvehicleを押収物に送ることを許可します。`price`
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **価格**- (必須) vehicle をデポから削除するための価格設定
+- **価格**- (必須) vehicle をデポから削除するための価格設定
+
 </details>
 
 <details>
   <summary>/impound - impounds a vehicle without a price</summary>
 
-  価格なしでvehicleを押収
+価格なしでvehicleを押収
 
-  「警察」の職を持つplayerのみが使用可能
+「警察」の職を持つplayerのみが使用可能
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/paytow \[id]  - pays the tow driver $500</summary>
 
-  与えられたplayerを支払う`id`500ドル。支払われるplayerは「牽引」の仕事をしなければなりません。
+与えられたplayerを支払う`id`500ドル。支払われるplayerは「牽引」の仕事をしなければなりません。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) 支払われるplayerのID
+- **id**- (必須) 支払われるplayerのID
+
 </details>
 
 <details>
   <summary>/paylawyer \[id] - pays a lawyer $500</summary>
 
-  与えられたplayerを支払う`id`500ドル。報酬を受け取るplayerは「弁護士」という職業に就いている必要があります。
+与えられたplayerを支払う`id`500ドル。報酬を受け取るplayerは「弁護士」という職業に就いている必要があります。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) 支払われるplayerのID
+- **id**- (必須) 支払われるplayerのID
+
 </details>
 
 <details>
   <summary>/anklet - adds a tracking device to the closest player</summary>
 
-  最も近い player に追跡デバイスを追加します。
+最も近い player に追跡デバイスを追加します。
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/ankletlocation \[cid] - shows the location of the player</summary>
 
-  指定されたplayerの位置を表示します`ci`d
+指定されたplayerの位置を表示します`ci`d
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **シド**- (必須) チェック対象のplayerの市民ID
+- **シド**- (必須) チェック対象のplayerの市民ID
+
 </details>
 
 <details>
   <summary>/takedrivinglicense - takes the players drivers license</summary>
 
-  最も近いplayerの運転免許証を取得します
+最も近いplayerの運転免許証を取得します
 
-  「警察」の職業のプレイヤーのみが使用できます
+「警察」の職業のプレイヤーのみが使用できます
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/takedna \[id] - takes the players dna</summary>
 
-  与えられたplayerのDNAを取得します`id`空の証拠バッグが必要です。
+与えられたplayerのDNAを取得します`id`空の証拠バッグが必要です。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **id**- (必須) playerのID
+- **id**- (必須) playerのID
+
 </details>
 
 ### 銀行業務
 
-* /givecash - playerに現金を与える
+- /givecash - playerに現金を与える
 
 ### 市役所
 
-* /drivinglicense - 運転免許試験後にplayerに免許証を交付する
+- /drivinglicense - 運転免許試験後にplayerに免許証を交付する
 
 ### バインド
 
-* /binds - カスタムキーバインドを設定できます
+- /binds - カスタムキーバインドを設定できます
 
 ### ダイビング
 
-* /divingsuit - ダイビングスーツを使用する
+- /divingsuit - ダイビングスーツを使用する
 
 ### ドアロック
 
-* /newdoor - 新しいドアを作成するためのUIを開きます
-* /doordebug - ドアロックのデバッグ
+- /newdoor - 新しいドアを作成するためのUIを開きます
+- /doordebug - ドアロックのデバッグ
 
 ### 薬物
 
-* /newdealer - 特定の場所（家の正面玄関）に新しいディーラーを作成します
-* /deletedealer - 保存したディーラーを削除します
-* /dealers - ディーラーに関する情報があればリストを表示
-* /dealergoto - ディーラーにテレポート
+- /newdealer - 特定の場所（家の正面玄関）に新しいディーラーを作成します
+- /deletedealer - 保存したディーラーを削除します
+- /dealers - ディーラーに関する情報があればリストを表示
+- /dealergoto - ディーラーにテレポート
 
 ### ごみ
 
-* /cleargarbroutes - ユーザーのgarboルートを削除します
+- /cleargarbroutes - ユーザーのgarboルートを削除します
 
 ### ホットドッグの仕事
 
-* /removestand - ホットドッグスタンドを削除します
+- /removestand - ホットドッグスタンドを削除します
 
 ### ハウジング
 
-* /decorate - デコレーションメニュー/オプションを開きます
-* /createhouse - 場所に家を作成します
-* /addgarage - 場所にガレージを追加します
-* /ring - 場所のドアベルを鳴らす
+- /decorate - デコレーションメニュー/オプションを開きます
+- /createhouse - 場所に家を作成します
+- /addgarage - 場所にガレージを追加します
+- /ring - 場所のドアベルを鳴らす
 
 ### ハッド
 
-* /cash - 現在の現金金額を表示します
-* /bank - 現在の銀行残高を表示します
-* /dev - devアイコンを表示します
+- /cash - 現在の現金金額を表示します
+- /bank - 現在の銀行残高を表示します
+- /dev - devアイコンを表示します
 
 ### 在庫
 
-* /resetinv - 隠し場所/トランク/グローブボックスの在庫をリセットします
-* /rob - 最も近いplayerを奪う
-* /giveitem - playerにアイテムを渡す
-* /randomitems - playerにランダムなアイテムを与える
+- /resetinv - 隠し場所/トランク/グローブボックスの在庫をリセットします
+- /rob - 最も近いplayerを奪う
+- /giveitem - playerにアイテムを渡す
+- /randomitems - playerにランダムなアイテムを与える
 
 ### ラプラス
 
-* /cancelrace - 現在のレースをキャンセルする
-* /togglesetup - レースセットアップのオン/オフを切り替える
+- /cancelrace - 現在のレースをキャンセルする
+- /togglesetup - レースセットアップのオン/オフを切り替える
 
 ### メカニックジョブ
 
-* /setvehiclestatus - 車両のステータスを設定します
-* /setmechanic - 誰かにメカニックの仕事を付与する
-* /firemechanic - メカニックを解雇する
+- /setvehiclestatus - 車両のステータスを設定します
+- /setmechanic - 誰かにメカニックの仕事を付与する
+- /firemechanic - メカニックを解雇する
 
 ### 複数文字
 
-* /logout - 現在のキャラクターからログアウト
-* /closeNUI - 複数文字のNUIを閉じます
+- /logout - 現在のキャラクターからログアウト
+- /closeNUI - 複数文字のNUIを閉じます
 
 ### ニュースジョブ
 
-* /newscam - playerにニュースカメラを付与します
-* /newsmic - playerにニュース用マイクを付与します
-* /newsbmic - playerにブームマイクを付与します
+- /newscam - playerにニュースカメラを付与します
+- /newsmic - playerにニュース用マイクを付与します
+- /newsbmic - playerにブームマイクを付与します
 
 ### 電話
 
-* /setmetadata - プレイヤーのメタデータを設定します
-* /bill - 請求書\* /invoice を player に送信します
+- /setmetadata - プレイヤーのメタデータを設定します
+- /bill - 請求書\* /invoice を player に送信します
 
 ### ラジアルメニュー
 
-* /getintrunk - トランクに入る
-* /putintrunk - player をトランクに入れる（誘拐）
+- /getintrunk - トランクに入る
+- /putintrunk - player をトランクに入れる（誘拐）
 
 ### 小さなリソース
 
-* /resetarmor - 鎧をリセットします
-* /resetparachute - パラシュートをリセットします
-* /testwebhook - ログのWebhookが機能しているかどうかをテストします
-* /id - あなたのIDを表示します
+- /resetarmor - 鎧をリセットします
+- /resetparachute - パラシュートをリセットします
+- /testwebhook - ログのWebhookが機能しているかどうかをテストします
+- /id - あなたのIDを表示します
 
 ### ストリートレース
 
-* /createrace - ストリートレースを開始します
-* /stoprace - 現在のストリート レースを停止します
-* /quitrace - 現在のストリートレースを終了します
-* /startrace - 現在のストリートレースを開始します
+- /createrace - ストリートレースを開始します
+- /stoprace - 現在のストリート レースを停止します
+- /quitrace - 現在のストリートレースを終了します
+- /startrace - 現在のストリートレースを開始します
 
 ### 牽引作業
 
-* /npc - NPCからの牽引ジョブを切り替えます
-* /tow - vehicle をフラットベッドに載せます (トラックの後ろになければなりません)
+- /npc - NPCからの牽引ジョブを切り替えます
+- /tow - vehicle をフラットベッドに載せます (トラックの後ろになければなりません)
 
 ### トラップハウス
 
-* /multikeys - 別のplayerにキーを渡す
+- /multikeys - 別のplayerにキーを渡す
 
 ### 車両の故障
 
-* /fix - 現在のvehicleを修正します
+- /fix - 現在のvehicleを修正します
 
 ### 車両キー
 
-* /engine - エンジンのオン/オフを切り替える
-* /givekeys - playerにキーを渡す
-* /addkeys - playerにキーを追加します
-* /removekeys - player からキーを削除します
+- /engine - エンジンのオン/オフを切り替える
+- /givekeys - playerにキーを渡す
+- /addkeys - playerにキーを追加します
+- /removekeys - player からキーを削除します
 
 ### 車両ショップ
 
-* /transferVehicle - vehicleを誰かに贈ったり売ったりする
+- /transferVehicle - vehicleを誰かに贈ったり売ったりする
 
 ### 兵器
 
-* /repairweapon - 武器を修理する
+- /repairweapon - 武器を修理する

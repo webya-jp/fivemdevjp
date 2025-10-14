@@ -1,16 +1,18 @@
 ---
 title: サーバーエクスポート
 sidebar_label: サーバー
-keywords: [qbox, fivem, qbx_core, エクスポート]
 description: サーバサイドエクスポートのドキュメント。通知、グループ管理、その他のサーバーサイドユーティリティのために利用可能な関数について学んで下さい。
 ---
 
+import { Callout } from 'nextra/components';
+
 # サーバーエクスポート
 
-:::info
+<Callout type="info">
 これらのエクスポートの中には、カスタム・タイプを使用するものがあります。
 これらについては、このリソースのタイプセクションを参照してください。
-:::
+
+</Callout>
 
 ## 作成ジョブ
 
@@ -508,9 +510,10 @@ exports.qbx_core:IsPlayerBanned(source)
 
 ## 通知
 
-:::info
+<Callout type="info">
 参照[`lib.notify`]をご覧ください。
-:::
+
+</Callout>
 
 指定されたプレーヤーのテキストボックスのポップアップで、指定された時間が経過すると消えます。
 

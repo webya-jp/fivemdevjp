@@ -10,7 +10,7 @@ This starter kit provides a simple API for managing the state of the application
 
 Starting with Nextra v4, the search engine is built-in and uses [Pagefind](https://pagefind.app/). Unfortunately, the Pagefind API is only available on the client side, from the browser.
 
-> In this starter kit, we use a simple trick to make it work on the server side 👏 
+> In this starter kit, we use a simple trick to make it work on the server side 👏
 
 You can try the API url [here](/api/search?q=mantine)
 
@@ -60,7 +60,7 @@ Currently, the API returns a JSON response with the following structure:
       {
         "title": "Sub Paragraph title",
         "url": "http://yoursite.com/docs/your-docs",
-        "excerpt": "<mark>Mantine</mark> Components. Here you may use the <mark>Mantine</mark> components: Hello, world!"
+        "excerpt": "<mark>Mantine Components. Here you may use the <mark>Mantine components: Hello, world!"
       }
     ]
   },
@@ -100,7 +100,7 @@ The default URL is exposed at `https://your-site.com/api/github-releases`.
 
 You may configure the API in the `config/index.ts` file:
 
-```ts 
+```ts
   /**
    * GitHub API configuration
    * @see https://docs.github.com/en/rest/reference/repos#releases
@@ -165,4 +165,4 @@ and `app/api/github-releases/route.ts`
       }
     );
 ...
-```    
+```

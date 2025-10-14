@@ -6,26 +6,26 @@ description: Ya'll got doritos?
 
 ## 導入
 
-* 連携して動作する[qb-inventory.md](qb-inventory.md "mention")プレイヤーがアイテムを購入できるようにする
-* ショップの在庫を補充しながらプレイヤーがお金を稼ぐための配達システムが含まれています
+- 連携して動作する[qb-inventory.md](qb-inventory.md 'mention')プレイヤーがアイテムを購入できるようにする
+- ショップの在庫を補充しながらプレイヤーがお金を稼ぐための配達システムが含まれています
 
 ## ショップの作成
 
-> \[!警告]
+> [!WARNING]
 > 黄色で強調表示されているオプションはオプションです。
 
 ### 製品の定義
 
 複数のオプションが利用可能な、ユニークな商品リスト内に、table のアイテムを定義できます。table のアイテムのインデックスは、後で使用するユニークな商品リスト名となるので、必ず異なる名前にしてください。それでは、商品リストに含めるべきものを見ていきましょう。
 
-* 製品リスト:`string`
-* 名前： `string`
-* 額： `number`
-* <mark style="color:yellow;">info</mark>:`table`
-* <mark style="color:yellow;">requiredJob</mark>:`table | string`
-* <mark style="color:yellow;">requiredGang</mark>:`table | string`
-* <mark style="color:yellow;">requiredGrade</mark>:`number`
-* <mark style="color:yellow;">requiredLicense</mark>:`table | string`&#x20;
+- 製品リスト:`string`
+- 名前： `string`
+- 額： `number`
+- info:`table`
+- requiredJob:`table | string`
+- requiredGang:`table | string`
+- requiredGrade:`number`
+- requiredLicense:`table | string`&#x20;
 
 #### 使用例:
 
@@ -43,31 +43,31 @@ description: Ya'll got doritos?
 },
 ```
 
-> \[!警告]
+> [!WARNING]
 > 要件に table を使用する場合、要件はどちらか一方であり、両方ではありません。つまり、警察と救急車を要件に追加した場合、両方のジョブが必要になるわけではなく、どちらか一方だけが必要になります。
 
 ### 場所の定義
 
 一意の識別子でインデックスされたショップのリストを定義できます。これらの識別子はそれぞれ異なる必要があります。これは、true に設定されている場合、ショップの在庫補充を可能にするためです。
 
-* ラベル:`string`
-* 製品： `table`
-* 座標:`vector`
-* 配達： `vector`
-* <mark style="color:yellow;">ped</mark>:`string`
-* <mark style="color:yellow;">scenario</mark>:`string`
-* <mark style="color:yellow;">radius</mark>:`float`
-* <mark style="color:yellow;">targetIcon</mark>:`string`
-* <mark style="color:yellow;">targetLabel</mark>:`string`
-* <mark style="color:yellow;">showblip</mark>:`boolean`
-* <mark style="color:yellow;">blipsprite</mark>:`number`
-* <mark style="color:yellow;">blipscale</mark>:`float`
-* <mark style="color:yellow;">blipcolor</mark>:`number`
-* <mark style="color:yellow;">radius</mark>:`float`
-* <mark style="color:yellow;">useStock</mark>:`boolean`
-* <mark style="color:yellow;">requiredJob</mark>:`string | table`
-* <mark style="color:yellow;">requiredGang</mark>:`string | table`
-* <mark style="color:yellow;">requiredItem</mark>:`string | table`
+- ラベル:`string`
+- 製品： `table`
+- 座標:`vector`
+- 配達： `vector`
+- ped:`string`
+- scenario:`string`
+- radius:`float`
+- targetIcon:`string`
+- targetLabel:`string`
+- showblip:`boolean`
+- blipsprite:`number`
+- blipscale:`float`
+- blipcolor:`number`
+- radius:`float`
+- useStock:`boolean`
+- requiredJob:`string | table`
+- requiredGang:`string | table`
+- requiredItem:`string | table`
 
 使用例:
 
@@ -96,5 +96,5 @@ description: Ya'll got doritos?
 },
 ```
 
-> \[!警告]
+> [!WARNING]
 > 設定する際は`requiredJob`、`requiredGang` または `requiredItem`string と table の両方のメソッドを使用しないでください。どちらか 1 つだけを選択してください。

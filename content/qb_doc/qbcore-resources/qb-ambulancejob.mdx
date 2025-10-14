@@ -10,9 +10,9 @@ description: How many lives will you save?
 
 含まれるもの:
 
-* 病院ベッドチェックインシステム（[https://github.com/ElusionPDX/mythic\_hospital](https://github.com/ElusionPDX/mythic_hospital)）
-* フルダメージ/出血システム（[https://github.com/ElusionPDX/mythic\_hospital](https://github.com/ElusionPDX/mythic_hospital)）
-* 出勤/退勤、ジョブショップ、vehicleスポナー
+- 病院ベッドチェックインシステム（[https://github.com/ElusionPDX/mythichospital](https://github.com/ElusionPDX/mythic_hospital)）
+- フルダメージ/出血システム（[https://github.com/ElusionPDX/mythichospital](https://github.com/ElusionPDX/mythic_hospital)）
+- 出勤/退勤、ジョブショップ、vehicleスポナー
 
 ## 構成
 
@@ -69,10 +69,10 @@ Config.VehicleSettings = {} -- Enable or disable vehicle extras when pulling the
 
 ## アイテム
 
-* ifaks - playerのストレスを軽減し、+ 10回復します
-* 包帯 - playerを+10回復し、出血レベルを1段階除去する確率は50%
-* 応急処置 - ラストスタンド状態にある限り、最も近いplayerを完全に回復します。
-* 鎮痛剤 - 一時的に出血を止めるが、時間が経つと効果がなくなる
+- ifaks - playerのストレスを軽減し、+ 10回復します
+- 包帯 - playerを+10回復し、出血レベルを1段階除去する確率は50%
+- 応急処置 - ラストスタンド状態にある限り、最も近いplayerを完全に回復します。
+- 鎮痛剤 - 一時的に出血を止めるが、時間が経つと効果がなくなる
 
 ## イベント
 
@@ -108,10 +108,10 @@ TriggerServerEvent('hospital:server:ambulanceAlert', 'I need help')
 
 このイベントを呼び出すと、playerが無料で復活するか、真のブール値で有料で復活します。
 
-> \[!INFO]
+> [!NOTE]
 > 課金型の蘇生スポット/pedに使用できる
 
-> \[!警告]
+> [!WARNING]
 > このイベントは、常にソース player から救急キットを削除します。
 
 ```lua
@@ -142,69 +142,77 @@ end)
 <details>
   <summary>/911e \[message] - sends a message to EMS</summary>
 
-  ジョブ「救急車」を持つ EMS プレイヤーにメッセージを送信します。
+ジョブ「救急車」を持つ EMS プレイヤーにメッセージを送信します。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
 
-  * **メッセージ**- (必須) 送信するメッセージ
+- **メッセージ**- (必須) 送信するメッセージ
+
 </details>
 
 <details>
   <summary>/status - check the status of the nearest player</summary>
 
-  これにより、最も近いplayerが見つかり、その健康状態がチェックされます。
+これにより、最も近いplayerが見つかり、その健康状態がチェックされます。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/heal - heals the nearest player</summary>
 
-  これにより、最も近いplayerが見つかり、回復します
+これにより、最も近いplayerが見つかり、回復します
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/revivep - revives the nearest player</summary>
 
-  これにより、最も近いplayerが見つかり、復活します。
+これにより、最も近いplayerが見つかり、復活します。
 
-  **権限レベル:**&#x30E6;ーザー
+**権限レベル:**&#x30E6;ーザー
+
 </details>
 
 <details>
   <summary>/revive - revive yourself</summary>
 
-  完全な健康状態まで回復します
+完全な健康状態まで回復します
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/setpain \[opt: id] - sets the pain level to the player</summary>
 
-  痛みのレベルをplayerに設定します。`id`ID が指定されていない場合は自分自身に送信されます。
+痛みのレベルをplayerに設定します。`id`ID が指定されていない場合は自分自身に送信されます。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
+
 </details>
 
 <details>
   <summary>/kill \[opt: id] - kills the player</summary>
 
-  指定されたplayerを強制終了します`id`または、ID が指定されていない場合は自殺します。
+指定されたplayerを強制終了します`id`または、ID が指定されていない場合は自殺します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (オプション) player ID
+- **id**- (オプション) player ID
+
 </details>
 
 <details>
   <summary>/aheal \[opt: id] - heals a player</summary>
 
-  与えられたplayerを回復する`id`または、ID が指定されていない場合は自分自身を回復します。
+与えられたplayerを回復する`id`または、ID が指定されていない場合は自分自身を回復します。
 
-  **権限レベル:**&#x7BA1;理者
+**権限レベル:**&#x7BA1;理者
 
-  * **id**- (オプション) player ID
+- **id**- (オプション) player ID
+
 </details>

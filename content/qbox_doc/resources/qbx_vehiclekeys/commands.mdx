@@ -1,10 +1,11 @@
 ---
 title: コマンド
 sidebar_label: コマンド
-keywords: [qbox, fivem, qbx_vehiclekeys, commands, スラッシュ]
 description: Qbox の qbx_vehiclekeys のスラッシュコマンド。利用可能なスラッシュコマンドとその使い方について学ぶ。
 image: https://files.fivemerr.com/images/b02ac973-403b-4ead-99bf-17bc307172d9.png
 ---
+
+import { Callout } from 'nextra/components';
 
 # スラッシュコマンド
 
@@ -15,9 +16,11 @@ image: https://files.fivemerr.com/images/b02ac973-403b-4ead-99bf-17bc307172d9.pn
 
 ## 鍵を渡す
 
-:::info
+<Callout type="info">
 このコマンドは**全選手**(特別な許可グループは必要ありません）。
-:::
+
+</Callout>
+
 現在乗っている車のキーを誰かに譲る。\
 を省略した場合`id`パラメータでは、キーは最も近いプレーヤーに、あるいは同じ車内にいる場合は乗員全員に渡される。
 
@@ -42,9 +45,11 @@ image: https://files.fivemerr.com/images/b02ac973-403b-4ead-99bf-17bc307172d9.pn
 
 ## 永久キーを与える
 
-:::info
+<Callout type="info">
 このコマンドは`group.admin`許可グループ
-:::
+
+</Callout>
+
 現在乗っている（または最後に使った）車両の永久キーをプレイヤーに与える。
 
 命令だ：`/addkeys`

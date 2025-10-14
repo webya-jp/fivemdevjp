@@ -6,12 +6,12 @@ description: Keep track of your vitals in style
 
 ## 導入
 
-* 体力、鎧、食料レベル、渇きレベルなどの重要な情報を追跡するプレイヤーのヘッドアップ ディスプレイ。
+- 体力、鎧、食料レベル、渇きレベルなどの重要な情報を追跡するプレイヤーのヘッドアップ ディスプレイ。
 
-> \[!INFO]
+> [!NOTE]
 > 設定メニューはキーマッピングを使用しており、デフォルトでは「I」に設定されています
 
-> \[!警告]
+> [!WARNING]
 > プレイヤー設定はplayerのマシンにあるKVPを使用して保存されるため、リセットするにはゲーム内のメニューボタンを使用するしかありません。
 
 ## プレビュー
@@ -25,26 +25,29 @@ description: Keep track of your vitals in style
 <details>
   <summary>Why do my borders not align with the maps?</summary>
 
-  多くの場合、これはGTA設定でセーフゾーンがデフォルトに設定されていないことを意味します。（設定/表示/「デフォルトに戻す」）
+多くの場合、これはGTA設定でセーフゾーンがデフォルトに設定されていないことを意味します。（設定/表示/「デフォルトに戻す」）
+
 </details>
 
 <details>
   <summary>How do I enable dev mode?</summary>
 
-  簡単です！/adminと入力してメニューを開き、「開発者向けオプション」という最後のセクションまで進むと、「開発者モード」という項目があります。これで無敵状態が維持され、サークル/ラジアルにクールな開発者アイコンが表示されます。
+簡単です！/adminと入力してメニューを開き、「開発者向けオプション」という最後のセクションまで進むと、「開発者モード」という項目があります。これで無敵状態が維持され、サークル/ラジアルにクールな開発者アイコンが表示されます。
+
 </details>
 
 <details>
   <summary>What does the purple circle/radial do?</summary>
 
-  これがハーネスインジケーターです！インベントリに「ハーネス」アイテムを所持している時、またはZPH1Zにいる時に表示されます。また、「ハーネス」アイテムを使用すると、円/放射状のインジケーターが残り使用回数を示し、時間の経過とともに減少します。
+これがハーネスインジケーターです！インベントリに「ハーネス」アイテムを所持している時、またはZPH1Zにいる時に表示されます。また、「ハーネス」アイテムを使用すると、円/放射状のインジケーターが残り使用回数を示し、時間の経過とともに減少します。
+
 </details>
 
 ## 役立つイベント
 
 ### hud:server?:GainStress
 
-* 参照用ソースコード
+- 参照用ソースコード
 
 ```etlua
 RegisterNetEvent('hud:server:GainStress', function(amount)
@@ -70,7 +73,7 @@ RegisterNetEvent('hud:server:GainStress', function(amount)
 end)
 ```
 
-* 使い方
+- 使い方
 
 ```etlua
 TriggerServerEvent('hud:server:GainStress', --[[number]]))
@@ -78,12 +81,12 @@ OR
 TriggerServerEvent('hud:server:GainStress', math.random(1, 3))
 ```
 
-> \[!INFO]
+> [!NOTE]
 > クライアント側でこのトリガーを実行する場合、ソースを定義する必要はありません。
 
 ### hud:server?:ストレス解消
 
-* 参照用ソースコード
+- 参照用ソースコード
 
 ```etlua
 RegisterNetEvent('hud:server:RelieveStress', function(amount)
@@ -109,7 +112,7 @@ RegisterNetEvent('hud:server:RelieveStress', function(amount)
 end)
 ```
 
-* 使い方
+- 使い方
 
 ```etlua
 TriggerServerEvent('hud:server:RelieveStress', --[[number]]))

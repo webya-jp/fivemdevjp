@@ -49,7 +49,7 @@ add_ace resource.ox_lib command.remove_principal allow
 
 <Tabs items={["Lua", "JS"]}>
   <Tabs.Tab>
-    リソース内でライブラリを有効にするには、以下を追加するだけです。`@ox_lib/init.lua`shared\_scriptとして`fxmanifest.lua` ファイル。
+    リソース内でライブラリを有効にするには、以下を追加するだけです。`@ox_lib/init.lua`sharedscriptとして`fxmanifest.lua` ファイル。
 
     ```lua
     shared_scripts {
@@ -73,9 +73,9 @@ add_ace resource.ox_lib command.remove_principal allow
     }
     ```
 
-    ox\_lib がスクリプトにインポートされると、いくつかの新しいグローバルが使用できるようになります。
+    oxlib がスクリプトにインポートされると、いくつかの新しいグローバルが使用できるようになります。
 
-    * `lib`スクリプトに ox\_lib モジュールを動的にインポートします。
+    * `lib`スクリプトに oxlib モジュールを動的にインポートします。
     * `require`独自のスクリプトからモジュールをインポートします。
     * `cache` 見る [ここ](./ox_lib/Modules/Cache/Shared)。
 

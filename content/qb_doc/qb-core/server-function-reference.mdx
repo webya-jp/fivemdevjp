@@ -10,9 +10,9 @@ description: Learn about and how to use common core server functions!
 
 playerの特定の識別子を取得する
 
-* ソース： `number`
-* 識別子:`string`（オプション）
-* <mark style="color:yellow;">return</mark>:`string`&#x20;
+- ソース： `number`
+- 識別子:`string`（オプション）
+- return:`string`&#x20;
 
 ```lua
 local identifier = QBCore.Functions.GetIdentifier(source, 'license')
@@ -28,8 +28,8 @@ print(identifier)
 
 識別子でプレーヤーのソースを取得する
 
-* 識別子:`string`&#x20;
-* <mark style="color:yellow;">return</mark>:`number`
+- 識別子:`string`&#x20;
+- return:`number`
 
 ```lua
 local identifier = QBCore.Functions.GetIdentifier(source, 'license')
@@ -41,8 +41,8 @@ print(playerSource)
 
 ソースからplayerを取得し、データにアクセスする
 
-* ソース： `number`|`string`&#x20;
-* <mark style="color:yellow;">return</mark>:`table`
+- ソース： `number`|`string`&#x20;
+- return:`table`
 
 ```lua
 local Player = QBCore.Functions.GetPlayer(source)
@@ -53,8 +53,8 @@ QBCore.Debug(Player)
 
 市民IDでplayerを取得し、データにアクセスします（オンラインである必要があります）
 
-* 市民ID:`string`
-* <mark style="color:yellow;">return</mark>:`table`
+- 市民ID:`string`
+- return:`table`
 
 ```lua
 local Player = QBCore.Functions.GetPlayerByCitizenId('ONZ55343')
@@ -65,8 +65,8 @@ QBCore.Debug(Player)
 
 携帯電話numberでplayerを取得する（オンラインである必要があります）
 
-* number:`number`
-* <mark style="color:yellow;">return</mark>:`table`
+- number:`number`
+- return:`table`
 
 ```lua
 local Player = QBCore.Functions.GetPlayerByPhone(6422738491)
@@ -77,8 +77,8 @@ QBCore.Debug(Player)
 
 アカウントnumberでplayerを取得する（オンラインである必要があります）
 
-* アカウント： `string`
-* <mark style="color:yellow;">return</mark>:`table`
+- アカウント： `string`
+- return:`table`
 
 ```lua
 local Player = QBCore.Functions.GetPlayerByAccount('US08QBCore2345987612')
@@ -89,9 +89,9 @@ QBCore.Debug(Player)
 
 キャラクター情報でplayerを取得する（オンラインである必要があります）
 
-* 財産： `string`
-* 価値： `any`
-* <mark style="color:yellow;">return</mark>:`table`
+- 財産： `string`
+- 価値： `any`
+- return:`table`
 
 ```lua
 local Player = QBCore.Functions.GetPlayerByCharInfo('firstname', 'Kakarot')
@@ -102,7 +102,7 @@ QBCore.Debug(Player)
 
 サーバー内のすべての player ID を取得します (非推奨メソッド)
 
-* <mark style="color:yellow;">return</mark>:`table`
+- return:`table`
 
 ```lua
 local Players = QBCore.Functions.GetPlayers()
@@ -113,7 +113,7 @@ QBCore.Debug(Players)
 
 サーバー上のすべてのアクティブプレイヤーの table にアクセスする (上記より優先)
 
-* <mark style="color:yellow;">return</mark>:`table`
+- return:`table`
 
 ```lua
 local Players = QBCore.Functions.GetQBPlayers()
@@ -124,8 +124,8 @@ QBCore.Debug(Players)
 
 特定の仕事に従事しているplayer IDのtableと金額を取得します
 
-* 仕事： `string`
-* <mark style="color:yellow;">return</mark>:`table`、`number`
+- 仕事： `string`
+- return:`table`、`number`
 
 ```lua
 local Players, Amount = QBCore.Functions.GetPlayersOnDuty('police')
@@ -137,8 +137,8 @@ print('Currently '..amount..' police online')
 
 特定のジョブに勤務しているプレイヤーの数を取得します
 
-* 仕事： `string`
-* <mark style="color:yellow;">return</mark>:`number`
+- 仕事： `string`
+- return:`number`
 
 ```lua
 local amount = QBCore.Functions.GetDutyCount('police')
@@ -151,8 +151,8 @@ print('Currently '..amount..' police online')
 
 渡されたエンティティの座標を取得する
 
-* 実在物： `number`
-* <mark style="color:yellow;">return</mark>:`vector4`
+- 実在物： `number`
+- return:`vector4`
 
 ```lua
 local ped = GetPlayerPed(source)
@@ -164,9 +164,9 @@ print(coords)
 
 世界でplayerに最も近い物体とその距離を取得します
 
-* ソース： `string`&#x20;
-* 座標:`vector3`（オプション）
-* <mark style="color:yellow;">return</mark>:`number`|`number`
+- ソース： `string`&#x20;
+- 座標:`vector3`（オプション）
+- return:`number`|`number`
 
 ```lua
 local ped = GetPlayerPed(source)
@@ -179,9 +179,9 @@ print('Closest Object:', objectHandle, 'Distance:', distance)
 
 世界でplayerに最も近いvehicleと、その距離を取得します
 
-* ソース： `string`&#x20;
-* 座標:`vector3`（オプション）
-* <mark style="color:yellow;">return</mark>:`number`|`number`
+- ソース： `string`&#x20;
+- 座標:`vector3`（オプション）
+- return:`number`|`number`
 
 ```lua
 local ped = GetPlayerPed(source)
@@ -194,9 +194,9 @@ print('Closest Vehicle:', vehicle, 'Distance:', distance)
 
 世界でplayerに最も近いpedと、その距離を取得します
 
-* ソース： `string`&#x20;
-* 座標:`vector3`（オプション）
-* <mark style="color:yellow;">return</mark>:`number`|`number`
+- ソース： `string`&#x20;
+- 座標:`vector3`（オプション）
+- return:`number`|`number`
 
 ```lua
 local ped = GetPlayerPed(source)
@@ -211,11 +211,11 @@ print('Closest Ped:', closestPed, 'Distance:', distance)
 
 標準のクライアント支援を使用して、playerの近くにvehicleを生成します。`CreateVehicle`RPC。vehicleが表示されるには、クライアントがスポーン地点の近くにいる必要がある。
 
-* ソース： `string`
-* モデル： `string`|`number`
-* 座標:`vector3` *（オプション）*
-* ワープ:`boolean`（オプション）
-* <mark style="color:yellow;">return</mark>:`number`
+- ソース： `string`
+- モデル： `string`|`number`
+- 座標:`vector3` _（オプション）_
+- ワープ:`boolean`（オプション）
+- return:`number`
 
 ```lua
 local veh = QBCore.Functions.SpawnVehicle(source, "sultan")
@@ -226,11 +226,11 @@ print("Spawned vehicle:", veh)
 
 実験的な方法を使ってvehicleを生成する`CREATE_AUTOMOBILE`ネイティブでは、クライアントに依存しない作成方法を採用しています。これはより効率的ですが、**すべてのvehicleタイプでは機能しない**
 
-* ソース： `string`
-* モデル： `string`|`number`
-* 座標:`vector3` *（オプション）*
-* ワープ:`boolean`（オプション）
-* <mark style="color:yellow;">return</mark>:`number`
+- ソース： `string`
+- モデル： `string`|`number`
+- 座標:`vector3` _（オプション）_
+- ワープ:`boolean`（オプション）
+- return:`number`
 
 ```lua
 local veh = QBCore.Functions.CreateAutomobile(source, "sultan")
@@ -241,12 +241,12 @@ print("Created automobile:", veh)
 
 新しいものを使用する`CreateVehicleServerSetter`サーバー上で車両をスポーンするためのネイティブ。信頼性が高く、主要なvehicleタイプをすべてサポートしています。
 
-* ソース： `string`
-* モデル： `string`|`number`&#x20;
-* 車両タイプ:`string`
-* 座標:`vector3` *（オプション）*
-* ワープ:`boolean`（オプション）
-* <mark style="color:yellow;">return</mark>:`number`
+- ソース： `string`
+- モデル： `string`|`number`&#x20;
+- 車両タイプ:`string`
+- 座標:`vector3` _（オプション）_
+- ワープ:`boolean`（オプション）
+- return:`number`
 
 ```lua
 local veh = QBCore.Functions.CreateVehicle(source, "sultan", "automobile")
@@ -259,7 +259,7 @@ print("Created vehicle with server setter:", veh)
 
 フレームワークで使用される内部バケット状態テーブルを返します
 
-* <mark style="color:yellow;">return</mark>:`table`、`table`&#x20;
+- return:`table`、`table`&#x20;
 
 ```lua
 local playerBuckets, entityBuckets = QBCore.Functions.GetBucketObjects()
@@ -271,8 +271,8 @@ QBCore.Debug(entityBuckets)
 
 指定されたバケットに割り当てられたplayer IDのリストを返します。
 
-* バケット:`number`
-* <mark style="color:yellow;">return</mark>:`table`|`boolean`
+- バケット:`number`
+- return:`table`|`boolean`
 
 ```lua
 local players = QBCore.Functions.GetPlayersInBucket(3)
@@ -285,8 +285,8 @@ end
 
 指定されたバケットに割り当てられたエンティティID（プレイヤーを除く）のリストを返します。
 
-* バケット:`number`
-* <mark style="color:yellow;">return</mark>:`table`|`boolean`
+- バケット:`number`
+- return:`table`|`boolean`
 
 ```lua
 local entities = QBCore.Functions.GetEntitiesInBucket(3)
@@ -299,9 +299,9 @@ end
 
 指定されたルーティングバケットにエンティティ（例：ped、vehicle、prop）を割り当てます。
 
-* 実在物： `number`&#x20;
-* バケット:`number`
-* <mark style="color:yellow;">return</mark>:`boolean`
+- 実在物： `number`&#x20;
+- バケット:`number`
+- return:`boolean`
 
 ```lua
 local entity = GetVehiclePedIsIn(GetPlayerPed(source), false)
@@ -315,9 +315,9 @@ end
 
 指定されたルーティングバケットにplayerを割り当てます
 
-* ソース： `string`
-* バケット:`number`
-* <mark style="color:yellow;">return</mark>:`boolean`
+- ソース： `string`
+- バケット:`number`
+- return:`boolean`
 
 ```lua
 local success = QBCore.Functions.SetPlayerBucket(source, 3)
@@ -332,8 +332,8 @@ end
 
 アイテムを「使用可能」として登録し、コールバック関数にバインドします。
 
-* アイテム： `string`
-* データ： `function`|`table`
+- アイテム： `string`
+- データ： `function`|`table`
 
 ```lua
 QBCore.Functions.CreateUseableItem('my_cool_item', function(source, item)
@@ -347,8 +347,8 @@ end)
 
 指定されたアイテムが使用可能として登録されているかどうかを確認します
 
-* アイテム： `string`&#x20;
-* 戻る： `table`|`nil`
+- アイテム： `string`&#x20;
+- 戻る： `table`|`nil`
 
 ```lua
 if QBCore.Functions.CanUseItem("my_cool_item") then
@@ -360,8 +360,8 @@ end
 
 playerで使用するアイテムをトリガーする
 
-* ソース： `string`
-* アイテム： `string`
+- ソース： `string`
+- アイテム： `string`
 
 ```lua
 local Player = QBCore.Functions.GetPlayer(source)
@@ -373,10 +373,10 @@ QBCore.Functions.UseItem(source, 'my_cool_item')
 
 player に特定のアイテムがあるかどうかを確認します
 
-* ソース： `string`
-* アイテム:`string`|`table`&#x20;
-* 額： `number`（オプション）
-* <mark style="color:yellow;">return</mark>:`boolean`
+- ソース： `string`
+- アイテム:`string`|`table`&#x20;
+- 額： `number`（オプション）
+- return:`boolean`
 
 ```lua
 if QBCore.Functions.HasItem(source, "radio") then
@@ -398,8 +398,8 @@ end
 
 player に特定の権限レベルを付与する (セッションごとにのみ)
 
-* ソース： `string`
-* 許可： `string`
+- ソース： `string`
+- 許可： `string`
 
 ```lua
 local Player = QBCore.Functions.GetPlayer(playerId)
@@ -412,8 +412,8 @@ QBCore.Functions.AddPermission(Player.PlayerData.source, permission)
 
 特定の権限レベルまたはすべてのプレーヤーの権限を削除します（セッションごとにのみ）
 
-* ソース： `string`
-* 許可： `string`（オプション）
+- ソース： `string`
+- 許可： `string`（オプション）
 
 ```lua
 local Player = QBCore.Functions.GetPlayer(playerId)
@@ -426,8 +426,8 @@ QBCore.Functions.RemovePermission(Player.PlayerData.source, permission)
 
 player に特定の権限レベルがあるかどうかを確認する
 
-* ソース： `string`
-* 許可： `string`|`table`
+- ソース： `string`
+- 許可： `string`|`table`
 
 ```lua
 if QBCore.Functions.HasPermission(source, "admin") then
@@ -439,8 +439,8 @@ end
 
 playerの権限レベルを取得する
 
-* ソース： `string`
-* <mark style="color:yellow;">return</mark>:`table`
+- ソース： `string`
+- return:`table`
 
 ```lua
 local permissions = QBCore.Functions.GetPermission(source)
@@ -451,8 +451,8 @@ QBCore.Debug(permissions)
 
 playerがレポートの受信をオプトインしているかどうかを確認します
 
-* ソース： `string`
-* <mark style="color:yellow;">return</mark>:`boolean`
+- ソース： `string`
+- return:`boolean`
 
 ```lua
 if QBCore.Functions.IsOptin(source) then
@@ -464,7 +464,7 @@ end
 
 プレイヤーのステータスを切り替えてレポートを受け取る
 
-* ソース： `string`
+- ソース： `string`
 
 ```lua
 QBCore.Functions.ToggleOptin(source)
@@ -476,10 +476,10 @@ QBCore.Functions.ToggleOptin(source)
 
 サーバーからクライアント側のコールバック関数をトリガーします。Promiseによる非同期処理と、関数ベースの直接的なレスポンス処理の両方をサポートします。
 
-* 名前： `string`
-* ソース： `string`
-* cb:`function` *（オプション）*
-* `...`:`any`&#x20;
+- 名前： `string`
+- ソース： `string`
+- cb:`function` _（オプション）_
+- `...`:`any`&#x20;
 
 ```lua
 CreateThread(function()
@@ -498,8 +498,8 @@ end)
 
 クライアントからトリガーできる新しいサーバー側コールバックを登録します
 
-* 名前： `string`
-* cb:`function`
+- 名前： `string`
+- cb:`function`
 
 ```lua
 QBCore.Functions.CreateCallback("resourceName:testCallback", function(source, cb)
@@ -514,10 +514,10 @@ end)
 
 特定のplayerで通知をトリガーします
 
-* ソース： `string`
-* 文章： `string`
-* タイプ： `string`（オプション）
-* 長さ： `number`（オプション）
+- ソース： `string`
+- 文章： `string`
+- タイプ： `string`（オプション）
+- 長さ： `number`（オプション）
 
 ```lua
 QBCore.Functions.Notify(source, 'Success!', 'success', 5000)
@@ -527,9 +527,9 @@ QBCore.Functions.Notify(source, 'Success!', 'success', 5000)
 
 tableまたは値のフォーマットされた色分けされたデバッグ出力を印刷します
 
-* table:`table`|`any`
-* インデント:`number`（オプション）
-* リソース： `string`
+- table:`table`|`any`
+- インデント:`number`（オプション）
+- リソース： `string`
 
 ```lua
 local data = {
@@ -548,8 +548,8 @@ QBCore.Debug(data)
 
 赤色のエラーログをコンソールに出力します
 
-* リソース： `string`
-* メッセージ： `string`
+- リソース： `string`
+- メッセージ： `string`
 
 ```lua
 QBCore.ShowError('qb-core', 'Error!')
@@ -559,8 +559,8 @@ QBCore.ShowError('qb-core', 'Error!')
 
 緑色の成功/ログメッセージをコンソールに出力します
 
-* リソース： `string`
-* メッセージ： `string`
+- リソース： `string`
+- メッセージ： `string`
 
 ```lua
 QBCore.ShowSuccess('qb-core', 'Success!')
@@ -570,10 +570,10 @@ QBCore.ShowSuccess('qb-core', 'Success!')
 
 playerをサーバーからキックする
 
-* プレイヤーID:`string`
-* 理由： `string`
-* キック理由を設定する:`function`（オプション）
-* 延期:`table`（オプション）
+- プレイヤーID:`string`
+- 理由： `string`
+- キック理由を設定する:`function`（オプション）
+- 延期:`table`（オプション）
 
 ```lua
 QBCore.Functions.Kick(playerId, "Exploiting detected")

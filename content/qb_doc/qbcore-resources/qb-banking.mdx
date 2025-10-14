@@ -6,12 +6,12 @@ description: Keep your money safe and quickly access!
 
 ## 導入
 
-* マップ上には複数のATMと銀行があり、操作できる
-* 銀行/仕事/ギャング/共有アカウントとのplayerのすべてのやり取りを処理します
-* ATMと銀行カードの統合
-* プレイヤー間の共有アカウント
-* 銀行の初回開設時にジョブ/ギャングアカウントを自動作成
-* ジョブ/ギャングアカウントへのボスのみのアクセス
+- マップ上には複数のATMと銀行があり、操作できる
+- 銀行/仕事/ギャング/共有アカウントとのplayerのすべてのやり取りを処理します
+- ATMと銀行カードの統合
+- プレイヤー間の共有アカウント
+- 銀行の初回開設時にジョブ/ギャングアカウントを自動作成
+- ジョブ/ギャングアカウントへのボスのみのアクセス
 
 ## プレイヤーアカウントの作成
 
@@ -21,11 +21,11 @@ playerの新しい共有アカウントを作成し、成功したかどうか�
 exports['qb-banking']:CreatePlayerAccount(playerId, accountName, accountBalance, accountUsers)
 ```
 
-* プレイヤーID:`number`
-* アカウント名： `string`
-* アカウント残高:`number`
-* アカウントユーザー:`table`
-* 戻り値:`boolean`
+- プレイヤーID:`number`
+- アカウント名： `string`
+- アカウント残高:`number`
+- アカウントユーザー:`table`
+- 戻り値:`boolean`
 
 ```lua
 RegisterCommand('createPlayerAccount', function(source)
@@ -45,8 +45,8 @@ end, true)
 exports['qb-banking']:CreateJobAccount(accountName, accountBalance)
 ```
 
-* アカウント名： `string`
-* アカウント残高:`number`
+- アカウント名： `string`
+- アカウント残高:`number`
 
 #### 使用例:
 
@@ -66,8 +66,8 @@ end, true)
 exports['qb-banking']:CreateGangAccount(accountName, accountBalance)
 ```
 
-* アカウント名： `string`
-* アカウント残高:`number`
+- アカウント名： `string`
+- アカウント残高:`number`
 
 #### 使用例:
 
@@ -87,10 +87,10 @@ end, true)
 exports['qb-banking']:AddMoney(accountName, amount, reason)
 ```
 
-* アカウント名： `string`
-* 額： `number`
-* <mark style="color:yellow;">reason</mark>:`string`
-* 戻り値:`boolean`
+- アカウント名： `string`
+- 額： `number`
+- reason:`string`
+- 戻り値:`boolean`
 
 ```lua
 RegisterCommand('addMoney', function()
@@ -108,10 +108,10 @@ end, true)
 exports['qb-banking']:RemoveMoney(accountName, amount, reason)
 ```
 
-* アカウント名： `string`
-* 額： `number`
-* <mark style="color:yellow;">reason</mark>:`string`
-* 戻り値:`boolean`
+- アカウント名： `string`
+- 額： `number`
+- reason`string`
+- 戻り値:`boolean`
 
 ```lua
 RegisterCommand('removeMoney', function()
@@ -129,8 +129,8 @@ end, true)
 exports['qb-banking']:GetAccount(accountName)
 ```
 
-* アカウント名： `string`
-* 戻り値:`table | nil`
+- アカウント名： `string`
+- 戻り値:`table | nil`
 
 ```lua
 RegisterCommand('getAccount', function()
@@ -153,8 +153,8 @@ end, true)
 exports['qb-banking']:GetAccountBalance(accountName)
 ```
 
-* アカウント名： `string`
-* 戻り値:`number`
+- アカウント名： `string`
+- 戻り値:`number`
 
 ```lua
 RegisterCommand('getBalance', function()
@@ -172,13 +172,13 @@ end, true)
 exports['qb-banking']:CreateBankStatement(playerId, account, amount, reason, statementType, accountType)
 ```
 
-* プレイヤーID:`number`
-* アカウント： `string`
-* 額： `number`
-* 理由： `string`
-* ステートメントタイプ:`string`
-* アカウントタイプ:`string`
-* 戻り値:`boolean`
+- プレイヤーID:`number`
+- アカウント： `string`
+- 額： `number`
+- 理由： `string`
+- ステートメントタイプ:`string`
+- アカウントタイプ:`string`
+- 戻り値:`boolean`
 
 ```lua
 RegisterCommand('createBankStatement', function(source)

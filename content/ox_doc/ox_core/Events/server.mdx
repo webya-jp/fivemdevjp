@@ -3,7 +3,7 @@ import { Callout, Tabs } from 'nextra/components';
 # サーバーイベント
 
 <Callout type="warning">
-  これらのイベントは、アクションが発生するとox\_coreによってトリガーされます。他のスクリプトからトリガーしてはいけません。
+  これらのイベントは、アクションが発生するとox_coreによってトリガーされます。他のスクリプトからトリガーしてはいけません。
 </Callout>
 
 ## オックス:セーブド・プレーヤーズ
@@ -13,10 +13,11 @@ import { Callout, Tabs } from 'nextra/components';
 <Callout type="info">
   デフォルトではこのイベントがトリガーされる：
 
-  * 10分ごと。
-  * サーバーのシャットダウン時。
-  * いつ[`Ox.SaveAllPlayers`](/ox_core/Functions/server#oxsaveallplayers)と呼ばれる。
-  * コマンド`saveplayers`が使われている。
+- 10分ごと。
+- サーバーのシャットダウン時。
+- いつ[`Ox.SaveAllPlayers`](/ox_core/Functions/server#oxsaveallplayers)と呼ばれる。
+- コマンド`saveplayers`が使われている。
+
 </Callout>
 
 <Tabs items={['Lua', 'JS']}>
@@ -37,7 +38,7 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerSaved：`number`
+- playerSaved：`number`
 
 ## ox:setActiveGroup
 
@@ -61,9 +62,9 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* グループ名：`string`
-* previousGroupName：`string | undefined`
+- playerId：`number`
+- グループ名：`string`
+- previousGroupName：`string | undefined`
 
 ## ox:setGroup
 
@@ -87,9 +88,9 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* グループ名：`string`
-* グレード？`number`
+- playerId：`number`
+- グループ名：`string`
+- グレード？`number`
 
 ## ox:ライセンス追加
 
@@ -113,8 +114,8 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* ライセンス名`string`
+- playerId：`number`
+- ライセンス名`string`
 
 ## ox:ライセンス削除
 
@@ -138,8 +139,8 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* ライセンス名`string`
+- playerId：`number`
+- ライセンス名`string`
 
 ## ox:プレイヤーログアウト
 
@@ -163,9 +164,9 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* userId：`number`
-* charId：`number`
+- playerId：`number`
+- userId：`number`
+- charId：`number`
 
 ## ox:作成された文字
 
@@ -189,9 +190,9 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* userId：`number`
-* charId：`number`
+- playerId：`number`
+- userId：`number`
+- charId：`number`
 
 ## ox:playerLoaded
 
@@ -215,9 +216,9 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* userId：`number`
-* charId：`number`
+- playerId：`number`
+- userId：`number`
+- charId：`number`
 
 ## ox:削除された文字
 
@@ -241,9 +242,9 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* playerId：`number`
-* userId：`number`
-* charId：`number`
+- playerId：`number`
+- userId：`number`
+- charId：`number`
 
 ## ox:保存車両
 
@@ -267,7 +268,7 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* 車両保存：`number`
+- 車両保存：`number`
 
 ## ox:spawnedビークル
 
@@ -291,8 +292,8 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* entityId：`number`
-* id.K.である：`number`
+- entityId：`number`
+- id.K.である：`number`
 
 ## Ox:despawn車両
 
@@ -316,8 +317,8 @@ import { Callout, Tabs } from 'nextra/components';
   </Tabs.Tab>
 </Tabs>
 
-* entityId：`number`
-* id.K.である：`number`
+- entityId：`number`
+- id.K.である：`number`
 
 ## ox:更新されたバランス
 
@@ -335,6 +336,7 @@ import { Callout, Tabs } from 'nextra/components';
       * accountId：`number`
       * の量だ：`number`
       * アクションだ：`'add' | 'remove'`
+
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -348,6 +350,7 @@ import { Callout, Tabs } from 'nextra/components';
       * accountId：`number`
       * の量だ：`number`
       * アクションだ：`'add' | 'remove'`
+
   </Tabs.Tab>
 </Tabs>
 
@@ -367,6 +370,7 @@ import { Callout, Tabs } from 'nextra/components';
       * fromAccountId：`number`
       * toAccountId：`number`
       * の量だ：`'add' | 'remove'`
+
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -380,6 +384,7 @@ import { Callout, Tabs } from 'nextra/components';
       * fromAccountId：`number`
       * toAccountId：`number`
       * の量だ：`'add' | 'remove'`
+
   </Tabs.Tab>
 </Tabs>
 
@@ -399,6 +404,7 @@ import { Callout, Tabs } from 'nextra/components';
       * playerId：`number`
       * accountId：`number`
       * の量だ：`number`
+
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -412,6 +418,7 @@ import { Callout, Tabs } from 'nextra/components';
       * playerId：`number`
       * accountId：`number`
       * の量だ：`number`
+
   </Tabs.Tab>
 </Tabs>
 
@@ -431,6 +438,7 @@ import { Callout, Tabs } from 'nextra/components';
       * playerId：`number`
       * accountId：`number`
       * の量だ：`number`
+
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -444,6 +452,7 @@ import { Callout, Tabs } from 'nextra/components';
       * playerId：`number`
       * accountId：`number`
       * の量だ：`number`
+
   </Tabs.Tab>
 </Tabs>
 
@@ -464,6 +473,7 @@ import { Callout, Tabs } from 'nextra/components';
       * payerId：`number`
       * fromAccount：`number`
       * toAccount：`number`
+
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -478,5 +488,6 @@ import { Callout, Tabs } from 'nextra/components';
       * payerId：`number`
       * fromAccount：`number`
       * toAccount：`number`
+
   </Tabs.Tab>
 </Tabs>

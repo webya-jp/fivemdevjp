@@ -1,4 +1,3 @@
-import { NpmButton } from '@components/button';
 import { Callout, Steps, Tab, Tabs } from 'nextra/components';
 
 # OX_CORE
@@ -53,7 +52,7 @@ ox_coreの定義を読み込むには、`@ox_core/lib/init.lua`リソースに�
 
 <Tabs items={['fxmanifest.lua', 'require']}>
   <Tabs.Tab>
-    必要に応じて、client\_script または server\_script にすることができます。
+    必要に応じて、clientscript または serverscript にすることができます。
 
     ```lua
     shared_script '@ox_core/lib/init.lua'
@@ -62,7 +61,7 @@ ox_coreの定義を読み込むには、`@ox_core/lib/init.lua`リソースに�
   </Tabs.Tab>
 
   <Tabs.Tab>
-    ご希望の場合は、[必要とする](../ox_lib/Modules/Require/Shared)関数から[ox\_lib](../ox_lib)。
+    ご希望の場合は、[必要とする](../ox_lib/Modules/Require/Shared)関数から[oxlib](../ox_lib)。
 
     ```lua
     local Ox = require '@ox_core.lib.init'

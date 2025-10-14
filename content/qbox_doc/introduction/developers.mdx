@@ -2,20 +2,30 @@
 title: "Developer's Guide"
 sidebar_label: "Developer's Guide"
 sidebar_position: 4
-keywords: [qbox, fivem, development, api, framework, lua, programming, scripting]
+keywords:
+  [
+    qbox,
+    fivem,
+    development,
+    api,
+    framework,
+    lua,
+    programming,
+    scripting,
+  ]
 description: Comprehensive guide for developers working with the Qbox framework. Learn best practices, API usage, and how to create high-quality resources for Qbox.
 slug: /developers
 ---
 
 # 開発者ガイド
 
-このガイドは、qbx\_core を使用してスクリプトを作成する方を対象としています。
+このガイドは、qbxcore を使用してスクリプトを作成する方を対象としています。
 これらの原則に従うことで、将来のアップデートでスクリプトが動作しなくなる可能性が低くなります。
 
 ## コアが所有するデータベーステーブルにアクセスしない
 
 将来データベーススキーマが変更された場合、スクリプトが動作しなくなります。
-必要なデータがqbx\_core/qbx\_vehiclesエクスポートを使用して読み書きできない場合は、
+必要なデータがqbxcore/qbxvehiclesエクスポートを使用して読み書きできない場合は、
 GitHubで問題を作成して、問題を解決してください。
 
 ## コアコードを変更しない
@@ -32,7 +42,7 @@ GitHubで問題を作成して、問題を解決してください。
 
 ## 所有している vehicle を生成するときにステートバッグを設定する
 
-playerが所有するvehicleを生成する場合、vehicleのvehicleidステートバッグはplayer\_vehicles tableのIDに設定する必要があります。これにより、他のリソースは安定した識別子を使用してデータベース内のvehicleの情報を参照できるようになります。
+playerが所有するvehicleを生成する場合、vehicleのvehicleidステートバッグはplayervehicles tableのIDに設定する必要があります。これにより、他のリソースは安定した識別子を使用してデータベース内のvehicleの情報を参照できるようになります。
 
 ## vehicleを生成するときにvehicleプロパティを設定するには、プロパティをspawnVehicle関数に渡します。
 

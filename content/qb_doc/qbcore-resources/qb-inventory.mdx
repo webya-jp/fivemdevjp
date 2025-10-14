@@ -6,11 +6,11 @@ description: Store your precious!
 
 ## 導入
 
-* 個人、vehicle、スタッシュ、ドロップなど、playerのすべてのストレージを処理します
-* [qb-shops.md](qb-shops.md "mention")購入可能なすべてのアイテムを表示するための統合
-* 使用可能な自動販売機の組み込みサポート
+- 個人、vehicle、スタッシュ、ドロップなど、playerのすべてのストレージを処理します
+- [qb-shops.md](qb-shops.md 'mention')購入可能なすべてのアイテムを表示するための統合
+- 使用可能な自動販売機の組み込みサポート
 
-> \[!警告]
+> [!WARNING]
 > 特に指定がない限り、リストされているすべてのエクスポートはサーバー専用です
 
 ## 在庫状態
@@ -53,7 +53,7 @@ end, false)
 
 ## 商品情報
 
-> \[!INFO]
+> [!NOTE]
 > これを実現するには、SetItemData を使用します。
 
 アイテムには、`info`属性。この情報は、playerがアイテムにマウスオーバーした際に、キーと値のペアの形式で表示されます。また、特別な属性を追加することもできます。`display`キーワードを false に設定すると、info table 内のすべてのデータが表示されなくなります。
@@ -90,9 +90,9 @@ end, true)
 
 この関数は、playerの在庫をデータベースから取得します。`citizenid`をJSONからデコードし、以下のデータを使用して構造化されたtableアイテムを構築します。`QBCore.Shared.Items`共有アイテムtableに存在しないアイテムが見つかった場合、そのアイテムはスキップされ、コンソールに記録されます。返されるインベントリには、アイテムラベル、重量、画像、使用状況などの詳細情報が含まれます。
 
-* ソース： `number`
-* 市民ID:`string`
-* <mark style="color:yellow;">returns</mark>:`table`
+- ソース： `number`
+- 市民ID:`string`
+- returns:`table`
 
 ```lua
 RegisterCommand('getInv', function(source)
@@ -107,8 +107,8 @@ end)
 
 playerの現在の在庫を、アイテムデータをJSON形式にシリアル化してデータベースに保存します。オンラインとオフラインの両方のplayerデータをサポートします。
 
-* ソース： `number`
-* オフライン:`boolean`
+- ソース： `number`
+- オフライン:`boolean`
 
 ```lua
 RegisterCommand('saveInv', function(source)
@@ -120,8 +120,8 @@ end)
 
 playerのインベントリをクリアします。オプションで特定のアイテムを名前で保存します。playerのデータを更新し、アクションを記録し、該当する場合は現在装備されている武器を削除します。
 
-* ソース： `number`
-* フィルターアイテム:`string | table`
+- ソース： `number`
+- フィルターアイテム:`string | table`
 
 ```lua
 RegisterCommand('clearInventoryExcludeItem', function(source, args)
@@ -142,7 +142,7 @@ end, true)
 
 指定されたスタッシュインベントリからすべてのアイテムを空にし、クリアされた状態を反映するようにデータベースを更新します。
 
-* 識別子:`string`
+- 識別子:`string`
 
 ```lua
 RegisterCommand("clearstash", function(source, args, raw)
@@ -156,8 +156,8 @@ end, false)
 
 指定されたインベントリを閉じ、player がビジー状態でなくなったことをマークし、クライアントにインベントリ UI を閉じるように通知します。
 
-* ソース： `number`
-* 識別子:`string`
+- ソース： `number`
+- 識別子:`string`
 
 ```lua
 RegisterCommand('closeInventory', function(source)
@@ -175,9 +175,9 @@ end, true)
 
 指定されたインベントリ、または識別子が指定されていない場合はplayer自身のインベントリを開きます。インベントリが既に使用されている場合はアクセスを防止し、必要に応じて初期化し、フォーマットされたインベントリデータをクライアントに送信して表示します。
 
-* ソース： `number`
-* 識別子:`string | optional`
-* データ： `table | optional`
+- ソース： `number`
+- 識別子:`string | optional`
+- データ： `table | optional`
 
 ```lua
 RegisterCommand('openinv', function(source)
@@ -200,8 +200,8 @@ end, true)
 
 他の player のインベントリを開いて表示または操作し、表示用にデータをフォーマットし、競合を防ぐために状態をビジーとしてマークします。
 
-* ソース： `number`
-* プレイヤーID:`number`
+- ソース： `number`
+- プレイヤーID:`number`
 
 ```lua
 RegisterCommand('openplayerinv', function(source, args)
@@ -210,14 +210,14 @@ RegisterCommand('openplayerinv', function(source, args)
 end, true)
 ```
 
-> \[!INFO] >`OpenInventoryById`対象のプレイヤーのインベントリ（開いている場合）を閉じ、状態によってロックします。その後、オープニングのplayerがインベントリを閉じるとロックが解除されます。
+> [!NOTE] >`OpenInventoryById`対象のプレイヤーのインベントリ（開いている場合）を閉じ、状態によってロックします。その後、オープニングのplayerがインベントリを閉じるとロックが解除されます。
 
 ## 在庫の作成
 
 提供された識別子と初期化データを使用して、新しいインベントリがまだ存在しない場合は作成して登録します。
 
-* 識別子:`string`
-* データ： `table`
+- 識別子:`string`
+- データ： `table`
 
 ```lua
 RegisterCommand("createinv", function(source, args)
@@ -239,7 +239,7 @@ end, false)
 
 指定された識別子に関連付けられたインベントリをメモリ内レジストリから削除します。
 
-* 識別子:`string`
+- 識別子:`string`
 
 ```lua
 RegisterCommand("removeinv", function(source, args)
@@ -253,12 +253,12 @@ end, false)
 
 名前、ラベル、座標、アイテムスロット、入手可能なアイテムなどのデータをグローバルショップレジストリに保存して、1つまたは複数のショップを登録します。
 
-* ショップデータ:`table`&#x20;
-  * 名前： `string`
-  * ラベル:`string`
-  * 座標:`vector3`
-  * スロット:`number`
-  * アイテム:`table`
+- ショップデータ:`table`&#x20;
+  - 名前： `string`
+  - ラベル:`string`
+  - 座標:`vector3`
+  - スロット:`number`
+  - アイテム:`table`
 
 ```lua
 local items = {
@@ -278,15 +278,15 @@ RegisterCommand('createShop', function(source)
 end, true)
 ```
 
-> \[!INFO]
+> [!NOTE]
 > 渡される座標`createShop`playerの現在の座標と照合されます`OpenShop`座標が与えられた場合に呼び出されます`createShop`>
 
 ## オープンショップ
 
 範囲内にいる場合、player のショップインベントリを開き、クライアント表示用にショップデータをフォーマットして、player の現在のインベントリと一緒に送信します。
 
-* ソース： `number`
-* 名前： `string`
+- ソース： `number`
+- 名前： `string`
 
 ```lua
 RegisterCommand('openShop', function(source)
@@ -298,10 +298,10 @@ end)
 
 指定されたアイテムと数量をplayerまたはインベントリに追加できるかどうかを、重量制限とスロットの空き状況の両方をチェックして判定します。制限を超えた場合は、理由とともにfalseを返します。
 
-* ソース： `number`
-* アイテム： `string`
-* 額： `number`
-* <mark style="color:yellow;">returns</mark>:`boolean`
+- ソース： `number`
+- アイテム： `string`
+- 額： `number`
+- returns:`boolean`
 
 ```lua
 RegisterCommand('canAddItem', function(source, args)
@@ -321,13 +321,13 @@ end, true)
 
 重量制限と空きスロットを考慮し、playerまたは特定のインベントリにアイテムを追加します。アクションをログに記録し、成功したかどうかを返します。
 
-* 識別子:`number`
-* アイテム： `string`
-* 額： `number`
-* スロット:`number | boolean`
-* 情報： `table | boolean`
-* 理由： `string`
-* <mark style="color:yellow;">returns</mark>:`boolean`
+- 識別子:`number`
+- アイテム： `string`
+- 額： `number`
+- スロット:`number | boolean`
+- 情報： `table | boolean`
+- 理由： `string`
+- returns:`boolean`
 
 ```lua
 RegisterCommand('addItem', function(source, args)
@@ -341,12 +341,12 @@ end, true)
 
 playerまたはインベントリから、指定された数のアイテムを削除します。オプションで特定のスロットから削除することもできます。データが更新され、削除が記録されます。
 
-* 識別子:`number`
-* アイテム： `string`
-* 額： `number`
-* スロット:`number | boolean`
-* 理由： `string`
-* <mark style="color:yellow;">returns</mark>:`boolean`
+- 識別子:`number`
+- アイテム： `string`
+- 額： `number`
+- スロット:`number | boolean`
+- 理由： `string`
+- returns:`boolean`
 
 ```lua
 RegisterCommand('removeItem', function(source, args)
@@ -360,8 +360,8 @@ end, true)
 
 指定されたplayer、ドロップ、またはカスタムインベントリのアイテムリストを設定し、メモリ内のデータを更新し、監査目的で変更をログに記録します。
 
-* ソース： `number`
-* アイテム:`table`
+- ソース： `number`
+- アイテム:`table`
 
 ```lua
 RegisterCommand('setInventory', function(source)
@@ -389,12 +389,12 @@ end, true)
 
 playerのアイテムデータに特定のキーと値のペアを設定し、playerのインベントリを変更されたアイテムで更新します。スロットnumberが指定されている場合は、そのスロットのアイテムを直接ターゲットとします。そうでない場合は、`GetItemByName`名前で最初に一致するアイテムを検索する
 
-* ソース： `number`
-* アイテム名:`string`
-* 鍵： `string`
-* 値:`string | table`&#x20;
-* スロット:`number`（オプション）
-* <mark style="color:yellow;">returns</mark>:`boolean`
+- ソース： `number`
+- アイテム名:`string`
+- 鍵： `string`
+- 値:`string | table`&#x20;
+- スロット:`number`（オプション）
+- returns:`boolean`
 
 ```lua
 RegisterCommand('setItemData', function(source, args)
@@ -432,8 +432,8 @@ end, true)
 
 指定された使用可能なアイテムが存在する場合はその使用関数をトリガーし、追加の引数をアイテムのハンドラーに渡します。
 
-* アイテム名:`string`
-* . . . :`function`
+- アイテム名:`string`
+- . . . :`function`
 
 ```lua
 RegisterCommand('useItem', function(source, args)
@@ -449,13 +449,13 @@ end, true)
 
 playerが特定のアイテムまたはアイテムセットをインベントリに所有しているかどうかを確認し、オプションで各アイテムの必要量が満たされていることを確認します。
 
-> \[!INFO]
+> [!NOTE]
 > このエクスポートはクライアントでも使用できます
 
-* ソース： `number`
-* アイテム:`string | table`
-* 額： `number`
-* <mark style="color:yellow;">returns</mark>:`boolean`
+- ソース： `number`
+- アイテム:`string | table`
+- 額： `number`
+- returns:`boolean`
 
 ```lua
 RegisterCommand('hasSingleItem', function(source)
@@ -495,8 +495,8 @@ end, true)
 
 playerのインベントリの残り重量を計算して返します。playerが見つからないか、ソースが無効な場合は0を返します。
 
-* ソース： `number`
-* <mark style="color:yellow;">returns</mark>:`number`
+- ソース： `number`
+- returns:`number`
 
 ```lua
 RegisterCommand('getFreeWeight', function(source)
@@ -509,8 +509,8 @@ end, true)
 
 在庫にあるすべてのアイテムの合計重量を計算し、アイテムの数量を考慮して返します。
 
-* アイテム:`table`
-* <mark style="color:yellow;">returns</mark>:`number`
+- アイテム:`table`
+- returns:`number`
 
 ```lua
 RegisterCommand("checkweight", function(source, args, raw)
@@ -526,8 +526,8 @@ end, false)
 
 指定された識別子に基づいて、playerのインベントリ、カスタムインベントリ、またはドロップ内の使用済みおよび使用可能なスロットのnumberを返します。
 
-* 識別子:`number | string`
-* <mark style="color:yellow;">returns</mark>:`number`、`number`
+- 識別子:`number | string`
+- returns:`number`、`number`
 
 ```lua
 RegisterCommand('getSlots', function(source, args)
@@ -542,9 +542,9 @@ end, true)
 
 指定されたアイテムを含むすべてのインベントリスロットのリストを、大文字と小文字の区別を無視して返します。
 
-* アイテム:`table`
-* アイテム名:`string`
-* <mark style="color:yellow;">returns</mark>:`table`
+- アイテム:`table`
+- アイテム名:`string`
+- returns:`table`
 
 ```lua
 RegisterCommand('getSlots', function(source, args)
@@ -563,9 +563,9 @@ end, true)
 
 大文字と小文字を区別せずに、指定されたアイテムを含むすべてのインベントリスロットを検索して返します。
 
-* アイテム:`table`
-* アイテム名:`string`
-* <mark style="color:yellow;">returns</mark>:`number`
+- アイテム:`table`
+- アイテム名:`string`
+- returns:`number`
 
 ```lua
 RegisterCommand('getFirstSlot', function(source, args)
@@ -586,9 +586,9 @@ end, true)
 
 指定されたスロットのplayerのインベントリからアイテムを取得します。スロットが空の場合、またはplayerが見つからない場合はnilを返します。
 
-* ソース： `number`
-* スロット:`number`
-* <mark style="color:yellow;">returns</mark>:`table`
+- ソース： `number`
+- スロット:`number`
+- returns:`table`
 
 ```lua
 RegisterCommand('getItem', function(source, args)
@@ -607,9 +607,9 @@ end, true)
 
 playerのインベントリから指定されたアイテムの最初のインスタンスを名前で取得し、見つかった場合はそのデータを返します。
 
-* ソース： `number`
-* アイテム： `string`
-* <mark style="color:yellow;">returns</mark>:`table`
+- ソース： `number`
+- アイテム： `string`
+- returns:`table`
 
 ```lua
 RegisterCommand('getItemByName', function(source, args)
@@ -628,9 +628,9 @@ end, true)
 
 playerのインベントリから指定されたアイテムのすべてのインスタンスを取得し、名前で一致するアイテムのリストを返します。
 
-* ソース： `number`
-* アイテム： `string`
-* <mark style="color:yellow;">returns</mark>:`table`
+- ソース： `number`
+- アイテム： `string`
+- returns:`table`
 
 ```lua
 RegisterCommand('getItemsByName', function(source, args)
@@ -652,9 +652,9 @@ end, true)
 
 player の在庫にある 1 つ以上の指定されたアイテムの合計数量を計算します。単一のアイテム名とアイテム名のテーブルの両方をサポートします。
 
-* ソース： `number`
-* アイテム:`string | table`
-* <mark style="color:yellow;">returns</mark>:`number`
+- ソース： `number`
+- アイテム:`string | table`
+- returns:`number`
 
 ```lua
 RegisterCommand('getItemCount', function(source, args)
@@ -683,8 +683,8 @@ end, true)
 
 指定された識別子に関連付けられたインベントリオブジェクトを取得するか、`nil`見つからない場合
 
-* 識別子:`string`
-* <mark style="color:yellow;">returns</mark>:`table`|`nil`
+- 識別子:`string`
+- returns:`table`|`nil`
 
 ```lua
 RegisterCommand("getinv", function(source, args)

@@ -8,12 +8,12 @@ Ox.CreateAccount(ownerId, label)
 
 **パラメータ**
 
-* ownerId：`number`|`string`
-* のラベルが貼られている：`string`
+- ownerId：`number`|`string`
+- のラベルが貼られている：`string`
 
 **リターン**
 
-* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+- [`OxAccount`](/ox_core/Classes/Server/OxAccount)
 
 ## Ox.CreateGroup
 
@@ -25,15 +25,15 @@ Ox.CreateGroup(data)
 
 **パラメータ**
 
-* のデータがある：`object`
-  * と名付けた：`string`
-  * のラベルが貼られている：`string`
-  * の成績である：`object[]`
-    * のラベルが貼られている：`string`
-    * accountRole?`string`
-  * タイプ？`string`
-  * 色？`number`
-  * hasAccount?`boolean`
+- のデータがある：`object`
+  - と名付けた：`string`
+  - のラベルが貼られている：`string`
+  - の成績である：`object[]`
+    - のラベルが貼られている：`string`
+    - accountRole?`string`
+  - タイプ？`string`
+  - 色？`number`
+  - hasAccount?`boolean`
 
 ## Ox.CreateVehicle
 
@@ -45,18 +45,18 @@ Ox.CreateVehicle(data, coords, heading)
 
 **パラメータ**
 
-* のデータがある：`string`|`object`
-  * モデルである：`string`
-  * オーナー？`number`
-  * グループ？`string`
-  * 保存されているか？`string`
-  * プロパティ？`object`
-* コーデ？`vector3`
-* ヘディング？`number`
+- のデータがある：`string`|`object`
+  - モデルである：`string`
+  - オーナー？`number`
+  - グループ？`string`
+  - 保存されているか？`string`
+  - プロパティ？`object`
+- コーデ？`vector3`
+- ヘディング？`number`
 
 **リターン**
 
-* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+- [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
 
 ## Ox.DeleteAccountInvoice
 
@@ -68,13 +68,13 @@ Ox.DeleteAccountInvoice(invoiceId)
 
 **パラメータ**
 
-* invoiceId：`number`
+- invoiceId：`number`
 
 **リターン**
 
-* `object`
-  * 成功した：`boolean`
-  * メッセージは？`string`
+- `object`
+  - 成功した：`boolean`
+  - メッセージは？`string`
 
 ## Ox.DeleteGroup
 
@@ -86,7 +86,7 @@ Ox.DeleteGroup(groupName)
 
 **パラメータ**
 
-* グループ名：`string`
+- グループ名：`string`
 
 ## Ox.Generate車両プレート
 
@@ -98,11 +98,11 @@ Ox.GenerateVehiclePlate(pattern)
 
 **パラメータ**
 
-* パターン？`string`
+- パターン？`string`
 
 **リターン**
 
-* `string`
+- `string`
 
 ## Ox.GenerateVehicleVin
 
@@ -114,12 +114,12 @@ Ox.GenerateVehicleVin(modelName)
 
 **パラメータ**
 
-* モデル名`string`
-  * 車両情報（モデルやメーカーなど）はVINの一部として使用される。
+- モデル名`string`
+  - 車両情報（モデルやメーカーなど）はVINの一部として使用される。
 
 **リターン**
 
-* `string`
+- `string`
 
 ## Ox.GetAccount
 
@@ -131,11 +131,11 @@ Ox.GetAccount(accountId)
 
 **パラメータ**
 
-* accountId：`number`
+- accountId：`number`
 
 **リターン**
 
-* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+- [`OxAccount`](/ox_core/Classes/Server/OxAccount)
 
 ## Ox.GetCharacterAccount
 
@@ -147,16 +147,16 @@ Ox.GetCharacterAccount(id)
 
 **パラメータ**
 
-* id.K.である：`number`|`string`
+- id.K.である：`number`|`string`
 
 **リターン**
 
-* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+- [`OxAccount`](/ox_core/Classes/Server/OxAccount)
 
 ## Ox.GetCharIdFromStateId
 
 キャラクターのstateIdからcharIdを取得する。\
-*注：これはデータベースに問い合わせるものであり、過剰に使用するべきではありません。*
+_注：これはデータベースに問い合わせるものであり、過剰に使用するべきではありません。_
 
 ```lua
 Ox.GetCharIdFromStateId(stateId)
@@ -164,11 +164,11 @@ Ox.GetCharIdFromStateId(stateId)
 
 **パラメータ**
 
-* stateId：`string`
+- stateId：`string`
 
 **リターン**
 
-* `number`
+- `number`
 
 ## Ox.GetGroupAccount
 
@@ -180,11 +180,11 @@ Ox.GetGroupAccount(groupName)
 
 **パラメータ**
 
-* グループ名：`string`
+- グループ名：`string`
 
 **リターン**
 
-* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+- [`OxAccount`](/ox_core/Classes/Server/OxAccount)
 
 ## Ox.GetGroupsByType
 
@@ -196,11 +196,11 @@ Ox.GetGroupsByType(groupType)
 
 **パラメータ**
 
-* グループタイプ：`string`
+- グループタイプ：`string`
 
 **リターン**
 
-* `string[]`
+- `string[]`
 
 ## Ox.GetGroup
 
@@ -212,11 +212,11 @@ Ox.GetGroup(name)
 
 **パラメータ**
 
-* と名付けた：`string`
+- と名付けた：`string`
 
 **リターン**
 
-* `OxGroup`
+- `OxGroup`
 
 ## Ox.GetPlayer
 
@@ -228,11 +228,11 @@ Ox.GetPlayer(playerId)
 
 **パラメータ**
 
-* playerId：`number`
+- playerId：`number`
 
 **リターン**
 
-* [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
+- [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
 
 ## Ox.GetPlayerFromFilter
 
@@ -244,13 +244,13 @@ Ox.GetPlayerFromFilter(filter)
 
 **パラメータ**
 
-* フィルター？`{ [string]: any }`
-  * 選手のフィールドとメタデータを、指定されたキーと値のペアと比較します。
-  * グループは文字列または文字列の配列で指定する。
+- フィルター？`{ [string]: any }`
+  - 選手のフィールドとメタデータを、指定されたキーと値のペアと比較します。
+  - グループは文字列または文字列の配列で指定する。
 
 **リターン**
 
-* [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
+- [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
 
 ## Ox.GetPlayerFromUserId
 
@@ -262,11 +262,11 @@ Ox.GetPlayerFromUserId(userId)
 
 **パラメータ**
 
-* userId：`number`
+- userId：`number`
 
 **リターン**
 
-* [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
+- [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
 
 ## Ox.GetPlayerFromCharId
 
@@ -278,11 +278,11 @@ Ox.GetPlayerFromCharId(charId)
 
 **パラメータ**
 
-* charId：`number`
+- charId：`number`
 
 **リターン**
 
-* [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
+- [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
 
 ## Ox.GetPlayers
 
@@ -294,13 +294,13 @@ Ox.GetPlayers(filter)
 
 **パラメータ**
 
-* フィルター？`{ [string]: any }`
-  * 選手のフィールドとメタデータを、指定されたキーと値のペアと比較します。
-  * グループは文字列または文字列の配列で指定する。
+- フィルター？`{ [string]: any }`
+  - 選手のフィールドとメタデータを、指定されたキーと値のペアと比較します。
+  - グループは文字列または文字列の配列で指定する。
 
 **リターン**
 
-* [`OxPlayer[]`](/ox_core/Classes/Server/OxPlayer)
+- [`OxPlayer[]`](/ox_core/Classes/Server/OxPlayer)
 
 ## Ox.GetVehicle
 
@@ -312,11 +312,11 @@ Ox.GetVehicle(entityId)
 
 **パラメータ**
 
-* entityId：`number`
+- entityId：`number`
 
 **リターン**
 
-* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+- [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
 
 ## Ox.GetVehicleFromFilter
 
@@ -328,12 +328,12 @@ Ox.GetVehicleFromFilter(filter)
 
 **パラメータ**
 
-* フィルター？`{ [string]: any }`
-  * 車両のフィールドとメタデータを、指定されたキーと値のペアと比較する。
+- フィルター？`{ [string]: any }`
+  - 車両のフィールドとメタデータを、指定されたキーと値のペアと比較する。
 
 **リターン**
 
-* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+- [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
 
 ## Ox.GetVehicleFromNetId
 
@@ -345,11 +345,11 @@ Ox.GetVehicleFromNetId(netId)
 
 **パラメータ**
 
-* netId：`number`
+- netId：`number`
 
 **リターン**
 
-* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+- [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
 
 ## Ox.GetVehicleFromVin
 
@@ -361,11 +361,11 @@ Ox.GetVehicleFromVin(vin)
 
 **パラメータ**
 
-* ヴィン`string`
+- ヴィン`string`
 
 **リターン**
 
-* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+- [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
 
 ## Ox.GetVehicles
 
@@ -377,12 +377,12 @@ Ox.GetVehicles(filter)
 
 **パラメータ**
 
-* フィルター？`{ [string]: any }`
-  * 車両のフィールドとメタデータを、指定されたキーと値のペアと比較する。
+- フィルター？`{ [string]: any }`
+  - 車両のフィールドとメタデータを、指定されたキーと値のペアと比較する。
 
 **リターン**
 
-* [`OxVehicle[]`](/ox_core/Classes/Server/OxVehicle)
+- [`OxVehicle[]`](/ox_core/Classes/Server/OxVehicle)
 
 ## Ox.RemoveGroupPermission
 
@@ -394,9 +394,9 @@ Ox.RemoveGroupPermission(groupName, grade, permission)
 
 **パラメータ**
 
-* グループ名：`string`
-* のグレードである：`number`
-* を許可した：`string`
+- グループ名：`string`
+- のグレードである：`number`
+- を許可した：`string`
 
 ## Ox.SaveAllPlayers
 
@@ -424,10 +424,10 @@ Ox.SetGroupPermission(groupName, grade, permission, value)
 
 **パラメータ**
 
-* グループ名：`string`
-* のグレードである：`number`
-* を許可した：`string`
-* 値である：`allow`|`deny`
+- グループ名：`string`
+- のグレードである：`number`
+- を許可した：`string`
+- 値である：`allow`|`deny`
 
 **例**
 
@@ -451,13 +451,13 @@ Ox.SpawnVehicle(dbId, coords, heading)
 
 **パラメータ**
 
-* dbId：`number`
-* コーデ：`vector3`
-* ヘディング？`number`
+- dbId：`number`
+- コーデ：`vector3`
+- ヘディング？`number`
 
 **リターン**
 
-* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+- [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
 
 ## Ox.GetLicense
 
@@ -469,11 +469,11 @@ Ox.GetLicense(name)
 
 **パラメータ**
 
-* と名付けた：`string`
+- と名付けた：`string`
 
 **リターン**
 
-* `OxLicense`
+- `OxLicense`
 
 ## Ox.GetLicenses
 
@@ -485,7 +485,7 @@ Ox.GetLicenses()
 
 **リターン**
 
-* `OxLicense[]`
+- `OxLicense[]`
 
 ## Ox.GetGroupActivePlayers
 
@@ -497,11 +497,11 @@ Ox.GetGroupActivePlayers(groupName)
 
 **パラメータ**
 
-* グループ名：`string`
+- グループ名：`string`
 
 **リターン**
 
-* `number[]`
+- `number[]`
 
 ## Ox.GetGroupActivePlayersByType
 
@@ -513,11 +513,11 @@ Ox.GetGroupActivePlayers(groupType)
 
 **パラメータ**
 
-* グループタイプ：`string`
+- グループタイプ：`string`
 
 **リターン**
 
-* `number[]`
+- `number[]`
 
 ## Ox.BanUser
 
@@ -529,13 +529,13 @@ Ox.BanUser(userId, reason, hours)
 
 **パラメータ**
 
-* userId：`number`
-* 理由は？`string`
-* 時間ですか？`number`
+- userId：`number`
+- 理由は？`string`
+- 時間ですか？`number`
 
 **リターン**
 
-* `boolean`
+- `boolean`
 
 ## Ox.IsUserBanned
 
@@ -547,16 +547,16 @@ Ox.IsUserBanned(userId)
 
 **パラメータ**
 
-* userId：`number`
+- userId：`number`
 
 **リターン**
 
-* `BanDetails`|`nil`
-  * 理由`string`
-  * banned\_at：`string`
-  * unban\_at：`string`
-  * userId：`number`
-  * トークン`string`
+- `BanDetails`|`nil`
+  - 理由`string`
+  - bannedat：`string`
+  - unbanat：`string`
+  - userId：`number`
+  - トークン`string`
 
 ## Ox.UnbanUser
 
@@ -568,8 +568,8 @@ Ox.UnbanUser(userId)
 
 **パラメータ**
 
-* userId：`number`
+- userId：`number`
 
 **リターン**
 
-* `boolean`
+- `boolean`

@@ -1,8 +1,18 @@
 ---
-title: "Contributing Guidelines"
-sidebar_label: "Contributing"
+title: 'Contributing Guidelines'
+sidebar_label: 'Contributing'
 sidebar_position: 6
-keywords: [qbox, fivem, contributing, development, guidelines, code conventions, pull requests, issues]
+keywords:
+  [
+    qbox,
+    fivem,
+    contributing,
+    development,
+    guidelines,
+    code conventions,
+    pull requests,
+    issues,
+  ]
 description: Guidelines for contributing to the Qbox framework. Learn about our code conventions, how to submit issues and pull requests, and best practices for contributing code.
 slug: /contributors
 ---
@@ -25,8 +35,8 @@ slug: /contributors
 
 新しい問題を開く前に:
 
-* [検索](https://github.com/issues?q=is%3Aissue+org%3AQbox-Project)既存の問題の場合、あなたと同じ問題をすでに経験している人がいるかもしれません。重複した問題はクローズされます。
-* 問題を報告しようとしているリソースの最新リリースをダウンロードし、すでに修正されていないことを確認してください。すでに修正済みの問題は無効とみなされ、クローズされます。
+- [検索](https://github.com/issues?q=is%3Aissue+org%3AQbox-Project)既存の問題の場合、あなたと同じ問題をすでに経験している人がいるかもしれません。重複した問題はクローズされます。
+- 問題を報告しようとしているリソースの最新リリースをダウンロードし、すでに修正されていないことを確認してください。すでに修正済みの問題は無効とみなされ、クローズされます。
 
 新しい問題を開く際は、適切なフォームの種類を選択し、ご記入ください。ご提供いただく情報が多いほど、新しい問題への対応がスムーズになります。無効な問題や正しいフォームに従っていない問題は、無視されるか、場合によっては終了されることがあります。
 
@@ -36,10 +46,10 @@ slug: /contributors
 
 お好みのエディタをご使用いただけますが、[VSコード](https://code.visualstudio.com/)以下の拡張機能を使用します:
 
-* [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
-* [Lua言語サーバー](https://marketplace.visualstudio.com/items?itemName=sumneko.lua)
-* [エディター設定](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
-* [CfxLua インテリセンス](https://marketplace.visualstudio.com/items?itemName=communityox.cfxlua-vscode-cox)
+- [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- [Lua言語サーバー](https://marketplace.visualstudio.com/items?itemName=sumneko.lua)
+- [エディター設定](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [CfxLua インテリセンス](https://marketplace.visualstudio.com/items?itemName=communityox.cfxlua-vscode-cox)
 
 コードの貢献が初めての場合は、チェックして、マークされた問題を修正してみてください。[`good first issue`](https://github.com/issues?q=is%3Aissue+is%3Aopen+org%3AQbox-Project+label%3A%22good+first+issue%22)。
 
@@ -49,9 +59,9 @@ slug: /contributors
 
 プルリクエストを開く前に:
 
-* あなたの貢献が私たちの[コード規約](#code-conventions)以下に説明します。プルリクエストを開くと、コードがそれらに従ってチェックされます。
-* プルリクエストは小さく、焦点を絞ったものにしてください。もしそうでない場合は、複数の小さなプルリクエストに分割してください（[小さなプルリクエストのマニフェスト](https://github.com/PlaytikaOSS/small-pull-request-manifesto)）。
-* 変更が機能し、既存の機能に影響がないことを確認するために、変更をテストすることをお勧めします。
+- あなたの貢献が私たちの[コード規約](#code-conventions)以下に説明します。プルリクエストを開くと、コードがそれらに従ってチェックされます。
+- プルリクエストは小さく、焦点を絞ったものにしてください。もしそうでない場合は、複数の小さなプルリクエストに分割してください（[小さなプルリクエストのマニフェスト](https://github.com/PlaytikaOSS/small-pull-request-manifesto)）。
+- 変更が機能し、既存の機能に影響がないことを確認するために、変更をテストすることをお勧めします。
 
 プルリクエストを作成する際は、テンプレートに従い、変更内容を必ず説明してください。GitHub の問題に関連する内容の投稿を希望する場合は、その旨も必ず記載してください。
 
@@ -61,45 +71,45 @@ slug: /contributors
 
 ### コミットメッセージの規約
 
-* コミット メッセージの最初の行は最大 72 文字にする必要があります。
-* コミットメッセージとプルリクエストのタイトルは以下に従う必要があります[慣習的コミット](https://www.conventionalcommits.org/en/v1.0.0/)。
-  * 使用 `fix:`バグを修正するとき。
-  * 使用 `feat:`新しい機能を導入するとき。
-  * 使用 `refactor:`機能を変えずにコードを変更する場合。
-  * 使用 `chore:`変更によって本番環境のコードが変更されない場合。
-  * 追加`!`コードを変更し、APIの互換性を損なう変更を導入する場合は、機能の種類/スコープの後に を追加してください。また、コミットメッセージの最後に、2行の改行で区切られたフッターを追加することもできます。`BREAKING CHANGE:`、そして重大な変更点について説明します。
+- コミット メッセージの最初の行は最大 72 文字にする必要があります。
+- コミットメッセージとプルリクエストのタイトルは以下に従う必要があります[慣習的コミット](https://www.conventionalcommits.org/en/v1.0.0/)。
+  - 使用 `fix:`バグを修正するとき。
+  - 使用 `feat:`新しい機能を導入するとき。
+  - 使用 `refactor:`機能を変えずにコードを変更する場合。
+  - 使用 `chore:`変更によって本番環境のコードが変更されない場合。
+  - 追加`!`コードを変更し、APIの互換性を損なう変更を導入する場合は、機能の種類/スコープの後に を追加してください。また、コミットメッセージの最後に、2行の改行で区切られたフッターを追加することもできます。`BREAKING CHANGE:`、そして重大な変更点について説明します。
 
 ### Lua 規約
 
 #### 一般的なスタイル
 
-* 4 スペースのインデントを使用します。
-* グローバル変数よりもローカル変数を作成することを優先します。
-* 同じ操作を繰り返さないでください。複数の場所で同じ操作を使用している場合は、柔軟な関数に変換してください。
-* エクスポートされた関数は適切に注釈を付ける必要があります（[LuaLS アノテーション](https://luals.github.io/wiki/annotations/)）。
-* 利用する [ox\_lib](https://coxdocs.dev/ox_lib)生活を楽にするために、ネイティブの呼び出しよりもライブラリ呼び出しを優先してください。
-* 機能をオプションまたはカスタマイズ可能にする必要がある場合は、設定オプションを使用してください。設定は他のコードによって変更されるべきではありません。
+- 4 スペースのインデントを使用します。
+- グローバル変数よりもローカル変数を作成することを優先します。
+- 同じ操作を繰り返さないでください。複数の場所で同じ操作を使用している場合は、柔軟な関数に変換してください。
+- エクスポートされた関数は適切に注釈を付ける必要があります（[LuaLS アノテーション](https://luals.github.io/wiki/annotations/)）。
+- 利用する [oxlib](https://coxdocs.dev/ox_lib)生活を楽にするために、ネイティブの呼び出しよりもライブラリ呼び出しを優先してください。
+- 機能をオプションまたはカスタマイズ可能にする必要がある場合は、設定オプションを使用してください。設定は他のコードによって変更されるべきではありません。
 
 #### 最適化とセキュリティ
 
-* 考慮する [このLuaパフォーマンスガイド](https://springrts.com/wiki/Lua_Performance)。
-* 不要なスレッドを作成しないでください。常にイベントをトリガーするより良い方法を見つけるようにしてください。
-* 長めに設定する`Wait`player が範囲外の場合、距離チェック ループを呼び出します。
-* サイクルを無駄にしないでください。ジョブ固有のループは、そのジョブのプレイヤーに対してのみ実行される必要があります。
-* 可能であればクライアントを信用しないでください。*特に*取引を伴う。
-* セキュリティと最適化のバランスをとります。
-* 使用 `#(vector3 - vector3)` の代わりに `GetDistanceBetweenCoords()`。
-* 使用 `myTable[#myTable + 1] = 'value'` の代わりに `table.insert(myTable, 'value')`。
-* 使用 `myTable['key'] = 'value'` の代わりに `table.insert(myTable, 'key', 'value')`。
+- 考慮する [このLuaパフォーマンスガイド](https://springrts.com/wiki/Lua_Performance)。
+- 不要なスレッドを作成しないでください。常にイベントをトリガーするより良い方法を見つけるようにしてください。
+- 長めに設定する`Wait`player が範囲外の場合、距離チェック ループを呼び出します。
+- サイクルを無駄にしないでください。ジョブ固有のループは、そのジョブのプレイヤーに対してのみ実行される必要があります。
+- 可能であればクライアントを信用しないでください。*特に*取引を伴う。
+- セキュリティと最適化のバランスをとります。
+- 使用 `#(vector3 - vector3)` の代わりに `GetDistanceBetweenCoords()`。
+- 使用 `myTable[#myTable + 1] = 'value'` の代わりに `table.insert(myTable, 'value')`。
+- 使用 `myTable['key'] = 'value'` の代わりに `table.insert(myTable, 'key', 'value')`。
 
 #### 私たちは
 
-* 使用 `camelCase`ローカル変数と関数用。
-* 使用 `PascalCase`グローバル変数と関数用。
-* 頭字語は混乱を招きやすく、文脈に依存する可能性があるため、使用を避けてください。
-* 説明的に記述し、読者にとってわかりやすいものにします。
-  * ブール値には接頭辞として`is`、`has`、`are`など
-  * 配列には複数形の名前が必要です。
+- 使用 `camelCase`ローカル変数と関数用。
+- 使用 `PascalCase`グローバル変数と関数用。
+- 頭字語は混乱を招きやすく、文脈に依存する可能性があるため、使用を避けてください。
+- 説明的に記述し、読者にとってわかりやすいものにします。
+  - ブール値には接頭辞として`is`、`has`、`are`など
+  - 配列には複数形の名前が必要です。
 
 ### JavaScript/TypeScript 規約
 

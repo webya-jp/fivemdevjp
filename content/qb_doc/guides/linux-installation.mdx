@@ -14,7 +14,7 @@ WindowsにはXAMPPが付属していますが、ここではスタンドアロ�
 sudo apt-get update
 ```
 
-> \[！警告]
+> [!WARNING]
 >
 > 必ずsudo権限を持つユーザーを使用してください。Linuxでは、rootアカウントはシステム上のすべての情報にアクセスできます。侵入などのインシデントを防ぐため、特定のユーザーにsudo権限を与え、リモートrootアクセスを無効にすることをお勧めします。Linuxの初期セキュリティ対策については、こちらをご覧ください。[ここ](https://blog.avast.com/secure-your-linux-server-avast)。
 
@@ -40,7 +40,7 @@ sudo mysql_secure_installation
 mysql -u root -p
 ```
 
-> \[！警告]
+> [!WARNING]
 >
 > 安全なインストールを行ったが、ルートユーザーのパスワードを忘れてしまった場合、sudo権限を持つユーザーは次のコマンドを実行してmysqlサービスへのログインをバイパスできます。
 >
@@ -71,7 +71,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'user1'@localhost IDENTIFIED BY 'password1';
 FLUSH PRIVILEGES;
 ```
 
-> \[！情報]
+> [!NOTE]
 >
 > 'user1'、localhost、'password1' の各変数はすべて変更されるはずです。'user1' と
 > 'password1' フィールドの値は、ログイン時に使用する値なので、任意の値に変更できます。

@@ -1,11 +1,23 @@
 ---
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: 'Frequently Asked Questions'
+sidebar_label: 'FAQ'
 sidebar_position: 2
-keywords: [qbox, fivem, faq, questions, answers, help, support, troubleshooting]
+keywords:
+  [
+    qbox,
+    fivem,
+    faq,
+    questions,
+    answers,
+    help,
+    support,
+    troubleshooting,
+  ]
 description: Find answers to commonly asked questions about the Qbox framework, including compatibility, features, installation, and troubleshooting information.
 slug: /faq
 ---
+
+import { Callout } from 'nextra/components';
 
 # よくある質問
 
@@ -26,10 +38,10 @@ qb-core のドキュメント化された適切な使用方法との下位互換
 
 ただし、次のような、文書化されていない、サポートされていない、無効な、または不適切な方法で qb-core を使用するリソースは例外です。
 
-* データベース テーブルへの直接アクセス。
-* 他のリソースによって使用されることを意図していない qb-core ファイルへの直接アクセス。
-* 既存の関数の無効な使用法。
-* そして、ここには記載されていない他の予期しない方法もあります。
+- データベース テーブルへの直接アクセス。
+- 他のリソースによって使用されることを意図していない qb-core ファイルへの直接アクセス。
+- 既存の関数の無効な使用法。
+- そして、ここには記載されていない他の予期しない方法もあります。
 
 ## Qbox は誰が使用すべきでしょうか?
 
@@ -37,15 +49,15 @@ qb-core のドキュメント化された適切な使用方法との下位互換
 
 ## Qbox は使用できる状態ですか?
 
-qbx\_core は qb-core リソースと下位互換性があるため、安定したエクスペリエンスを得るには、リリースされた Qbox リソースのみを使用することをお勧めします。
+qbx_core は qb-core リソースと下位互換性があるため、安定したエクスペリエンスを得るには、リリースされた Qbox リソースのみを使用することをお勧めします。
 
 ## マルチジョブリソースは Qbox と互換性がありますか?
 
-可能ですが、qbx\_core エクスポートを呼び出して player のジョブを追加/変更/削除する場合に限ります。
+可能ですが、qbx_core エクスポートを呼び出して player のジョブを追加/変更/削除する場合に限ります。
 マルチジョブリソースに関する一般的な問題は以下の 2 つです。
 
-* Qboxのデータベーステーブルに直接アクセスする
-* Qbox のコアデータをリソース独自の table で維持する
+- Qboxのデータベーステーブルに直接アクセスする
+- Qbox のコアデータをリソース独自の table で維持する
 
 ## リソースを動作させるには Qbox に変換する必要がありますか?
 
@@ -60,11 +72,11 @@ qbx\_core は qb-core リソースと下位互換性があるため、安定し�
 
 ## よくある問題と質問
 
-### リソース qbx\_core にそのようなエクスポート GetCoreObject はありません
+### リソース qbx_core にそのようなエクスポート GetCoreObject はありません
 
 Qboxにはコアオブジェクトがありません。ただし、引き続き使用できます。`exports['qb-core']:GetCoreObject()`Qbox の QB ブリッジ レイヤーからコア オブジェクトを取得します。
 
-### \[警告] このリソースは、非推奨の qbx\_core ユーティリティをまだ使用しています。
+### \[警告] このリソースは、非推奨の qbx_core ユーティリティをまだ使用しています。
 
 この警告が表示された場合は、該当リソースの最新リリース/コミットをダウンロードしてください。アーカイブされたリソースを除き、この依存関係は解決されています。
 
@@ -76,12 +88,14 @@ Qboxにはコアオブジェクトがありません。ただし、引き続き�
     useExternalCharacters = false, -- Whether you have an external character management resource. (If true, disables the character management inside the core)
 ```
 
-:::info\[ロード画面で止まっていませんか？]
+<Callout type="info">
+[ロード画面で止まっていませんか？]
 マルチキャラクターモードでは、シャットダウン時にロード画面が呼び出されない可能性があります。この問題を解決するには、以下の2つの方法があります。
 
 1. 開く`server.cfg`編集する`setr loadscreen:externalShutdown`なる`false`
-2. マルチキャラクタリソースを編集して、`ShutdownLoadingScreen()` そして `ShutdownLoadingScreenNui()`ネイティブ。qbx\_coreのように[ここ](https://github.com/Qbox-project/qbx_core/blob/6e50abaf966295a4245c901a37ecb64343d63677/client/character.lua#L387-L388)
-   :::
+2. マルチキャラクタリソースを編集して、`ShutdownLoadingScreen()` そして `ShutdownLoadingScreenNui()`ネイティブ。qbx_coreのように[ここ](https://github.com/Qbox-project/qbx_core/blob/6e50abaf966295a4245c901a37ecb64343d63677/client/character.lua#L387-L388)
+
+</Callout>
 
 ### 独自の通知システムを使用できますか?
 
@@ -107,9 +121,9 @@ numberで始まるvehicle名を使用する場合は、次のように角括弧�
 
 これはPCの性能が低いことが原因である可能性があります。エラーが`qbx_core`タイムアウトを調整できます`qbx_core/config/client.lua` 下 `loadingModelsTimeout`
 
-### qbx\_core/shared/items.lua と ox\_inventory にアイテムを追加する必要がありますか?
+### qbx_core/shared/items.lua と ox_inventory にアイテムを追加する必要がありますか?
 
-いいえ、ox\_inventory非対応のスクリプトなど、ブリッジ経由でリソースにアクセスしない限り、そこにアイテムを追加する必要はありません。ここに追加されたアイテムは自動的に追加されます。`ox_inventory`ただし、クライアント/サーバーのエクスポートなどは手動で追加する必要があります。`ox_inventory/data/items.lua`
+いいえ、ox_inventory非対応のスクリプトなど、ブリッジ経由でリソースにアクセスしない限り、そこにアイテムを追加する必要はありません。ここに追加されたアイテムは自動的に追加されます。`ox_inventory`ただし、クライアント/サーバーのエクスポートなどは手動で追加する必要があります。`ox_inventory/data/items.lua`
 
 ### エラー SQL: table xyz を作成できません (外部キー制約の形式が正しくありません)
 
