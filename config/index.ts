@@ -47,7 +47,7 @@ export default {
    * Nextra Layout component configuration
    */
   nextraLayout: {
-    docsRepositoryBase: 'https://github.com/webya-jp/fivemdevjp/tree/main/content',
+    docsRepositoryBase: 'https://github.com/webya-jp/fivemdevjp/tree/main',
     sidebar: {
       defaultMenuCollapseLevel: 1,
     },
