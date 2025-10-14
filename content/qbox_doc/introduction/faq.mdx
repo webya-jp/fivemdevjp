@@ -1,0 +1,120 @@
+---
+title: "Frequently Asked Questions"
+sidebar_label: "FAQ"
+sidebar_position: 2
+keywords: [qbox, fivem, faq, questions, answers, help, support, troubleshooting]
+description: Find answers to commonly asked questions about the Qbox framework, including compatibility, features, installation, and troubleshooting information.
+slug: /faq
+---
+
+# よくある質問
+
+## QBCore と Qbox の違いは何ですか?
+
+元々はQBCoreからフォークされたものですが、多くのQboxリソースはコード品質の向上、セキュリティの強化、パフォーマンスのオーバーヘッドの低減、および統合のためにリファクタリングされています。[過剰に拡張された](https://coxdocs.dev)リソース。
+Qbox は、社内で劣悪なリソースを管理するのではなく、必要に応じて他のオープンソース プロジェクトと直接統合します。
+
+Qbox は高い品質基準を維持しており、定期的に貢献する強力なコミュニティを形成しています。
+今後、player の機能面での進化が期待されます。
+
+## QBCore スクリプトは Qbox で動作しますか?
+
+TL;DR: はい (ほとんどの場合)。
+
+qb-core のドキュメント化された適切な使用方法との下位互換性を確保するためにブリッジレイヤーを作成しました。
+ほとんどの QBCore スクリプトは変更を加えることなく引き続き使用できます。
+
+ただし、次のような、文書化されていない、サポートされていない、無効な、または不適切な方法で qb-core を使用するリソースは例外です。
+
+* データベース テーブルへの直接アクセス。
+* 他のリソースによって使用されることを意図していない qb-core ファイルへの直接アクセス。
+* 既存の関数の無効な使用法。
+* そして、ここには記載されていない他の予期しない方法もあります。
+
+## Qbox は誰が使用すべきでしょうか?
+
+現在 QBCore を使用しているサーバーと、将来 QBCore を実行することに興味のあるサーバー。
+
+## Qbox は使用できる状態ですか?
+
+qbx\_core は qb-core リソースと下位互換性があるため、安定したエクスペリエンスを得るには、リリースされた Qbox リソースのみを使用することをお勧めします。
+
+## マルチジョブリソースは Qbox と互換性がありますか?
+
+可能ですが、qbx\_core エクスポートを呼び出して player のジョブを追加/変更/削除する場合に限ります。
+マルチジョブリソースに関する一般的な問題は以下の 2 つです。
+
+* Qboxのデータベーステーブルに直接アクセスする
+* Qbox のコアデータをリソース独自の table で維持する
+
+## リソースを動作させるには Qbox に変換する必要がありますか?
+
+いいえ、ブリッジ層はQBCore形式のエクスポートとイベントを想定するリソースの互換性を処理します。リソースの変換は、可読性の向上とメモリ使用量の削減にのみ役立ちます。
+
+## ベータ版は使用できる状態ですか?
+
+バージョンが v1.0.0 未満のリソースは、ベータ版としてリリースされています。
+ベータ版は、リリース基準をすべて満たしていますが、最適化やクリーンアップが十分に行われていない可能性があります。
+ベータ版としてリリースするにあたっては、リソースが正常に動作し、API と依存関係が適切であることを最優先に考えています。
+リソースが安定しており、すぐに使用できる状態ではないと判断した場合、ベータ版としてリリースすることはありません。
+
+## よくある問題と質問
+
+### リソース qbx\_core にそのようなエクスポート GetCoreObject はありません
+
+Qboxにはコアオブジェクトがありません。ただし、引き続き使用できます。`exports['qb-core']:GetCoreObject()`Qbox の QB ブリッジ レイヤーからコア オブジェクトを取得します。
+
+### \[警告] このリソースは、非推奨の qbx\_core ユーティリティをまだ使用しています。
+
+この警告が表示された場合は、該当リソースの最新リリース/コミットをダウンロードしてください。アーカイブされたリソースを除き、この依存関係は解決されています。
+
+### 独自のマルチキャラクターを使用できますか?
+
+はい、できます。組み込みのマルチキャラクタを無効にするには、この設定をtrueに変更してください。`qbx_core/config/client.lua`
+
+```lua filename="qbx_core/config/client.lua"
+    useExternalCharacters = false, -- Whether you have an external character management resource. (If true, disables the character management inside the core)
+```
+
+:::info\[ロード画面で止まっていませんか？]
+マルチキャラクターモードでは、シャットダウン時にロード画面が呼び出されない可能性があります。この問題を解決するには、以下の2つの方法があります。
+
+1. 開く`server.cfg`編集する`setr loadscreen:externalShutdown`なる`false`
+2. マルチキャラクタリソースを編集して、`ShutdownLoadingScreen()` そして `ShutdownLoadingScreenNui()`ネイティブ。qbx\_coreのように[ここ](https://github.com/Qbox-project/qbx_core/blob/6e50abaf966295a4245c901a37ecb64343d63677/client/character.lua#L387-L388)
+   :::
+
+### 独自の通知システムを使用できますか?
+
+はい、できますが、変更する必要があります`ox_lib`イベントを通知システムに渡します。
+
+### numberで始まる車両モデル名
+
+numberで始まるvehicle名を使用する場合は、次のように角括弧で囲む必要があります。
+
+```lua
+    ['5vigero'] =
+```
+
+### キーバインドの変更が機能しない
+
+環境変数や設定ファイルでキーバインドを変更しても、既にサーバーに接続しているクライアントのキーバインドは変更されません。キーバインドを手動でクリアして、デフォルトに戻す必要があります。
+
+### txAdmin インストール: タスク失敗: 応答コード 403 (レート制限超過)
+
+これはGitHubのレート制限によるもので、弊社の管理外です。引き続きお試しいただくか、IPアドレスを変更してください。
+
+### スクリプトエラー: モデルの読み込みに失敗しました
+
+これはPCの性能が低いことが原因である可能性があります。エラーが`qbx_core`タイムアウトを調整できます`qbx_core/config/client.lua` 下 `loadingModelsTimeout`
+
+### qbx\_core/shared/items.lua と ox\_inventory にアイテムを追加する必要がありますか?
+
+いいえ、ox\_inventory非対応のスクリプトなど、ブリッジ経由でリソースにアクセスしない限り、そこにアイテムを追加する必要はありません。ここに追加されたアイテムは自動的に追加されます。`ox_inventory`ただし、クライアント/サーバーのエクスポートなどは手動で追加する必要があります。`ox_inventory/data/items.lua`
+
+### エラー SQL: table xyz を作成できません (外部キー制約の形式が正しくありません)
+
+これは、作成するtableと既存のテーブルの照合順序が一致していないために発生します。`CREATE TABLE`追加しようとしているSQLの一部を修正すれば問題は解決するはずです。変更を適用するには、tableを一旦削除して再度追加する必要があるかもしれません。
+
+```sql
+DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```

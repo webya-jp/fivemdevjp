@@ -1,0 +1,90 @@
+# クライアント
+
+キーバインドを登録し、キーバインドの相互作用を単純化する。
+
+## CKeybind クラス
+
+以下のプロパティを持つキーバインドを表すテーブル。
+
+* と名付けた：`string`
+* という記述がある：`string`
+* currentKey：`string`
+  * 現在のユーザーがこのキーバインドを設定しているキー
+* を無効にした：`boolean`
+  * キーバインドが現在無効かどうか
+* isPressed：`boolean`
+  * "キーバインドが押されているかどうかを示す状態
+* ハッシュ`number`
+  * ゲーム内でキーバインドを参照するための内部ハッシュ。
+* defaultKey?`string`
+  * 新規プレーヤーのキーバインドを設定するデフォルトキー
+  * 注：これを変更しても、既存のプレーヤーのキーは変更されません。
+* defaultMapper?`string`
+  * 参照[入力マッパーID](https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/)詳細はこちら
+* セカンダリーキー？`string`
+  * オプションのセカンダリー・キーバインド。
+* secondaryMapper?`string`
+  * オプションのセカンダリキーのマッパー。
+* を無効にする：`function(self: CKeybind, disable: boolean)`
+  * キーバインドを有効／無効にする内蔵機能
+* isControlPressed：`function(self: CKeybind)`
+  * キーバインドで現在押されている状態を取得する組み込み関数
+* onPressed？`function(self: CKeybind)`
+  * キーバインド押下時にトリガーされるユーザー定義関数
+* onReleased？`function(self: CKeybind)`
+  * キーバインド解除時にトリガーされるユーザー定義関数
+
+## lib.addKeybind
+
+```lua
+lib.addKeybind(data)
+```
+
+* のデータがある：`table`
+  * と名付けた：`string`
+  * という記述がある：`string`
+  * defaultKey?`string`
+    * デフォルト：`None`
+  * defaultMapper?`string`
+    * デフォルト：`keyboard`
+  * セカンダリーキー？`string`
+  * secondaryMapper?`string`
+  * 無効ですか？`boolean`
+    * デフォルトでキーバインドを無効にするかどうか
+  * onPressed？`function(self: CKeybind)`
+    * キーバインド押下時にトリガーされる機能
+  * onReleased？`function(self: CKeybind)`
+    * キーバインド解除時にトリガーされる機能
+
+```lua
+local keybind = lib.addKeybind({
+    name = 'respects',
+    description = 'press F to pay respects',
+    defaultKey = 'F',
+    onPressed = function(self)
+        print(('pressed %s (%s)'):format(self.currentKey, self.name))
+    end,
+    onReleased = function(self)
+        print(('released %s (%s)'):format(self.currentKey, self.name))
+    end
+})
+```
+
+### キーバインドを有効/無効にする
+
+キーバインドはdisableメソッドで有効／無効にできる。
+
+```lua
+keybind:disable(true) -- disables the keybind
+keybind:disable(false) -- enables the keybind
+```
+
+### キーバインドが押された状態
+
+で登録されたすべてのキーバインドを使用することができます。`lib.addKeybind()`押されたかどうかを示すブール値の状態を取得する。
+
+以下のメソッドで状態を取得できる。
+
+```lua
+local state = keybind:isControlPressed()
+```

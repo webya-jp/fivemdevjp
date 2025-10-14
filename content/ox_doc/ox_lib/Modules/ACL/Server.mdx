@@ -1,0 +1,124 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+
+# サーバー
+
+組み込み ACL システムのラッパー。lib.addCommand と ox_groups パーミッションを扱います。\
+参照[ベーシック・エース＆プリンシプルの概要／ガイド](https://forum.cfx.re/t/basic-aces-principals-overview-guide/90917)をご覧ください。
+
+## lib.addAce
+
+プリンシパルにエースパーミッションを割り当てる。3 番目のパラメータのデフォルトは 'allow' です。`false`はパーミッションを'deny'に設定する。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.addAce(principal, ace, allow)
+
+    lib.addAce('group.admin', 'command.say')
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/server'
+
+    lib.addAce(principal, ace, allow)
+
+    lib.addAce('group.admin', 'command.say')
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 校長：`string`
+- エース`string`
+- を許可する：`boolean`
+
+## lib.removeAce
+
+プリンシパルからエースパーミッションを削除する。3 番目のパラメータのデフォルトは 'allow' です。`false`はパーミッションを'deny'に設定する。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.removeAce(principal, ace, allow)
+
+    lib.removeAce('group.admin', 'command.say')
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/server'
+
+    lib.removeAce(principal, ace, allow)
+
+    lib.removeAce('group.admin', 'command.say')
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 校長：`string`
+- エース`string`
+- を許可する：`boolean`
+
+## lib.addPrincipal
+
+プリンシパルを親プリンシパルに割り当てます。子プリンシパルは親プリンシパルからパーミッションを継承します。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.addPrincipal(child, parent)
+
+    lib.addPrincipal('player.1', 'group.moderator')
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/server'
+
+    lib.addPrincipal(child, parent)
+
+    lib.addPrincipal('player.1', 'group.moderator')
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 子供`string`
+- 親だ：`string`
+
+## lib.removePrincipal
+
+親プリンシパルからプリンシパルを削除します。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.removePrincipal(child, parent)
+
+    lib.removePrincipal('player.1', 'group.moderator')
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/server'
+
+    lib.removePrincipal(child, parent)
+
+    lib.removePrincipal('player.1', 'group.moderator')
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 子供`string`
+- 親だ：`string`

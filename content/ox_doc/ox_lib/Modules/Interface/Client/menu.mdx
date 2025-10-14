@@ -1,0 +1,320 @@
+---
+
+## タイトルメニュー
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# メニュー
+
+特定のイベント機能を備えたキーボードナビゲーションメニュー。
+
+## lib.registerMenu
+
+指定された ID でメニューを登録し、キャッシュします。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.registerMenu(data, cb)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.registerMenu(data, cb);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- のデータがある：`table`(`object`)
+  - id.K.である：`string`
+  - というタイトルをつけた：`string`
+  - のオプションがある：`table`(`array`)
+    - のラベルが貼られている：`string`
+    - 進捗状況は？`number`
+    - colorScheme?`string`
+    - アイコンは？`string`
+      - 左側に表示される FontAwesome アイコンは、通知や textui アイコンと同じように機能します。
+      - また、画像 URL、png、webp ファイルをサポートしていますが、フォントの素晴らしいアイコンを超えて使用することはお勧めしません。
+    - iconColor?`string`
+    - iconAnimation?`'spin'` `'spinPulse'` `'spinReverse'` `'pulse'` `'beat'` `'fade'` `'beatFade'` `'bounce'` `'shake'`
+    - 価値観？`string[]`または`{ label: string, description: string }[]`
+      - 指定すると、横スクロール可能なリストを作成する。
+      - オブジェクトと設定の説明を使用すると、設定された説明がメニューのツールチップに表示されます。
+    - チェックした？`boolean`
+      - true または false のいずれかを設定すると、ボタンはチェックボックスになります。`values`も提供されている場合、ボタンは
+        スクロール可能なリストになります。
+    - という記述がある：`string`
+      - メニューの下にツールチップを表示します。
+    - defaultIndex?`number`
+      - リストの現在のインデックスを指定された数に設定する。
+    - 引数？`{[string]: any}`
+      - ボタンに引数を渡すことができる。
+      - ボタンに`values`では`isScroll`が自動的に渡される。
+      - ボタンに`checked`を true または false に設定する。`isCheck`が自動的に渡される。
+    - クローズ？`boolean`
+      - false に設定すると、このオプションを操作してもメニューは閉じない。
+  - ポジションは？`'top-left'`または`'top-right'`または`'bottom-left'`または`'bottom-right'`
+    - デフォルト：`'top-left'`
+  - disableInput?`boolean`
+    - デフォルト：`false`
+  - を閉じることができる：`boolean`
+    - false に設定すると、ユーザーはいずれかのボタンを押さなければメニューを終了できなくなる。
+  - onClose：`function`(keyPressed?`'Escape' | 'Backspace'`)
+    - ESC/Backspace でメニューを終了したときに実行される機能。
+  - onSelected：`function`(選ばれた：`number`セカンダリー：`number`|`boolean`引数：`{[string]: any}`)
+    - メニューで選択されているボタンが変化したときに実行される機能。
+  - onSideScroll：`function`(選ばれた：`number`scrollIndex：`number`引数：`{[string]: any}`)
+    - スクロールリストの項目が変更されるたびに実行される関数。
+  - オンチェック：`function`(選ばれた：`number`チェックした：`boolean`引数：`{[string]: any}`)
+    - チェックボックスがトグルされるたびに実行される関数。
+- cb：`function`(選ばれた：`number`scrollIndex：`number`引数：`{[string]: any}`)
+  - メニュー項目が押されたときのコールバック関数。
+
+## lib.showMenu
+
+指定された ID のメニューを表示する。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.showMenu(id)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.showMenu(id);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- id.K.である：`string`
+
+## lib.hideMenu
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.hideMenu(onExit)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.hideMenu(onExit);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- onExit？`boolean`
+  - true の場合、メニューの`onClose`関数である。
+
+## lib.getOpenMenu
+
+現在開いているメニューの ID を返します。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.getOpenMenu()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.getOpenMenu();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## lib.setMenuOptions
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.setMenuOptions(id, options, index)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.setMenuOptions(id, options, index);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- id.K.である：`string`
+- のオプションがある：`table`(`object`または`array`)
+- インデックス？`number`
+  - 指定すると、指定したオプション・インデックスのオプション・テーブルだけを設定する。
+
+<u>**例**</u>
+<br />
+指定されたメニューの3番目のインデックスオプションを置き換える
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.setMenuOptions('some_menu_id', {label = 'New option', icon = 'plus'}, 3)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.setMenuOptions('some_menu_id', { label: 'New option', icon: 'plus' }, 3);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 使用例
+
+まず、指定したオプションでメニューを登録し、次にコマンドの show 関数を呼び出す。
+
+<Callout>
+  外部の値に依存しないメニュー（静的メニュー）を常に再登録することは避けてください。
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.registerMenu({
+        id = 'some_menu_id',
+        title = 'Menu title',
+        position = 'top-right',
+        onSideScroll = function(selected, scrollIndex, args)
+            print("Scroll: ", selected, scrollIndex, args)
+        end,
+        onSelected = function(selected, secondary, args)
+            if not secondary then
+                print("Normal button")
+            else
+                if args.isCheck then
+                    print("Check button")
+                end
+
+                if args.isScroll then
+                    print("Scroll button")
+                end
+            end
+            print(selected, secondary, json.encode(args, {indent=true}))
+        end,
+        onCheck = function(selected, checked, args)
+            print("Check: ", selected, checked, args)
+        end,
+        onClose = function(keyPressed)
+            print('Menu closed')
+            if keyPressed then
+                print(('Pressed %s to close the menu'):format(keyPressed))
+            end
+        end,
+        options = {
+            {label = 'Simple button', description = 'It has a description!'},
+            {label = 'Checkbox button', checked = true},
+            {label = 'Scroll button with icon', icon = 'arrows-up-down-left-right', values={'hello', 'there'}},
+            {label = 'Button with args', args = {someArg = 'nice_button'}},
+            {label = 'List button', values = {'You', 'can', 'side', 'scroll', 'this'}, description = 'It also has a description!'},
+            {label = 'List button with default index', values = {'You', 'can', 'side', 'scroll', 'this'}, defaultIndex = 5},
+            {label = 'List button with args', values = {'You', 'can', 'side', 'scroll', 'this'}, args = {someValue = 3, otherValue = 'value'}},
+        }
+    }, function(selected, scrollIndex, args)
+        print(selected, scrollIndex, args)
+    end)
+
+    RegisterCommand('testmenu', function()
+        lib.showMenu('some_menu_id')
+    end)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.registerMenu(
+      {
+        id: 'some_menu_id',
+        title: 'Menu title',
+        position: 'top-right',
+        onSideScroll: (selected, scrollIndex, args) => {
+          console.log('Scroll: ', selected, scrollIndex, args);
+        },
+        onSelected: (selected, secondary, args) => {
+          if (!secondary) {
+            console.log('Normal button');
+          } else {
+            if (args.isCheck) {
+              console.log('Check button');
+            }
+
+            if (args.isScroll) {
+              console.log('Scroll button');
+            }
+          }
+          console.log(selected, secondary, JSON.stringify(args, null, 2));
+        },
+        onCheck: (selected, checked, args) => {
+          console.log('Check: ', selected, checked, args);
+        },
+        onClose: (keyPressed) => {
+          console.log('Menu closed');
+          if (keyPressed) {
+            console.log(`Pressed ${keyPressed} to close the menu`);
+          }
+        },
+        options: [
+          { label: 'Simple button', description: 'It has a description!' },
+          { label: 'Checkbox button', checked: true },
+          { label: 'Scroll button with icon', icon: 'arrows-up-down-left-right', values: ['hello', 'there'] },
+          { label: 'Button with args', args: { someArg: 'nice_button' } },
+          {
+            label: 'List button',
+            values: ['You', 'can', 'side', 'scroll', 'this'],
+            description: 'It also has a description!',
+          },
+          { label: 'List button with default index', values: ['You', 'can', 'side', 'scroll', 'this'], defaultIndex: 5 },
+          {
+            label: 'List button with args',
+            values: ['You', 'can', 'side', 'scroll', 'this'],
+            args: { someValue: 3, otherValue: 'value' },
+          },
+        ],
+      },
+      (selected, scrollIndex, args) => {
+        console.log(selected, scrollIndex, args);
+      }
+    );
+
+    RegisterCommand(
+      'testmenu',
+      () => {
+        lib.showMenu('some_menu_id');
+      },
+      false
+    );
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![Example](https://i.imgur.com/2zxbsnN.png)

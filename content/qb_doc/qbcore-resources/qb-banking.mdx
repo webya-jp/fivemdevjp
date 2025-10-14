@@ -1,0 +1,195 @@
+---
+description: Keep your money safe and quickly access!
+---
+
+# 🏦 qb-バンキング
+
+## 導入
+
+* マップ上には複数のATMと銀行があり、操作できる
+* 銀行/仕事/ギャング/共有アカウントとのplayerのすべてのやり取りを処理します
+* ATMと銀行カードの統合
+* プレイヤー間の共有アカウント
+* 銀行の初回開設時にジョブ/ギャングアカウントを自動作成
+* ジョブ/ギャングアカウントへのボスのみのアクセス
+
+## プレイヤーアカウントの作成
+
+playerの新しい共有アカウントを作成し、成功したかどうかを返します
+
+```lua
+exports['qb-banking']:CreatePlayerAccount(playerId, accountName, accountBalance, accountUsers)
+```
+
+* プレイヤーID:`number`
+* アカウント名： `string`
+* アカウント残高:`number`
+* アカウントユーザー:`table`
+* 戻り値:`boolean`
+
+```lua
+RegisterCommand('createPlayerAccount', function(source)
+    local playerId = source
+    local accountName = 'My Shared Account'
+    local accountBalance = 5000
+    local accountUsers = {'LCC00307', 'LCC00308'} -- list of citizenid's
+    exports['qb-banking']:CreatePlayerAccount(playerId, accountName, accountBalance, json.encode(accountUsers))
+end, true)
+```
+
+## ジョブアカウントの作成
+
+新しいジョブタイプのアカウントを作成します。これは自動的に行われるため、これは必要ありません。
+
+```lua
+exports['qb-banking']:CreateJobAccount(accountName, accountBalance)
+```
+
+* アカウント名： `string`
+* アカウント残高:`number`
+
+#### 使用例:
+
+```lua
+RegisterCommand('createJobAccount', function()
+    local accountName = 'police'
+    local accountBalance = 10000
+    exports['qb-banking']:CreateJobAccount(accountName, accountBalance)
+end, true)
+```
+
+## ギャングアカウントを作成
+
+新しいギャングタイプのアカウントを作成します。これは自動的に行われるため、これは必要ありません。
+
+```lua
+exports['qb-banking']:CreateGangAccount(accountName, accountBalance)
+```
+
+* アカウント名： `string`
+* アカウント残高:`number`
+
+#### 使用例:
+
+```lua
+RegisterCommand('createGangAccount', function()
+    local accountName = 'ballas'
+    local accountBalance = 10000
+    exports['qb-banking']:CreateGangAccount(accountName, accountBalance)
+end, true)
+```
+
+## 追加マネー
+
+名前でアカウントに資金を追加し、成功したかどうかを返します
+
+```lua
+exports['qb-banking']:AddMoney(accountName, amount, reason)
+```
+
+* アカウント名： `string`
+* 額： `number`
+* <mark style="color:yellow;">reason</mark>:`string`
+* 戻り値:`boolean`
+
+```lua
+RegisterCommand('addMoney', function()
+    local accountName = 'police'
+    local amount = 10000
+    exports['qb-banking']:AddMoney(accountName, amount, 'test example')
+end, true)
+```
+
+## お金を削除
+
+名前を指定して口座から資金を引き出し、成功したか失敗したかを返します
+
+```lua
+exports['qb-banking']:RemoveMoney(accountName, amount, reason)
+```
+
+* アカウント名： `string`
+* 額： `number`
+* <mark style="color:yellow;">reason</mark>:`string`
+* 戻り値:`boolean`
+
+```lua
+RegisterCommand('removeMoney', function()
+    local accountName = 'police'
+    local amount = 10000
+    exports['qb-banking']:RemoveMoney(accountName, amount, 'test example')
+end, true)
+```
+
+## アカウントを取得
+
+指定されたアカウントのすべての情報を名前で返します
+
+```lua
+exports['qb-banking']:GetAccount(accountName)
+```
+
+* アカウント名： `string`
+* 戻り値:`table | nil`
+
+```lua
+RegisterCommand('getAccount', function()
+    local accountName = 'police'
+    local accountInfo = exports['qb-banking']:GetAccount(accountName)
+    if not accountInfo then print('Account '..accountName..' does not exist') return end
+    for _, info in pairs(accountInfo) do
+        print('Account Name: '..info.account_name)
+        print('Account Balance: '..info.account_balance)
+        print('Account Type: '..info.account_type)
+    end
+end, true)
+```
+
+## アカウント残高を取得
+
+指定されたアカウント名の残高のみを返します
+
+```lua
+exports['qb-banking']:GetAccountBalance(accountName)
+```
+
+* アカウント名： `string`
+* 戻り値:`number`
+
+```lua
+RegisterCommand('getBalance', function()
+    local accountName = 'police'
+    local balance = exports['qb-banking']:GetAccountBalance(accountName)
+    print('Account: '..accountName..' Balance: '..balance)
+end, true)
+```
+
+## 銀行取引明細書の作成
+
+これにより、指定されたアカウントのステートメントが作成され、成功したかどうかが返されます。
+
+```lua
+exports['qb-banking']:CreateBankStatement(playerId, account, amount, reason, statementType, accountType)
+```
+
+* プレイヤーID:`number`
+* アカウント： `string`
+* 額： `number`
+* 理由： `string`
+* ステートメントタイプ:`string`
+* アカウントタイプ:`string`
+* 戻り値:`boolean`
+
+```lua
+RegisterCommand('createBankStatement', function(source)
+    local playerId = source
+    local account = 'My Shared Account'
+    local amount = 5000
+    local reason = 'Removed money'
+    local statementType = 'withdraw' -- deposit
+    local accountType = 'shared' -- 'player', 'job', 'gang'
+    local statementCreated = exports['qb-banking']:CreateBankStatement(playerId, account, amount, reason, statementType, accountType)
+    if statementCreated then print('Statement Created') return end
+    print('Error creating statement')
+end, true)
+```

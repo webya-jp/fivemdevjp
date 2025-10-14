@@ -1,0 +1,201 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# 共有
+
+PolyZone に代わるより迅速な方法[glm.polygon](https://github.com/citizenfx/lua/blob/luaglm-dev/cfx/EXTENDED.md).
+
+<Callout>
+  現在のところ、ゾーンはサーバー側での基本的なサポートしかありません。以下のようないくつかの機能は動作しません。`onEnter`,`onExit`,
+  そして`inside`.
+</Callout>
+
+## lib.zones.poly
+
+```lua
+lib.zones.poly(data)
+```
+
+- のデータがある：`table`
+  - 点である：`vector3[]`
+    - ポリゴンの形状を定義する 3 次元点の配列。
+  - 厚さ？`number`
+    - ポリゴンの高さ。デフォルトは`4`.
+  - onEnter？`function(self: table)`
+  - onExit？`function(self: table)`
+  - 内部？`function(self: table)`
+  - デバッグ？`boolean`
+
+## lib.zones.box
+
+```lua
+lib.zones.box(data)
+```
+
+- のデータがある：`table`
+  - コーデ：`vector3`
+  - サイズは？`vector3`
+    - デフォルト：`vec3(2, 2, 2)`
+  - 回転？`number`
+    - 角度は度単位で、デフォルトは`0`.
+  - onEnter？`function(self: table)`
+  - onExit？`function(self: table)`
+  - 内部？`function(self: table)`
+  - デバッグ？`boolean`
+
+## lib.zones.sphere
+
+```lua
+lib.zones.sphere(data)
+```
+
+- のデータがある：`table`
+  - コーデ：`vector3`
+  - 半径？`number`
+    - デフォルト：`2`
+  - onEnter？`function(self: table)`
+  - onExit？`function(self: table)`
+  - 内部？`function(self: table)`
+  - デバッグ？`boolean`
+
+## 方法
+
+### 取り除く
+
+ゾーンは remove メソッドを使用して削除することができる。データはスクリプトから消去されないので、後でゾーンを再作成する ために使用することができる。
+
+```lua
+local zone = lib.zones.box({...})
+
+zone:remove()
+
+SetTimeout(500, function()
+    lib.zones.poly(zone)
+end)
+```
+
+### を含む
+
+ゾーンの内側に点が存在するかどうかをテストする。`boolean`.
+
+```lua
+local zone = lib.zones.box({...})
+
+if zone:contains(vec3(1, 1, 1)) then
+    print('point is inside zone!')
+end
+```
+
+## 使用例
+
+```lua
+function onEnter(self)
+    print('entered zone', self.id)
+end
+
+function onExit(self)
+    print('exited zone', self.id)
+end
+
+function inside(self)
+    print('you are inside zone ' .. self.id)
+end
+
+local poly = lib.zones.poly({
+    points = {
+        vec(413.8, -1026.1, 29),
+        vec(411.6, -1023.1, 29),
+        vec(412.2, -1018.0, 29),
+        vec(417.2, -1016.3, 29),
+        vec(422.3, -1020.0, 29),
+        vec(426.8, -1015.9, 29),
+        vec(431.8, -1013.0, 29),
+        vec(437.3, -1018.4, 29),
+        vec(432.4, -1027.2, 29),
+        vec(424.7, -1023.5, 29),
+        vec(420.0, -1030.2, 29),
+        vec(409.8, -1028.4, 29),
+    },
+    thickness = 2,
+    debug = true,
+    inside = inside,
+    onEnter = onEnter,
+    onExit = onExit
+})
+
+local sphere = lib.zones.sphere({
+    coords = vec3(442.5363, -1017.666, 28.65637),
+    radius = 1,
+    debug = true,
+    inside = inside,
+    onEnter = onEnter,
+    onExit = onExit
+})
+
+local box = lib.zones.box({
+    coords = vec3(442.5363, -1017.666, 28.65637),
+    size = vec3(1, 1, 1),
+    rotation = 45,
+    debug = true,
+    inside = inside,
+    onEnter = onEnter,
+    onExit = onExit
+})
+```
+
+## ゾーン作成スクリプト
+
+を使用して、組み込みのゾーン作成ツールを使用できます。`/zone`- と`poly`,`box`または`sphere`を引数に取る。\
+使用可能なコントロールは右側に表示されます。
+
+ゾーンは`ox_lib/created_zones.lua`あなたの選んだフォーマットで。
+
+<Tabs items={["function", "array", "ox_target"]}>
+  <Tags.Tab>
+    ```lua
+    local poly = lib.zones.poly({
+        name = poly,
+        points = {
+            vec(447.9, -998.8, 25.8),
+            vec(450.3, -998.2, 25.8),
+            vec(449.9, -995.5, 25.8),
+            vec(447.2, -995.6, 25.8),
+            vec(446.3, -997.9, 25.8),
+        },
+        thickness = 2,
+    })
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```lua
+    {
+        name = poly,
+        points = {
+            vec(447.9, -998.8, 25.8),
+            vec(450.3, -998.2, 25.8),
+            vec(449.9, -995.5, 25.8),
+            vec(447.2, -995.6, 25.8),
+            vec(446.3, -997.9, 25.8),
+        },
+        thickness = 2,
+    },
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```lua
+    exports.ox_target:addPolyZone({
+        name = poly,
+        points = {
+            vec(447.9, -998.8, 25.8),
+            vec(450.3, -998.2, 25.8),
+            vec(449.9, -995.5, 25.8),
+            vec(447.2, -995.6, 25.8),
+            vec(446.3, -997.9, 25.8),
+        },
+        thickness = 2,
+    })
+    ```
+  </Tags.Tab>
+</Tabs>

@@ -1,0 +1,24 @@
+# サーバー
+
+## lib.getClosestPlayer
+
+座標セットに最も近いプレーヤーのID、ペッドハンドル、座標を取得します。
+
+```lua
+lib.getClosestPlayer(coords, maxDistance, ignorePlayerId)
+```
+
+* コーデ：`vector3`
+  * チェックする座標。
+* maxDistance?`number`
+  * チェックする最大距離。
+  * デフォルト：`2.0`
+* ignorePlayerId？`number`|`false`
+  * チェック時に無視する選手ID。に設定します。`false`を全選手に適用する。
+  * デフォルト：`false`
+
+戻る：
+
+* playerId?`number`
+* playerPed?`number`
+* playerCoords?`vector3`

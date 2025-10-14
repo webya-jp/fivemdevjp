@@ -1,0 +1,463 @@
+***
+
+## タイトルオックスプレーヤー
+
+## オックスプレーヤー
+
+* charId：`number`
+* 識別子`string`
+* ペダル`number`
+* ソース`number`
+* stateId：`string`
+* userId：`number`
+* ユーザー名`string`
+
+## OxPlayer.addLicense
+
+選手にライセンスを与える。
+
+```lua
+player.addLicense(licenseName)
+```
+
+**パラメータ**
+
+* ライセンス名`string`
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.addStatus
+
+ステータスの値を増加させる。
+
+```lua
+player.addStatus(statusName, value)
+```
+
+**パラメータ**
+
+* statusName：`string`
+* 値である：`number`
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.createCharacter
+
+まだキャラクターを選択していないプレイヤーに新しいキャラクターを登録する。
+
+```lua
+player.createCharacter(data)
+```
+
+**パラメータ**
+
+* のデータがある：`object`
+  * firstName：`string`
+  * ラストネーム`string`
+  * 性別`string`
+  * 日付が変わった：`number`
+
+**リターン**
+
+* `number`
+  * プレイヤーが所有するすべてのキャラクタの配列における、新しいキャラクタのインデックス。
+
+## OxPlayer.deleteCharacter
+
+指定された charId を持つキャラクターを削除します。
+
+```lua
+player.deleteCharacter(charId)
+```
+
+**パラメータ**
+
+* charId：`number`
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.emit
+
+プレーヤーのクライアントイベントをトリガーします。
+
+```lua
+player.emit(eventName, ...args)
+```
+
+**パラメータ**
+
+* イベント名`string`
+* ...args：`any`
+
+## OxPlayer.get
+
+プレーヤーのメタデータから特定のキーの値を取得します。
+
+```lua
+player.get(key)
+```
+
+**パラメータ**
+
+* キーだ：`string`
+
+**リターン**
+
+* `unknown`
+
+## OxPlayer.getAccount
+
+プレーヤーのデフォルトのOxAccountオブジェクトを返します。
+
+```lua
+player.getAccount()
+```
+
+**リターン**
+
+* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+
+## OxPlayer.getCoords
+
+プレーヤーの現在の座標を返します。
+
+```lua
+player.getCoords()
+```
+
+**リターン**
+
+* `vector3`
+
+## OxPlayer.getGroup
+
+指定されたグループ名の選手の成績、またはフィルターで最初にマッチした名前と成績を返します。
+
+```lua
+player.getGroup(filter)
+```
+
+**パラメータ**
+
+* フィルターにかける：`string`|`string[]`|`{ [string]: number }`
+
+**リターン**
+
+* `number`|`string`
+* `number?`
+
+## OxPlayer.getGroupByType
+
+型が一致するグループの選手名と成績を返します。
+
+```lua
+player.getGroupByType(type)
+```
+
+**パラメータ**
+
+* タイプだ：`string`
+
+**リターン**
+
+* `string?`
+* `number?`
+
+## OxPlayer.getGroups
+
+グループ名をキーとして、プレーヤーが現在所属しているすべてのグループのオブジェクトを返します。
+
+```lua
+player.getGroups()
+```
+
+**リターン**
+
+* `{ [string]: number }`
+
+## OxPlayer.getLicense
+
+指定したライセンスの情報を含むオブジェクトを返します。
+
+```lua
+player.getLicense(licenseName: string): object
+```
+
+**パラメータ**
+
+* ライセンス名`string`
+
+**リターン**
+
+* `object`
+  * `issued: number`
+  * `suspended?: [number, number]`
+  * `[key: string]: any`
+
+## OxPlayer.getLicenses
+
+すべてのライセンスの情報を含むオブジェクトを返します。
+
+```lua
+player.getLicenses()
+```
+
+**リターン**
+
+* `object`
+  * `{ [string]: object }`
+    * `issued: number`
+    * `suspended?: [number, number]`
+    * `[key: string]: any`
+
+## OxPlayer.getStatus
+
+ステータスの値を返す。
+
+```lua
+player.getStatus(statusName)
+```
+
+**パラメータ**
+
+* statusName：`string`
+
+**リターン**
+
+* 値である：`number`
+
+## OxPlayer.getStatuses
+
+ステータス名をキーとして、すべてのステータスを含むオブジェクトを返します。
+
+```lua
+player.getStatuses()
+```
+
+**リターン**
+
+* `{ [string]: number }`
+
+## OxPlayer.hasPermission
+
+ユーザがグループの1つからパーミッションを付与されているかどうかをチェックする。
+
+```lua
+player.hasPermission(permission)
+```
+
+**パラメータ**
+
+* を許可した：`string`
+
+**リターン**
+
+* `boolean`
+
+**例**
+
+```lua
+-- Adding a permission to a group
+Ox.SetGroupPermission('police', 1, 'handcuff', 'allow')
+
+-- Checking if a player has the 'handcuff' permission
+if player.hasPermission('group.police.handcuff') then
+    -- Do something
+end
+```
+
+## OxPlayer.logout
+
+アクティブなキャラクターのデータをクリアし、有効な場合はキャラクター選択に移行します。
+
+```lua
+player.logout(save, dropped)
+```
+
+**パラメータ**
+
+* 節約？`boolean`
+  * 有効文字データをデータベースに保存する場合、デフォルトは`true`.
+* を落としたのか？`boolean`
+  * プレイヤーがサーバーから切断された場合。
+
+## OxPlayer.payInvoice
+
+指定された invoiceId を持つ口座請求書を支払います。
+
+```lua
+player.payInvoice(invoiceId)
+```
+
+**パラメータ**
+
+* invoiceId：`number`
+
+**リターン**
+
+* `object`
+  * 成功した：`boolean`
+  * メッセージは？`"no_charId"`|`"no_permission"`|`"no_balance"`|`"no_invoice"`|`"invoice_paid"`|`"insufficient_balance"`
+
+## OxPlayer.removeLicense
+
+選手からライセンスを剥奪する。
+
+```lua
+player.removeLicense(licenseName)
+```
+
+**パラメータ**
+
+* ライセンス名`string`
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.removeStatus
+
+ステータスの価値を下げる。
+
+```lua
+player.removeStatus(statusName, value)
+```
+
+**パラメータ**
+
+* statusName：`string`
+* 値である：`number`
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.save
+
+アクティブな文字をデータベースに保存する。
+
+```lua
+player.save()
+```
+
+## OxPlayer.set
+
+プレーヤーのメタデータに値を保存し、オプションでクライアントと同期させることができます。
+
+```lua
+player.set(key, value, replicated)
+```
+
+**パラメータ**
+
+* キーだ：`string`
+* 値である：`any`
+* 複製？`boolean`
+
+## OxPlayer.setActiveCharacter
+
+プレイヤーのアクティブなキャラクターとしてキャラクターをロードして設定します。charIdまたは新しいキャラクターデータを含むオブジェクトを受け取ります。
+
+```lua
+player.setActiveCharacter(data)
+```
+
+**パラメータ**
+
+* のデータがある：`number`|`object`
+  * firstName：`string`
+  * ラストネーム`string`
+  * 性別`string`
+  * 日付が変わった：`number`
+
+**リターン**
+
+* `object`
+  * charId：`number`
+  * stateId：`string`
+  * firstName：`string`
+  * ラストネーム`string`
+  * x?:`number`
+  * y?:`number`
+  * z?:`number`
+  * ヘディング？`number`
+  * lastPlayed?`string`
+  * 健康？`number`
+  * アーマー？`number`
+  * isNew?`boolean`
+
+## OxPlayer.setActiveGroup
+
+プレーヤーが所属しているグループをアクティブまたは「プライマリ」グループとして設定します。引数が渡されない場合、アクティブなグループは設定されません。
+
+```lua
+player.setActiveGroup(groupName?: string, temporary?: boolean)
+```
+
+**パラメータ**
+
+* グループ名：`string`
+* 一時的な？`boolean`
+  * もし`true`セッション中も持続しない。
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.setGroup
+
+グループ内のプレーヤーのグレードを設定します。グレードが未定義または0の場合、グループから除外されます。
+
+```lua
+player.setGroup(groupName, grade)
+```
+
+**パラメータ**
+
+* グループ名：`string`
+* グレード？`number`
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.setStatus
+
+ステータスの値を設定する。
+
+```lua
+player.setStatus(statusName, value)
+```
+
+**パラメータ**
+
+* statusName：`string`
+* 値である：`number`
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.updateLicense
+
+選手ライセンスの情報を設定します。
+
+```lua
+player.updateLicense(licenseName, key, value)
+```
+
+**パラメータ**
+
+* ライセンス名`string`
+* キーだ：`string`
+* 値である：`unknown`
+
+**リターン**
+
+* `boolean`

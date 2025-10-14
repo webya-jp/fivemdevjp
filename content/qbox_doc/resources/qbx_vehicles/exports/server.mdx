@@ -1,0 +1,163 @@
+***
+
+タイトルサーバー輸出
+sidebar\_label: サーバ
+キーワード\[qbox, fivem, qbx\_vehicles, エクスポート].
+説明qbx\_vehicles リソースのサーバサイドエクスポートのドキュメント。これらのエクスポートは、プレイヤーのビークルを管理し、ビークル情報をクエリし、Qboxフレームワーク内でビークルの所有権を処理するための機能を提供します。
+----------------------------------------------------------------------------------------------------------------------
+
+# サーバー輸出
+
+## プレイヤー車両を作成する
+
+車両の所有者を設定するか、citizensidがnilの場合、車両に所有者を設定しない。
+
+```lua
+exports.qbx_vehicles:CreatePlayerVehicle(request)
+```
+
+* をリクエストする：`table`
+  * モデルである：`string`
+  * citizensid？`string`
+  * ガレージ？`string`
+  * 小道具？[ox\_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
+
+リターンズ
+
+* vehicleId?`integer`
+* errorResult?`{code: string, message: string}`
+
+エラーコード該当なし
+
+## 車両削除
+
+ある識別子に一致する選手車両を削除する。データベースからの削除のみを扱う。
+
+```lua
+exports.qbx_vehicles:DeletePlayerVehicles(idType, idValue)
+```
+
+* idType：`'citizenid' | 'license' | 'plate' | 'vehicleId'`
+* id値：`string | number`
+
+リターンズ
+
+* 成功した：`boolean`
+* errorResult?`{code: string, message: string}`
+
+エラーコード該当なし
+
+## DoesPlayerVehiclePlateExist
+
+プレーヤーが所有する車両に一致するプレートがあるかどうかを返します。
+
+```lua
+exports.qbx_vehicles:DoesPlayerVehiclePlateExist(plate)
+```
+
+* プレート：`string`
+
+リターンズ`boolean`
+
+## GetPlayerVehicle
+
+vehicleIdで選手の車両を検索します。オプションでフィルタ条件を渡すことができます。
+
+```lua
+exports.qbx_vehicles:GetPlayerVehicle(vehicleId, filters)
+```
+
+* vehicleId：`number`
+* フィルター？[プレイヤー・ビークル・フィルター](#playervehiclesfilters)
+
+リターンズ[プレイヤー車両](#playervehicle)?
+
+## GetPlayerVehicles
+
+さまざまなフィルター基準で選手の車両を照会する。フィルターが設定されていない場合は、すべての車両を照会する。
+
+```lua
+exports.qbx_vehicles:GetPlayerVehicles(filters)
+```
+
+* フィルター？[プレイヤー・ビークル・フィルター](#playervehiclesfilters)
+
+リターンズ[プレイヤー車両](#playervehicle)\[]
+
+## SetPlayer車両オーナー
+
+車両の所有者を設定するか、citizensidがnilの場合、車両に所有者を設定しない。
+
+```lua
+exports.qbx_vehicles:SetPlayerVehicleOwner(vehicleId, citizenid)
+```
+
+* vehicleId：`integer`
+* citizensid？`string`
+
+リターンズ
+
+* 成功した：`boolean`
+* errorResult?`{code: string, message: string}`
+
+エラーコード該当なし
+
+## GetVehicleIdByPlate
+
+指定されたプレートの vehicleId を検索します。
+
+```lua
+exports.qbx_vehicles:GetVehicleIdByPlate(plate)
+```
+
+* プレート：`string`
+
+vehicleId を返します：`integer`
+
+## 車両保存
+
+既存の車両の属性を更新する
+
+```lua
+exports.qbx_vehicles:SaveVehicle(vehicle, options)
+```
+
+* 車である：`number`エンティティ
+* のオプションがある：`table`
+  * ガレージ？`string`
+  * 州？[車両状態](#vehiclestate)
+  * デポプライス？`integer`
+  * 小道具？[ox\_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
+
+リターンズ
+
+* 成功した：`boolean`
+* errorResult?`{code: string, message: string}`
+
+エラーコード
+
+* not\_owned：player\_vehiclesテーブルで車両の行が見つからない。
+
+## 一般的なタイプ
+
+### 車両状態
+
+* OUT = 0
+* GARAGED = 1
+* IMPOUNDED = 2
+
+### プレイヤー車両
+
+* id.K.である：`integer`
+* citizensid？`string`
+* モデル名`string`
+* ガレージ`string`
+* の状態だ：[車両状態](#vehiclestate)
+* デポプライス`integer`
+* プロップス[ox\_lib車両プロパティ](https://github.com/CommunityOx/ox_lib/blob/master/resource/vehicleProperties/client.lua#L3)
+
+### プレイヤー・ビークル・フィルター
+
+* citizensid？`string`
+* 州？`VehicleState | VehicleState[]`
+* ガレージ？`string`

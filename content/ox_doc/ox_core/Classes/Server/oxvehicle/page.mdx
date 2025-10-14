@@ -1,0 +1,197 @@
+***
+
+## タイトルオックスビークル
+
+## オックスビークル
+
+* 実体を持つ：`number`
+* を作る：`string`
+* モデルである：`string`
+* netId：`number`
+* プレート：`string`
+* グループ？`string`
+* id？`number`
+* オーナー？`number`
+* ヴィン？`string`
+
+## OxVehicle.delete
+
+車両をデスポーンし、データベースから削除する。
+
+```lua
+vehicle.delete()
+```
+
+## OxVehicle.despawn
+
+車両をデスポーンし、オプションでデータベースに保存する。
+
+```lua
+vehicle.despawn(save)
+```
+
+**パラメータ**
+
+* 節約？`boolean`
+
+## OxVehicle.get
+
+車両のメタデータから特定のキーの値を取得する。
+
+```lua
+vehicle.get(key)
+```
+
+**パラメータ**
+
+* キーだ：`string`
+
+**リターン**
+
+* `unknown`
+
+## OxVehicle.getCoords
+
+車両の現在の座標を返します。
+
+```lua
+vehicle.getCoords()
+```
+
+**リターン**
+
+* `vector3`
+
+## OxVehicle.getProperties
+
+車両のプロパティオブジェクトを返します。
+
+```lua
+vehicle.getProperties()
+```
+
+**リターン**
+
+* `VehicleProperties`
+
+## OxVehicle.getState
+
+車両のステートバッグ・インターフェースを返します。
+
+```lua
+vehicle.getState()
+```
+
+**リターン**
+
+* `StateBagInterface`
+
+## OxVehicle.getStored
+
+車両の「保存」状態を返す。
+
+```lua
+vehicle.getStored()
+```
+
+**リターン**
+
+* `string?`
+
+## OxVehicle.respawn
+
+車両の新しいエンティティを生成し、既存のエンティティが存在する場合はそれを削除し、保存されている車両プロパティを再適用する。
+
+```lua
+vehicle.respawn(coords, rotation)
+```
+
+**パラメータ**
+
+* コーデ？`vector3`
+* 回転？`vector3`
+
+## OxVehicle.save
+
+車両をデータベースに保存する。
+
+```lua
+vehicle.save()
+```
+
+**リターン**
+
+* `number`
+
+## オックスビークル・セット
+
+車両のメタデータに値を格納し、データベースに保存する(*この行動は削除される可能性が高い*).
+
+```lua
+vehicle.set(key, value)
+```
+
+**パラメータ**
+
+* キーだ：`string`
+* 値である：`any`
+
+## OxVehicle.setグループ
+
+指定されたグループ名が「所有」するグループ車両として車両を設定するか、省略された場合はグループを削除する。
+
+```lua
+vehicle.setGroup(groupName)
+```
+
+**パラメータ**
+
+* groupName?`string`
+
+## OxVehicle.setオーナー
+
+与えられたcharIdとして車両の所有者を設定するか、省略された場合は所有者を削除する。
+
+```lua
+vehicle.setOwner(charId)
+```
+
+**パラメータ**
+
+* charId?`number`
+
+## OxVehicle.setPlate
+
+車両の登録プレートを指定された値に設定する。プレートは8文字にパディングまたはストリップされます。
+
+このプレートは、車両物件に表示されているプレートとは限らない。
+
+```lua
+vehicle.setPlate(plate: string)
+```
+
+## OxVehicle.setProperties
+
+車両に保存されているプロパティ（MOD、エクストラなど）を保存し、オプションでエンティティに適用します。
+
+```lua
+vehicle.setProperties(properties, apply)
+```
+
+**パラメータ**
+
+* の特性を持つ：`VehicleProperties`
+* を適用するか？`boolean`
+
+## OxVehicle.setStored
+
+車両を指定された値（例：押収、ガレージ、NULL）に「保管」し、オプションで車両をデスポーンして保存する。
+
+```lua
+vehicle.setStored(value, despawn)
+```
+
+**パラメータ**
+
+* 価値？`string`
+* デスポーン？`boolean`

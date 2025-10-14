@@ -1,0 +1,74 @@
+---
+
+## タイトル：rawExecute
+
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# RawExecute
+
+rawExecute は、頻繁に呼び出されるクエリーをより高速に実行するために使用でき、1 つのクエリーで使用する複数のパラメーターセットを受け付ける。
+
+- Date は、FiveM で一般的に使用される datestring を返しません。
+- TINYINT 1 と BIT はブール値を返さない
+- 値のプレースホルダのみ使用可能で、列のプレースホルダや名前付きプレースホルダはエラーになります。
+
+とは異なり[用意する](./prepare)SELECT 文は常に行の配列を返します。
+SELECT を使用する場合、戻り値は`query`,`single`あるいは`scalar`選択された列と行の数によって異なる。
+
+## 約束
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    local response = MySQL.rawExecute.await('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', {
+        identifier
+    })
+
+    print(json.encode(response, { indent = true, sort_keys = true }))
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    const response = await MySQL.rawExecute('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', [
+      identifier
+    ])
+
+    console.log(JSON.stringify(response))
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `exports.oxmysql.rawExecute_async`
+
+## コールバック
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    MySQL.rawExecute('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', {
+        identifier
+    }, function(response)
+        print(json.encode(response, { indent = true, sort_keys = true }))
+    end)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    MySQL.rawExecute('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', [
+      identifier
+    ], (response) => {
+      console.log(JSON.stringify(response))
+    })
+    ```
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `exports.oxmysql.rawExecute`

@@ -1,0 +1,125 @@
+import { Steps, Tabs, Tab } from "nextra-theme-docs";
+
+# サーバー
+
+## lib.logger
+
+```lua
+lib.logger(source, event, message, ...)
+```
+
+- ソース`number`または`string`
+  - 好ましくはアクティブな選手 ID で、そうでなければ識別子でも、どこから来たものでもよい。
+- イベントを開催する：`string`
+  - ログイベントの名前（すなわち、トリガーとなるイベントまたはその説明）
+- というメッセージを送った：`string`
+  - ログの内容。
+- vararg：`string`
+  - 追加の引数はタグに変換され、さらにフィルタリングや検索ができる。
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local vehicle = Ox.CreateVehicle(false, `sultanrs`, vector4(-56.479122, -1116.870362, 26.432250, 0.000030517578))
+lib.logger(-1, 'CreateVehicle', json.encode(vehicle))
+```
+
+## データドッグ
+
+<Steps>
+  ### あなたの[データドッグ](https://www.datadoghq.com/)アカウント
+
+14 日間の無料トライアルを受けることができます。[価格設定](https://www.datadoghq.com/pricing/)を案内する。\
+ 無料アカウントには制限がありますが、ログは 14 日間保存されます。
+
+### を作成する。[API キー](https://app.datadoghq.com/organization-settings/api-keys)
+
+これは、Datadog 組織にログを送信するために使用される UUID です。
+
+### コンフィグ
+
+API キーを設定し[Datadog サイト](https://docs.datadoghq.com/getting_started/site/)以下のコンバーを使っている。
+
+```bash
+set datadog:key "yourapikey"
+set datadog:site "datadoghq.com"
+```
+
+</Steps>
+
+## グラファナ・ロキ
+
+Loki は、Prometheus にインスパイアされた、水平スケーラブルで可用性の高いマルチテナントのログ集約システムです。\
+非常に費用対効果が高く、操作が簡単なように設計されている。
+
+<Tabs items={["Cloud", "Self-hosted"]}>
+  <Tags.Tab>
+    * いくつかの制限がある無料層がある
+    * 管理が容易
+    * セットアップが簡単
+    * ほとんどがGrafanaで管理されている
+
+    <Steps>
+      ### あなたの[グラファナ](https://grafana.com/)アカウント
+
+      ### に向かう。[マイアカウント](https://grafana.com/auth/sign-in/?plcmt=top-nav\&cta=myaccount)
+
+      ### セットアップ ロキ
+
+      あなたのアカウント パネルのロキ セクションを検索し、"詳細 "をクリックします。
+      パスワードを生成し、API キーを保存するだけでなく、あなたの`user`そして`url`.
+    </Steps>
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    grafanaインスタンスをセットアップするには、dockerと、コンテナやkubernetesに関する知識が必要だ。\
+    grafanaスタックをセットアップするためのガイド（最小要件のgrafanaとgrafana loki）を見つけて、それに従ってください。
+
+    認証が完了したら、エンドポイントを保護するユーザー名とパスワードを使用します。
+
+    * デフォルトでは、セルフホストlokiインスタンスは、任意の認証レイヤーを提供しませんし、NGINXの基本的な認証やCloudflareアクセスなどの外部認証レイヤーが必要になります。
+
+  </Tags.Tab>
+</Tabs>
+
+### コンフィグ
+
+以下のコンバーを使って、ロギングサービス、エンドポイント、認証の詳細を設定する。
+
+```bash
+set ox:logger "loki"
+set loki:user "<insert your user>"
+set loki:password "<insert the api key or password>"
+set loki:endpoint "<insert loki url without http:// or https://>"
+```
+
+## ファイブマネージ
+
+[ファイブマネージ](https://fivemanage.com/?ref=overextended)は、ロギングを提供する使いやすいゲームサーバー用のオールインワン SaaS です。
+
+<Steps>
+  ### アカウントの作成
+
+サインアップ[ファイブマネージ](https://fivemanage.com/?ref=overextended).
+
+#### へのアップグレード`Hobby`または`Pro`ティア（オプション）
+
+ロギングは無料層に含まれるが、保存と保持には制限がある。
+
+アップグレードをお決めになった場合、まだサブスクリプションをお持ちでない方は、14 日間の無料トライアルをご利用いただけます。詳細はこちら[これ](https://fivemanage.com/profile/billing?ref=overextended)そして[価格設定](https://fivemanage.com/pricing?ref=overextended)ページを参照されたい。
+
+### 新しいトークンの作成
+
+新しいトークンを作成する必要があります。`Logs`.
+
+### コンフィグ
+
+```bash
+set ox:logger "fivemanage"
+set fivemanage:key "YOUR_API_KEY"
+```
+
+</Steps>

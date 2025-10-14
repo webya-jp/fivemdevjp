@@ -1,0 +1,46 @@
+# 共有
+
+キャッシュされた関数結果を含むテーブルで、定数であったり、頻繁に変更されないものであったりする。
+
+## デフォルト値
+
+* リソースを提供する：`string`
+  * が返す値[GetCurrentResourceName](https://docs.fivem.net/natives/?_0xE5E9EBBB).
+* 試合だ：`'fxserver' | 'fivem' | 'redm'`
+  * が返す値[ゲーム名](https://docs.fivem.net/natives/?_0xE8EAA18B).
+
+## 新しいキャッシュ値の追加
+
+値は永続的にキャッシュすることもできるし、タイムアウト付きで追加することもできる。
+
+```lua
+cache(key, func, timeout)
+```
+
+* キーだ：`string`
+  * キャッシュされた状態を保存し、アクセスするための一意の名前。
+* func：`function`
+  * キャッシュが無効/空になったときに呼び出される関数。
+* タイムアウト？`number`
+  * キャッシュされた状態をクリアするためのミリ秒単位のタイマー。
+
+```lua
+local i = 0
+
+while true do
+    Wait(1000)
+    i += 1
+
+    print(cache('test', function() return i end, 5000))
+end
+
+-- output:
+> 1
+> 1
+> 1
+> 1
+> 1
+> 6
+> 6
+> 6
+```

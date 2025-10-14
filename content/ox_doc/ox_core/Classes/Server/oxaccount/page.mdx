@@ -1,0 +1,280 @@
+---
+
+## タイトルオックスアカウント
+
+import { Tabs, Tab } from "nextra-theme-docs";
+
+## オックスアカウント
+
+- アカウント ID` number`
+
+## OxAccountMetadata
+
+- id.K.である：`number`
+- バランスだ：`number`
+- isDefault：`number`
+- ラベル？`boolean`
+- オーナー？`number`
+- グループ？`string`
+- タイプだ：`personal`|`shared`|`group`
+
+## OxAccount.get
+
+アカウントのメタデータから特定のキーの値を取得する。
+
+```lua
+account.get(key)
+```
+
+**パラメータ**
+
+- キーだ：`string`|`string[]`
+
+**リターン**
+
+- `OxAccountMetadata[key]`|`OxAccountMetadata[key][]`
+  - 複数のキーを渡す場合は配列を返す。
+
+## OxAccount.addBalance
+
+口座に資金を追加する。
+
+```lua
+account.addBalance(data)
+```
+
+**パラメータ**
+
+- のデータがある：`object`
+  - の量だ：`number`
+  - メッセージは？`string`
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'amount_not_number'`|`'no_balance'`|`'something_went_wrong'`
+
+<Tabs items={["Lua"]}>
+  <Tags.Tab>
+    ```lua account.addBalance({((amount = 1000), (message = "Paycheck"))}) ```
+  </Tags.Tab>
+</Tabs>
+
+## OxAccount.removeBalance
+
+口座から資金を引き出す。
+
+```lua
+account.removeBalance(data)
+```
+
+**パラメータ**
+
+- `object`
+  - の量だ：`number`
+  - メッセージは？`string`
+  - オーバードロー？`boolean`
+    - 残高不足でも残高を削除する（マイナス残高）
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'amount_not_number'`|`'no_balance'`|`'something_went_wrong'`
+
+<Tabs items={["Lua"]}>
+  <Tags.Tab>
+    ```lua account.removeBalance(
+    {((amount = 1000), (message = "Impound"), (overdraw = true))}) ```
+  </Tags.Tab>
+</Tabs>
+
+## OxAccount.transferBalance
+
+別の口座に資金を移動する。
+
+```lua
+account.transferBalance(data)
+```
+
+**パラメータ**
+
+- `object`
+  - toId：`number`
+    - 送金先の口座 ID。
+  - の量だ：`number`
+  - メッセージは？`string`
+    - 受信者へのメッセージ
+  - オーバードロー？`boolean`
+  - というメモがある：`string`
+    - イニシエーターの注意事項
+  - actorId?`number`
+    - 転送を開始したプレーヤーの charId。
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'amount_not_number'`|`'no_balance'`|`'something_went_wrong'`
+
+<Tabs items={['Lua']}>
+  <Tags.Tab>
+    ```lua
+    account.transferBalance({
+      toId = 100000000,
+      amount = 20,
+      message = 'Impound charge for plate ABC123',
+      overdraw = false,
+      note = 'Impound payment',
+    })
+    ```
+  </Tags.Tab>
+</Tabs>
+
+## OxAccount.depositMoney
+
+口座に入金する。
+
+```lua
+account.depositMoney(playerId, amount, message, note)
+```
+
+**パラメータ**
+
+- playerId：`number`
+- の量だ：`number`
+- メッセージは？`string`
+- というメモがある：`string`
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'amount_not_number'`|`'insufficient_funds'`|`'no_balance'`|`'no_access'`|`'something_went_wrong'`
+
+## OxAccount.withdrawMoney
+
+口座からお金を引き出す。
+
+```lua
+account.withdrawMoney(playerId, amount, message, note)
+```
+
+**パラメータ**
+
+- playerId：`number`
+- の量だ：`number`
+- メッセージは？`string`
+- というメモがある：`string`
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'amount_not_number'`|`'no_charId'`|`'insufficient_funds'`|`'no_balance'`|`'no_access'`|`'something_went_wrong'`
+
+## OxAccount.deleteAccount
+
+アカウントを削除済みとしてマークします。このアカウントにはもうアクセスできませんが、データベースには残っています。
+
+```lua
+account.deleteAccount()
+```
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'something_went_wrong'`
+
+## OxAccount.getCharacterRole
+
+charId または stateId によって、キャラクターのアカウントアクセスロールを取得します。
+
+```lua
+account.getCharacterRole(id)
+```
+
+**パラメータ**
+
+- id.K.である：`number`|`string`
+
+**リターン**
+
+- `string`
+
+## OxAccount.setCharacterRole
+
+charId または stateId でキャラクターのアカウントアクセスロールを設定します。
+
+```lua
+account.setCharacterRole(id, role)
+```
+
+**パラメータ**
+
+- id.K.である：`number`|`string`
+- 役割？`string`
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'something_went_wrong'`
+
+## OxAccount.playerHasPermission
+
+プレイヤーのアクティブなキャラクターが、アカウント上でアクションを実行する権限を持っているかどうかをチェックします。
+
+```lua
+account.playerHasPermission(playerId, permission)
+```
+
+**パラメータ**
+
+- playerId：`number`
+- を許可した：`string`
+
+**リターン**
+
+- `boolean`
+
+## OxAccount.setShared
+
+アカウントを共有に設定し、他のキャラクターに権限を割り当てられるようにする。
+
+```lua
+account.setShared()
+```
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'update_account_error'`
+
+## OxAccount.createInvoice
+
+口座に未払い請求書を作成する。
+
+```lua
+account.createInvoice(invoice)
+```
+
+**パラメータ**
+
+- インボイス`object`
+  - actorId？
+    - 請求書を作成したプレーヤーの charId。
+  - toAccount: 番号；
+    - 請求書を受け取る口座の accountId。
+  - 金額：数字
+  - message: 文字列；
+  - dueDate: 文字列；
+
+**リターン**
+
+- `object`
+  - 成功した：`boolean`
+  - というメッセージを送った：`'no_charId'`|`'no_permission'`|`'no_target_account'`

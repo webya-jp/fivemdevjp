@@ -1,0 +1,71 @@
+---
+
+## タイトル：スカラー
+
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# スカラー
+
+単一行の最初の列を返します。
+
+## 約束
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    local firstName = MySQL.scalar.await('SELECT `firstname` FROM `users` WHERE `identifier` = ? LIMIT 1', {
+        identifier
+    })
+
+    print(firstName)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    const firstName = await MySQL.scalar('SELECT `firstname` FROM `users` WHERE `identifier` = ? LIMIT 1', [
+      identifier
+    ])
+
+    console.log(firstName)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Sync.fetchScalar`
+- `exports.ghmattimysql.scalar`
+- `exports.oxmysql.scalar_async`
+
+## コールバック
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    MySQL.scalar('SELECT `firstname` FROM `users` WHERE `identifier` = ? LIMIT 1', {
+        identifier
+    }, function(firstName)
+        print(firstName)
+    end)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    MySQL.scalar('SELECT `firstname` FROM `users` WHERE `identifier` = ? LIMIT 1', [
+      identifier
+    ], (firstName) => {
+      console.log(firstName)
+    })
+    ```
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Async.fetchScalar`
+- `exports.ghmattimysql.scalar`
+- `exports.oxmysql.scalar`

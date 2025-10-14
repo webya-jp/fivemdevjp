@@ -1,0 +1,93 @@
+---
+description: Comms on point
+---
+
+# 📻 QBラジオ
+
+## 導入
+
+* に加えて [qb-phone.md](qb-phone.md "mention")プレイヤー間のコミュニケーションの別の形を提供する無線リソースもあります
+
+> \[!INFO]
+> 電話とラジオはどちらも[PMA](https://github.com/AvarianKnight/pma-voice)音声システム
+
+## プレビュー
+
+![](../.gitbook/assets/3MY2Cze.jpeg)
+
+## 構成
+
+### 一般的な
+
+```lua
+Config = {}
+Config.MaxFrequency = 500 -- highest channel frequency allowed
+```
+
+### 制限されたチャンネル
+
+```lua
+Config.RestrictedChannels = { -- Restrict channel frequencies to specific jobs
+    [1] = {
+        police = true, -- job name
+        ambulance = true
+    },
+    [2] = {
+        police = true,
+        ambulance = true
+    },
+    [3] = {
+        police = true,
+        ambulance = true
+    },
+    [4] = {
+        police = true,
+        ambulance = true
+    },
+    [5] = {
+        police = true,
+        ambulance = true
+    },
+    [6] = {
+        police = true,
+        ambulance = true
+    },
+    [7] = {
+        police = true,
+        ambulance = true
+    },
+    [8] = {
+        police = true,
+        ambulance = true
+    },
+    [9] = {
+        police = true,
+        ambulance = true
+    },
+    [10] = {
+        police = true,
+        ambulance = true
+    }
+}
+```
+
+### 翻訳
+
+> \[!INFO]
+> qbcore ロケールシステムを使用するように更新されます
+
+```lua
+Config.messages = {
+    ["not_on_radio"] = "You're not connected to a signal",
+    ["on_radio"] = "You're already connected to this signal",
+    ["joined_to_radio"] = "You're connected to: ",
+    ["restricted_channel_error"] = "You can not connect to this signal!",
+    ["invalid_radio"] = "This frequency is not available.",
+    ["you_on_radio"] = "You're already connected to this channel",
+    ["you_leave"] = "You left the channel.",
+    ['volume_radio'] = 'New volume ',
+    ['decrease_radio_volume'] = 'The radio is already set to maximum volume',
+    ['increase_radio_volume'] = 'The radio is already set to the lowest volume',
+    ['increase_decrease_radio_channel'] = 'New channel ',
+}
+```

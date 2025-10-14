@@ -1,0 +1,39 @@
+***
+
+タイトルDiscord リッチプレゼンス
+sidebar\_label: ディスコード・リッチ・プレゼンス
+サイドバーの位置: 2
+キーワード\[qbox, fivem, qbx\_core, discord, リッチプレゼンス].
+説明FiveM のプレイ中に表示される discord rich presence を変更する方法のチュートリアル。
+----------------------------------------------------------
+
+:::info
+これから編集する設定ファイルは`qbx_core/configs/client.lua`.See https://github.com/Qbox-project/qbx\_core/blob/424541030f1d60548d55a2172e4f1e310a9503b2/config/client.lua#L54-L78
+:::
+
+## 1.Discordアプリケーションを作成する
+
+**まず、Discordアプリケーションを作成する必要があります。アプリケーションの[Discord開発者ポータル](https://discord.com/developers/applications)を作成し、新しいアプリケーションを作成する。**
+![Create a new application](/img/discord/step_1.png)
+
+**アプリケーションIDをコピーして、設定ファイルに貼り付ける。**
+![Copy the Application ID](/img/discord/step_2.png)
+![Paste the Application ID](/img/discord/step_3.png)
+
+## 2.画像をアップロードする
+
+**Discordリッチプレゼンスでは、リッチプレゼンス上に画像を表示します。画像は`Rich Presence`タブをクリックします。次に`Add Image(s)`.**
+![Upload an image](/img/discord/step_4.png)
+
+## 3.設定ファイルの編集
+
+あとは設定ファイルを好きなように編集するだけだ。`icon`が画像名となる。我々の場合`duck`.また、テキストはDiscord上で画像にカーソルを合わせた時に表示されるものになります。
+ボタンの内容を変更したり、完全に削除することもできます。削除するには[この行](https://github.com/Qbox-project/qbx_core/blob/424541030f1d60548d55a2172e4f1e310a9503b2/client/discord.lua#L17-L18)体の芯から
+![Edit the config file](/img/discord/step_5.png)
+
+![Result](/img/discord/result.png)
+
+::警告
+FiveMにDiscord Rich Presenceを無効にする設定が追加されました。これを有効にすると、Discord Rich Presenceは表示されなくなります。
+![Disable Discord Rich Presence](/img/discord/warning.png)
+:::

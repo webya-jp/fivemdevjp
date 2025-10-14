@@ -1,0 +1,23 @@
+# 共有
+
+## lib.getClosestVehicle（最も近い車両
+
+座標セットに最も近い車両のハンドルと座標を取得する。
+
+```lua
+lib.getClosestVehicle(coords, maxDistance, includePlayerVehicle)
+```
+
+* コーデ：`vector3`
+  * チェックする座標。
+* maxDistance?`number`
+  * チェックする最大距離。
+  * デフォルト：`2.0`
+* includePlayerVehicle？`boolean`
+  * プレイヤーの現在の車両を含めるかどうか。サーバー上では無視される。
+  * デフォルト：`false`
+
+戻る：
+
+* 車？`number`
+* vehicleCoords?`vector3`

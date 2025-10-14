@@ -1,0 +1,191 @@
+***
+
+## タイトルオックスプレーヤー
+
+## オックスプレーヤー
+
+* の状態だ：`StateBagInterface`
+* userId：`number`
+* charId?`number`
+* stateId?`string`
+
+## OxPlayer.addStatus
+
+ステータスの値を増加させる。
+
+```lua
+player.addStatus(statusName, value)
+```
+
+**パラメータ**
+
+* statusName：`string`
+* 値である：`number`
+
+**リターン**
+
+* 成功した：`boolean`
+
+## OxPlayer.get
+
+選手のメタデータから値を返します。
+
+```lua
+player.get(key)
+```
+
+**パラメータ**
+
+* キーだ：`string`
+
+**リターン**
+
+* `unknown`
+
+## OxPlayer.getCoords
+
+プレーヤーの現在の座標を返します。
+
+```lua
+player.getCoords()
+```
+
+**パラメータ**
+
+* `vector3`
+
+## OxPlayer.getGroup
+
+指定されたグループ名の選手の成績、またはフィルターで最初にマッチした名前と成績を返します。
+
+```lua
+player.getGroup(filter)
+```
+
+**パラメータ**
+
+* フィルターにかける：`string`|`string[]`|`{ [string]: number }`
+
+**リターン**
+
+* `unknown`
+
+## OxPlayer.getGroupByType
+
+型が一致するグループの選手名とグレードを返します。
+
+```lua
+player.getGroupByType(type)
+```
+
+**パラメータ**
+
+* タイプだ：`string`
+
+**リターン**
+
+* `string`
+* `number`
+
+## OxPlayer.getGroups
+
+グループ名をキーとして、プレーヤーが現在所属しているすべてのグループのオブジェクトを返します。
+
+```lua
+player.getGroups()
+```
+
+**リターン**
+
+* `{ [string]: number }`
+
+## OxPlayer.getStatus
+
+ステータスの値を返す。
+
+```lua
+player.getStatus(statusName)
+```
+
+**パラメータ**
+
+* statusName：`string`
+
+**リターン**
+
+* `number`
+
+## OxPlayer.getStatuses
+
+ステータス名をキーとして、すべてのステータスを含むオブジェクトを返します。
+
+```lua
+player.getStatuses()
+```
+
+**リターン**
+
+* `{ [string]: number }`
+
+## OxPlayer.hasPermission
+
+ユーザがグループの1つから与えられたパーミッションを持っているかどうかをチェックする。
+
+```lua
+player.hasPermission(permission)
+```
+
+**パラメータ**
+
+* を許可した：`string`
+
+**リターン**
+
+* `boolean`
+
+**例**
+
+```lua
+-- Adding a permission to a group (server side)
+Ox.SetGroupPermission('police', 1, 'handcuff', 'allow')
+
+-- Checking if a player has the 'handcuff' permission
+if player.hasPermission('group.police.handcuff') then
+    -- Do something
+end
+```
+
+## OxPlayer.removeStatus
+
+ステータスの価値を下げる。
+
+```lua
+player.removeStatus(statusName, value)
+```
+
+**パラメータ**
+
+* statusName：`string`
+* 値である：`number`
+
+**リターン**
+
+* `boolean`
+
+## OxPlayer.on
+
+キーで指定されたプレーヤーのメタデータの変更をリッスンする。
+
+```lua
+player.on(key, cb(data))
+```
+
+**パラメータ**
+
+* キーだ：`string`
+* cb：`function`
+
+**リターン**
+
+* のデータがある：`unknown`
+  * の新しい値`key`

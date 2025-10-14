@@ -1,0 +1,973 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# サーバー
+
+## セットプレーヤーインベントリ
+
+プレイヤーのインベントリを作成、設定します。
+
+```lua
+exports.ox_inventory:setPlayerInventory(player, data)
+```
+
+- 選手だ：`table`
+  - ソース`number`
+  - 識別子`string`
+  - と名付けた：`string`
+  - グループ？`table`
+  - セックス？`string`
+  - 生年月日？`string`
+- データ？`table`
+  - 提供されない場合、プレイヤーのインベントリデータを DB からロードします。
+
+## フォースオープンインベントリー
+
+渡されたデータを使用してインベントリを開きます。
+通常のセキュリティチェック(グループ、座標)なしで、プレイヤーにインベントリを開かせる。
+
+```lua
+exports.ox_inventory:forceOpenInventory(playerId, invType, data)
+```
+
+- playerId：`number`
+- invType：`string`
+  - `'player'`
+  - `'stash'`
+  - `'container'`
+  - `'drop'`
+  - `'glovebox'`
+  - `'trunk'`
+  - `'dumpster'`
+- のデータがある：`number`または`string`または`table`
+
+<Tabs items={["Player", "Stash"]}>
+  <Tags.Tab>
+    対象プレイヤーのインベントリを開く。
+
+    ```lua
+    exports.ox_inventory:forceOpenInventory(1, 'player', 3)
+    ```
+
+    プレイヤーのインベントリを開く管理者コマンド。
+
+    ```lua
+    RegisterCommand('openplayerinv', function(source, args)
+        exports.ox_inventory:forceOpenInventory(source, 'player', tonumber(args[1]))
+    end, true)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    カスタムStash（RegisterStashでサーバー上に作成）を開きます。
+
+    ```lua
+    exports.ox_inventory:forceOpenInventory(1, 'stash', 'society_police')
+    ```
+
+    特定の所有者の隠し場所を開く。
+
+    ```lua
+    exports.ox_inventory:forceOpenInventory(1, 'stash', { id = 'police_locker', owner = 'license:xxxxxxxx' })
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 車両の更新
+
+保存やデータベースの更新をトリガーすることなく、車両の隠し場所への内部参照を更新する。
+
+```lua
+exports.ox_inventory:UpdateVehicle(oldPlate, newPlate)
+```
+
+- oldPlate：`string`
+- newPlate：`string`
+
+## アイテム
+
+登録されている全項目の表を返す。フォーマットは[data/items.lua](https://github.com/communityox/ox_inventory/blob/main/data/items.lua).
+
+オプションで項目名を取り、その項目のデータのみを返す（すべてのデータを取得することは推奨されない）。
+
+```lua
+exports.ox_inventory:Items(itemName)
+```
+
+- itemName?`string`
+
+以下のスニペットは、データベースに問い合わせるのではなく、okokCrafting や core_crafting のようなクラフト・リソースで使用することができます。
+
+```lua
+local itemNames
+
+ESX.RegisterServerCallback('crafting:itemNames', function(source, cb)
+    if not itemNames then
+        itemNames = {}
+        for item, data in pairs(exports.ox_inventory:Items()) do
+            itemNames[item] = data.label
+        end
+    end
+    cb(itemNames)
+end)
+```
+
+## 追加項目
+
+指定されたインベントリにアイテムを追加する。
+
+並行して使用する[キャリーアイテム](#cancarryitem)それ以外の場合は、最大重量を超える可能性があります。
+
+```lua
+exports.ox_inventory:AddItem(inv, item, count, metadata, slot, cb)
+```
+
+- インビテーション`table`または`string`または`number`
+  - インベントリ固有の ID、または ID と所有者を含むテーブル。
+    - playerId：`1`
+    - inventoryId：`gloveVGH283`
+    - `{ id = 'personallocker', owner = 'license:xxxxxx'}`
+- アイテム：`string`
+  - ターゲットに追加するアイテムの名前。
+- カウントする：`number`
+  - 追加する項目の数。
+- メタデータ？`table`または`string`
+  - アイテム・オブジェクトに添付する一意のデータのテーブル。文字列を指定すると、"type" フィールドを持つテーブルが作成されます。
+- スロット？`number`
+  - アイテムを追加する特定のスロット。そのスロットが無効な場合は、代わりに最初に使用可能なスロットが使用されます。
+- cb?`boolean`反応は？`string`)
+
+グローブボックス、トランク、または隠し場所に使用する場合は、まず在庫が以下のように積まれていることを確認する必要がある。[在庫取得](./GetInventory.md)
+
+リターン`success, response`cb が未定義の場合は、コールバックでのみ使用される。
+
+**response "引数の値：**
+
+- "invalid_item"：アイテムが存在しない
+- "invalid_inventory"：在庫が存在しない。
+- 「inventory_full": フリースロットなし
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local success, response = exports.ox_inventory:AddItem('gloveVGH283', 'bread', 4)
+
+if not success then
+    -- if no slots are available, the value will be "inventory_full"
+    return print(response)
+end
+
+print(json.encode(response, {indent=true}))
+--[[
+    {
+        "metadata": [],
+        "label": "Bread",
+        "slot": 1,
+        "stack": true,
+        "close": true,
+        "name": "bread",
+        "count": 1,
+        "weight": 150
+    }
+]]
+```
+
+## 削除項目
+
+指定されたインベントリから指定されたアイテムを削除します。
+
+```lua
+exports.ox_inventory:RemoveItem(inv, item, count, metadata, slot, ignoreTotal, strict)
+```
+
+- インビテーション`table`または`string`または`number`
+  - インベントリ固有の ID、または ID と所有者を含むテーブル。
+    - playerId：`1`
+    - inventoryId：`gloveVGH283`
+    - `{ id = 'personallocker', owner = 'license:xxxxxx'}`
+- アイテム：`string`
+  - ターゲットから削除するアイテムの名前。
+- カウントする：`number`
+  - 削除する項目の数。
+- メタデータ？`table`または`string`
+  - 一致するメタデータ・プロパティを持つアイテムのみを削除する。
+- スロット？`number`
+  - アイテムを取り除く特定のスロット。そのスロットが無効な場合、代わりに最初に使用可能なスロットが使用されます。
+- ignoreTotal?`boolean`
+  - 数え切れないほどのアイテムを取り除く。
+- 厳しい？`boolean`
+  - true（デフォルト）の場合、アイテム＋メタデータの完全一致を要求し、false の場合、より緩やかな／部分的な一致を許容する。
+
+成功を返す：`boolean`と答えた：`string?`.
+
+**失敗時の "response "の可能な値：**
+
+- "invalid_item"：アイテムが存在しない
+- "invalid_inventory"：在庫が存在しない。
+- "not_enough_items"：インベントリに十分な数のアイテムが含まれていない。
+
+<br />
+
+<u>**例**</u>
+
+```lua
+-- Removes 2 water from the glovebox for the given plate.
+local success = exports.ox_inventory:RemoveItem('gloveVGH283', 'water', 2)
+```
+
+## 取得項目
+
+リターン*ジェネリック*指定されたインベントリのアイテムデータ。
+
+```lua
+exports.ox_inventory:GetItem(inv, item, metadata, returnsCount)
+```
+
+- インビテーション`table`または`string`または`number`
+- アイテム：`table`または`string`
+  - アイテムの配列でもよい。
+- メタデータ？`any`
+  - 与えられたメタデータに厳密にマッチするアイテムの数だけを返す。
+- returnsCount?`boolean`
+
+もし`returnsCount`が true に設定されている場合、返される値は`count`アイテムが
+その項目が何回見つかったかに基づく。
+そうでなければ、その項目に関連するデータを返す*そして*インベントリにある総カウント数。
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local item = ox_inventory:GetItem(source, 'water', nil, false)
+
+print(json.encode(item, {indent=true}))
+--[[
+    {
+        "consume": 1,
+        "count": 15,
+        "stack": true,
+        "name": "water",
+        "weight": 500,
+        "label": "Water",
+        "close": true
+    }
+]]
+```
+
+## 変換項目
+
+従来のアイテムデータを受け取り、ox_inventory をサポートするように更新します。
+
+```lua
+exports.ox_inventory:ConvertItems(playerId, items)
+```
+
+- playerId：`number`
+- の項目がある：`table`
+
+<br />
+
+<u>**データ変換の例**</u>
+
+```lua
+Old: [{"cola":1, "bread":3}]
+New: [{"slot":1,"name":"cola","count":1},
+{"slot":2,"name":"bread","count":3}]
+```
+
+## キャリーアイテム
+
+インベントリが指定されたアイテムを運ぶことができるかどうかによって、true または false を返します。
+
+この関数は、在庫の重量と利用可能なスロットをチェックします。
+
+```lua
+exports.ox_inventory:CanCarryItem(inv, item, count, metadata)
+```
+
+- インビテーション`table`または`string`または`number`
+- 項目`table`または`string`
+  - アイテムの配列でもよい。
+- カウントする：`number`
+- メタデータ？`table`または`string`
+  - メタデータが文字列として渡される場合`metadata.type`がチェックされる。
+
+<br />
+
+<u>**例**</u>
+
+```lua
+-- Checks if the player calling the event can carry 3 water items
+if exports.ox_inventory:CanCarryItem(source, 'water', 3) then
+    -- Do stuff if can carry
+else
+    -- Do stuff if can't carry
+end
+```
+
+## キャリー量
+
+使用可能な体重に基づいて、選手が保持できる量を返します。
+
+```lua
+exports.ox_inventory:CanCarryAmount(inv, item)
+```
+
+- インビテーション`table`または`string`または`number`
+- アイテム：`table`または`string`
+  - 複数の項目をチェックするために配列することができる。
+
+<br />
+
+<u>**例**</u>
+
+```lua
+-- Checks how much you can carry
+amountToAdd = exports.ox_inventory:CanCarryAmount(inv, 'stone')
+-- Adds the amount
+exports.ox_inventory:AddItem(inv, 'stone', amountToAdd)
+```
+
+## 重量
+
+戻り値：在庫が指定された重量と自由在庫重量を運べるかどうか
+
+```lua
+exports.ox_inventory:CanCarryWeight(inv, weight)
+```
+
+- インビテーション`table`または`string`または`number`
+- 重量である：`number`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+-- Checks if player can carry 1000 grams.
+local fillAmount = 1000
+local canCarryWeight, freeWeight = ox_inventory:CanCarryWeight(playerId, fillAmount)
+
+if freeWeight == 0 then
+  -- Player can't carry weight.
+  return
+elseif not canCarryWeight then
+  -- Modify fillAmount, because inventory can't carry specified weight
+  fillAmount = freeWeight
+end
+
+-- Do something
+```
+
+## 最大重量の設定
+
+インベントリで使用可能な最大重量を設定します。
+
+```lua
+exports.ox_inventory:SetMaxWeight(inv, maxWeight)
+```
+
+- インビテーション`table`または`string`または`number`
+- 最大重量：`number`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local ox_inventory = exports.ox_inventory
+
+-- Set the max weight for player 1's inventory to 20kg.
+ox_inventory:SetMaxWeight(1, 20000)
+```
+
+## キャンスワップアイテム
+
+在庫重量に基づいてアイテムの交換が可能な場合に true を返します。
+
+```lua
+exports.ox_inventory:CanSwapItem(inv, firstItem, firstItemCount, testItem, testItemCount)
+```
+
+- インビテーション`table`または`string`または`number`
+- firstItem：`string`
+- firstItemCount：`number`
+- testItem：`string`
+- testItemCount：`number`
+
+## 項目数
+
+指定された名前とメタデータを持つインベントリ内のすべてのアイテムの合計アイテム数を取得します。
+
+```lua
+exports.ox_inventory:GetItemCount(inv, itemName, metadata, strict)
+```
+
+- インビテーション`table`または`string`または`number`
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- itemCount：`number`
+
+## アイテムスロット
+
+指定されたアイテムがあるスロットの数、アイテムの合計数、残りの空きスロットを返します。
+
+```lua
+exports.ox_inventory:GetItemSlots(inv, item, metadata)
+```
+
+- インビテーション`table`または`string`または`number`
+- アイテム：`table`または`string`
+- メタデータ？`table`
+
+## ゲットスロット
+
+指定されたスロットのデータをテーブルとして返します。
+
+```lua
+
+exports.ox_inventory:GetSlot(inv, slot)
+```
+
+- インビテーション`table`または`string`または`number`
+- スロットだ：`number`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local slot = exports.ox_inventory:GetSlot(source, 1)
+
+print(json.encode(slot, {indent=true}))
+--[[
+    {
+        "weight": 2000,
+        "name": "water",
+        "metadata": [],
+        "slot": 1,
+        "label": "Water",
+        "close": true,
+        "stack": true,
+        "count: 4
+    }
+]]
+```
+
+## スロットの取得
+
+与えられたデータに一致する既存のアイテムのスロット ID、または空のスロットを取得します。
+
+```lua
+exports.ox_inventory:GetSlotForItem(inv, itemName, metadata)
+```
+
+- インビテーション`table`または`string`または`number`
+- itemName：`string`
+- というメタデータがある：`table?`
+
+戻る：
+
+- slotId：`number?`
+
+## GetSlotIdWithItem
+
+与えられたアイテム名とメタデータに一致するインベントリのスロット ID を取得します。
+
+```lua
+exports.ox_inventory:GetSlotIdWithItem(inv, itemName, metadata, strict)
+```
+
+- インビテーション`table`または`string`または`number`
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- slotId：`number?`
+
+## アイテムでスロット ID を取得
+
+与えられた名前とメタデータに一致するインベントリ内のすべてのスロット ID を取得します。
+
+```lua
+exports.ox_inventory:GetSlotIdsWithItem(inv, itemName, metadata, strict)
+```
+
+- インビテーション`table`または`string`または`number`
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- slotIds：`number[]?`
+
+## スロット・ウィズ・アイテム
+
+与えられた名前とメタデータに一致するインベントリのスロットのデータを取得します。
+
+```lua
+exports.ox_inventory:GetSlotWithItem(inv, itemName, metadata, strict)
+```
+
+- インビテーション`table`または`string`または`number`
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- slotData：`table?`
+
+## 項目で GetSlotsWithItem
+
+与えられた名前とメタデータに一致するインベントリ内のすべてのスロットのデータを取得します。
+
+```lua
+exports.ox_inventory:GetSlotsWithItem(inv, itemName, metadata, strict)
+```
+
+- インビテーション`table`または`string`または`number`
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- スロットデータ`table[]?`
+
+## GetEmptySlot
+
+インベントリで最初に空いているスロットを取得する。
+
+```lua
+exports.ox_inventory:GetEmptySlot(inv)
+```
+
+- インビテーション`table`または`string`または`number`
+
+戻る：
+
+- slotId：`number?`
+
+## GetContainerFromSlot
+
+指定されたインベントリのスロットにリンクされているコンテナに関連付けられているインベントリを返します。
+
+```lua
+exports.ox_inventory:GetContainerFromSlot(inv, slotId)
+```
+
+- インビテーション`table`または`string`または`number`
+- slotId：`number`
+
+戻る：
+
+- containerData：`table?`
+
+## スロット数
+
+インベントリで使用可能なスロット数を設定します。
+
+```lua
+exports.ox_inventory:SetSlotCount(inv, slots)
+```
+
+- インビテーション`table`または`string`または`number`
+- スロット`number`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local ox_inventory = exports.ox_inventory
+
+-- Set the slot count for player 1's inventory to 10.
+ox_inventory:SetSlotCount(1, 10)
+```
+
+## 在庫取得
+
+ID（および定義されている場合は所有者）に関連付けられたインベントリを返します。そうでない場合は null を返します。
+
+```lua
+exports.ox_inventory:GetInventory(inv, owner)
+```
+
+- インビテーション`number`または`table`
+- オーナー？`string`または`boolean`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local inventory = exports.ox_inventory:GetInventory('example_stash', false)
+print(json.encode(inventory, {indent = true}))
+--[[
+    {
+        "id": "example_stash,
+        "label": "Police Stash",
+        "type": "stash,
+        "slots": 50,
+        "weight": 0,
+        "maxWeight": 100000,
+        "owner": false,
+        ...
+    }
+]]
+```
+
+## GetInventoryItems
+
+インベントリ内のアイテムがあるすべてのスロットを返します。
+
+```lua
+exports.ox_inventory:GetInventoryItems(inv, owner)
+```
+
+- インビテーション`number`または`table`
+- オーナー？`string`または`boolean`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local playerItems = exports.ox_inventory:GetInventoryItems(source)
+```
+
+## インスペクトインベントリー
+
+プレイヤーのインベントリを調べます。インベントリを変更することはできません。
+
+```lua
+exports.ox_inventory:InspectInventory(target, source)
+```
+
+- ターゲット`number`
+- ソース`number`
+
+## 在庫の没収
+
+プレイヤーのインベントリをクリアし、スタッシュに保存する。
+
+用途[ReturnInventory](#returninventory)没収したインベントリをプレイヤーに戻す
+に戻すことができます。
+
+```lua
+exports.ox_inventory:ConfiscateInventory(source)
+```
+
+- ソース`number`
+
+## ReturnInventory
+
+没収したインベントリをプレイヤーに戻す。
+
+並べて使う[在庫の没収](#confiscateinventory).
+
+```lua
+exports.ox_inventory:ReturnInventory(source)
+```
+
+- ソース`number`
+
+## クリア在庫
+
+指定されたインベントリをクリアします。指定された`keep`引数には、クリア後にインベントリに残すアイテムの名前を含む文字列または文字列の配列を指定します。
+
+```lua
+exports.ox_inventory:ClearInventory(inv, keep)
+```
+
+- インビテーション`table`または`string`または`number`
+- を保つのか？`string`または`string[]`
+
+## 在庫の削除
+
+一時的な隠し場所、ゴミ箱、ドロップでない場合、ランタイムからインベントリーを削除し、保存する。
+
+```lua
+exports.ox_inventory:RemoveInventory(inv)
+```
+
+- インビテーション`table`または`string`または`number`
+
+## 検索
+
+指定されたアイテムのインベントリを検索します。
+
+```lua
+exports.ox_inventory:Search(inv, search, item, metadata)
+```
+
+- インビテーション`table`または`string`または`number`
+- を検索する：`string`
+- アイテム：`table`または`string`
+- メタデータ？`table`または`string`
+
+`search`のいずれかである。`'slots'`または`'count'`ここで、slots はデータのテーブルを返し
+を返し、count は指定された項目の見つかった量を返します。
+
+## レジスタースタッシュ
+
+新しいカスタムスタッシュを作成します。
+
+```lua
+exports.ox_inventory:RegisterStash(id, label, slots, maxWeight, owner, groups, coords)
+```
+
+- id.K.である：`string`または`number`
+  - データベースからロードする際のスタッシュ識別子。
+- のラベルが貼られている：`string`
+  - インベントリーを開いているときの表示名。
+- スロット`number`
+- 最大重量：`number`
+- オーナー`string`または`boolean`または`nil`
+  - `string`:オーナーにリンクされた隠し場所にのみアクセスできます。
+  - `true`:各プレイヤーは固有の隠し場所を持つが、他のプレイヤーの隠し場所を要求することができる。
+  - `nil`:常に共有。
+- のグループだ：`table`
+  - 隠し場所にアクセスできるプレーヤーグループ（ジョブ）の表。
+  - 数値が必要最低等級であるグループ名の表。
+  - `{['police'] = 0, ['ambulance'] = 2}`
+- コーデ？`vector3`または`vector3[]`
+
+<Callout>
+  この機能は、プレーヤーが隠し場所を開ける前に発動する必要がある。
+</Callout>
+
+<br />
+
+<u>**例**</u>
+<br />
+この関数の使用例については、次の文章をご覧ください。[ガイド](../Guides/stashes)そのためだ。
+
+## 一時的なゴミ箱の作成
+
+しばらくすると削除される一時的な隠し場所を作成します。
+
+```lua
+exports.ox_inventory:CreateTemporaryStash(properties)
+```
+
+- の特性を持つ：`table`
+  - のラベルが貼られている：`string`
+  - スロット`number`
+  - 最大重量：`number`
+  - オーナー？`string` `number`または`boolean`
+    - `string`:オーナーにリンクされた隠し場所にのみアクセスできます。
+    - `true`:各プレイヤーは固有の隠し場所を持つが、他のプレイヤーの隠し場所を要求することができる。
+    - 以下の場合、在庫は常に共有されます。`false`または`nil`.
+  - グループ？`table<string, number>`
+    - 数値が必要最低等級であるグループ名（求人など）の表。
+    - `{['police'] = 0, ['ambulance'] = 2}`
+  - コーデ？`vector3`
+    - 隠し場所は近くにあるときのみアクセス可能。
+  - アイテム？`{ [number]: string, [number]: number, [number]?: table }[]`
+    - itemName, count, metadata のシーケンスを含むテーブルの配列。
+
+戻る：
+
+- inventoryId：`string`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local mystash = exports.ox_inventory:CreateTemporaryStash({
+    label = 'mystash',
+    slots = 5,
+    maxWeight = 5000,
+    items = {
+        { 'WEAPON_MINISMG', 1 },
+        { 'ammo-9', 69 },
+        { 'water', 2, { label = 'Mineral water' } }
+    }
+})
+
+TriggerClientEvent('ox_inventory:openInventory', 1, 'stash', mystash)
+```
+
+## カスタムドロップ
+
+ドロップは、他のリソースから作成することができ、様々なアイテムを含み、カスタムラベルを使用します（'ドロップ 32648'の代わりに）。
+
+```lua
+exports.ox_inventory:CustomDrop(prefix, items, coords, slots, maxWeight, instance, model)
+```
+
+- 接頭辞`string`
+- の項目がある：`table`
+  - と名付けた：`string`
+  - カウントする：`number`
+  - メタデータ？`table`
+- コーデ：`vector3`
+- スロット？`number`
+- maxWeight?`number`
+- インスタンス？`string`または`number`
+- モデル？`number`
+
+```lua
+-- Create a generic drop with a marker
+exports.ox_inventory:CustomDrop('Carcass', {
+    {'meat', 5, { grade = 2, type = 'deer' }},
+    {'hide', 5, { grade = 2, type = 'deer' }}
+}, coords)
+
+-- Create a drop with an entity
+exports.ox_inventory:CustomDrop('SMG', {
+    { 'WEAPON_MINISMG', 1 },
+    { 'ammo-9', 69 },
+}, GetEntityCoords(GetPlayerPed(1)), 5, 10000, nil, `w_sb_minismg`)
+```
+
+## プレイヤーからのドロップ
+
+プレイヤーのインベントリの内容で新しいドロップを作成する。
+
+```lua
+exports.ox_inventory:CreateDropFromPlayer(playerId)
+```
+
+- playerId：`number`
+
+戻る：
+
+- dropId：`string`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local dropId = exports.ox_inventory:CreateDropFromPlayer(1)
+```
+
+## GetCurrentWeapon
+
+プレイヤーが現在装備している武器を表として返す。
+
+```lua
+-- inv: string or number
+exports.ox_inventory:GetCurrentWeapon(inv)
+```
+
+- インビテーション`table`または`string`または`number`
+
+## 耐久性の設定
+
+指定されたスロットに耐久性を設定する。
+
+武器の修理にも使える。
+
+```lua
+exports.ox_inventory:SetDurability(inv, slot, durability)
+```
+
+- インビテーション`table`または`string`または`number`
+- スロットだ：`number`
+- 耐久性がある：`number`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local ox_inventory = exports.ox_inventory
+
+-- Set the durability of the item in slot 3 of source player's inventory to 100
+ox_inventory:SetDurability(source, 3, 100)
+
+-- Set the durability of the source player's current weapon to 100
+local weapon = ox_inventory:GetCurrentWeapon(source)
+
+if weapon then
+    ox_inventory:SetDurability(source, weapon.slot, 100)
+end
+```
+
+## セットメタデータ
+
+指定されたスロットのメタデータを設定する。
+
+```lua
+ox_inventory:SetMetadata(inv, slot, metadata)
+```
+
+- インビテーション`table`または`string`または`number`
+- スロットだ：`number`
+- というメタデータがある：`table`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+local ox_inventory = exports.ox_inventory
+
+local water = ox_inventory:Search(source, 1, 'water')
+for k, v in pairs(water) do
+    print('\n______________'..'\n- index '..k)
+    print(v.name, 'slot: '..v.slot, 'metadata: '..json.encode(v.metadata))
+    water = v
+    break
+end
+
+water.metadata.type = 'clean'
+ox_inventory:SetMetadata(source, water.slot, water.metadata)
+print(('modified %sx water in slot %s with new metadata'):format(water.count, water.slot))
+```
+
+## setContainerProperties
+
+アイテムをコンテナとして定義し、そのプロパティを設定します。
+
+```lua
+exports.ox_inventory:setContainerProperties(itemName, properties)
+```
+
+- itemName：`string`
+- の特性を持つ：`table`
+  - スロット`number`
+    - コンテナで使用可能なスロット数。
+  - 最大重量：`number`
+    - コンテナが保持できる最大重量。
+  - ホワイトリスト？`table<string, true> | string[]`
+    - コンテナ内で使用可能なアイテム名のテーブル。
+    - 提供されない場合、ブラックリストに載っているもの以外はすべて許可される。
+  - ブラックリスト？`table<string, true> | string[]`
+    - コンテナ内で使用できないアイテム名のテーブル。
+    - 提供されない場合、ホワイトリストが提供されない限り、アイテムはブラックリストに載らない。
+
+<br />
+
+<u>**例**</u>
+
+```lua
+-- Sets pizzabox as a container with 1 slot, maximum weight of 1000 grams and whitelists only the pizza item.
+exports.ox_inventory:setContainerProperties('pizzabox', {
+    slots = 1,
+    maxWeight = 1000,
+    whitelist = { 'pizza' },
+})
+```

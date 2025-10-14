@@ -1,0 +1,80 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+
+# クライアント
+
+クライアントが利用可能な値およびキャッシュ機能。[シェアード](../Shared)価値観の違いだ。
+
+## デフォルト値
+
+- ペダル`number`
+  - プレーヤー・エンティティ ID
+- playerId：`number`
+  - 選手 ID
+- serverId：`number`
+  - プレイヤーサーバー ID
+- 武器だ：`number`または`false`
+  - 現在の武器ハッシュ
+- 車である：`number`または`false`
+  - 車両実体 ID
+- シートだ：`number`または`false`
+  - 自動車シート指数
+- コーデ：`vector3`
+  - 現在の選手座標
+  - を使用している場合のみ入力されます。`zones`または`points`
+  - で聴くことはできない。`lib.onCache`
+- マウント`number`または`false`(RedM のみ)
+  - マウントエンティティ ID
+
+## lib.onCache
+
+キャッシュされた値が更新されたときにトリガーされるイベントハンドラを登録します。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.onCache(key, function(value, oldValue) end)
+    ```
+
+    * キーだ：`string`
+      * `ped`
+      * `vehicle`
+      * `seat`
+      * `weapon`
+      * `mount`(RedMのみ)
+    * 値である：`any`
+
+    ```lua
+    lib.onCache('vehicle', function(value, oldValue)
+        print('old vehicle:', cache.vehicle)
+        print('new vehicle:', value)
+    end)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import { onCache } from '@communityox/ox_lib/client';
+
+    onCache(key, (value) => {});
+    ```
+
+    * キーだ：`string`
+      * `ped`
+      * `vehicle`
+      * `seat`
+      * `weapon`
+      * `mount`(RedMのみ)
+    * 値である：`any`
+
+    ```ts
+    import { cache, onCache } from '@communityox/ox_lib/client';
+
+    lib.onCache('vehicle', (value) => {
+      console.log('old vehicle:', cache.vehicle);
+      console.log('new vehicle:', value);
+    });
+    ```
+
+  </Tags.Tab>
+</Tabs>

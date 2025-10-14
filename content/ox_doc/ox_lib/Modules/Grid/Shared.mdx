@@ -1,0 +1,80 @@
+# 共有
+
+地図を小さな2Dセルに分割するシステム。セル内の項目は追加、削除、リスト化が可能。
+
+## GridEntryクラス
+
+以下のプロパティを持つグリッド・エントリーを表すテーブル。
+
+* コーデ：`vector`
+* 長さ？`number`
+* 幅？`number`
+* 半径？`number`
+
+## lib.grid.getCellPosition
+
+与えられた点におけるセルの位置を返す。
+
+```lua
+lib.grid.getCellPosition(point)
+```
+
+* ポイント：`vector`
+
+**リターンズ**
+
+* x:`number`
+* y:`number`
+
+## lib.grid.getCell
+
+点に属するセル内のすべてのエントリを返します。
+
+```lua
+lib.grid.getCell(point)
+```
+
+* ポイント：`vector`
+
+**リターンズ**
+
+* エントリー`GridEntry[]`
+
+## lib.grid.getNearbyEntries
+
+ポイントに近いすべてのエントリを、オプションのフィルタで返します。
+
+```lua
+lib.grid.getNearbyEntries(point, filter)
+```
+
+* ポイント：`vector`
+* フィルターにかける：`function(entry: GridEntry): boolean`
+
+**リターンズ**
+
+* エントリー`Array<GridEntry>`
+
+## lib.grid.addEntry
+
+グリッドにエントリーを追加する
+
+```lua
+lib.grid.addEntry(entry)
+```
+
+* エントリー`GridEntry`
+
+## lib.grid.removeEntry
+
+グリッドに追加されたエントリーを削除します。
+
+```lua
+lib.grid.removeEntry(entry)
+```
+
+* エントリー`GridEntry`
+
+**リターンズ**
+
+* 成功した：`boolean`

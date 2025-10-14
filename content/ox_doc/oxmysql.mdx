@@ -1,0 +1,134 @@
+---
+title: OxMySQL
+---
+
+# オックスMySQL
+
+import { Steps } from 'nextra-theme-docs';
+import { Callout } from 'nextra/components';
+import ResourceLinks from '@components/resource-links';
+
+<ResourceLinks repo="https://github.com/communityox/oxmysql" />
+
+拡張 API と MySQL 8 との互換性が向上した、mysql-async と ghmattimysql の代替品です。
+
+## MySQL か MariaDB か?
+
+FiveM のほとんどのリソースは MySQL 5.7 で使用するように設計されており、MySQL 8 を使用すると互換性の問題が発生する可能性があります。
+
+* 「stored」や「group」などの予約キーワードが増えました。
+* ロングテキスト/JSON フィールドはデフォルト値をサポートしていません。
+
+[MariaDB](https://mariadb.com/downloads/community/)互換性とパフォーマンスの向上 (MySQL のすべてのバージョンにわたって) のために、強く推奨されます。
+
+## XAMPP を使うべきでしょうか?
+
+**いいえ。**&#x58;AMPPは*ウェブサーバースタック*開発に使用することを目的としており、ローカルでの開発とテストが容易になります。\
+データベースを実行するためだけにXAMPPをセットアップしないでください。[MariaDB](https://mariadb.com/downloads/community/)代わりに直接。
+
+## インストール
+
+<Steps>
+  ### ダウンロードしてインストールする[MariaDB](https://mariadb.com/downloads/community/)
+
+  ### ダウンロード[最新リリース](https://github.com/communityox/oxmysql/releases/latest)oxmysqlの
+
+  ### サーバーを構成する
+
+  * サーバーを開く[設定ファイル](https://docs.fivem.net/docs/server-manual/setting-up-a-server-vanilla/#servercfg)。
+  * 追加 `start oxmysql`リソース リストの一番上に追加します。
+  * リソースを開始する前に、mysql 接続 string を構成して設定します。
+
+  ```bash
+  # Use your preferred format. Make sure you only ever use set.
+  set mysql_connection_string "mysql://root:12345@localhost:3306/fivem"
+  set mysql_connection_string "user=root;password=12345;host=localhost;port=3306;database=fivem"
+  ```
+
+  <Callout type="info">
+    接続 string によっては、特定の特殊文字が予約されているかサポートされていない場合があります。\
+    これらの文字の使用は避けてください`; , / ? : @ & = + $ #`、接続を string 形式に交換してみてください。
+  </Callout>
+
+  ### 低速クエリの警告
+
+  クエリの完了に長い時間がかかった場合は警告が表示されます。これは convar で設定できます。
+
+  * クエリ時間は完全に正確ではない可能性があります。
+  * クエリが遅い場合、必ずしもデータベースの問題 (サーバーのヒッチなど) を示しているとは限りません。
+  * サーバーの起動時にクエリが遅いことは必ずしも問題ではありません。
+
+  ```bash
+  set mysql_slow_query_warning 150
+  ```
+
+  ### デバッグ
+
+  デバッグ オプションを有効にすると、すべてのクエリがサーバー コンソールに出力されます。代わりに、array を使用してリソースのリストからのみ出力することもできます。
+
+  ```bash
+  set mysql_debug true
+  set mysql_debug [
+    "ox_core",
+    "ox_inventory"
+  ]
+  ```
+
+  コマンドを使用してリソース リストを一時的に変更できます。
+
+  ```bash
+  oxmysql_debug remove ox_core
+  oxmysql_debug add ox_core
+  ```
+</Steps>
+
+## 互換性
+
+以下のリソースを削除して、oxmysql がその機能を提供できるようにすることができます。
+
+* MySQL非同期
+* ghmattimysql
+
+## 使用法
+
+リソースは、ライブラリを組み込むことで oxmysql メソッドをインポートでき、生のエクスポート呼び出しに比べていくつかの型チェックと若干のパフォーマンス向上が実現します。
+
+### 二
+
+修正する `fxmanifest.lua`リソース用に、他のスクリプト ファイルの上に次のコードを追加します。
+
+```lua
+server_script '@oxmysql/lib/MySQL.lua'
+```
+
+### JavaScript
+
+生のエクスポートを使用するか、インストールすることができます[npmパッケージ](https://www.npmjs.com/package/@communityox/oxmysql)インテリセンスおよび Lua と同様の使用法。
+
+```bash
+# With pnpm
+pnpm add @communityox/oxmysql
+
+# With Yarn
+yarn add @communityox/oxmysql
+
+# With npm
+npm install @communityox/oxmysql
+```
+
+oxmysql オブジェクトをリソースにインポートします。
+
+```js
+import { oxmysql as MySQL } from '@communityox/oxmysql';
+```
+
+## アップサート
+
+行をデータベースに挿入する必要があるか、既存の行を更新する必要があるか不明な場合は、クエリで重複キーをチェックする必要があります。
+
+```lua
+MySQL.prepare('INSERT INTO ox_inventory (owner, name, data) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE data = VALUES(data)', { owner, dbId, inventory })
+```
+
+これは、行の存在を確認し、結果に応じて挿入または更新するよりも優先されます。\
+さらに、「REPLACE INTO」を使用する場合とは異なり、行は削除されず、再挿入されません。

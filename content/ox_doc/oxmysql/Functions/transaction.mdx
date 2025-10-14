@@ -1,0 +1,126 @@
+---
+
+## タイトル：トランザクション
+
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# トランザクション
+
+トランザクションは複数のクエリーを実行し、すべてが成功した場合のみコミットする。\
+ひとつでも失敗すれば、どのクエリーもコミットされない。
+
+戻り値はブール値で、トランザクションの結果である。
+
+## 具体的な形式
+
+この形式を使用する場合は、クエリとパラメータのセットを含む配列をトランザクションメソッドに渡す必要があります。\
+この場合、クエリは必ずしも一致せず、値はそれぞれのクエリに固有となる。
+
+```lua
+-- You might rename "values" as "parameters" for mysql-async compatibility.
+local queries = {
+    { query = 'INSERT INTO `test` (id) VALUES (?)', values = { 1 }},
+    { query = 'INSERT INTO `test` (id, name) VALUES (?, ?)', values = { 2, 'bob' }},
+}
+
+-- You can also pass an array of arrays.
+local queries = {
+  { 'INSERT INTO `test` (id) VALUES (?)', { 1 } },
+  { 'INSERT INTO `test` (id, name) VALUES (?, ?)', { 2, 'bob' } },
+}
+```
+
+## 共有フォーマット
+
+この形式を使用する場合、クエリーを含む配列と共有パラメーターを含むセットをトランザクションメソッドに渡す必要があります。\
+この場合、クエリは必ずしも一致せず、値はそれぞれのクエリに固有となる。
+
+```lua
+-- You might rename "values" as "parameters" for mysql-async compatibility.
+local queries = {
+    'INSERT INTO `test` (id, name) VALUES (@someid, @somename)',
+    'SET `name` = @newname IN `test` WHERE `id` = @someid'
+}
+
+local values = {
+    someid = 2,
+    somename = 'John Doe',
+    newname = 'John Notdoe'
+}
+```
+
+## 約束
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    local success = MySQL.transaction.await(queries, values --[[leave nil for specific format]])
+    print(success)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    const success = await MySQL.transaction(queries, values /*leave nil for specific format*/)
+    console.log(success)
+    ```
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Sync.transaction`
+- `exports.ghmattimysql.transaction`
+- `exports.oxmysql.transaction_async`
+
+## コールバック
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    -- specific
+    MySQL.transaction(queries, values, function(success)
+        print(success)
+    end)
+
+    -- shared
+    MySQL.transaction(queries, function(success)
+        print(success)
+    end)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    // specific
+    MySQL.transaction(queries, (success) => {
+      console.log(success)
+    })
+
+    // shared
+    MySQL.transaction(queries, values, (success) => {
+      console.log(success)
+    })
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Async.transaction`
+- `exports.ghmattimysql.transaction`
+- `exports.oxmysql.transaction`
+
+## トランザクション分離レベル
+
+これは、コンバーターを通じて設定できる。`mysql_transaction_isolation_level`の範囲の整数である。`1-4`.\
+デフォルト値は 2。
+
+| 結果
+| ------------ | ---------------- |
+| 1 ｜ 繰り返し読み取り
+| 2 ｜コミットされた読み取り
+| 3 ｜コミットされていない読み取り
+| 4 ｜シリアライズ可能

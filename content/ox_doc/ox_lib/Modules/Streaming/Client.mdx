@@ -1,0 +1,245 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# クライアント
+
+モデルなどのアセットが存在するかどうかをチェックし、メモリにロードする。\
+無効なアセットに対してはエラーをスローし、アセットが読み込まれた場合は true を返します。
+
+## lib.requestAnimDict
+
+<Callout>
+  忘れずに電話すること`RemoveAnimDict(dict)`をコードの最後に追加する！
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.requestAnimDict(dict, timeout)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.requestAnimDict(dict, timeout)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- ディクティッド`string`
+- タイムアウト？`number`
+  - アセットがロードされるのを待つティック数。
+  - デフォルト：`10000`
+
+## lib.requestAnimSet
+
+<Callout>
+  忘れずに電話すること`RemoveAnimSet(set)`をコードの最後に追加する！
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.requestAnimSet(set, timeout)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.requestAnimSet(set, timeout)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- セット：`string`
+- タイムアウト？`number`
+  - アセットがロードされるのを待つティック数。
+  - デフォルト：`10000`
+
+## lib.requestAudioBank
+
+<Callout>
+  忘れずに電話すること`ReleaseScriptAudioBank(set)`をコードの最後に追加する！
+</Callout>
+
+```lua
+lib.requestAudioBank(audioBank, timeout)
+```
+
+- オーディオバンク`string`
+- タイムアウト？`number`
+  - アセットがロードされるのを待つティック数。
+  - デフォルト：`30000`
+
+## lib.requestModel
+
+<Callout>
+  忘れずに電話すること`SetModelAsNoLongerNeeded(model)`をコードの最後に追加する！
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.requestModel(model, timeout)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.requestModel(model, timeout)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- モデルである：`string`
+- タイムアウト？`number`
+  - アセットがロードされるのを待つティック数。
+  - デフォルト：`10000`
+
+## lib.requestStreamedTextureDict
+
+<Callout>
+  忘れずに電話すること`SetStreamedTextureDictAsNoLongerNeeded(dict)`をコードの最後に追加する！
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.requestStreamedTextureDict(dict, timeout)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.requestStreamedTextureDict(dict, timeout)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- ディクティッド`string`
+- タイムアウト？`number`
+  - アセットがロードされるのを待つティック数。
+  - デフォルト：`10000`
+
+## lib.requestNamedPtfxAsset
+
+<Callout>
+  忘れずに電話すること`RemoveNamedPtfxAsset(dict)`をコードの最後に追加する！
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.requestNamedPtfxAsset(ptFxName, timeout)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.requestNamedPtfxAsset(ptFxName, timeout)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- ptFxName：`string`
+- タイムアウト？`number`
+  - アセットがロードされるのを待つティック数。
+  - デフォルト：`10000`
+
+## lib.requestScaleformMovie
+
+<Callout>
+  忘れずに電話すること`SetScaleformMovieAsNoLongerNeeded(scaleformName)`をコードの最後に追加する！
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.requestScaleformMovie(scaleformName, timeout)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.requestScaleformMovie(scaleformName, timeout)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- scaleformName：`string`
+- タイムアウト？`number`
+  - アセットがロードされるのを待つティック数。
+  - デフォルト：`1000`
+
+## lib.requestWeaponAsset
+
+<Callout>
+  忘れずに電話すること`RemoveWeaponAsset(weaponType)`をコードの最後に追加する！
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.requestWeaponAsset(weaponType, timeout, weaponResourceFlags, extraWeaponComponentFlags)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.requestWeaponAsset(weaponType, timeout, weaponResourceFlags, extraWeaponComponentFlags)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 武器の種類`string | number`
+- タイムアウト？`number`
+  - アセットがロードされるのを待つティック数。
+  - デフォルト：`10000`
+- weaponResourceFlags?`WeaponResourceFlags`
+  - デフォルト：`31`
+- extraWeaponComponentFlags?`ExtraWeaponComponentFlags`
+  - デフォルト：`0`
+
+### 武器リソースフラグ
+
+```
+1 WRF_REQUEST_BASE_ANIMS
+2 WRF_REQUEST_COVER_ANIMS
+4 WRF_REQUEST_MELEE_ANIMS
+8 WRF_REQUEST_MOTION_ANIMS
+16 WRF_REQUEST_STEALTH_ANIMS
+32 WRF_REQUEST_ALL_MOVEMENT_VARIATION_ANIMS
+31 WRF_REQUEST_ALL_ANIMS
+```
+
+### ExtraWeaponComponentFlags
+
+```
+0 WEAPON_COMPONENT_NONE
+1 WEAPON_COMPONENT_FLASH
+2 WEAPON_COMPONENT_SCOPE
+4 WEAPON_COMPONENT_SUPP
+8 WEAPON_COMPONENT_SCLIP2
+16 WEAPON_COMPONENT_GRIP
+```

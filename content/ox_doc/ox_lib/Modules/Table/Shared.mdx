@@ -1,0 +1,92 @@
+# 共有
+
+標準のテーブル・ライブラリーに加えて、追加関数を追加する。
+
+## lib.table.contains
+
+をチェックする。`table`には、与えられた`value`.単純な値やネストされていないテーブルのみを対象としています。
+
+```lua
+lib.table.contains(tbl, value)
+```
+
+* tbl：`table`
+* 値である：`any`
+
+戻る：
+
+* isContained：`boolean`
+
+## lib.table.matches
+
+2つの値が等しいかどうかを比較し、テーブルを繰り返し、キーと値の両方をマッチさせます。
+
+```lua
+lib.table.matches(tableOne, tableTwo)
+```
+
+* テーブルワン`table`
+* tableTwo：`table`
+
+戻る：
+
+* の試合に出場する：`boolean`
+
+## lib.table.deepclone
+
+テーブル参照が残らないように、テーブルを再帰的にクローンする。
+
+```lua
+lib.table.deepclone(tbl)
+```
+
+* tbl：`table`
+
+戻る：
+
+* クローン化されたテーブル：`table`
+
+## lib.table.merge
+
+2つのテーブルをマージする。重複しているキーが数字である場合は足し合わされる。`tableTwo`の値が使われる。
+
+```lua
+lib.table.merge(tableOne, tableTwo)
+```
+
+* テーブルワン`table`
+* tableTwo：`table`
+* addDuplicateNumbers：`boolean`
+  * に設定しない限り、数字に等しい重複キーは加算される。`false`.
+
+戻る：
+
+* テーブルワン`table`
+
+## lib.table.freeze
+
+テーブルを読み取り専用にし、それ以上変更できないようにする。内に格納されている凍結されていないテーブルは`table`はまだ変更可能である。
+
+```lua
+lib.table.freeze(tbl)
+```
+
+* tbl：`table`
+
+戻る：
+
+* frozenTable：`table`
+
+## lib.table.isFrozen
+
+以下の場合に真を返す`tbl`は読み取り専用に設定されている。
+
+```lua
+lib.table.isFrozen(tbl)
+```
+
+* tbl：`table`
+
+戻る：
+
+* isFrozen：`boolean`

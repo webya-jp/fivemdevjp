@@ -1,0 +1,58 @@
+import ResourceLinks from '@components/resource-links';
+import { Callout, Steps } from 'nextra/components';
+
+# 牛のドアロック
+
+<ResourceLinks repo="https://github.com/communityox/ox_doorlock" />
+
+スタンドアロンでも、ox_core、qbx_core、es_extended と一緒にも使用できるドア管理リソース。
+
+## インストール
+
+<Callout type="info">
+  私たちは
+  **強く**参照することをお勧めします[ガイド](../guides)Git、Node.js、pnpm
+  をセットアップします。
+</Callout>
+
+<Steps>
+  ### すべてのリソース依存関係をインストールします。
+
+- [oxmysql](../oxmysql)
+- [ox_lib](../ox_lib/)
+
+### ダウンロード[リリース](https://github.com/communityox/ox_doorlock/releases)またはソースコードをビルドします。
+
+```bash
+git clone https://github.com/communityox/ox_doorlock.git
+cd ox_doorlock/web
+pnpm i
+pnpm build
+```
+
+### オプションの依存関係をインストールします。
+
+これらのリソースは必須ではありませんが、追加機能を提供します。
+
+- [ox_target](../ox_target/)
+  </Steps>
+
+## UIを開く
+
+リソースをインストールして起動している場合は、`/doorlock`UI を開きます。
+
+- カーソルは表示されるが UI が表示されない場合は、UI が構築されていません。
+- コマンドを使用する権限がない可能性があります。
+  - 入力 `test_ace player.1 command.doorlock`サーバー コンソールで (1 をサーバー ID に置き換えます)。
+
+## ドアを変換する
+
+nui_doorlock 用に作成されたドア構成ファイルは、MySQL データベースに自動的に追加できます。
+
+- 下記のファイル`.lua`拡張機能を配置`ox_doorlock/convert`ディレクトリはリソースの開始時に読み取られます。
+- ディレクトリが存在しない場合は作成できます。
+- 特に設定が nui_doorlock 用に記述されていない場合は、変換は保証されません。
+
+## 新しいネイティブオーディオの追加
+
+ガイドは見つかります[ここ](https://forum.cfx.re/t/how-to-make-a-simplesound-using-native-audio/5156001)新しいネイティブオーディオを追加します。

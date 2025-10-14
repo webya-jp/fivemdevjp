@@ -1,0 +1,173 @@
+# 共有
+
+非同期動作、一時停止と再開機能、タイマー完了時のコールバックなどのオプションを備えた多用途のタイマー・システムを提供。
+
+## タイマー
+
+### lib.timer
+
+```lua
+lib.timer(time, onEnd, async)
+```
+
+* 時間である：`number`
+* onEnd：`function`
+* 非同期？`boolean`
+  * もし`true`その場合、タイマーは呼び出し元のスレッドでスクリプトの実行をブロックしない。
+
+リターンズ
+
+* タイマー`OxTimer`
+
+#### 例
+
+```lua
+
+local timer = lib.timer(5000, function()
+   print("timer ended")
+end)
+```
+
+## 方法
+
+### ポーズ
+
+まで、アクティブなタイマーを一時停止します。`timer:play()`または`timer:forceEnd()`と呼ばれる。
+
+```lua
+timer:pause()
+```
+
+#### 例
+
+```lua
+local timer = lib.timer(5000, function()
+    print("timer ended")
+end, true)
+
+timer:pause()
+```
+
+### プレー
+
+で一時停止したタイマーを再開する。`timer:pause()`.
+
+```lua
+timer:play()
+```
+
+#### 例
+
+```lua
+local timer = lib.timer(5000, function()
+    print("timer ended")
+end, true)
+
+timer:pause()
+
+Wait(1000)
+
+timer:play()
+--timer finishes in 6 seconds rather than 5 because of the pause
+```
+
+### 強制終了
+
+タイマーを直ちに終了し、オプションでonEndコールバックをトリガーする。
+
+```lua
+timer:forceEnd(triggerOnEnd)
+```
+
+* triggerOnEnd：`boolean`
+
+#### 例
+
+```lua
+local timer = lib.timer(5000, function()
+    print("timer ended")
+end, true)
+
+timer:pause()
+
+Wait(1000)
+
+timer:forceEnd(false)
+--timer finishes in 1 second rather than 5 because of the forceEnd and the call back never runs
+```
+
+### isPaused
+
+の呼び出しからタイマーが一時停止しているかどうかをチェックする。`timer:pause()`前略
+
+```lua
+timer:isPaused()
+```
+
+リターンズ
+
+* isPaused：`boolean`
+
+#### 例
+
+```lua
+local timer = lib.timer(5000, function()
+    print("timer ended")
+end, true)
+
+print(timer:isPaused()) -- false
+
+timer:pause()
+
+print(timer:isPaused()) -- true
+```
+
+### ゲットタイムレフト
+
+タイマーの残り時間を、小数第2位を四捨五入した形式で返します。
+
+```lua
+timer:getTimeLeft(format)
+-- format: 'ms' = miliseconds, 's' = seconds, 'm' = minutes, 'h' = hours, nil = all returned in a table
+```
+
+* フォーマット？`'ms'`または`'s'`または`'m'`または`'h'`
+
+リターンズ
+
+* 時間である：`number`|`{ms: number, s: number, m: number, h: number}`
+
+#### 例
+
+```lua
+local timer = lib.timer(5000, function()
+    print("timer ended")
+end, true)
+
+print(timer:getTimeLeft('ms')) -- 5000 miliseconds
+print(timer:getTimeLeft('s'))  -- 5.00 seconds
+print(timer:getTimeLeft('m'))  -- 0.08 minutes
+print(timer:getTimeLeft('h'))  -- 0.00 hours
+print(timer:getTimeLeft())     -- {ms = 5000, s = 5.00, m = 0.08, h = 0.00 }
+```
+
+### リスタート
+
+タイマーをリセットしてスタートさせる。
+
+```lua
+timer:restart()
+```
+
+#### 例
+
+```lua
+-- this will create a timer that just keeps restarting itself
+local timer
+
+timer = lib.timer(5000, function()
+    print("timer ended")
+    timer:restart()
+end, true)
+
+```

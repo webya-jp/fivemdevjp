@@ -1,0 +1,42 @@
+---
+description: Career criminal?
+---
+
+# 💰 qb-銀行強盗
+
+## 導入
+
+* マップ上の様々な銀行内に、強盗可能なロッカーを設置します。強盗の種類ごとに必要な警察の人数と、獲得できる報酬を設定できます。
+
+> \[!警告]
+> このリソースには、HTML フォルダに Thermite ミニゲームが含まれています。このゲームがないと Thermite は正常に動作しません。
+
+> \[!警告]
+> このリソースは qb-doorlock と連携して、「qb-doorlock:server?:updateState」というイベントを使用してドアの状態を管理します。そのため、各ドアが正しいドアIDで qb-doorlock の設定に含まれていることを確認してください。
+
+## 構成
+
+```lua
+Config = {}
+Config.MinimumPaletoPolice = 4 -- Minimum amount of police online to start the robbery
+Config.MinimumPacificPolice = 5 -- Minimum amount of police online to start the robbery
+Config.MinimumFleecaPolice = 3 -- Minimum amount of police online to start the robbery
+Config.MinimumThermitePolice = 2 -- Minimum amount of police online to use thermite
+Config.OutlawCooldown = 5 -- The amount of minutes it takes for the cops to be able to be called again after they were called
+Config.HitsNeeded = 13 -- The amount of powerstation needed to be hit to cause a blackout
+Config.BlackoutTimer = 10 -- The amount of minutes a blackout will take until all power comes back
+Config.RewardTypes = {} -- The reward types you can get from the bankrobbery
+Config.LockerRewards = {} -- The rewards you can get from the locker
+Config.LockerRewardsPaleto = {} -- The rewards you can get from the locker in paleto
+Config.LockerRewardsPacific = {} -- The rewards you can get from the locker in pacific
+Config.PowerStations = {} -- Powerstation coords to blow up
+Config.SmallBanks = {} -- Small banks to rob
+Config.BigBanks = {} -- Big banks to rob
+```
+
+## アイテム
+
+* テルミット - 発電所や銀行の門を爆破するために使用される（ライターが必要）
+* security\_card\_01 - パレト銀行の金庫室で使用されるアイテム
+* security\_card\_02 - パシフィック銀行の金庫室で使用されるアイテム
+* 電子キット - フリーカ銀行の金庫室で使用されるアイテム

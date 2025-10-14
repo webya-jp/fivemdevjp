@@ -1,0 +1,575 @@
+## Ox.CreateAccount
+
+指定された charId または stateId を持つキャラクターの新しいアカウントを作成します。
+
+```lua
+Ox.CreateAccount(ownerId, label)
+```
+
+**パラメータ**
+
+* ownerId：`number`|`string`
+* のラベルが貼られている：`string`
+
+**リターン**
+
+* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+
+## Ox.CreateGroup
+
+与えられたデータから新しいグループを作成します。
+
+```lua
+Ox.CreateGroup(data)
+```
+
+**パラメータ**
+
+* のデータがある：`object`
+  * と名付けた：`string`
+  * のラベルが貼られている：`string`
+  * の成績である：`object[]`
+    * のラベルが貼られている：`string`
+    * accountRole?`string`
+  * タイプ？`string`
+  * 色？`number`
+  * hasAccount?`boolean`
+
+## Ox.CreateVehicle
+
+新しい車両を作成し、オーナーまたはグループが設定されている場合はデータベースに保存されます。
+
+```lua
+Ox.CreateVehicle(data, coords, heading)
+```
+
+**パラメータ**
+
+* のデータがある：`string`|`object`
+  * モデルである：`string`
+  * オーナー？`number`
+  * グループ？`string`
+  * 保存されているか？`string`
+  * プロパティ？`object`
+* コーデ？`vector3`
+* ヘディング？`number`
+
+**リターン**
+
+* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+
+## Ox.DeleteAccountInvoice
+
+指定された invoiceId を持つ口座の請求書を削除します。
+
+```lua
+Ox.DeleteAccountInvoice(invoiceId)
+```
+
+**パラメータ**
+
+* invoiceId：`number`
+
+**リターン**
+
+* `object`
+  * 成功した：`boolean`
+  * メッセージは？`string`
+
+## Ox.DeleteGroup
+
+グループグレード、車両など、指定されたグループ名に関連付けられているすべてのデータを削除する。
+
+```lua
+Ox.DeleteGroup(groupName)
+```
+
+**パラメータ**
+
+* グループ名：`string`
+
+## Ox.Generate車両プレート
+
+データベースに存在しないユニークな車両プレートを生成する。パターンのデフォルトは`ox:plateFormat`提供されていない場合。
+
+```lua
+Ox.GenerateVehiclePlate(pattern)
+```
+
+**パラメータ**
+
+* パターン？`string`
+
+**リターン**
+
+* `string`
+
+## Ox.GenerateVehicleVin
+
+データベースに存在しない固有の車両識別番号を生成する。
+
+```lua
+Ox.GenerateVehicleVin(modelName)
+```
+
+**パラメータ**
+
+* モデル名`string`
+  * 車両情報（モデルやメーカーなど）はVINの一部として使用される。
+
+**リターン**
+
+* `string`
+
+## Ox.GetAccount
+
+取得`OxAccount`を指定された accountId で返します。
+
+```lua
+Ox.GetAccount(accountId)
+```
+
+**パラメータ**
+
+* accountId：`number`
+
+**リターン**
+
+* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+
+## Ox.GetCharacterAccount
+
+デフォルト`OxAccount`を charId または stateId で指定します。
+
+```lua
+Ox.GetCharacterAccount(id)
+```
+
+**パラメータ**
+
+* id.K.である：`number`|`string`
+
+**リターン**
+
+* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+
+## Ox.GetCharIdFromStateId
+
+キャラクターのstateIdからcharIdを取得する。\
+*注：これはデータベースに問い合わせるものであり、過剰に使用するべきではありません。*
+
+```lua
+Ox.GetCharIdFromStateId(stateId)
+```
+
+**パラメータ**
+
+* stateId：`string`
+
+**リターン**
+
+* `number`
+
+## Ox.GetGroupAccount
+
+取得`OxAccount`グループのために。
+
+```lua
+Ox.GetGroupAccount(groupName)
+```
+
+**パラメータ**
+
+* グループ名：`string`
+
+**リターン**
+
+* [`OxAccount`](/ox_core/Classes/Server/OxAccount)
+
+## Ox.GetGroupsByType
+
+与えられたグループタイプを持つグループ名の配列を返します。
+
+```lua
+Ox.GetGroupsByType(groupType)
+```
+
+**パラメータ**
+
+* グループタイプ：`string`
+
+**リターン**
+
+* `string[]`
+
+## Ox.GetGroup
+
+を取得する`OxGroup`その名前から
+
+```lua
+Ox.GetGroup(name)
+```
+
+**パラメータ**
+
+* と名付けた：`string`
+
+**リターン**
+
+* `OxGroup`
+
+## Ox.GetPlayer
+
+を取得する`OxPlayer`を選手IDから取得する。
+
+```lua
+Ox.GetPlayer(playerId)
+```
+
+**パラメータ**
+
+* playerId：`number`
+
+**リターン**
+
+* [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
+
+## Ox.GetPlayerFromFilter
+
+最初の`OxPlayer`フィルターにマッチする。
+
+```lua
+Ox.GetPlayerFromFilter(filter)
+```
+
+**パラメータ**
+
+* フィルター？`{ [string]: any }`
+  * 選手のフィールドとメタデータを、指定されたキーと値のペアと比較します。
+  * グループは文字列または文字列の配列で指定する。
+
+**リターン**
+
+* [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
+
+## Ox.GetPlayerFromUserId
+
+を取得する`OxPlayer`ユーザーIDから。
+
+```lua
+Ox.GetPlayerFromUserId(userId)
+```
+
+**パラメータ**
+
+* userId：`number`
+
+**リターン**
+
+* [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
+
+## Ox.GetPlayerFromCharId
+
+を取得する`OxPlayer`そのキャラクターIDから。
+
+```lua
+Ox.GetPlayerFromCharId(charId)
+```
+
+**パラメータ**
+
+* charId：`number`
+
+**リターン**
+
+* [`OxPlayer`](/ox_core/Classes/Server/OxPlayer)
+
+## Ox.GetPlayers
+
+を含む配列を取得する。`OxPlayer`与えられた場合は、フィルタに一致するすべてのプレーヤーのために。
+
+```lua
+Ox.GetPlayers(filter)
+```
+
+**パラメータ**
+
+* フィルター？`{ [string]: any }`
+  * 選手のフィールドとメタデータを、指定されたキーと値のペアと比較します。
+  * グループは文字列または文字列の配列で指定する。
+
+**リターン**
+
+* [`OxPlayer[]`](/ox_core/Classes/Server/OxPlayer)
+
+## Ox.GetVehicle
+
+を取得する`OxVehicle`をそのエンティティIDから取得する。
+
+```lua
+Ox.GetVehicle(entityId)
+```
+
+**パラメータ**
+
+* entityId：`number`
+
+**リターン**
+
+* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+
+## Ox.GetVehicleFromFilter
+
+最初の`OxVehicle`フィルターにマッチする。
+
+```lua
+Ox.GetVehicleFromFilter(filter)
+```
+
+**パラメータ**
+
+* フィルター？`{ [string]: any }`
+  * 車両のフィールドとメタデータを、指定されたキーと値のペアと比較する。
+
+**リターン**
+
+* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+
+## Ox.GetVehicleFromNetId
+
+を取得する`OxVehicle`そのネットワークIDから。
+
+```lua
+Ox.GetVehicleFromNetId(netId)
+```
+
+**パラメータ**
+
+* netId：`number`
+
+**リターン**
+
+* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+
+## Ox.GetVehicleFromVin
+
+を取得する`OxVehicle`車体番号から
+
+```lua
+Ox.GetVehicleFromVin(vin)
+```
+
+**パラメータ**
+
+* ヴィン`string`
+
+**リターン**
+
+* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+
+## Ox.GetVehicles
+
+を含む配列を取得する。`OxVehicle`与えられた場合は、フィルタに一致するすべての車両。
+
+```lua
+Ox.GetVehicles(filter)
+```
+
+**パラメータ**
+
+* フィルター？`{ [string]: any }`
+  * 車両のフィールドとメタデータを、指定されたキーと値のペアと比較する。
+
+**リターン**
+
+* [`OxVehicle[]`](/ox_core/Classes/Server/OxVehicle)
+
+## Ox.RemoveGroupPermission
+
+指定されたグループと最低グレードから許可を削除します。
+
+```lua
+Ox.RemoveGroupPermission(groupName, grade, permission)
+```
+
+**パラメータ**
+
+* グループ名：`string`
+* のグレードである：`number`
+* を許可した：`string`
+
+## Ox.SaveAllPlayers
+
+全選手をデータベースに保存する。
+
+```lua
+Ox.SaveAllPlayers()
+```
+
+## Ox.SaveAllVehicles
+
+すべての車両をデータベースに保存する。
+
+```lua
+Ox.SaveAllVehicles()
+```
+
+## Ox.SetGroupPermission
+
+指定されたグループと最低等級に権限を割り当て、その権限は上位等級に継承されます。
+
+```lua
+Ox.SetGroupPermission(groupName, grade, permission, value)
+```
+
+**パラメータ**
+
+* グループ名：`string`
+* のグレードである：`number`
+* を許可した：`string`
+* 値である：`allow`|`deny`
+
+**例**
+
+```lua
+-- Adding a permission to a group (server side)
+Ox.SetGroupPermission('police', 1, 'handcuff', 'allow')
+
+-- Checking if a player has the 'handcuff' permission
+if player.hasPermission('group.police.handcuff') then
+    -- Do something
+end
+```
+
+## オックス・スポーン・ビークル
+
+を生む。`OxVehicle`もしまだ生成されていなければ、与えられたdbIdを持つ。
+
+```lua
+Ox.SpawnVehicle(dbId, coords, heading)
+```
+
+**パラメータ**
+
+* dbId：`number`
+* コーデ：`vector3`
+* ヘディング？`number`
+
+**リターン**
+
+* [`OxVehicle`](/ox_core/Classes/Server/OxVehicle)
+
+## Ox.GetLicense
+
+名前からライセンスデータを取得する。
+
+```lua
+Ox.GetLicense(name)
+```
+
+**パラメータ**
+
+* と名付けた：`string`
+
+**リターン**
+
+* `OxLicense`
+
+## Ox.GetLicenses
+
+すべてのライセンスのデータを取得する。
+
+```lua
+Ox.GetLicenses()
+```
+
+**リターン**
+
+* `OxLicense[]`
+
+## Ox.GetGroupActivePlayers
+
+指定されたグループ内のすべてのアクティブプレーヤーの配列を返します。
+
+```lua
+Ox.GetGroupActivePlayers(groupName)
+```
+
+**パラメータ**
+
+* グループ名：`string`
+
+**リターン**
+
+* `number[]`
+
+## Ox.GetGroupActivePlayersByType
+
+指定されたタイプに一致するグループから集約された、すべてのアクティブなプレーヤーの配列を返します。
+
+```lua
+Ox.GetGroupActivePlayers(groupType)
+```
+
+**パラメータ**
+
+* グループタイプ：`string`
+
+**リターン**
+
+* `number[]`
+
+## Ox.BanUser
+
+ユーザーをサーバーから追放する。
+
+```lua
+Ox.BanUser(userId, reason, hours)
+```
+
+**パラメータ**
+
+* userId：`number`
+* 理由は？`string`
+* 時間ですか？`number`
+
+**リターン**
+
+* `boolean`
+
+## Ox.IsUserBanned
+
+ユーザーが現在禁止されているかどうかをチェックし、禁止されている場合は禁止の詳細を返す。
+
+```lua
+Ox.IsUserBanned(userId)
+```
+
+**パラメータ**
+
+* userId：`number`
+
+**リターン**
+
+* `BanDetails`|`nil`
+  * 理由`string`
+  * banned\_at：`string`
+  * unban\_at：`string`
+  * userId：`number`
+  * トークン`string`
+
+## Ox.UnbanUser
+
+ユーザーから禁止を解除します。
+
+```lua
+Ox.UnbanUser(userId)
+```
+
+**パラメータ**
+
+* userId：`number`
+
+**リターン**
+
+* `boolean`

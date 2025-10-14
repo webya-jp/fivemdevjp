@@ -1,0 +1,60 @@
+***
+
+タイトルクライアントコールバック
+sidebar\_label: クライアント
+キーワード\[qbox, fivem, qbx\_garages, コールバック].
+説明このドキュメントはqbx\_garagesリソースで利用可能なクライアントサイドコールバックの詳細を記述する。これらのコールバックは、ガレージデータの取得、車両管理、駐車機能などのガレージ管理操作のためのクライアントとサーバ間の通信を容易にする。
+-----------------------------------------------------------------------------------------------------------------------------
+
+# サーバー・コールバック
+
+カスタムUIをサポートするために使用できる。クライアントから呼び出される。
+
+## ガレージ
+
+現在登録されているガレージを取得する
+
+```lua
+lib.callback.await('qbx_garages:server:getGarages')
+```
+
+## 車庫入れ
+
+プレイヤーが指定されたガレージにアクセスできる車両を取得します。現在ワールドにスポーンされている車両は返さない。
+
+```lua
+lib.callback.await('qbx_garages:server:getGarageVehicles', false, garageName)
+```
+
+## 駐車可能
+
+プレイヤーがガレージにアクセスでき、車両がガレージのフィルターに一致する場合にtrueを返します。
+
+```lua
+lib.callback.await('qbx_garages:server:isParkable', false, garageName, netId)
+```
+
+## パークビークル
+
+車両をガレージに保管し、ワールドからエンティティを削除する。
+
+```lua
+lib.callback.await('qbx_garages:server:parkVehicle', false, netId, props, garageName)
+```
+
+## ペイデポプライス
+
+現金または銀行から車両のデポ価格を取得し、プレイヤーが支払った場合はtrueを返します。支払い後、車両のデポ価格は更新されません。
+
+```lua
+lib.callback.await('qbx_garages:server:payDepotPrice', false, vehicleId)
+```
+
+## スポーンビークル
+
+指定されたガレージのアクセスポイントにワールド内の車両エンティティをスポーンする。プレイヤーに必要なアクセス権限があるかチェックします。
+プレイヤーに車両のキーを渡そうとします。
+
+```lua
+lib.callback.await('qbx_garages:server:spawnVehicle', false, vehicleId, garageName, accessPointIndex)
+```

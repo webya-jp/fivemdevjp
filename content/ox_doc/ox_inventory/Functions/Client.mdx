@@ -1,0 +1,535 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+
+# クライアント
+
+## オープン在庫
+
+渡されたデータを使用してインベントリを開きます。
+
+```lua
+exports.ox_inventory:openInventory(invType, data)
+```
+
+- invType：`string`
+  - `'player'`
+  - `'shop'`
+  - `'stash'`
+  - `'crafting'`
+  - `'container'`
+  - `'drop'`
+  - `'glovebox'`
+  - `'trunk'`
+  - `'dumpster'`
+- のデータがある：`number`または`string`または`table`
+
+<br />
+
+<u>**例**</u>
+
+<Tabs items={['Player', 'Shop', 'Stash']}>
+  <Tags.Tab>
+    対象プレイヤーのインベントリを開く。
+
+    ```lua
+    exports.ox_inventory:openInventory('player', 3)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    4つ目の "雑貨店 "を開く[場所](https://github.com/communityox/ox_inventory/blob/main/data/shops.lua#L14).
+
+    ```lua
+    exports.ox_inventory:openInventory('shop', { type = 'General', id = 4 })
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    で最初の隠し場所を開く。[データ](https://github.com/communityox/ox_inventory/blob/main/data/stashes.lua#L2-L19).
+
+    ```lua
+    exports.ox_inventory:openInventory('stash', 1)
+    ```
+
+    カスタムStash（RegisterStashでサーバー上に作成）を開きます。
+
+    ```lua
+    exports.ox_inventory:openInventory('stash', 'society_police')
+    ```
+
+    特定の所有者の隠し場所を開く。
+
+    ```lua
+    exports.ox_inventory:openInventory('stash', { id = 'police_locker', owner = 'license:xxxxxxxx' })
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## オープンニアバイインベントリー
+
+可能であれば、近くのプレイヤーのインベントリを開く。
+
+インベントリーを開けようとするプレイヤーは、自分のインベントリーを開けることができなければならない。
+また、そのプレイヤーが警察の仕事を持っていない場合、対象のプレイヤーは致命傷を負っているか、死亡アニメをプレイしていなければならない。
+デスアニメをプレイしていなければならない。
+
+```lua
+exports.ox_inventory:openNearbyInventory()
+```
+
+## クローズ在庫
+
+プレイヤーのインベントリを閉じる。
+
+```lua
+exports.ox_inventory:closeInventory()
+```
+
+## アイテム
+
+登録されている全項目の表を返す。フォーマットは[data/items.lua](https://github.com/communityox/ox_inventory/blob/main/data/items.lua).
+
+オプションで項目名を取り、その項目のデータのみを返す（すべてのデータを取得することは推奨されない）。
+
+```lua
+exports.ox_inventory:Items(itemName)
+```
+
+- itemName?`string`
+
+以下のスニペットは、サーバーから情報を取得するのではなく、okokCrafting や core_crafting のようなクラフトリソースで使用することができます。
+
+```lua
+local itemNames = {}
+
+for item, data in pairs(exports.ox_inventory:Items()) do
+    itemNames[item] = data.label
+end
+```
+
+## 使用項目
+
+渡されたアイテムを使用し、コールバック関数をトリガーします。\
+ビルトインメソッド（サーバーチェック、プログレスバーなど）を利用するために、アイテムのコールバック時に呼び出す必要があります。
+
+```lua
+exports.ox_inventory:useItem(data, cb)
+```
+
+- のデータがある：`table`
+- cb？`function`
+
+```lua
+exports('bandage', function(data, slot)
+    local playerPed = PlayerPedId()
+    local maxHealth = GetEntityMaxHealth(playerPed)
+    local health = GetEntityHealth(playerPed)
+
+    -- Does the ped need to heal?
+    if health < maxHealth then
+        -- Use the bandage
+        exports.ox_inventory:useItem(data, function(data)
+            -- The item has been used, so trigger the effects
+            if data then
+                SetEntityHealth(playerPed, math.min(maxHealth, math.floor(health + maxHealth / 16)))
+                lib.notify({description = 'You feel better already'})
+            end
+        end)
+    else
+        -- Don't use the item
+        lib.notify({type = 'error', description = 'You don\'t need a bandage right now'})
+    end
+end)
+```
+
+## 使用スロット
+
+指定されたインベントリスロットのアイテムを使用する。
+
+```lua
+exports.ox_inventory:useSlot(slot)
+```
+
+- スロットだ：`number`
+
+## setStashTarget
+
+渡されたインベントリをセカンダリインベントリキーで強制的に開く。マーカー内に立っているときにインベントリにアクセスできるようにするのに役立つ。
+
+```lua
+exports.ox_inventory:setStashTarget(id, owner)
+```
+
+- id.K.である：`string`または`number`
+  - 隠し場所。
+- オーナー？`string`または`number`
+
+<br />
+
+<u>**例**</u>
+
+```lua
+exports.ox_inventory:setStashTarget('motel5', 'bobsmith')
+```
+
+## ゲット・カレント・ウェポン
+
+現在装備している武器のデータを取得する。
+
+```lua
+exports.ox_inventory:getCurrentWeapon()
+```
+
+イベントハンドラを使用して、現在の武器の変更をリッスンすることもできる。
+
+```lua
+AddEventHandler('ox_inventory:currentWeapon', function(currentWeapon)
+	CurrentWeapon = currentWeapon
+end)
+```
+
+- currentWeapon？`table`
+  - 弾薬？`string`弾薬として使用されるアイテムの名前。
+  - ハッシュ`number`
+  - のラベルが貼られている：`string`
+  - 乱戦：`boolean`
+  - というメタデータがある：`table`
+    - 弾薬？`number`武器に装填されている弾薬の量。
+    - コンポーネント？`table`武器のコンポーネントを適用するために使用される、コンポーネントのアイテム名の配列。
+    - 耐久性は？`number`
+    - 登録されているか？`string`ショップで武器を購入したプレイヤーの名前。
+    - シリアル？`string`
+  - と名付けた：`string`アイテム名
+  - スロットだ：`number`
+  - 重量である：`number`
+
+## 表示メタデータ
+
+ツールチップに表示するメタデータのプロパティを設定します。
+
+```lua
+exports.ox_inventory:displayMetadata(metadata, value)
+```
+
+- というメタデータがある：`string`または`table<string, string>`または`{ [string], [string] }`
+  - metadata が文字列の場合は、表示したいメタデータ・プロパティで、値は**ない**それなら任意だ。
+  - キーと値のペアのテーブルで、キーはメタデータプロパティ、値はそのプロパティのラベルです。
+  - 文字列配列の配列である。`{ {'key', 'label' }, {'key2', 'label2' }`で表示順を設定する。
+- 価値？`string`
+  - 表示する文字列メタデータプロパティのラベル。
+
+<br />
+
+<u>**例**</u>
+
+```lua
+exports.ox_inventory:displayMetadata('mustard', 'Mustard')
+```
+
+```lua
+exports.ox_inventory:displayMetadata({
+    mustard = 'Mustard',
+    ketchup = 'Ketchup'
+})
+```
+
+## giveItemToTarget
+
+プレイヤーのインベントリにあるアイテムを他のプレイヤーに渡す。
+
+```lua
+exports.ox_inventory:giveItemToTarget(serverId, slotId, count)
+```
+
+- serverId：`number`
+  - ターゲットプレーヤーの serverId。
+- slotId：`number`
+  - 与えるアイテムの slotId。
+- を数えるのか？`number`
+  - 贈る品物の金額。`nil`,`0`または、スロット数以上の値でスタック全体を手放す。
+
+## ウェポンホイール
+
+ウェポン・ホイールを有効にするが、インベントリ武器の使用を無効にする。
+
+主に兵器化された乗り物に使われるが、"ミニゲーム "に使われることもある。
+
+```lua
+local exports.ox_inventory:weaponWheel(state)
+```
+
+- の状態だ：`boolean`
+
+## 検索
+
+最初の引数によって結果が変わります。
+
+```lua
+exports.ox_inventory:Search(search, item, metadata)
+```
+
+- を検索する：`'slots'`または`'count'`
+  - `'slots'`アイテムが見つかったスロットのテーブルを返します。
+  - `'count'`は、プレイヤーのインベントリ内の指定されたアイテムの数を返します。複数のアイテムを検索する場合
+    itemName = count のキーと値のペアを返します。
+- アイテム：`table`または`string`
+  - 単一の項目名、または項目名の配列。
+- メタデータ？`table`または`string`
+  - メタデータが文字列として提供された場合、それはアイテムの`metadata.type`財産である。
+
+### カウント
+
+<Tabs items={["Single item", "Multiple items"]}>
+  <Tags.Tab>
+    ```lua
+    local count = exports.ox_inventory:Search('count', 'water')
+    print('You have '..count.. ' water')
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```lua
+    local inventory = exports.ox_inventory:Search('count', {'meat', 'skin'}, {grade="1"})
+
+    if inventory then
+        for name, count in pairs(inventory) do
+            print('You have '..count..' '..name)
+        end
+    end
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+### スロット
+
+<Tabs items={["Single item", "Multiple items"]}>
+  <Tags.Tab>
+    ```lua
+    local water = exports.ox_inventory:Search('slots', 'water')
+    local count = 0
+
+    for _, v in pairs(water) do
+        print(v.slot..' contains '..v.count..' water '..json.encode(v.metadata))
+        count = count + v.count
+    end
+
+    print('You have '..count..' water')
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```lua
+    local items = exports.ox_inventory:Search('slots', {'meat', 'skin'}, 'deer')
+
+    if items then
+        for name, data in pairs(items) do
+            local count = 0
+
+            for _, v in pairs(data) do
+                if v.slot then
+                    print(v.slot..' contains '..v.count..' '..name..' '..json.encode(v.metadata))
+                    count = count + v.count
+                end
+            end
+
+            print('You have '..count..' '..name)
+        end
+    end
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 項目数
+
+指定された名前とメタデータを持つ、プレイヤーのインベントリ内のすべてのアイテムの合計アイテム数を取得します。
+
+```lua
+exports.ox_inventory:GetItemCount(itemName, metadata, strict)
+```
+
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- カウントする：`number`
+
+## GetPlayerItems
+
+プレイヤーのインベントリにあるすべてのアイテムを取得する。
+
+```lua
+exports.ox_inventory:GetPlayerItems()
+```
+
+戻る：
+
+- の項目がある：`table`
+
+## GetPlayerWeight
+
+プレイヤーのインベントリにあるすべてのアイテムの総重量を取得する。
+
+```lua
+exports.ox_inventory:GetPlayerWeight()
+```
+
+戻る：
+
+- totalWeight：`number`
+
+## GetPlayerMaxWeight
+
+プレイヤーのインベントリの最大持ち運び重量を取得する。
+
+```lua
+exports.ox_inventory:GetPlayerMaxWeight()
+```
+
+戻る：
+
+- 最大重量：`number`
+
+## GetSlotIdWithItem
+
+与えられた名前とメタデータに一致するプレイヤーのインベントリ内のスロット ID を取得します。
+
+```lua
+exports.ox_inventory:GetSlotIdWithItem(itemName, metadata, strict)
+```
+
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- slotId：`number?`
+
+## GetSlotsIdWithItem
+
+与えられた名前とメタデータに一致するプレイヤーのインベントリ内のすべてのスロット ID を取得します。
+
+```lua
+exports.ox_inventory:GetSlotIdsWithItem(itemName, metadata, strict)
+```
+
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- slotIds：`number[]?`
+
+## スロット・ウィズ・アイテム
+
+与えられた名前とメタデータに一致するプレーヤーのインベントリのスロットのデータを取得します。
+
+```lua
+exports.ox_inventory:GetSlotWithItem(itemName, metadata, strict)
+```
+
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- slotData：`table?`
+
+## 項目で GetSlotsWithItem
+
+与えられた名前とメタデータに一致するプレーヤーのインベントリ内のすべてのスロットのデータを取得します。
+
+```lua
+exports.ox_inventory:GetSlotsWithItem(itemName, metadata, strict)
+```
+
+- itemName：`string`
+- メタデータ？`table`
+- 厳しい？`boolean`
+  - メタデータ・プロパティに厳密にマッチし、そうでなければ部分マッチングを使用する。
+
+戻る：
+
+- スロットデータ`table[]?`
+
+## 項目通知を抑制する
+
+NUI アイテムの通知を有効または無効にします。
+
+```lua
+exports.ox_inventory:suppressItemNotifications(value)
+```
+
+- 値である：`boolean`
+
+## ステートバッグ
+
+### invBusy
+
+プレイヤーのインベントリが現在アクションを実行中（アイテムを使用中）かどうかを返します。\
+true を設定すると、インベントリを開かないようにできる。
+
+- invBusy：`boolean`
+
+```lua
+local invBusy = LocalPlayer.state.invBusy
+
+if invBusy then
+    -- Do stuff when busy
+else
+    -- Do stuff when not busy
+end
+```
+
+#### インベントリーを開かない
+
+```lua
+LocalPlayer.state.invBusy = true
+```
+
+### inv ホットキー
+
+プレイヤーのインベントリホットキーへのアクセスを有効/無効にします。
+
+- invHotkeys：`boolean`
+
+```lua
+LocalPlayer.state.invHotkeys = false
+```
+
+### 開く
+
+プレイヤーのインベントリが現在開いているかどうかを返します。
+
+- invOpen：`boolean`
+
+```lua
+local invOpen = LocalPlayer.state.invOpen
+
+if invOpen then
+    -- Do stuff when open
+else
+    -- Do stuff when closed
+end
+```
+
+### 武器の使用
+
+選手の武器の使用を有効/無効にします。
+
+```lua
+LocalPlayer.state.canUseWeapons = false
+```

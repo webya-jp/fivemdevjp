@@ -1,0 +1,25 @@
+***
+
+## タイトル"必須項目"
+
+必要なアイテムを変更できるだけではありません。回転させるときに取るアイテムも変更できる。**そして**プレーヤーが勝つと、まったく別のアイテムを与える！に移動しよう。`server/utils.lua`.
+
+```lua
+function CanSpin(source, betAmount)
+    local itemName = 'cash'
+    local itemCount = exports.ox_inventory:GetItemCount(source, itemName)
+
+    ...
+end
+```
+
+を変更するだけです。`itemName`変数を使いたいアイテムに変更する。報酬も同様だ。
+
+```lua
+function RewardPlayer(source, winAmount)
+    local itemName = 'cash'
+    ...
+end
+```
+
+同じ変更がここでも適用される :D

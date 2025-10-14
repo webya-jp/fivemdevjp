@@ -1,0 +1,77 @@
+---
+
+## タイトル：シングル
+
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# シングル
+
+単一の行について選択されたすべての列を返します。
+
+## 約束
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    local row = MySQL.single.await('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ? LIMIT 1', {
+        identifier
+    })
+
+    if not row then return end
+
+    print(row.firstname, row.lastname)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    const row = await MySQL.single('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ? LIMIT 1', [
+      identifier
+    ])
+
+    if (!row) return;
+
+    console.log(row.firstname, row.lastname)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `exports.oxmysql.single_async`
+
+## コールバック
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    MySQL.single('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ? LIMIT 1', {
+        identifier
+    }, function(row)
+        if not row then return end
+
+        print(row.firstname, row.lastname)
+    end)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    MySQL.single('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ? LIMIT 1', [
+      identifier
+    ], (row) => {
+      if (!row) return;
+
+      console.log(row.firstname, row.lastname)
+    })
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `exports.oxmysql.single`

@@ -1,0 +1,136 @@
+***
+
+## タイトルメタデータ
+
+# メタデータ
+
+アイテムのメタデータは、1つのアイテムから複数の異なるアイテムを作成するために使用できる非常に強力なツールです。
+
+このガイドでは例としてポケモンカードを使いますが、インベントリにすでに統合されている例を見つけることができます。
+を使います。`garbage`アイテム。
+
+## ベースアイテムの作成
+
+まず最初に、メタデータを適用するためのベースアイテムを作成する必要がある。
+
+```lua filename="/data/items.lua"
+['pokemon_card'] = {
+    label = 'Pokemon card',
+    weight = 10,
+    consume = 0,
+    server = {
+        export = 'pokemon.pokemon_card'
+    }
+}
+```
+
+この場合、すべてのカードの重さを同じにするため、ラベルと重さを定義します。
+すべてのカードの重さを同じにしたくない場合は、ラベルと重さを定義せず、メタデータによって重さを適用することができる。
+
+を呼び出すことで、アイテムを使用可能にする。`pokemon_card`でエクスポートする。`pokemon`リソースを提供する。
+
+```lua filename="pokemon/server.lua"
+exports('pokemon_card', function(event, item, inventory, slot, data)
+    if event == 'usingItem' then
+        local itemSlot = exports.ox_inventory:GetSlot(inventory.id, slot)
+        print(json.encode(itemSlot.metadata, {indent=true}))
+    end
+end)
+```
+
+## 特別なメタデータ・プロパティ
+
+メタデータ・プロパティには、どのような値でも定義することができますが、次のような特殊なメタデータ・プロパティがあります。
+には特別な使用例があります。
+
+これらの特性は以下の通りである：
+
+* のラベルが貼られている：`string`
+  * アイテムの表示名
+* 重量である：`number`
+  * 商品の重量
+* という記述がある：`string`
+  * ツールチップに表示される項目の説明
+* イメージ`string`
+  * アイテムが使用する画像パス内の画像
+* imageurl：`string`
+  * アイテムが使用する画像へのURL
+* タイプだ：`any`
+  * ツールチップの右上に表示されるアイテムタイプ
+
+これらのプロパティを使って、ポケモンカードを`pokemon_card`項目を作成した。
+
+## メタデータ項目の作成
+
+を使ってフックを定義すれば、簡単にメタデータ・アイテムを作成できる。[作成項目](../Functions/Server/Hooks#createitem)そしてショップにも追加する。
+
+```lua filename="/data/shops.lua"
+inventory = {
+    {name = 'pokemon_card', price = 300, metadata = {
+        label = 'Charizard',
+        description = 'It is said that Charizard’s fire burns hotter if it has experienced harsh battles.',
+        image = 'panties',
+        type = 'Fire',
+        hp = 78,
+        attack = 84,
+        defense = 78
+    }}
+}
+```
+
+```lua filename="pokemon/server.lua"
+local pokemonMetadata = {
+    charizard = {
+        label = 'Charizard',
+        description = 'It is said that Charizard’s fire burns hotter if it has experienced harsh battles.',
+        image = 'panties',
+        type = 'Fire',
+        hp = 78,
+        attack = 84,
+        defense = 78
+    }
+}
+
+local hookId = exports.ox_inventory:registerHook('createItem', function(payload)
+    local pokemon = pokemonMetadata[payload.metadata.type]
+    if not pokemon then return end
+    return pokemon
+end, {
+    itemFilter = {
+        pokemon_card = true
+    }
+})
+```
+
+上で見たように、アイテムが使用可能になると、メタデータ・プロパティはすべて存在し、スロットからアクセスできるようになります。
+
+## カスタム・メタデータ・プロパティの表示
+
+チャリザード・カードに設定したカスタム・メタデータを表示するには、文字列を連結して説明文に追加するか、あるいは
+に追加するか[表示メタデータ](../Functions/Client#displaymetadata) *クライアント*関数である。
+
+```lua
+exports.ox_inventory:displayMetadata({
+    hp = 'HP',
+    attack = 'ATK',
+    defense = 'DEF'
+})
+```
+
+## 武器コンポーネントのメタデータ
+
+を使用することで、すでに武器コンポーネントが装着されたアイテムを作成することもできます。`components`メタデータプロパティ。
+武器コンポーネントは[data/weapons.lua](https://github.com/CommunityOx/ox_inventory/blob/4d178a50a225661eeadcefc5b531c52e10522191/data/weapons.lua#L721)
+で弾薬数を設定することもできます。`ammo`メタデータ・プロパティ。
+
+```lua
+local metadataExample = {
+    ammo = 30,
+    components = {
+        'at_flashlight',
+        'at_suppressor_heavy'
+    }
+}
+
+exports.ox_inventory:AddItem(inv, item, count, metadataExample, slot, cb)
+```

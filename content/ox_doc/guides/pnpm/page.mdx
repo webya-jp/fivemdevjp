@@ -1,0 +1,26 @@
+***
+
+## タイトル: pnpm
+
+# pnpm
+
+pnpmは高速でディスクスペース効率に優れたパッケージマネージャで、npmやyarnの代替となる。
+
+* 以下を確認する。[Node.jsをインストール](./nodejs).
+* コマンドライン・ターミナル（ターミナル、コマンドプロンプトなど）を開く。
+* 入場`npm install -g pnpm`でパッケージをグローバルにインストールする。
+* pnpmで依存関係をインストールするには、次のようにします。`pnpm i`.
+
+を参照することができる。`package.json`ファイルを使用可能なスクリプトのために使用する。
+
+```json
+"scripts": {
+  "start": "vite",
+  "watch": "vite build --watch",
+  "build": "tsc && vite build",
+  "preview": "vite preview",
+  "format": "prettier --write \"./src/**/*.{ts,tsx,css}\""
+},
+```
+
+上記の例を使って`pnpm build`は、指定されたパッケージのビルドスクリプトを実行します。

@@ -1,0 +1,84 @@
+## Ox.GetGroupPermissions
+
+を返します。`OxGroupPermissions`グループの
+
+```lua
+Ox.GetGroupPermissions(groupName)
+```
+
+**パラメータ**
+
+* グループ名：`string`
+
+**リターン**
+
+* `OxGroupPermissions`
+
+## Ox.GetTopVehicleStats
+
+総合または特定のカテゴリー(陸、空、海)のトップ車両統計を含むオブジェクトを返します。
+
+```lua
+Ox.GetTopVehicleStats(category?)
+```
+
+**パラメータ**
+
+* カテゴリー？`string`
+
+**リターン**
+
+* `VehicleStats`|`{ [string]: VehicleStats }`
+
+### 車両統計
+
+* `object`
+  * 加速する：`number`
+  * ブレーキング`number`
+  * を扱う：`number`
+  * スピードだ：`number`
+  * トラクション`number`
+
+## Ox.GetVehicleData
+
+全車両の VehicleData、またはオプションで特定のモデルまたはモデルの配列を返します。
+
+```lua
+Ox.GetVehicleData(filter?)
+```
+
+**パラメータ**
+
+* フィルター？`string`|`string[]`
+
+**リターン**
+
+* `{ [string]: VehicleData }`|`VehicleData`
+
+### 車両データ
+
+* `object`
+  * クラスである：`VehicleClasses`
+  * ドア`number`
+  * を作る：`string`
+  * と名付けた：`string`
+  * 価格だ：`number`
+  * 席だ：`number`
+  * タイプだ：`string`
+  * 武器？`true`
+
+## Ox.GetVehicleNetworkType
+
+車両モデルのnetobjタイプを返します。車両タイプとは異なる場合があります（例えば、飛行船はheliとしてネットワーク化されています）。
+
+```lua
+Ox.GetVehicleNetworkType(modelName)
+```
+
+**パラメータ**
+
+* モデル名`string`
+
+**リターン**
+
+* `string`

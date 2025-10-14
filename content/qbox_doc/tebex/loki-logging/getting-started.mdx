@@ -1,0 +1,36 @@
+***
+
+タイトルはじめに
+サイドバーの位置1
+---------
+
+# はじめに
+
+私たちを応援してくれた瞬間[コ・フィ](https://ko-fi.com/qbox)Discordで適切な役割を受け取ることができます（DiscordアカウントとKo-fiアカウントをリンクして、実際にDiscordの特典を受け取れるようにしてください）。
+
+https://logging.qbox.re/ にアクセスし、Discordアカウントで認証してください。小さなダッシュボードが表示されるが、これはAPIキーの再生成以外には使用されない。
+初めて認証した瞬間、https://grafana.qbox.re/ に新しい Grafana 組織が作成されます。
+ログイン認証情報は、ユーザー名としてあなたの Discord ID、そして`admin`をパスワードとして入力してください。その後、パスワードの変更を求められます。
+::危険
+言うまでもありませんが、実際に変更してください。パスワードの変更ᙏ。
+:::
+これで、あなただけのGrafana組織を完全にコントロールし、アクセスできるようになります。あなたが始めるために、すでにすべてがインストールされています。
+しかし[Grafanaドキュメント](https://grafana.com/docs/grafana/latest/)を読んで、Grafanaの仕組みと使い方をより深く理解しよう。
+
+<CardImage cardImageUrl="https://media.qbox.re/image/8QAdwCAXrELugkqEeQ_nhR1A7lJsdTjssFc.png" />
+
+## ox\_libのセットアップ
+
+Qboxを使用し、レシピデプロイを実行した場合、以下のファイルが作成されます。`ox.cfg`.それ以外の場合は`server.cfg`.をすでに設定している場合は、検索してください。`ox:logger`convar.
+そうでない場合は、以下の行をあなたの`server.cfg`または`ox.cfg`ファイル：
+
+```lua
+set ox:logger "loki"
+set loki:endpoint "logging.qbox.re"
+set loki:tenant "tenant-id"
+```
+
+交換`tenant-id`を実際のテナントIDに置き換えてください。テナントIDは、https://logging.qbox.re/ の小さなダッシュボードで確認できます。さて、サーバーを起動して接続してみましょう。
+すでにいくつかのデフォルトログがGrafanaに表示されているはずです。どこにあるかわからない？に移動してください。`Dashboards > All Logs`を作成します。これは、すべてのログを表示するためのメインダッシュボードになります。
+
+以上です。すぐにアクセスできるよう、上記のURLをブックマークしておくことをお忘れなく。

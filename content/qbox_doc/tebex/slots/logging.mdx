@@ -1,0 +1,30 @@
+***
+
+## タイトル"ログ機能"
+
+便宜上、ロギング機能を公開しました。使用しないでください`ox_lib`ロギングの組み込み？問題ありません！に移動すると`server/utils.lua`をご覧ください：
+
+```lua
+function Log(source, event, message, ...)
+    local formattedMessage = logMessages[message]:format(...)
+    lib.logger(source, event, formattedMessage)
+end
+```
+
+を交換するだけです。`lib.logger`関数を、あなた自身のロギング関数に置き換える。その`source`,`event`そして`formattedMessage`変数は関数に渡されるので、好きなように使うことができる。
+以下は`JD_logsV3`ロギングサービス：
+
+```lua
+function Log(source, event, message, ...)
+    local formattedMessage = logMessages[message]:format(...)
+    exports.JD_logsV3:createLog({
+        EmbedMessage = formattedMessage,
+        player_id = source,
+        channel = "Channel name from channels.json | Discord Channel ID | Discord Webhook URL",
+        screenshot = true,
+        title = 'Custom Title',
+        color = '#A1A1A1',
+        icon = '✅'
+    })
+end
+```

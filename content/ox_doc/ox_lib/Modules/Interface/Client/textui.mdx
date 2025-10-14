@@ -1,0 +1,146 @@
+---
+
+## タイトルテキスト UI
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# テキスト UI
+
+## lib.showTextUI
+
+TextUI ウィンドウを表示する。
+
+<Callout type="warning">
+  **絶対に**トグルとして使用することを意図している。
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.showTextUI(text, options)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.showTextUI(text, options);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- テキスト`string`
+- オプションは？`table`
+  - ポジションは？`'right-center'`または`'left-center'`または`'top-center'`または`'bottom-center'`
+    - デフォルト：`'right-center'`
+  - アイコンは？`string`または`table`(`array`)
+  - iconColor?`string`
+  - iconAnimation?`'spin'` `'spinPulse'` `'spinReverse'` `'pulse'` `'beat'` `'fade'` `'beatFade'` `'bounce'` `'shake'`
+  - スタイル？React.CSSProperties
+  - alignIcon？`'top'`または`'center'`
+    - デフォルト：`'center'`
+
+## lib.hideTextUI
+
+現在表示されている TextUI ウィンドウを隠す
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.hideTextUI()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.hideTextUI();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## lib.isTextUIOpen
+
+Text UI が開かれているかどうかを返します。現在表示されているテキストが 2 番目の値として返されます。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    local isOpen, text = lib.isTextUIOpen()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    const [isOpen, text] = lib.isTextUIOpen();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 使用例
+
+### ベーシック
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.showTextUI('[E] - Fuel vehicle')
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.showTextUI('[E] - Fuel vehicle');
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![basic_example](https://i.imgur.com/uZS40fD.png)
+
+### カスタムスタイリング
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.showTextUI('[E] - Pick apple', {
+        position = "top-center",
+        icon = 'hand',
+        style = {
+            borderRadius = 0,
+            backgroundColor = '#48BB78',
+            color = 'white'
+        }
+    })
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.showTextUI('[E] - Pick apple', {
+      position: 'top-center',
+      icon: 'hand',
+      style: {
+        borderRadius: 0,
+        backgroundColor: '#48BB78',
+        color: 'white',
+      },
+    });
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![custom_example](https://i.imgur.com/sy9lPC0.png)

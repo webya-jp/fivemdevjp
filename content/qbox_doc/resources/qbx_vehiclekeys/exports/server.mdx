@@ -1,0 +1,45 @@
+***
+
+タイトルサーバー輸出
+sidebar\_label: サーバ
+キーワード\[qbox, fivem, qbx\_vehiclekeys, エクスポート].
+説明qbx\_vehiclekeys リソースのサーバサイドエクスポートのドキュメント。これらのエクスポートは、Qboxフレームワーク内で車両キーの所有権をチェックし、管理するための機能を提供する。
+---------------------------------------------------------------------------------------------------
+
+# サーバー輸出
+
+## ハスキー
+
+プレイヤーが指定された車両エンティティのキーを持っているかどうかを返します。
+
+```lua
+exports.qbx_vehiclekeys:HasKeys(source, vehicle)
+```
+
+* ソース`number`
+* 車である：`number`
+
+## ギブ・キー
+
+キーをプレイヤーに渡し、ドアのロック解除/ロック解除とエンジンの切り替えができるようにする。
+skipNotificationがtrueでない限り、プレイヤーに通知します。
+
+```lua
+exports.qbx_vehiclekeys:GiveKeys(source, vehicle, skipNotification)
+```
+
+* ソース`number`
+* 車である：`number`
+* skipNotification?`boolean`
+
+## キーを削除する
+
+プレーヤーからキーを削除します。skipNotificationがtrueでない限り、プレーヤーに通知します。
+
+```lua
+exports.qbx_vehiclekeys:RemoveKeys(source, vehicle, skipNotification)
+```
+
+* ソース`number`
+* 車である：`number`
+* skipNotification?`boolean`

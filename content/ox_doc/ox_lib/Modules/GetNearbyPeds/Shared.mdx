@@ -1,0 +1,19 @@
+# 共有
+
+## lib.getNearbyPeds
+
+座標セットの範囲内にあるすべてのペッドのハンドルと座標を取得する。
+
+```lua
+lib.getNearbyPeds(coords, maxDistance)
+```
+
+* コーデ：`vector3`
+  * チェックする座標。
+* maxDistance?`number`
+  * チェックする最大距離。
+  * デフォルト：`2.0`
+
+戻る：
+
+* ペッズ`{ ped: number, coords: vector3 }[]`

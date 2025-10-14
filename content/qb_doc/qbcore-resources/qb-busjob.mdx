@@ -1,0 +1,22 @@
+---
+description: NPC's have places to be!
+---
+
+# 🚌 qb-busjob
+
+> \[!警告]
+> このリソースは現在開発中です
+
+## 導入
+
+* プレイヤーがバスターミナルに行き、ロスサントス周辺を運転してバス停から乗客を集め、他のバス停で降ろすことができます。
+
+## 構成
+
+```lua
+Config = {}
+Config.AllowedVehicles = {} -- Define the bus model to use
+Config.Location = vector4() -- Set the blip and vehicle withdraw location
+Config.NPCLocations = {} -- The bus stop locations
+Config.NpcSkins = {} -- List of ped models randomly chosen to spawn
+```

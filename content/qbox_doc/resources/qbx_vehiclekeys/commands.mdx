@@ -1,0 +1,68 @@
+***
+
+タイトルコマンド
+sidebar\_label: コマンド
+キーワード\[qbox, fivem, qbx\_vehiclekeys, commands, スラッシュ].
+説明Qbox の qbx\_vehiclekeys のスラッシュコマンド。利用可能なスラッシュコマンドとその使い方について学ぶ。
+image: https://files.fivemerr.com/images/b02ac973-403b-4ead-99bf-17bc307172d9.png
+---------------------------------------------------------------------------------
+
+# スラッシュコマンド
+
+以下はqbx\_vehiclekeysで使用できるコマンドのリストである。
+これらのコマンドは`qbx-vehiclekeys/server/commands.lua`更なる点検のために
+
+***
+
+## 鍵を渡す
+
+:::info
+このコマンドは**全選手**(特別な許可グループは必要ありません）。
+:::
+現在乗っている車のキーを誰かに譲る。\
+を省略した場合`id`パラメータでは、キーは最も近いプレーヤーに、あるいは同じ車内にいる場合は乗員全員に渡される。
+
+命令だ：`/givekeys`
+
+パラメーター
+
+パラメーター
+
+* `ID of player`
+  * 任意
+  * タイプ`integer`
+
+例
+
+```lua
+/givekeys 42   -- give the keys to player ID 42
+/givekeys      -- give the keys to the closest player (or everyone in the vehicle)
+```
+
+***
+
+## 永久キーを与える
+
+:::info
+このコマンドは`group.admin`許可グループ
+:::
+現在乗っている（または最後に使った）車両の永久キーをプレイヤーに与える。
+
+命令だ：`/addkeys`
+
+パラメーター
+
+パラメーター
+
+* `ID of player`
+  * 任意
+  * タイプ`integer`
+
+例
+
+```lua
+/addkeys 23   -- give a key to player 23
+/addkeys      -- give yourself a key for the current vehicle
+```
+
+***

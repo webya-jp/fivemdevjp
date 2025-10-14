@@ -1,0 +1,54 @@
+# クライアント
+
+シンプルで一元化されたduiの作成、メッセージの送信、URLの変更、削除をサポート
+
+## lib.dui:new
+
+Dui のインスタンスを構築する。
+
+```lua
+lib.dui:new(data)
+```
+
+* のデータがある：`table`
+  * url：`string`
+  * 幅がある：`number`
+  * の高さだ：`number`
+  * デバッグ？`boolean`
+
+リターンズ
+
+* 酒気帯び運転だ：`Dui`
+  * url：`string`
+  * duiObject：`number`
+  * duiHandle：`string`
+  * runtimeTxd：`number`
+  * txdObject：`number`
+  * dictName：`string`
+  * txtName：`string`
+  * setUrl：`function`(url：`string`)
+  * を送信する：`function`(データ）：`table`)
+  * を取り除く：`function`
+
+### 使用例
+
+```lua
+local dui = lib.dui:new({
+	url = ("nui://%s/web/index.html"):format(cache.resource), 
+	width = 1920, 
+	height = 1080,
+	debug = true
+})
+
+-- Change url
+dui:setUrl("https://google.com")
+
+-- Send a message
+dui:sendMessage({
+	action = "display",
+	value = true
+})
+
+-- Destroy
+dui:remove()
+```

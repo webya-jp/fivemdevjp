@@ -1,0 +1,32 @@
+# 共有
+
+## ゲット・ニアビークル
+
+座標セットの範囲内にあるすべての車両のハンドルと座標を取得する。
+
+```ts
+getNearbyVehicles(coords: Vector3, maxDistance?: number, includePlayerVehicle?: boolean)
+```
+
+\`
+
+* コーデ：`Vector3`
+  * チェックする座標。
+* maxDistance?`number`
+  * チェックする最大距離。
+  * デフォルト：`2.0`
+* includePlayerVehicle？`boolean`
+  * プレイヤーの現在の車両を含めるかどうか（サーバー上では無視される）
+  * デフォルト：`false`
+
+戻る：
+
+* 近くの車`{ vehicle: number, coords: vector3 }[]`
+
+```ts
+import { Vector3 } from '@nativewrappers/fivem';
+import { cache, getNearbyVehicles } from '@overextended/ox_lib/client';
+
+const playerCoords = Vector3.fromArray(GetEntityCoords(cache.ped, true));
+const nearbyVehicles = getNearbyVehicles(playerCoords, 50, true);
+```

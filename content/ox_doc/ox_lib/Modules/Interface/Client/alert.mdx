@@ -1,0 +1,121 @@
+---
+
+## タイトルアラートダイアログ
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# アラートダイアログ
+
+プレイヤーにメッセージを表示できるシンプルなアラートダイアログ。\
+プレイヤーが確認ボタンを押したか、ダイアログをキャンセルしたかを返します。
+
+## lib.alertDialog
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    <Tabs items={["Client", "Server"]}>
+      <Tags.Tab>
+        ```lua
+        lib.alertDialog(data)
+        ```
+      </Tags.Tab>
+
+      <Tags.Tab>
+        ```lua
+        TriggerClientEvent('ox_lib:alertDialog', source, data)
+        ```
+      </Tags.Tab>
+    </Tabs>
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    <Callout>
+      この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
+    </Callout>
+
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.alertDialog(data);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- のデータがある：`table`(`object`)
+  - ヘッダーを使用する：`string`
+    - ダイアログのタイトル
+  - の内容だ：`string`
+    - ダイアログボディコンテンツ、マークダウンに対応。
+  - 中央？`boolean`
+    - ダイアログを垂直方向と水平方向の中央に配置します。
+  - キャンセル？`boolean`
+    - キャンセルボタンを表示する（これが定義されていない場合でも ESC は使用可能）。
+  - サイズは？`'xs'`または`'sm'`または`'md'`または`'lg'`または`'xl'`
+  - オーバーフロー？`boolean`
+  - ラベル？`table`
+    - キャンセルボタンや確定ボタンの表示ラベルを設定できます。
+    - キャンセル？`string`
+    - を確認する：`string`
+
+リターン`'confirm'`プレイヤーが確定ボタンを押した場合、そうでなければキャンセルボタンを押した場合
+または ESC でダイアログを終了した場合、リターンは`'cancel'`.
+
+## lib.closeAlertDialog
+
+アクティブなアラートダイアログを強制的に閉じ、その戻りデータを`nil`
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.closeAlertDialog()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.closeAlertDialog();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 例
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    local alert = lib.alertDialog({
+        header = 'Hello there',
+        content = 'General Kenobi  \n Markdown support!',
+        centered = true,
+        cancel = true
+    })
+
+    print(alert)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    const alert = await lib.alertDialog({
+      header: 'Hello there',
+      content: 'General Kenobi  \n Markdown support!',
+      centered: true,
+      cancel: true,
+    });
+
+    console.log(alert);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![alert_dialog](https://i.imgur.com/Xlx86aK.png)

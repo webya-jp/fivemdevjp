@@ -1,0 +1,51 @@
+---
+description: Best hookers in town!
+---
+
+# 🛻 qb-towjob
+
+## 導入
+
+* playerがレッカー車をレンタルし、NPCやプレイヤーからの電話を受けることを許可する
+* プレイヤーはサービスアプリを通じてレッカー車の運転手に連絡することができます。[qb-phone.md](qb-phone.md "mention")
+* NPCミッションはランダムに選択され、[qb-ラジアルメニュー.md](qb-radialmenu.md "mention")
+
+## 構成
+
+### 一般的な
+
+```lua
+Config.BailPrice = 250 -- price to rent the job vehicle
+
+Config.Vehicles = {
+    ["flatbed"] = "Flatbed", -- checks this table for authorized vehicles
+}
+
+Config.Locations = {
+    ["main"] = {
+        label = "Towing HQ", -- map blip label
+        coords = vector4(471.39, -1311.03, 29.21, 114.5), -- map blip location
+    },
+    ["vehicle"] = {
+        label = "Flatbed", -- polyzone box name
+        coords = vector4(489.65, -1331.82, 29.33, 306.5), -- vehicle withdraw
+    },
+}
+```
+
+### 場所
+
+```lua
+["towspots"] = { -- The car and coords of the NPC mission chosen at random
+        [1] = {
+                model = "sultanrs", -- vehicle model
+                coords = vector3(-2480.87, -211.96, 17.39) -- vehicle location
+              },
+        },
+        [2] = {
+              model = "zion",
+              coords = vector3(-2723.39, 13.20, 15.12)
+              }
+        }
+}
+```

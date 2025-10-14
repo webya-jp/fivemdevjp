@@ -1,0 +1,28 @@
+---
+description: Please! No more left turns!
+---
+
+# 🏁 qb-lapraces
+
+## 導入
+
+* 承認されたプレイヤーは、レースアプリに表示されるレースを作成できます。[qb-phone.md](qb-phone.md "mention")
+
+## プレビュー
+
+## 構成
+
+### 一般的な
+
+```lua
+Config = {}
+Config.RaceSetupAllowed = true -- changes dynamically, don't edit this
+Config.WhitelistedCreators = {
+    "CITIZENID", -- List the player citizenid's allowed to create races
+}
+```
+
+## コマンド
+
+* /cancelrace - 現在アクティブなレースをキャンセルします
+* /togglesetup - レースクリエイターを切り替える

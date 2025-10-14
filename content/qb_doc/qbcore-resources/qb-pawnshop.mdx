@@ -1,0 +1,85 @@
+---
+description: Need some quick cash?
+---
+
+# 🤑 qb質屋
+
+## 導入
+
+* プレイヤーは質屋に行ってアイテムを売ったり、溶かして他の報酬アイテムを獲得したりすることができます。
+
+> \[!INFO]
+> 質屋は常時営業することも、設定した時間帯のみ営業することもできます。
+
+> \[!INFO]
+> プレイヤーは質屋でアイテムを入手できます[qb-houserobbery.md](qb-houserobbery.md "mention") そして [qb-ジュエリー.md](qb-jewelry.md "mention")
+
+## 構成
+
+### 一般的な
+
+```lua
+Config = {}
+Config.PawnLocation = vector3(412.34, 314.81, 103.13) -- interaction point
+Config.BankMoney = false -- pay player in bank or set to false for cash
+Config.UseTimes = false -- Set to false if you want the pawnshop open 24/7
+Config.TimeOpen = 7 -- Opening Time
+Config.TimeClosed = 17 -- Closing Time
+Config.SendMeltingEmail = true -- enable/disable email when melting finished
+```
+
+### 質屋の品物
+
+```lua
+Config.PawnItems = { -- items that can be sold to the pawnshop
+    [1] = {
+        item = "goldchain", -- item name
+        price = math.random(50,100) -- item sale price
+    },
+    [2] = {
+        item = "diamond_ring",
+        price = math.random(50,100)
+    },
+    [3] = {
+        item = "rolex",
+        price = math.random(50,100)
+    },
+    [4] = {
+        item = "10kgoldchain",
+        price = math.random(50,100)
+    },
+    [5] = {
+        item = "tablet",
+        price = math.random(50,100)
+    },
+    [6] = {
+        item = "iphone",
+        price = math.random(50,100)
+    },
+    [7] = {
+        item = "samsungphone",
+        price = math.random(50,100)
+    },
+    [8] = {
+        item = "laptop",
+        price = math.random(50,100)
+    }
+}
+```
+
+### 溶けるアイテム
+
+```lua
+Config.MeltingItems = { -- items able to be melted
+    [1] = {
+        item = "goldchain", -- item name to melt
+        rewards = {
+            [1] = {
+                item = "goldbar", -- reward item name
+                amount = 2 -- reward item amount
+            }
+        },
+        meltTime = 0.15 -- time in minutes for melting to complete
+    },
+}
+```

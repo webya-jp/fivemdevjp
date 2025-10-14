@@ -1,0 +1,134 @@
+# 共有
+
+## クラス
+
+クラスは、設定された属性と動作を持つオブジェクトを作成するためのテンプレートです。
+
+* Luaは通常、オブジェクト指向プログラミングをサポートしませんが、次のような方法でオブジェクト指向プログラミングをシミュレートすることができます。[メタテーブル](https://www.lua.org/manual/5.4/manual.html#2.4).
+* 私たちのクラスの実装は[ジャバスクリプト](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
+
+### 継承
+
+クラスは、インスタンスが親クラスを継承するのと同じように、他のクラスから属性や動作を継承することができます。
+
+クラス宣言で「スーパー」クラスを指定すると、派生クラスまたは「サブ」クラスが作成される。このサブクラスは、フィールドもメソッドも親クラスから継承します。この継承は、派生クラスの複数の階層にわたって拡張され、 クラスの属性をクラス階層全体で共有できるようになります。
+
+### カプセル化
+
+カプセル化とは、クラス内でデータ（属性）とメソッド（振る舞い）を束ねることである。
+
+この方法は、関連する機能を整理し、クラスの内部動作に対する外部からの干渉を防ぐのに役立つ。これらの要素をカプセル化することで、モジュール性を促進し、データの整合性を維持し、プログラム内でのデータのアクセス方法や操作方法を制御します。
+
+## オックスクラス
+
+OxClassは、以下のメソッドで作成されるすべてのクラスに使用されるブループリントです。`lib.class`.すべてのクラスに共通するいくつかの基本的な属性と動作を提供する。
+
+### 属性
+
+* \_\_name：`string`
+  * クラスの名前を表す protected フィールド。
+* のコンストラクタを使用する：`function`
+  * クラスを継承した新しいオブジェクトをインスタンス化するために使われるプロテクト・メソッド。
+  * によって呼び出された。`class:new(...)`もし`class:constructor()`が存在する。
+* プライベート？`table`
+  * クラス内のすべてのプライベート・データを保持するプロテクト・フィールド。
+  * プライベート・データはクラス・メソッド以外ではアクセスできないため、セキュリティとデータの完全性が確保される。
+  * で定義されている。`constructor`ただし、プライベート・プロパティが設定されていない場合は、明示的に定義する必要がある。
+* スーパー？`class`
+  * スーパークラスのコンストラクタを参照するプロテクト・メソッド。
+  * クラスをインスタンス化するときに、クラス・コンストラクタの内部で呼び出されなければならない。
+
+## lib.class
+
+この関数を使うと、親クラスまたは「スーパー」クラスを継承した新しいクラスを定義することができます。
+
+```lua
+local MyClass = lib.class(name, super)
+```
+
+### パラメータ
+
+* と名付けた：`string`
+* スーパー？`table`
+  * 新しいクラスをスーパー・クラスのサブセットとして設定します。
+
+### リターン
+
+* `table`
+  * 新しく作られたクラス。
+
+### 例
+
+```lua
+---@class Person : OxClass
+---@field name string
+local Person = lib.class('Person')
+
+function Person:constructor(name)
+    print('calling Person constructor for', name)
+    self.name = name
+end
+
+-- Professor Class (extends Person)
+
+---@class Professor : Person
+---@field teaches string
+local Professor = lib.class('Professor', Person)
+
+function Professor:constructor(name, teaches)
+    print('calling Professor constructor for', name)
+    self:super(name)
+    self.teaches = teaches
+end
+
+function Professor:introduceSelf()
+    print(("My name is %s, and I will be your %s professor."):format(self.name, self.teaches))
+end
+
+function Professor:grade(paper)
+    local grade = math.random(1, 4)
+    print(grade)
+end
+
+CreateThread(function()
+    local walter = Professor:new('Walter', 'Chemistry')
+
+    walter:introduceSelf()
+    walter:grade('my paper')
+end)
+
+
+-- Student Class (extends Person)
+
+---@class Student : Person
+---@field private private { year: number }
+local Student = lib.class('Student', Person)
+
+---@param name string
+---@param year number
+function Student:constructor(name, year)
+    print('calling Student constructor for', name)
+    self:super(name)
+    self.private.year = year
+end
+
+function Student:introduceSelf()
+    print(("Hi! I'm %s, and I'm in year %s."):format(self.name, self.private.year))
+end
+
+---@param year number
+function Student:setYear(year)
+    self.private.year = year
+end
+
+CreateThread(function()
+    local jesse = Student:new('Jesse', 2)
+
+    jesse:introduceSelf() -- Hi! I'm Jesse, and I'm in year 2.
+    jesse:setYear(3)
+    jesse:introduceSelf() -- Hi! I'm Jesse, and I'm in year 3.
+    print(jesse.private.year) -- nil
+    print(getmetatable(jesse.private)) -- private
+    jesse.private.year = 4 -- error
+end)
+```

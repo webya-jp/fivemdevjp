@@ -1,0 +1,114 @@
+---
+icon: circle-info
+description: Let's dive into the core object of the qb-core resource!
+---
+
+# コアオブジェクト
+
+## 導入
+
+その**コアオブジェクト**のバックボーンです`qb-core`サーバーのゲームプレイメカニクス、playerデータ、そしてリソースの相互作用全般を管理するための重要な機能とユーティリティを提供するフレームワークです。このページでは、コアオブジェクトを効果的に使用するための主要な機能、方法、そしてベストプラクティスについて解説します。
+
+### コアオブジェクトへのアクセス方法
+
+> \[!INFO]
+> 必要がない限り、すべてをインポートするのではなく、コアオブジェクトのフィルタリング機能を使用することをお勧めします。
+
+スクリプト内でコア オブジェクトと対話するには、スクリプトの先頭で次のパターンを使用します。
+
+* コアオブジェクトをローカル変数にキャッシュして、繰り返しの呼び出しを避ける`exports`
+
+```lua
+local QBCore = exports['qb-core']:GetCoreObject()
+```
+
+現在`qb-core`バージョン 1.3.0 (fxmanifest.lua をご確認ください) では、すべてをインポートするのではなく、コアオブジェクトから取得する内容を指定できるようになりました。この変更は、コア全体をインポートすると不要なオーバーヘッドが大量に発生するため、各スクリプト内に格納されるメモリ量を削減するために行われました。
+
+```lua
+-- I only need access to the functions of the core object!
+local QBCore = exports['qb-core']:GetCoreObject({'Functions'})
+
+-- Now the below is available to use!
+-- QBCore.Functions
+
+-- I need access to the functions and the shared!
+local QBCore = exports['qb-core']:GetCoreObject({'Functions', 'Shared'})
+
+-- Now the below are available to use!
+-- QBCore.Functions
+-- QBCore.Shared
+```
+
+### エクスポートされた関数
+
+* 現在`qb-core`バージョン1.3.0（fxmanifest.luaをご確認ください）では、コアオブジェクト内のすべての関数がエクスポートされるため、必要な関数が1つだけであれば、すべてをインポートする必要はありません。これは、複数のフレームワークをサポートするスクリプト作成者で、すべてのコア情報を必要としない場合に非常に便利です。必要な関数だけを呼び出すことができます。
+
+```lua
+local function getPlayer(source)
+    return exports['qb-core']:GetPlayer(source)
+end
+```
+
+### コア機能
+
+|`Functions`| 一般的なサーバーおよび player 操作のためのユーティリティ関数のコレクション。 |
+| ----------- | -------------------------------------------------------------------------- |
+
+|`Players`| 現在接続中のすべてのプレイヤーを含む table。 |
+| --------- | --------------------------------------------------- |
+
+|`Shared`| アイテム、車両、ジョブなどの共有データ。 |
+| -------- | ------------------------------------------- |
+
+|`Config`| メイン構成table`qb-core`|
+| -------- | ------------------------------------------ |
+
+|`Commands`| カスタム サーバーおよびクライアント コマンドのレジストリ。 |
+| ---------- | ------------------------------------------------- |
+
+## 使用例
+
+### プレイヤーデータへのアクセス
+
+* Coreオブジェクトを使用してplayerのデータを取得できます
+
+```lua
+local QBCore = exports['qb-core']:GetCoreObject()
+
+local function getPlayerJob(source)
+    local player = QBCore.Functions.GetPlayer(source)
+    if player then
+        local job = player.PlayerData.job
+        print("Player's job:", job.name)
+    end
+end
+```
+
+### 共有データの使用
+
+* アイテム、車両、ジョブなどの共有データにアクセスする
+
+```lua
+local QBCore = exports['qb-core']:GetCoreObject()
+
+-- Retrieve details of a specific item
+local item = QBCore.Shared.Items['water_bottle']
+print("Item name:", item.name)
+print("Item label:", item.label)
+```
+
+### コマンドの登録
+
+* コアオブジェクトを使用すると、サーバーのカスタムコマンドを登録できます。
+
+```lua
+local QBCore = exports['qb-core']:GetCoreObject()
+
+QBCore.Commands.Add('greet', 'Send a greeting', {}, false, function(source, args)
+    local name = args[1] or 'player'
+    TriggerClientEvent('chat:addMessage', source, {
+        template = '<div class="chat-message">Hello, {0}!</div>',
+        args = { name }
+    })
+end)
+```

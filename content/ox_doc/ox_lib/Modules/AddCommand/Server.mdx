@@ -1,0 +1,53 @@
+# サーバー
+
+コマンドを登録し、引数の検証、パーミッション、チャットの提案を簡素化します。
+
+```lua
+lib.addCommand(commandName, properties, cb)
+```
+
+* コマンド名：`string`または`string[]`
+* の特性を持つ：`table`または`false`
+  * 助けてくれる？`string`
+  * 制限されている？`boolean`または`string`または`string[]`
+  * params?`table[]`
+    * と名付けた：`string`
+    * 助けてくれる？`string`
+    * タイプ？`'number'`または`'playerId'`または`'string'`または`'longString'`
+    * オプション？`boolean`
+
+```lua
+lib.addCommand('giveitem', {
+    help = 'Gives an item to a player',
+    params = {
+        {
+            name = 'target',
+            type = 'playerId',
+            help = 'Target player\'s server id',
+        },
+        {
+            name = 'item',
+            type = 'string',
+            help = 'Name of the item to give',
+        },
+        {
+            name = 'count',
+            type = 'number',
+            help = 'Amount of the item to give, or blank to give 1',
+            optional = true,
+        },
+        {
+            name = 'metatype',
+            help = 'Sets the item\'s "metadata.type"',
+            optional = true,
+        },
+    },
+    restricted = 'group.admin'
+}, function(source, args, raw)
+    local item = Items(args.item)
+
+    if item then
+        Inventory.AddItem(args.target, item.name, args.count or 1, args.metatype)
+    end
+end)
+```

@@ -1,0 +1,350 @@
+---
+
+## タイトルラジアルメニュー
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# ラジアルメニュー
+
+- ラジアルメニューにはグローバルメニューがあり、デフォルトでは`z`と表示され、少なくとも 1 つの項目がある場合にのみ表示される。
+- グローバルメニューから項目を追加したり削除したりするには`lib.addRadialItem`そして`lib.removeRadialItem`.
+- 用途`lib.registerRadial`を使ってサブメニューを作成し`menu`プロパティでサブメニューを開きます。
+
+## lib.addRadialItem
+
+グローバルラジアルメニューに追加される項目または項目の配列。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.addRadialItem(items)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.addRadialItem(items);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- の項目がある：`table`(`object`または`array`)
+  - id.K.である：`string`
+    - オプションの削除に使用される ID。
+  - のアイコンがある：`string`
+    - フォント名かカスタム URI.1
+  - iconWidth?`number`
+  - iconHeight?`number`
+    - カスタム URI の場合は、アイコンのサイズを調整する。
+  - のラベルが貼られている：`string`
+    - ラベルの用途`  \n`改行を挿入する
+  - メニューは？`string`
+    - 開くメニューの ID。
+  - を選択する：`function(currentMenu: string | nil, itemIndex: number)`|`string`
+    - ユーザーがアイテムをクリックしたときに実行される関数。
+  - keepOpen？`boolean`
+
+## lib.removeRadialItem
+
+グローバルメニューから削除する項目の ID。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.removeRadialItem(item)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.removeRadialItem(item);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- id.K.である：`string`
+
+## lib.clearRadialItems
+
+ラジアルメニューからすべての項目を削除する。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.clearRadialItems()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.clearRadialItems();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## lib.registerRadial
+
+あらかじめ定義されたオプションを持つ放射状のサブメニューを登録する。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.registerRadial(radial)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.registerRadial(radial);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- ラジアル：`table`(`object`)
+  - id.K.である：`string`
+    - で開くためのユニークなメニュー ID`menu`アイテムのプロップ。
+  - の項目がある：`array`
+    - のアイコンがある：`string`
+    - のラベルが貼られている：`string`
+      - ラベルの用途`  \n`改行を挿入する
+    - メニューは？`string`
+      - 開くメニューの ID。
+    - onSelect?`function(currentMenu: string | nil, itemIndex: number)`|`string`
+      - ユーザーがアイテムをクリックしたときに実行される関数。
+
+## lib.hideRadial
+
+ラジアルメニューが開いている場合は非表示にする。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.hideRadial()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.hideRadial();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## lib.disableRadial
+
+ラジアルメニューを開けないようにする。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.disableRadial(state)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.disableRadial(state);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- の状態だ：`boolean`
+  - ラジアルメニューを無効にするかどうか
+
+## lib.getCurrentRadialId
+
+現在開いているラジアルメニューの ID を返します。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    local id = lib.getCurrentRadialId()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    let id = lib.getCurrentRadialId();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 使用例
+
+<Callout>
+  ラジアルメニューの項目を追加するときは、それがグローバルなものであれ、サブメニューのものであれ、できるだけ短いラベルにこだわってください。
+  長いラベルは場違いな印象を与えるので、ラジアルメニューでは使用しないこと。
+</Callout>
+
+以下は、いくつかのグローバルオプションと、リブのポイントシステムを利用したオプションの使用例です。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    exports('myMenuHandler', function(menu, item)
+        print(menu, item)
+
+        if menu == 'police_menu' and item == 1 then
+            print('Handcuffs')
+        end
+    end)
+
+    lib.registerRadial({
+      id = 'police_menu',
+      items = {
+        {
+          label = 'Handcuff',
+          icon = 'handcuffs',
+          onSelect = 'myMenuHandler'
+        },
+        {
+          label = 'Frisk',
+          icon = 'hand'
+        },
+        {
+          label = 'Fingerprint',
+          icon = 'fingerprint'
+        },
+        {
+          label = 'Jail',
+          icon = 'bus'
+        },
+        {
+          label = 'Search',
+          icon = 'magnifying-glass',
+          onSelect = function()
+            print('Search')
+          end
+        }
+      }
+    })
+
+    lib.addRadialItem({
+      {
+        id = 'police',
+        label = 'Police',
+        icon = 'shield-halved',
+        menu = 'police_menu'
+      },
+      {
+        id = 'business_stuff',
+        label = 'Business',
+        icon = 'briefcase',
+        onSelect = function()
+          print("Business")
+        end
+      }
+    })
+
+    local coords = GetEntityCoords(cache.ped)
+    local point = lib.points.new(coords, 5)
+
+    function point:onEnter()
+      lib.addRadialItem({
+        id = 'garage_access',
+        icon = 'warehouse',
+        label = 'Garage',
+        onSelect = function()
+          print('Garage')
+        end
+      })
+    end
+
+    function point:onExit()
+      lib.removeRadialItem('garage_access')
+    end
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    <Callout>
+      libのポイントシステムはnpmパッケージでは利用できない。
+    </Callout>
+
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    exports('myMenuHandler', (menu, item) => {
+        console.log(menu, item)
+
+        if (menu === 'police_menu' and item === 1) {
+            console.log('Handcuffs')
+        }
+    })
+
+    lib.registerRadial({
+      id: 'police_menu',
+      items: [
+        {
+          label: 'Handcuff',
+          icon: 'handcuffs',
+          onSelect: 'myMenuHandler'
+        },
+        {
+          label: 'Frisk',
+          icon: 'hand'
+        },
+        {
+          label: 'Fingerprint',
+          icon: 'fingerprint'
+        },
+        {
+          label: 'Jail',
+          icon: 'bus'
+        },
+        {
+          label: 'Search',
+          icon: 'magnifying-glass',
+          onSelect: () => {
+            console.log('Search')
+          }
+        }
+      ]
+    })
+
+    lib.addRadialItem([
+      {
+        id: 'police',
+        label: 'Police',
+        icon: 'shield-halved',
+        menu: 'police_menu'
+      },
+      {
+        id: 'business_stuff',
+        label: 'Business',
+        icon: 'briefcase',
+        onSelect: () => {
+          console.log('Business')
+        }
+      }
+    ])
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![radial1](https://i.imgur.com/4eYU94s.png)
+![radial2](https://i.imgur.com/Czw7mLF.png)

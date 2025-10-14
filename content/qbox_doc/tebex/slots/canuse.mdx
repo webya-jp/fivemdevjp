@@ -1,0 +1,23 @@
+***
+
+## タイトル"使用を防ぐ"
+
+独自のカジノメンバーシップロジックをお持ちですか？プレイヤーがスロットマシンを使用する前に他の条件を追加したいですか？問題ありません！単に`server/utils.lua`そして次の関数を見つける：
+
+```lua
+function CanUse(source)
+    return true
+end
+```
+
+ここで独自のロジックを追加することができます。プレイヤーがスロットマシンを使えないようにするには、単純に`false`.
+
+```lua
+function CanUse(source)
+    local player = exports.qbx_core:GetPlayer(source)
+    if not player.PlayerData.metadata.casino_member then
+        return false
+    end
+    return true
+end
+```

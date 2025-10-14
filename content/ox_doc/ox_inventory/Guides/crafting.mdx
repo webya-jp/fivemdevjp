@@ -1,0 +1,84 @@
+***
+
+## タイトルクラフト
+
+# クラフト
+
+クラフトの場所、アイテム、材料は、以下のページで定義されています。[data/crafting.lua](https://github.com/communityox/ox_inventory/blob/main/data/crafting.lua).
+
+## クラフトの定義
+
+```lua
+{
+    items = {
+        {
+            name = 'lockpick',
+            ingredients = {
+              garbage = 3,
+              WEAPON_HAMMER = 0.1
+            },
+            duration = 5000,
+            count = 3,
+            metadata = { durability = 20 }
+        },
+        {
+            name = 'garbage',
+            ingredients = {
+              cola = 1
+            },
+            metadata = { description = 'An empty soda can.', weight = 20, image = 'trash_can' }
+        },
+    },
+    points = {
+      vec3(-1147.083008, -2002.662109, 13.180260),
+    },
+    zones = {
+        {
+          label = 'Open Crafting Bench',
+          icon = 'fa-solid fa-wrench',
+          coords = vec3(-1146.2, -2002.05, 13.2),
+          size = vec3(3.8, 1.05, 0.15),
+          distance = 1.5,
+          rotation = 315.0,
+        },
+    },
+    blip = { id = 566, colour = 31, scale = 0.8 },
+    name = 'crafting-bench',
+},
+```
+
+* の項目がある：`table`
+  * と名付けた：`string`
+  * 食材だ：`table`
+    * アイテムの成分は、アイテムのツールチップで確認できます。
+    * アイテム名と消費回数のキーと値のペア
+      * key - 項目名。
+      * 値 - 1以上の場合は消費回数、1以下0以上の場合は耐久消費量。
+        0に設定された場合、そのアイテムは必要だが消費されない。
+  * 期間である：`number`
+    * ミリ秒単位のクラフト時間。
+  * カウントする：`number`または`table`（最小、最大）
+    * クラフト時に受け取った商品の金額。
+    * テーブルにセットした場合、2つの数値が必要となり、1つ目は最小の数値、2つ目は最大の数値で、この2つの数値の間でランダムな数値を生成し、プレイヤーにアイテムを追加します。
+  * というメタデータがある：`table`
+    * 作成中のアイテムに適用されるメタデータ。
+* 点である：`vector3[]`
+  * クラフトインベントリを開くインタラクションの場所。
+* のグループだ：`table`
+  * ジョブ名と最低グレードのキーと値のペアで、工作場所にアクセスします。
+  * `{["police"] = 0, ["ambulance"] = 2}`
+* ゾーンだ：`table`
+  * ox\_targetに使用されるox\_libターゲティングゾーン。
+  * のラベルが貼られている：`string`
+  * のアイコンがある：`string`
+  * コーデ：`vector3`
+  * サイズである：`vector3`
+  * 距離だ：`number`
+  * を回転させる：`number`
+* ブリップ：`table`
+  * id.K.である：`number`
+    * スプライト番号。
+  * 色だ：`number`
+  * の規模である：`number`
+* と名付けた：`string`
+  * openInventoryエクスポートを使用する際にidとして使用できるオプションの名前。

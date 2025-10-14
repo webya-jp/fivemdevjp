@@ -1,0 +1,67 @@
+import { Callout } from 'nextra/components';
+
+# クライアント
+
+## lib.raycast.fromCoords
+
+開始座標を始点とし、目的座標を終点とするシェープテストを開始します。
+
+```lua
+lib.raycast.fromCoords(coords, destination, flags, ignore)
+```
+
+* コーデ：`vector3`
+  * レイキャストの開始座標
+* 目的地だ：`vector3`
+  * レイキャストの目的地座標
+* フラッグ？`number`
+  * 参照：https://docs.fivem.net/natives/?\_0x377906D8A31E5586
+  * デフォルト：`511`
+* 無視？`number`
+  * コライダーのタイプに関するビット1、2、4、7を持つビットマスク。通常は4と7が使われる。
+  * デフォルト：`4`
+
+戻る：
+
+* ヒットした：`boolean`
+  * 被弾の有無
+* entityHit：`number`
+  * ヒットしたエンティティのハンドル
+* エンドコード：`vector3`
+  * レイキャストが当たった位置の最も近い座標
+* surfaceNormal：`vector3`
+  * 当たった面の法線
+* materialHash：`number`
+
+## lib.raycast.fromCamera
+
+カメラを起点としたシェープテストを開始します。
+
+```lua
+lib.raycast.fromCamera(flags, ignore, distance)
+```
+
+* フラッグ？`number`
+  * 参照：https://docs.fivem.net/natives/?\_0x377906D8A31E5586
+  * デフォルト：`511`
+* 無視？`number`
+  * コライダーのタイプに関するビット1、2、4、7を持つビットマスク。通常は4と7が使われる。
+  * デフォルト：`4`
+* 距離？`number`
+  * デフォルト：`10`
+
+戻る：
+
+* ヒットした：`boolean`
+  * 被弾の有無
+* entityHit：`number`
+  * ヒットしたエンティティのハンドル
+* エンドコード：`vector3`
+  * レイキャストがヒットした場所に最も近い座標
+* surfaceNormal：`vector3`
+  * 当たった面の法線
+* materialHash：`number`
+
+## lib.raycast.cam
+
+<Callout type="warning">lib.raycast.camはlib.raycast.fromCameraの非推奨エイリアスです。代わりに lib.raycast.fromCamera を使用してください！</Callout>

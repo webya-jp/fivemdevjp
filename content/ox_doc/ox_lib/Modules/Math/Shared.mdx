@@ -1,0 +1,189 @@
+# 共有
+
+## lib.math
+
+Luaの標準的な数学テーブルを拡張する。
+
+```
+math = lib.math
+```
+
+### 数学トスカラー
+
+文字列を受け取り、スカラー値のセットを返す。
+
+```lua
+math.toscalars(input, min, max, round)
+```
+
+* を入力する：`string`
+* 分？`number`
+* マックス？`number`
+* ラウンド？`boolean`
+
+戻る：
+
+* ...:`number`
+
+### math.tovector
+
+文字列またはテーブルを受け取り、ベクトル値を返す。
+
+```lua
+math.tovector(input, min, max, round)
+```
+
+* を入力する：`string`または`table`
+* 分？`number`
+* マックス？`number`
+* ラウンド？`boolean`
+
+戻る：
+
+* 値である：`number`または`vector2`または`vector3`または`vector4`
+
+### 数学.正規表現
+
+サーフェスの法線を受け取り、vector3の回転に変換しようとする。
+
+```lua
+math.normaltorotation(input)
+```
+
+* を入力する：`vector3`
+
+戻る：
+
+* 値である：`vector3`
+
+### 数学.トルグバ
+
+文字列またはテーブルを受け取り、ベクトル値を返す。\
+値は四捨五入され、0～255の範囲内でなければならない。
+
+```lua
+math.torgba(input)
+```
+
+* を入力する：`string`または`table`
+
+戻る：
+
+* 値である：`number`または`vector2`または`vector3`または`vector4`
+
+### math.hextorgb
+
+16進文字列を受け取り、3つの整数を返す。
+
+```lua
+math.hextorgb(input)
+```
+
+* を入力する：`string`
+  * 16進数値。`'eb4034'`.
+
+戻る：
+
+* r:`number`
+* g:`number`
+* b:`number`
+
+### math.tohex
+
+数値または文字列を受け取り、16進数文字列としてフォーマットする。
+
+```lua
+math.tohex(n, upper)
+```
+
+* n:`number`または`string`
+* アッパー？`boolean`
+
+戻る：
+
+* ヘックスだ：`string`
+
+### 数学グループ
+
+数値を受け取り、グループ化された数字にフォーマットする。
+
+```lua
+math.groupdigits(number, seperator)
+```
+
+* という数字になる：`number`
+* セパレーター？`string`
+  * デフォルト：`,`
+
+戻る：
+
+* groupedDigits：`string`
+
+### 数学.クランプ
+
+下限と上限の間の数値をクランプする。
+
+```lua
+math.clamp(number, lower, upper)
+```
+
+* という数字になる：`number`
+* より低い：`number`
+* アッパー`number`
+
+戻る：
+
+* という数字になる：`number`
+
+### 数学ラウンド
+
+数値を整数または指定した小数点以下の桁数に丸める。
+
+```lua
+math.round(value, places)
+```
+
+* 値である：`number`|`string`
+* 場所は？`number`|`string`
+
+戻る：
+
+* roundedValue：`number`
+
+### 数学.interp
+
+の中間値を計算する。`start`そして`finish`補間に基づいて`factor`.
+
+```lua
+math.interp(start, finish, factor)
+```
+
+* ジェネリック`T`:`number`|`vector2`|`vector3`|`vector4`
+* スタート`T`
+* を終えた：`T`
+* ファクターだ：`number`
+  * 0から1の間の補間係数。
+
+戻る：
+
+* その結果`T`
+
+### math.lerp
+
+指定された時間にわたって2つの値の間を線形補間し、ゲームフレームごとに1回実行されるイテレータ関数を返します。
+
+```lua
+math.lerp(start, finish, duration)
+```
+
+* ジェネリック`T`:`number`|`table`|`vector2`|`vector3`|`vector4`
+* スタート`T`
+  * 補間の開始値
+* を終えた：`T`
+  * 補間の終了値
+* 期間である：`number`
+  * ミリ秒単位で補間する期間。
+
+戻る：
+
+* イテレータ関数：`fun(): T, number`

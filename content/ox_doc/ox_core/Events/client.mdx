@@ -1,0 +1,289 @@
+import { Callout, Tabs } from 'nextra/components';
+
+# 顧客イベント
+
+<Callout type="warning">
+  これらのイベントは、アクションが発生するとox\_coreによってトリガーされます。他のスクリプトからトリガーしてはいけません。
+</Callout>
+
+## ox:playerLoaded
+
+文字が読み込まれたとき
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:playerLoaded', function(playerId, isNew)
+        print(playerId, isNew)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:playerLoaded', (playerId: number, isNew: boolean) => {
+      console.log(playerId, isNew);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* isNew?`boolean`
+
+## ox:statusTick
+
+各ステータス・ティックで、変更されたステータスを返す
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:statusTick', function(statuses)
+        print(json.encode(statuses))
+    end)
+    ```
+
+    * のステータスがある：`table<string, number>`
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:statusTick', (statuses: Record<string, number>) => {
+      console.log(statuses);
+    });
+    ```
+
+    * のステータスがある：`Record<string, number>`
+  </Tabs.Tab>
+</Tabs>
+
+## OX:プレーヤーの死
+
+キャラクターが死亡した場合
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:playerDeath', function() end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:playerDeath', () => {});
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## ox:プレーヤー復活
+
+キャラクターが復活したとき
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:playerRevived', function() end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:playerRevived', () => {});
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+***
+
+# ネットイベント
+
+## ox:setGroup
+
+キャラクターがグループから追加または削除された場合
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    RegisterNetEvent('ox:setGroup', function(groupName, grade)
+        print(groupName, grade)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    onNet('ox:setGroup', (groupName: string, grade: number) => {
+      console.log(groupName, grade);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* グループ名：`string`
+* グレード？`number`
+
+## ox:ライセンス追加
+
+キャラクターが新しいライセンスを取得したとき
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    RegisterNetEvent('ox:licenseAdded', function(licenseName)
+        print(licenseName)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    onNet('ox:licenseAdded', (licenseName: string) => {
+      console.log(licenseName);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* ライセンス名`string`
+
+## ox:ライセンス削除
+
+キャラクターのライセンスが剥奪された場合。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    RegisterNetEvent('ox:licenseRemoved', function(licenseName)
+        print(licenseName)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    onNet('ox:licenseRemoved', (licenseName: string) => {
+      console.log(licenseName);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* ライセンス名`string`
+
+## ox:startCharacterSelect（スタートキャラクターセレクト
+
+選手がスポーンしたとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    RegisterNetEvent('ox:startCharacterSelect', function(userId, characters)
+        print(userId, characters)
+    end)
+    ```
+
+    * userId：`number`
+    * の文字がある：`Character[]`
+
+    キャラクター
+
+    * `table`
+      * charId：`number`
+      * stateId：`number`
+      * ファーストネーム`string`
+      * ラストネーム`string`
+      * 性別`string`
+      * x?:`number`
+      * y?:`number`
+      * z?:`number`
+      * lastPlayed?`string`
+        * 日付形式`%d/%m/%Y (dd/mm/yyyy)`
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    onNet('ox:startCharacterSelect', (userId: number, characters: Character[]) => {
+      console.log(userId, characters);
+    });
+    ```
+
+    * userId：`number`
+    * の文字がある：`Character[]`
+
+    キャラクター
+
+    * `object`
+      * charId：`number`
+      * stateId：`number`
+      * ファーストネーム`string`
+      * ラストネーム`string`
+      * 性別`string`
+      * x?:`number`
+      * y?:`number`
+      * z?:`number`
+      * lastPlayed?`string`
+        * 日付形式`%d/%m/%Y (dd/mm/yyyy)`
+  </Tabs.Tab>
+</Tabs>
+
+## ox:setActiveCharacter
+
+プレイヤーがキャラクターを選択したとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    RegisterNetEvent('ox:setActiveCharacter', function(character, groups)
+        print(character, groups)
+    end)
+    ```
+
+    * のキャラクターだ：`Character`
+    * のグループだ：`table<string, number>`
+
+    キャラクター
+
+    * `table`
+      * charId：`number`
+      * stateId：`number`
+      * ファーストネーム`string`
+      * ラストネーム`string`
+      * 性別`string`
+      * x?:`number`
+      * y?:`number`
+      * z?:`number`
+      * lastPlayed?`string`
+        * 日付形式`%d/%m/%Y (dd/mm/yyyy)`
+      * 健康？`number`
+      * アーマー？`number`
+      * isNew?`boolean`
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    onNet('ox:setActiveCharacter', (character: Character, groups: Record<string, number>) => {
+      console.log(character, groups);
+    });
+    ```
+
+    * のキャラクターだ：`Character`
+    * のグループだ：`Record<string, number>`
+
+    キャラクター
+
+    * `object`
+      * charId：`number`
+      * stateId：`number`
+      * ファーストネーム`string`
+      * ラストネーム`string`
+      * 性別`string`
+      * x?:`number`
+      * y?:`number`
+      * z?:`number`
+      * lastPlayed?`string`
+        * 日付形式`%d/%m/%Y (dd/mm/yyyy)`
+      * 健康？`number`
+      * アーマー？`number`
+      * isNew?`boolean`
+  </Tabs.Tab>
+</Tabs>

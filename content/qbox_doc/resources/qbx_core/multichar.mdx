@@ -1,0 +1,24 @@
+***
+
+タイトルマルチキャラクター
+sidebar\_label: マルチキャラクター
+サイドバーの位置: 2
+キーワード\[qbox, fivem, qbx\_core, マルチ文字, 文字].
+説明qbx\_core の多文字システムのドキュメント。外部キャラクタシステムの使用を含む、キャラクタ管理の設定とカスタマイズ方法について説明します。
+---------------------------------------------------------------------------
+
+### 独自のマルチキャラクターを使うことはできますか？
+
+はい、できます。内蔵のマルチキャラクタを無効にするには、以下の設定をtrueに変更してください。`qbx_core/config/client.lua`
+
+```lua filename="qbx_core/config/client.lua"
+ -- Whether you have an external character management resource. (If true, disables the character management inside the core)
+useExternalCharacters = false,
+```
+
+:::info\[ローディング画面から抜け出せない？］
+あなたのマルチキャラクターはシャットダウンするためにローディング画面を呼び出さない可能性が高い。これを解決するには2つの方法があります：
+
+1. あなたの店を開く`server.cfg`と編集`setr loadscreen:externalShutdown`である。`false`
+2. を呼び出すように、マルチキャラクターリソースを編集してください。`ShutdownLoadingScreen()`そして`ShutdownLoadingScreenNui()`のネイティブです。qbx\_coreがそうであるように[これ](https://github.com/Qbox-project/qbx_core/blob/6e50abaf966295a4245c901a37ecb64343d63677/client/character.lua#L387-L388)
+   :::

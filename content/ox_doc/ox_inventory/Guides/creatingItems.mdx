@@ -1,0 +1,269 @@
+## タイトルアイテムの作成
+
+import { Tabs, Tab } from "nextra-theme-docs";
+
+# アイテムの作成
+
+## アイテムデータの定義
+
+ゲーム内でアイテムを見たり使ったりする前に、次のことを行う必要があります。**マスト**をまず定義する。
+
+すべての項目は[/data/items.lua](https://github.com/communityox/ox_inventory/blob/main/data/items.lua)ファイルで、キーと値のペアを持つ。
+キーはアイテムの名前（ラベルではない）、値はアイテムのオプションを含むテーブルである。
+オプションを含むテーブルです。
+
+- アイテムのオプション：`table`
+  - のラベルが貼られている：`string`
+  - 体重は？`number`
+  - スタック？`boolean`
+    - false に設定すると、アイテムを積み重ねることができなくなる。
+  - 劣化？`number`
+    - アイテムが劣化するまでの時間（分）。
+  - 崩壊？`boolean`
+    - true の場合、アイテムは耐久度が 0 になった時点で削除されます（劣化したアイテムの場合は即座に削除されません）。
+  - クローズ？`boolean`
+    - false に設定すると、アイテムの使用時にインベントリを閉じません。
+  - という記述がある：`string`
+    - ツールチップに表示される項目の説明
+  - 消費？`number`
+    - 必要なアイテム数と削除された用途。
+    - デフォルト：1
+    - 小数に設定すると、代わりに耐久性が消費される（0.2 = 20%）。
+  - allowArmed?`boolean`
+    - true に設定すると、武器で武装した状態でもアイテムを使用できるようになる。
+  - サーバー？`table`
+    - 輸出？`string`
+  - クライアント？`table`
+    - 輸出？`string`
+      - アイテム使用後にトリガーされるエクスポート。
+    - イベント？`string`
+      - アイテム使用後に発生するイベント。
+    - ステータス？`table`
+      - 使用後に esx_status の値を調整する。
+    - アニメ？`table`
+      - プログレスバー中に再生されるアニメーション。
+      - ディクティッド`string`
+      - クリップ：`string`
+    - プロップ？`table`
+      - プログレスバー中に表示される付属の小道具。
+      - モデルである：`string`または`hash`
+      - ポーズ：`table`ぞう
+      - 腐っている：`table`ぞう
+      - 骨？`number`
+      - rotOrder?`number`
+    - 無効にする？`table`
+      - プログレスバー中に無効にするアクション。
+      - 移動する？`boolean`
+      - 車？`boolean`
+      - 戦闘？`boolean`
+      - マウス？`boolean`
+      - スプリント？`boolean`
+    - usetime？`number`
+    - キャンセル？`boolean`
+      - true に設定すると、プレイヤーはアイテムの使用をキャンセルする。
+    - を追加するか？`function`(合計：`number`)
+      - アイテムを受け取ったときにトリガーされる関数
+      - 総アイテム数を`total`
+    - 取り除く？`function`(合計：`number`)
+      - アイテムを削除するときにトリガーされる関数
+      - 総アイテム数を`total`
+  - ボタン？`table`
+    - のラベルが貼られている：`string`
+    - アクションだ：`function`(スロット）：`number`)
+      - コンテキストメニューでボタンがクリックされたときのコールバック関数。
+
+### 例
+
+<Tabs items={["Burger", "Burger with description", "Burger with notification"]}>
+  <Tags.Tab>
+    ```lua
+    ['burger'] = {
+        label = 'Burger',
+        weight = 220,
+        stack = true,
+        close = true,
+        client = {
+            status = { hunger = 200000 },
+            anim = { dict = 'mp_player_inteat@burger', clip = 'mp_player_int_eat_burger_fp' },
+            prop = {
+                model = 'prop_cs_burger_01',
+                pos = { x = 0.02, y = 0.02, y = -0.02},
+                rot = { x = 0.0, y = 0.0, y = 0.0}
+            },
+            usetime = 2500,
+        }
+    }
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    説明文を含む修正されたバーガーアイテム。
+
+    ```lua
+    ['burger'] = {
+        label = 'Burger',
+        description = 'Just what is the secret formula?'
+        weight = 220,
+        stack = true,
+        close = true,
+        client = {
+            status = { hunger = 200000 },
+            anim = { dict = 'mp_player_inteat@burger', clip = 'mp_player_int_eat_burger_fp' },
+            prop = {
+                model = 'prop_cs_burger_01',
+                pos = { x = 0.02, y = 0.02, y = -0.02},
+                rot = { x = 0.0, y = 0.0, y = 0.0}
+            },
+            usetime = 2500,
+        }
+    }
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    変更されたハンバーガーアイテムで、引数の追加と削除を通知してくれる。
+
+    ```lua
+    ['burger'] = {
+        label = 'Burger',
+        weight = 220,
+        stack = true,
+        consume = 0,
+        client = {
+            add = function(total)
+                if total > 0 then
+                    lib.notify({description = 'Nice burger you got there!'})
+                end
+            end,
+
+            remove = function(total)
+                if total < 1 then
+                    lib.notify({description = 'You lost all of your burgers!'})
+                end
+            end
+        }
+    }
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## アイテムを使えるようにする
+
+- ESX を使用している場合は、引き続き`ESX.RegisterUsableItem`.
+- QBox をお使いの場合は、引き続き`exports.qbx_core:CreateUseableItem`.
+
+内蔵システムを使う方がより安全で、より多くの機能を提供できる。
+
+### クライアントのコールバック
+
+アイテムのコールバックは、エクスポートを定義することで追加できます（推奨）。[アイテム/クライアント.lua](https://github.com/communityox/ox_inventory/blob/main/modules/items/client.lua#L33).
+
+を定義する場合[項目データ](https://github.com/communityox/ox_inventory/blob/main/data/items.lua#L11)client.export を追加すると、アイテム使用時にイベントが発生します。
+正しい書式は`export = resourceName.exportName`.
+
+```lua
+exports('bandage', function(data, slot)
+    local playerPed = PlayerPedId()
+    local maxHealth = GetEntityMaxHealth(playerPed)
+    local health = GetEntityHealth(playerPed)
+
+    -- Does the ped need to heal? We can cancel the item from being used.
+    if health < maxHealth then
+        -- Triggers internal-code to correctly use items.
+        -- This adds security, removes the item on use, adds progressbar support, and is necessary for server callbacks.
+        exports.ox_inventory:useItem(data, function(data)
+            -- The server has verified the item can be used.
+            if data then
+                SetEntityHealth(playerPed, math.min(maxHealth, math.floor(health + maxHealth / 16)))
+                lib.notify({description = 'You feel better already'})
+            end
+        end)
+    else
+        -- Don't use the item
+        lib.notify({type = 'error', description = 'You don\'t need a bandage right now'})
+    end
+end)
+```
+
+### サーバー・コールバック
+
+いくつかのイベント（usingItem、usedItem、buyItem）を処理するために、サーバー上でコールバック関数を定義することができます。
+これはエクスポート（推奨）するか、あるいは[アイテム/サーバー.lua](https://github.com/communityox/ox_inventory/blob/main/modules/items/server.lua).
+を定義するとき[項目データ](https://github.com/communityox/ox_inventory/blob/main/data/items.lua#L14)server.export を追加すると、上記のアクションのイベントが発生します。
+正しい書式は`export = resourceName.exportName`.
+
+```lua
+exports('bandage', function(event, item, inventory, slot, data)
+    -- Player is attempting to use the item.
+    if event == 'usingItem' then
+        local playerPed = GetPlayerPed(inventory.id)
+        local maxHealth = GetEntityMaxHealth(playerPed)
+        local health = GetEntityHealth(playerPed)
+
+        -- Check if the player needs to be healed.
+        if health >= maxHealth then
+            TriggerClientEvent('ox_lib:notify', inventory.id, {type = 'error', description = 'You don\'t need a bandage right now'})
+
+            -- Returning 'false' will prevent the item from being used
+            return false
+        end
+
+        return
+    end
+
+    -- Player has finished using the item.
+    if event == 'usedItem' then
+        return TriggerClientEvent('ox_lib:notify', inventory.id, {description = 'You feel better already'})
+    end
+
+    -- Player is attempting to purchase the item.
+    if event == 'buying' then
+        return TriggerClientEvent('ox_lib:notify', inventory.id, {type = 'success', description = 'You bought a bandage'})
+    end
+end)
+```
+
+## コンテナ・アイテムの作成
+
+他の品目と同様、品目はまず登録されなければならない。
+
+登録されると、アイテムをコンテナとして`/modules/items/containers.lua`または[`setContainerProperties`](../Functions/Server#setcontainerproperties)サーバーにエクスポートします。
+コンテナのキーは`name`商品登録の際にお渡しください。\
+また、スロットの数、最大ウェイト、ブラックリストとホワイトリストの項目も定義できます。
+
+<br />
+
+- itemName：`string`
+- の特性を持つ：`table`
+  - スロット`number`
+    - コンテナで使用可能なスロット数。
+  - 最大重量：`number`
+    - コンテナが保持できる最大重量。
+  - ホワイトリスト？`table<string, true> | string[]`
+    - コンテナ内で使用可能なアイテム名のテーブル。
+    - 提供されない場合、ブラックリストに載っているもの以外はすべて許可される。
+  - ブラックリスト？`table<string, true> | string[]`
+    - コンテナ内で使用できないアイテム名のテーブル。
+    - 提供されない場合、ホワイトリストが提供されない限り、アイテムはブラックリストに載らない。
+
+### 例
+
+```lua filename="Register Example"
+['pizzabox'] = {
+    label = 'Pizza Box',
+    weight = 50,
+    stack = false,
+    close = false,
+    consume = 0,
+},
+```
+
+```lua filename="Properties Example"
+setContainerProperties('pizzabox', {
+    slots = 1,
+    maxWeight = 1000,
+    whitelist = { 'pizza' },
+})
+```

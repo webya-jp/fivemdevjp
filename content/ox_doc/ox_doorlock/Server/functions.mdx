@@ -1,0 +1,53 @@
+# 機能
+
+データベース・エントリーの id に一致する、指定された id を持つドアのデータを取得します。
+
+## ゲットドア
+
+```lua
+exports.ox_doorlock:getDoor(doorId)
+```
+
+与えられた`id`データベース・エントリーのIDと一致する。
+
+* id.K.である：`number`
+
+戻る：
+
+* ドア`table`
+
+## ゲットドアフロムネーム
+
+```lua
+exports.ox_doorlock:getDoorFromName(name)
+```
+
+与えられた`name`データベース・エントリーの名前と一致する。
+
+* と名付けた：`string`
+
+戻る：
+
+* ドア`table`
+
+## エディットドア
+
+```lua
+exports.ox_doorlock:editDoor(doorId, data)
+```
+
+与えられたdoorIdの設定を編集します。
+
+* doorId：`number`
+* のデータがある：`table`
+
+## セットドアステート
+
+```lua
+exports.ox_doorlock:setDoorState(doorId, state)
+```
+
+状態が以下の場合、与えられたdoorIdを持つドアをロックされた状態にします。`true`または`1`.
+
+* doorId：`number`
+* の状態だ：`0`または`1`または`boolean`

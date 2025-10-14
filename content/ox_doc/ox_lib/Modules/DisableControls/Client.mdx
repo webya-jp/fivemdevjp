@@ -1,0 +1,46 @@
+# クライアント
+
+追跡と無効化の一元化[ゲームコントロール](https://docs.fivem.net/docs/game-references/controls/#controls).
+
+## lib.disableControls
+
+蓄積されたすべてのコントロールを無効にするためにフレーム上で呼び出す。
+
+```lua
+lib.disableControls()
+```
+
+## lib.disableControls:Add
+
+指定されたコントロールを保存されたリストに追加します。\
+コントロールがすでに追跡されている場合は、保存されているカウンタがインクリメントされる。
+
+```lua
+lib.disableControls:Add(...)
+```
+
+* vararg：`number`または`number[]`
+  * を追加する。
+
+## lib.disableControls:Remove
+
+指定されたコントロールを保存リストから削除する。\
+もし、あるコントロールのストアドカウンタが1より大きければ、ストアドカウンタはデクリメントされる。
+
+```lua
+lib.disableControls:Remove(...)
+```
+
+* vararg：`number`または`number[]`
+  * のカウントを削除する。
+
+## lib.disableControls:Clear
+
+指定されたコントロールの保存されたカウンタをクリアする。
+
+```lua
+lib.disableControls:Clear(...)
+```
+
+* vararg：`number`または`number[]`
+  * 追跡されないようにするコントロール（複数可

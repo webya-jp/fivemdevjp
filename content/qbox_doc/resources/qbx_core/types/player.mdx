@@ -1,0 +1,128 @@
+***
+
+sidebar\_label: プレイヤー
+キーワード\[qbox, fivem, qbx\_core, types].
+--------------------------------------
+
+# 選手
+
+## 選手
+
+**フィールド**
+
+* 機能`table`
+  * 非推奨。
+* PlayerData：[`PlayerData`](#playerdata)
+* オフラインだ：`boolean`
+
+## プレイヤーデータ
+
+エクステンド[`PlayerEntity`](#playerentity)
+
+**フィールド**
+
+* ソースは？`integer`
+  * プレーヤーがオンラインの場合に提示する。
+* optin？`boolean`
+  * プレーヤーがオンラインの場合に提示する。
+
+## プレイヤーエンティティ
+
+**フィールド**
+
+* 市民ID`string`
+* ライセンスを取得した：`string`
+* と名付けた：`string`
+* お金だ：`table`
+  * 現金だ：`number`
+  * 銀行`number`
+  * 暗号：`number`
+* charinfo：`table`
+  * ファーストネーム`string`
+  * ラストネーム`string`
+  * 生年月日`string`
+  * 国籍`string`
+  * cid：`integer`
+  * 性別`integer`
+  * バックストーリー`string`
+  * 電話`string`
+  * 口座に振り込まれる：`string`
+  * カードがある：`number`
+* 仕事だ：[`PlayerJob`](#playerjob)
+* 仕事だ：`table<string, integer>`は、プレーヤーのジョブ名とジョブグレードをマッピングします。無職は含まれない。
+* 一味だ：[`PlayerGang`](#playergang)
+* ギャングだ：`table<string, integer>`は、ギャングの名前と、プレーヤーが持っているギャングのグレードをマッピングします。ギャングは含まれません。
+* のポジションにいる：`vector4`
+* というメタデータがある：`table`
+  * 健康だ：`number`
+  * アーマー`number`
+  * 空腹だ：`number`
+  * 喉が渇く：`number`
+  * ストレスだ：`number`
+  * は死んだ：`boolean`
+  * inlaststand：`boolean`
+  * は手錠をかけられている：`boolean`
+  * トラッカーである：`boolean`
+  * インジェイル`number`
+  * 監獄アイテム：`table`
+  * の状態だ：`table`
+  * 電話`table`
+    * その背景は`any`
+    * プロフィール写真`any`
+  * 血液型`string`
+  * ディーラーレップ`number`
+  * クラフトレップ：`number`
+  * アタッチ・クラフティング・レップ`number`
+  * currentapartment？`integer`
+  * ジョブレップ`table`
+    * トウ`number`
+    * トラック運転手`number`
+    * タクシー`number`
+    * ホットドッグ`number`
+  * コールサイン`string`
+  * 指紋：`string`
+  * ウォレット`string`
+  * 犯罪歴：`table`
+    * hasRecord：`number`
+    * 日付は？`table`
+  * ライセンスを取得した：`table`
+    * id.K.である：`boolean`
+    * ドライバー`boolean`
+    * 武器だ：`boolean`
+  * 内部`table`
+    * 家？`any`
+    * アパートメントに住んでいる：`table`
+      * アパートタイプ？`any`
+      * アパート？`integer`
+  * フォーンデータ`table`
+    * シリアルナンバー`string`
+    * InstalledApps：`table`
+* cid：`integer`
+* の項目がある：`table`
+  * 非推奨。
+* lastLoggedOut：`integer`
+
+## プレーヤージョブ
+
+**フィールド**
+
+* と名付けた：`string`
+* のラベルが貼られている：`string`
+* を支払う：`number`
+* タイプ？`string`
+* オンデューティー：`boolean`
+* イスボス`boolean`
+* のグレードである：`table`
+  * と名付けた：`string`
+  * レベルだ：`number`
+
+## プレイヤーギャング
+
+**フィールド**
+
+* と名付けた：`string`
+* のラベルが貼られている：`string`
+* イスボス`boolean`
+* のグレードである：`table`
+  * と名付けた：`string`
+  * レベルだ：`number`

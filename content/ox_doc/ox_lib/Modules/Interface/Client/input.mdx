@@ -1,0 +1,294 @@
+---
+
+## タイトル入力ダイアログ
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# 入力ダイアログ
+
+入力ダイアログウィンドウでは、入力フィールドを設定してユーザーからデータを受け取ることができます。
+
+## lib.inputDialog
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.inputDialog(heading, rows, options)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.inputDialog(heading, rows, options);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- を見出しにした：`string`
+- 列：`string[]`または`table`(`array`)
+  - タイプだ：`'input'`または`'number'`または`'checkbox'`または`'select'`または`'slider'`または`'color'`または`'multi-select'`または`'date'`または`'date-range'`または`'time'`または`'textarea'`
+- オプションは？`table`(`object`)
+  - allowCancel：`boolean`
+    - false の場合、ユーザーは送信するまで入力ダイアログをキャンセルして閉じることができません。
+    - 定義されていない場合、ユーザーは入力ダイアログをキャンセルして閉じることができる。
+  - サイズは？`"xs"`|`"sm"`|`"md"`|`"lg"`|`"xl"`;
+
+### フィールドタイプのプロパティ
+
+- 入力
+
+  - のラベルが貼られている：`string`
+  - という記述がある：`string`
+  - プレースホルダー？`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`string`
+  - パスワード？`boolean`
+  - 分？`number`
+  - マックス？`number`
+
+- 番号
+
+  - のラベルが貼られている：`string`
+  - という記述がある：`string`
+  - プレースホルダー？`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`number`
+  - 分？`number`
+  - マックス？`number`
+  - 精度？`number`
+  - ステップ？`number`
+
+- チェックボックス
+
+  - のラベルが貼られている：`string`
+  - チェックした？`boolean`
+  - 無効ですか？`boolean`
+  - 必要ですか？`boolean`
+
+- セレクトとマルチセレクト
+
+  - のラベルが貼られている：`string`
+  - のオプションがある：`table`(`array`)
+    - 値である：`string`
+    - ラベル？`string`
+  - という記述がある：`string`
+  - プレースホルダー？`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`string`|`table`のみ`multi-select`)
+    - デフォルト・オプションの値。
+  - クリア可能か？`boolean`
+  - 検索可能か？`boolean`
+  - maxSelectedValues?`number`のみ`multi-select`)
+    - 選択できるオプションの最大数。
+
+- スライダー
+
+  - のラベルが貼られている：`string`
+  - プレースホルダー？`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`number`
+  - 分？`number`
+  - マックス？`number`
+  - ステップ？`number`
+
+- カラー
+
+  - のラベルが貼られている：`string`
+  - という記述がある：`string`
+  - プレースホルダー？`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`string`
+  - フォーマット？`'hex'`|`'hexa'`|`'rgb'`|`'rgba'`|`'hsl'`|`'hsla'`;
+
+- 日付
+
+  - のラベルが貼られている：`string`
+  - という記述がある：`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`string`または`true`
+    - デフォルトは現在の日付
+  - フォーマット？`string`
+    - フィールドに表示する日付フォーマット
+  - returnString?`boolean`
+    - 日付を文字列で返します。`DD/MM/YYYY`しかし、もし`format`が定義されていれば、それを使う。
+  - クリア可能か？`boolean`
+  - 分？`string`
+    - "01/01/2000"
+  - マックス？`string`
+    - "12/12/2023"
+
+- 日付範囲
+
+  - のラベルが貼られている：`string`
+  - という記述がある：`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`[string, string]`
+  - フォーマット？`string`
+    - フィールドに表示する日付フォーマット
+  - returnString?`boolean`
+    - 日付を文字列で返します。`DD/MM/YYYY`しかし、もし`format`が定義されていれば、それを使う。
+  - クリア可能か？`boolean`
+
+- 時間
+
+  - のラベルが貼られている：`string`
+  - という記述がある：`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`string`
+  - フォーマット？`'12'`または`'24'`
+  - クリア可能か？`boolean`
+
+- テキストエリア
+  - のラベルが貼られている：`string`
+  - という記述がある：`string`
+  - プレースホルダー？`string`
+  - アイコンは？`string`
+  - 必要ですか？`boolean`
+  - 無効ですか？`boolean`
+  - デフォルト？`number`
+  - 分？`number`
+    - テキストエリアの最小行数。
+  - マックス？`number`
+    - テキストエリアの最大行数。これを超えるとオーバーフローする。
+  - オートサイズ？`boolean`
+    - true を指定すると、テキストエリアは最大行数に達するまでコンテンツと共に成長する。
+  - minLength?`number`
+  - maxLength?`number`
+
+コールバックデータはプロミスベースであり、ユーザーがデータを送信するかポップアップを終了するまでスレッドは実行を継続しない。
+
+返されるデータはテーブル（配列）で、インデックスはダイアログに送られる行を表します。`1`(`0`)、3 番目のフィールドのデータが欲しい場合は、インデックス`3`(`2`などなど...。
+
+<Callout>
+  などのフィールドタイプ`date`,`date-range`そして`time`設定された値のunixタイムスタンプを返す。
+</Callout>
+
+## lib.closeInputDialog
+
+アクティブな入力ダイアログを強制的に閉じ、その戻り値を`nil`.
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.closeInputDialog()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.closeInputDialog();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 使用例
+
+### ベーシック
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    local input = lib.inputDialog('Basic dialog', {'First row', 'Second row'})
+
+    if not input then return end
+    print(json.encode(input), input[1], input[2])
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    <Callout>
+      この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
+    </Callout>
+
+    ```ts
+    const input = await lib.inputDialog('Basic dialog', ['First row', 'Second row']);
+
+    if (!input) return;
+    console.log(input, input[0], input[1]);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![Example image](https://i.imgur.com/KnZ0sEW.png)
+
+### 上級
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    local input = lib.inputDialog('Dialog title', {
+      {type = 'input', label = 'Text input', description = 'Some input description', required = true, min = 4, max = 16},
+      {type = 'number', label = 'Number input', description = 'Some number description', icon = 'hashtag'},
+      {type = 'checkbox', label = 'Simple checkbox'},
+      {type = 'color', label = 'Colour input', default = '#eb4034'},
+      {type = 'date', label = 'Date input', icon = {'far', 'calendar'}, default = true, format = "DD/MM/YYYY"}
+    })
+
+    print(json.encode(input))
+
+    -- Getting rgb values from colour picker
+    local rgb = lib.math.torgba(input[4])
+
+    -- Transforming date timestamp to a readable format with Lua's os library (server-only)
+    local timestamp = math.floor(input[5] / 1000)
+    local date = os.date('%Y-%m-%d %H:%M:%S', timestamp)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    <Callout>
+      この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
+    </Callout>
+
+    ```ts
+    const input = await lib.inputDialog('Police locker', [
+      { type: 'input', label: 'Text input', description: 'Some input description', required: true, min: 3, max: 16 },
+      { type: 'number', label: 'Number input', description: 'Some number description', icon: 'hashtag' },
+      { type: 'checkbox', label: 'Simple checkbox' },
+      { type: 'color', label: 'Colour input', default: '#eb4034' },
+      { type: 'date', label: 'Date input', icon: ['far', 'calendar'], default: true, format: 'DD/MM/YYYY' },
+    ]);
+
+    console.log(JSON.stringify(input, null, 2));
+
+    // Getting r, g and b values from colour picker
+    const regExp = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/;
+    const colourInput = input[3];
+
+    const color = regExp.exec(colourInput);
+
+    if (!color) return;
+
+    console.log(+color[1], +color[2], +color[3]);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![Example image](https://i.imgur.com/v44YEkC.png)

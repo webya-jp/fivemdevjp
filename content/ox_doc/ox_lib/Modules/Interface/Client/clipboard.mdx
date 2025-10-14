@@ -1,0 +1,39 @@
+---
+
+## タイトルクリップボード
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# クリップボード
+
+## lib.setClipboard
+
+プレーヤーのクリップボードを指定された文字列値に設定します。
+
+<Callout>
+  フォーカスがすでにNUIコンポーネントに取られている場合は動作しません。
+</Callout>
+
+<Callout>
+  新しい行を作成するには`\t\n`だけでなく`\n`をあなたの文字列に追加する。
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.setClipboard(value)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.setClipboard(value);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 値である：`string`

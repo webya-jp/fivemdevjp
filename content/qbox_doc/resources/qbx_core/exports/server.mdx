@@ -1,0 +1,1069 @@
+***
+
+タイトルサーバー輸出
+sidebar\_label: サーバ
+キーワード\[qbox, fivem, qbx\_core, エクスポート].
+説明サーバサイドエクスポートのドキュメント。通知、グループ管理、その他のサーバーサイドユーティリティのために利用可能な関数について学んで下さい。
+------------------------------------------------------------------------
+
+# サーバー輸出
+
+:::info
+これらのエクスポートの中には、カスタム・タイプを使用するものがあります。
+これらについては、このリソースのタイプセクションを参照してください。
+:::
+
+## 作成ジョブ
+
+指定されたジョブを追加または上書きする。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:CreateJob(jobName, job)
+```
+
+* ジョブ名`string`
+* 仕事だ：[`table<Job>`](../types/job.mdx)
+
+リターンズ
+
+* 成功した：`boolean`
+* というメッセージを送った：`string`
+
+## 求人情報作成
+
+指定されたジョブを追加または上書きする。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:CreateJobs(jobs)
+```
+
+* 仕事だ：[`table<string, Job>`](../types/job.mdx)
+
+リターンズ
+
+* 成功した：`boolean`
+* というメッセージを送った：`string`
+
+## ジョブ削除
+
+指定されたジョブを削除します。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:RemoveJob(jobName)
+```
+
+* ジョブ名`string`
+
+リターンズ
+
+* 成功した：`boolean`
+* というメッセージを送った：`'success' | 'invalid_job_name' | 'job_not_exists'`
+
+## CreateGangs（クリエイト ギャングス
+
+指定されたギャングを追加または上書きする。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:CreateGangs(gangs)
+```
+
+* ギャングだ：[`table<string, Gang>`](../types/gang.mdx)
+
+## 暴力団排除
+
+指定されたギャングを削除する。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:RemoveGang(gangName)
+```
+
+* gangName：`string`
+
+リターンズ
+
+* 成功した：`boolean`
+* というメッセージを送った：`'success' | 'invalid_gang_name' | 'gang_not_exists'`
+
+## GetCoreVersion
+
+の現在のバージョンを返す。`qbx_core`をfxmanifestに設定する。
+
+```lua
+exports.qbx_core:GetCoreVersion(InvokingResource)
+```
+
+* InvokingResource：`string`
+
+リターンズ`string`
+
+## エクスプロイト禁止
+
+指定されたプレーヤーを指定された理由で禁止する。
+
+```lua
+exports.qbx_core:ExploitBan(playerId, origin)
+```
+
+* playerId：`integer`
+* 原点だ：`string`
+
+## ゲッツソース
+
+指定された識別子を持つプレーヤーのIDを返し、そのプレーヤーがサーバーにいない場合は0を返します。
+
+```lua
+exports.qbx_core:GetSource(identifier)
+```
+
+* 識別子`string`
+
+リターンズ`integer`
+
+## GetUserId
+
+与えられた識別子を持つプレーヤーのuserId、またはプレーヤーがサーバーにいない場合は0を返します。
+
+```lua
+exports.qbx_core:GetUserId(identifier)
+```
+
+* 識別子`string`
+
+リターンズ`integer`
+
+## ゲットプレーヤー
+
+与えられたプレーヤーIDまたは識別子のPlayerオブジェクトを返します。
+
+```lua
+exports.qbx_core:GetPlayer(source)
+```
+
+* ソース`integer`
+
+リターンズ[`Player?`](../types/player.mdx#player)
+
+## GetPlayerByCitizenId
+
+与えられたcitizensidのPlayerオブジェクトを返します。
+
+```lua
+exports.qbx_core:GetPlayerByCitizenId(citizenid)
+```
+
+* 市民ID`string`
+
+リターンズ[`Player?`](../types/player.mdx#player)
+
+## GetPlayerByUserId
+
+与えられた userId の Player オブジェクトを返します。
+
+```lua
+exports.qbx_core:GetPlayerByUserId(citizenid)
+```
+
+* userId：`string`
+
+リターンズ[`Player?`](../types/player.mdx#player)
+
+## GetPlayerByPhone（ゲット・プレイヤー・バイ・フォン
+
+与えられた電話番号のPlayerオブジェクトを返します。
+
+```lua
+exports.qbx_core:GetPlayerByPhone(number)
+```
+
+* という数字になる：`string`
+
+リターンズ[`Player?`](../types/player.mdx#player)
+
+## GetQBPlayers
+
+ログインしているプレイヤーのPlayerオブジェクトマップにプレイヤーIDを返します。
+
+```lua
+exports.qbx_core:GetQBPlayers()
+```
+
+リターンズ[`table<integer, Player>`](../types/player.mdx#player)
+
+## 選手データ
+
+すべてのアクティブなプレーヤーのすべてのPlayerDataテーブルを返します。
+
+```lua
+exports.qbx_core:GetPlayersData()
+```
+
+リターンズ[`PlayerData[]`](../types/player.mdx#playerdata)
+
+## SetPlayerData
+
+特定のプレーヤーのPlayerDataキーを新しい値に設定する。
+
+```lua
+exports.qbx_core:SetPlayerData(identifier, key, value)
+```
+
+* 識別子`source | citizenid`
+* キーだ：`string`
+* 値である：`any`
+
+## 選手データの更新
+
+選手のPlayerDataを更新するトリガー。
+
+```lua
+exports.qbx_core:UpdatePlayerData(identifier)
+```
+
+* 識別子`source | citizenid`
+
+## GetMetadata
+
+特定の選手のメタデータ値を取得します。
+
+```lua
+exports.qbx_core:GetMetadata(identifier, metadata)
+```
+
+* 識別子`source | citizenid`
+* というメタデータがある：`string`
+
+## セットメタデータ
+
+特定のプレーヤーのメタデータキーを新しい値に設定する。
+
+```lua
+exports.qbx_core:SetMetadata(identifier, metadata, value)
+```
+
+* 識別子`source | citizenid`
+* というメタデータがある：`string`
+* 値である：`any`
+
+## SetCharInfo
+
+特定のプレーヤーのキャラクター情報を設定します。
+
+```lua
+exports.qbx_core:SetCharInfo(identifier, charInfo, value)
+```
+
+* 識別子`source | citizenid`
+* charInfo：`string`
+* 値である：`any`
+
+## GetDutyCountJob
+
+指定されたジョブで当番であるプレーヤーの数と、そのIDのリストを返します。
+
+```lua
+exports.qbx_core:GetDutyCountJob(job)
+```
+
+* 仕事だ：`string`
+
+リターンズ
+
+* カウントする：`integer`
+* の選手だ：`integer[]`
+
+## GetDutyCountType
+
+指定された職種に就いているプレーヤーの数と、そのIDのリストを返します。
+
+```lua
+exports.qbx_core:GetDutyCountType(jobType)
+```
+
+* ジョブタイプ`string`
+
+リターンズ
+
+* カウントする：`integer`
+* の選手だ：`integer[]`
+
+## GetBucketObjects
+
+プレイヤーからバケツ、エンティティからバケツへのマップを返します。
+
+```lua
+exports.qbx_core:GetBucketObjects()
+```
+
+リターンズ
+
+* プレイヤーバケット`table<integer, integer>`
+* エンティティバケット：`table<integer, integer>`
+
+## セットプレーヤーバケット
+
+指定された選手を指定されたバケツにセットします。\
+リターン`false`パラメータの1つがnilの場合は`true`そうでなければ
+
+```lua
+exports.qbx_core:SetPlayerBucket(source, bucket)
+```
+
+* ソース`integer`
+* バケツ`integer`
+
+リターンズ`boolean`
+
+## セット・エンティティ・バケット
+
+指定されたバケツに、指定されたエンティティ（例：ペッド、ビークル、プロップなど）をセットする。\
+リターン`false`パラメータの1つがnilの場合は`true`そうでなければ
+
+```lua
+exports.qbx_core:SetEntityBucket(entity, bucket)
+```
+
+* 実体を持つ：`integer`
+* バケツ`integer`
+
+リターンズ`boolean`
+
+## GetPlayersInバケット
+
+与えられたバケツ内の全選手のリストを返す。`false`既知の選手バケットがない場合。
+
+```lua
+exports.qbx_core:GetPlayersInBucket(bucket)
+```
+
+* バケツ`integer`
+
+リターンズ`integer[] | false`
+
+## GetEntitiesInBucket
+
+与えられたバケツ内のすべてのエンティティのリストを返す。`false`既知のエンティティバケットがない場合。
+
+```lua
+exports.qbx_core:GetEntitiesInBucket(bucket)
+```
+
+* バケツ`integer`
+
+リターンズ`integer[] | false`
+
+## 使用可能アイテムの作成
+
+与えられたアイテムが使われたときに実行されるように、与えられた関数を登録する。
+
+```lua
+exports.qbx_core:CreateUseableItem(item, data)
+```
+
+* アイテム：`string`
+* のデータがある：`fun(source: integer, item: unknown)`
+
+## アイテムの使用
+
+与えられた項目が使われたときに実行されるデータセットを返す。`nil`もし存在しなければ
+
+```lua
+exports.qbx_core:CanUseItem(item)
+```
+
+* アイテム：`string`
+
+リターンズ`unknown`
+
+## ホワイトリスト入り
+
+指定された選手がホワイトリストに登録されているかどうかを返します。
+
+```lua
+exports.qbx_core:IsWhitelisted(source)
+```
+
+* ソース`integer`
+
+リターンズ`boolean`
+
+## ~~パーミッションの追加
+
+::警告
+v1.8.0で非推奨。代わりに ox\_lib ACE パーミッションを使ってください。
+:::
+
+指定されたパーミッションを指定されたプレーヤーに追加します。
+
+```lua
+exports.qbx_core:AddPermission(source, permission)
+```
+
+* ソース`integer`
+* を許可した：`string`
+
+## ~~パーミッションの削除
+
+::警告
+v1.8.0で非推奨。代わりに ox\_lib ACE パーミッションを使ってください。
+:::
+
+指定された権限を指定されたプレーヤーから削除します。
+
+```lua
+exports.qbx_core:RemovePermission(source, permission)
+```
+
+* ソース`integer`
+* を許可した：`string`
+
+## ~~許可がある
+
+::警告
+v1.8.0で非推奨。代わりにACEパーミッションを使用してください。
+:::
+
+指定されたプレーヤーが指定されたパーミッションを持っているかどうかを返します。
+
+```lua
+exports.qbx_core:HasPermission(source, permission)
+```
+
+* ソース`integer`
+* を許可した：`string`
+
+リターンズ`boolean`
+
+## ~~許可を得る
+
+::警告
+v1.8.0で非推奨。代わりにACEパーミッションを使用してください。
+:::
+
+指定されたプレーヤーのパーミッションを取得します。
+
+```lua
+exports.qbx_core:GetPermission(source)
+```
+
+* ソース`integer`
+
+リターンズ`table<string, boolean>`
+
+## イズオプチン
+
+指定されたプレーヤーが管理者レポートにオプトインしているかどうかを返します。
+
+```lua
+exports.qbx_core:IsOptin(source)
+```
+
+* ソース`integer`
+
+リターンズ`boolean`
+
+## トグルオプチン
+
+指定されたプレーヤーをアドミンレポートに出入りさせる。
+
+```lua
+exports.qbx_core:ToggleOptin(source)
+```
+
+* ソース`integer`
+
+## IsPlayerBanned
+
+指定されたプレーヤーが禁止されているかどうかと、プレーヤーに表示されるメッセージを返します。
+
+```lua
+exports.qbx_core:IsPlayerBanned(source)
+```
+
+* ソース`integer`
+
+リターンズ
+
+* 禁止されている：`boolean`
+* playerMessage：`string`
+  * 選手に見せるために書かれたメッセージ。
+
+## 通知
+
+:::info
+参照[`lib.notify`]をご覧ください。
+:::
+
+指定されたプレーヤーのテキストボックスのポップアップで、指定された時間が経過すると消えます。
+
+```lua
+exports.qbx_core:Notify(source, text, notifyType, duration, subTitle, notifyPosition, notifyStyle, notifyIcon, notifyIconColor)
+```
+
+* ソース`integer`
+* テキスト`table | string`
+  * 通知文。
+  * 文字列、またはテーブル：
+    * テキスト？`string`
+    * キャプションは？`string`
+* notifyType？`'inform' | 'error' | 'success' | 'warning'`
+  * デフォルト：`'inform'`
+* 期間？`integer`
+  * 通知が画面に表示され続ける時間をミリ秒単位で指定します。
+  * デフォルト：`5000`
+* subTitle?`string`
+  * タイトルの下に追加テキスト。
+* notifyPosition?`'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | 'center-right' | 'center-left'`
+  * デフォルト：`top-right`(コンフィグで変更可能）
+* notifyStyle？`table`
+  * カスタムスタイリング。参照[`lib.notify`].
+* notifyIcon？`string`
+  * Font Awesome 6 アイコン名。
+* notifyIconColor？`string`
+  * カスタムカラー`notifyIcon`.
+
+[`lib.notify`]: https://coxdocs.dev/ox_lib/Modules/Interface/Client/notify#libnotify
+
+## ログイン
+
+既存のキャラクターにログインするか、新しいキャラクターを作成し、それが成功したかどうかを返す。\
+これは、所有するプレーヤーがオンラインである場合に、キャラクターを作成するための好ましい機能である。
+
+```lua
+exports.qbx_core:Login(source, citizenid, newData)
+```
+
+* ソース`integer`
+* citizensid？`string`
+* newData?[`PlayerEntity`](../types/player.mdx#playerentity)
+
+リターンズ`boolean`
+
+## ゲットオフラインプレーヤー
+
+与えられたcitizensidを使用してプレイヤーオブジェクトを取得し、それを返します。`nil`何も見つからなければ
+
+```lua
+exports.qbx_core:GetOfflinePlayer(citizenid)
+```
+
+* 市民ID`string`
+
+リターンズ[`Player?`](../types/player.mdx#player)
+
+## ログアウト
+
+指定されたプレイヤーを現在のキャラクターからログアウトします。
+
+```lua
+exports.qbx_core:Logout(source)
+```
+
+* ソース`integer`
+
+## プレイヤー作成
+
+新しい文字を作成し、データベースに保存します。
+
+```lua
+exports.qbx_core:CreatePlayer(playerData, offline)
+```
+
+* playerData：`PlayerData`
+* オフラインで`boolean`
+
+リターンズ[`Player`](../types/player.mdx#player)
+
+## セーブ
+
+指定された選手の情報をデータベースに保存する。
+
+```lua
+exports.qbx_core:Save(source)
+```
+
+* ソース`integer`
+
+## セーブオフライン
+
+与えられたPlayerDataをデータベースに保存する。
+
+```lua
+exports.qbx_core:SaveOffline(playerData)
+```
+
+* playerData：[`PlayerEntity`](../types/player.mdx#playerentity)
+
+## 削除文字
+
+与えられたcitizensidによって永久に文字を削除する。
+
+::警告
+このアクションは元に戻せない。
+:::
+
+```lua
+exports.qbx_core:DeleteCharacter(citizenid)
+```
+
+* 市民ID`string`
+
+## 固有識別子の生成
+
+選手識別子の一意な値を返します。
+
+```lua
+exports.qbx_core:GenerateUniqueIdentifier(type)
+```
+
+* タイプだ：`'citizenid' | 'AccountNumber' | 'PhoneNumber' | 'FingerId' | 'WalletId' | 'SerialNumber'`
+
+リターンズ`string | number`
+
+## アップサートジョブデータ
+
+指定されたジョブのフィールドを一時的に挿入または上書きします。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:UpsertJobData(jobName, data)
+```
+
+* ジョブ名`string`
+* のデータがある：[`JobData`](../types/job.mdx#jobdata)
+
+## アップサートギャングデータ
+
+与えられたギャングのフィールドを一時的に挿入または上書きする。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:UpsertGangData(gangName, data)
+```
+
+* gangName：`string`
+* のデータがある：[`GangData`](../types/gang.mdx#gangdata)
+
+## アップサートジョブグレード
+
+指定されたジョブのグレードのフィールドを一時的に挿入または上書きします。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:UpsertJobGrade(jobName, grade, data)
+```
+
+* ジョブ名`string`
+* のグレードである：`integer`
+* のデータがある：[`JobGradeData`](../types/job.mdx#jobgradedata)
+
+## アップサート・ガングレード
+
+指定されたギャングのグレードのフィールドを一時的に挿入または上書きします。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:UpsertGangGrade(gangName, grade, data)
+```
+
+* gangName：`string`
+* のグレードである：`integer`
+* のデータがある：[`GangGradeData`](../types/gang.mdx#ganggradedata)
+
+## ジョブグレードの削除
+
+指定されたジョブのグレードを一時的に削除します。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:RemoveJobGrade(jobName, grade)
+```
+
+* ジョブ名`string`
+* のグレードである：`integer`
+
+## ギャンググレードの削除
+
+指定されたギャングのグレードを一時的に削除する。
+
+::警告
+これは実行時のみの変更である。これは再起動しても持続せず、ファイルも変更しません。
+:::
+
+```lua
+exports.qbx_core:RemoveGangGrade(gangName, grade)
+```
+
+* gangName：`string`
+* のグレードである：`integer`
+
+## セットジョブ
+
+現在のプライマリジョブを新しいジョブで上書きする。プレーヤーを現在のプライマリジョブから外す。
+
+```lua
+exports.qbx_core:SetJob(identifier, jobName, grade)
+```
+
+* 識別子`source | citizenid`
+* ジョブ名`string`
+* のグレードである：`integer`
+
+## セットジョブデューティ
+
+選手の勤務状態を設定する。
+
+```lua
+exports.qbx_core:SetJobDuty(identifier, onDuty)
+```
+
+* 識別子`source | citizenid`
+* 勤務中：`boolean`
+
+## セットプレーヤープライマリジョブ
+
+指定されたプレーヤーの主な仕事を、すでに持っている場合にのみ、指定された仕事に設定します。
+
+```lua
+exports.qbx_core:SetPlayerPrimaryJob(citizenid, jobName)
+```
+
+* 市民ID`string`
+* ジョブ名`string`
+
+## AddPlayerToJob
+
+指定されたプレーヤーを指定された仕事に追加するか、すでにその仕事に就いている場合はその成績を上書きします。
+
+```lua
+exports.qbx_core:AddPlayerToJob(citizenid, jobName, grade)
+```
+
+* 市民ID`string`
+* ジョブ名`string`
+* のグレードである：`integer`
+
+## ジョブから選手を削除する
+
+指定されたプレーヤーを指定されたジョブから削除します。
+また、指定されたジョブがプレーヤーのプライマリ・ジョブである場合は、指定されたプレーヤーのプライマリ・ジョブをunemployedに更新します。
+
+```lua
+exports.qbx_core:RemovePlayerFromJob(citizenid, jobName)
+```
+
+* 市民ID`string`
+* ジョブ名`string`
+
+## セットギャング
+
+現在のプライマリーギャングを新しいジョブで上書きする。プレイヤーを現在のプライマリーギャングから外す。
+
+```lua
+exports.qbx_core:SetGang(identifier, gangName, grade)
+```
+
+* 識別子`source | citizenid`
+* gangName：`string`
+* のグレードである：`integer`
+
+## SetPlayerPrimaryGang
+
+指定されたプレイヤーの主ギャングを、すでに持っている場合に限り、指定されたギャングに設定する。
+
+```lua
+exports.qbx_core:SetPlayerPrimaryGang(citizenid, gangName)
+```
+
+* 市民ID`string`
+* gangName：`string`
+
+## AddPlayerToGang
+
+指定されたプレーヤーを指定されたギャングに追加するか、すでにそのギャングにいる場合はその評点を上書きする。
+
+```lua
+exports.qbx_core:AddPlayerToGang(citizenid, gangName, grade)
+```
+
+* 市民ID`string`
+* gangName：`string`
+* のグレードである：`integer`
+
+## 暴力団から選手を排除する
+
+指定されたプレーヤーを指定されたギャングから削除します。
+また、指定されたギャングがプレーヤーのプライマリギャングである場合、指定されたプレーヤーのプライマリギャングをギャングなしに更新する。
+
+```lua
+exports.qbx_core:RemovePlayerFromGang(citizenid, gangName)
+```
+
+* 市民ID`string`
+* gangName：`string`
+
+## ハス・プライマリー・グループ
+
+与えられたプレーヤーの現在のJob/Gangまたはcitizenidが、単一のグループ、グループの配列、またはグループ/グレード、またはcitizenidのリストと一致するかどうかをチェックします。プレーヤーが勤務中か非勤務中かはチェックしません。
+
+```lua
+exports.qbx_core:HasPrimaryGroup(source, filter)
+```
+
+* ソース`integer`
+* フィルターにかける：`string`または`string[]`または`table<string, number>`
+  * チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
+
+リターンズ
+
+* 成功した：`boolean`
+
+## ハスグループ
+
+与えられたプレーヤーのグループ(Jobs/Gangs)またはcitizenidのリストが、単一のグループ、グループの配列、グループ/グレード、またはcitizenidのリストと一致するかどうかをチェックします。特定のフィルタに対して、プレーヤーが勤務中か非勤務中かはチェックしません。
+
+```lua
+exports.qbx_core:HasGroup(source, filter)
+```
+
+* ソース`integer`
+* フィルターにかける：`string`または`string[]`または`table<string, number>`
+  * チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
+
+リターンズ
+
+* 成功した：`boolean`
+
+## GetGroups
+
+指定された選手が現在持っているすべてのグループを結合した表を返します。
+
+```lua
+exports.qbx_core:GetGroups(source)
+```
+
+* ソース`integer`
+
+リターンズ
+
+* `table<string, number>`
+
+## IsGradeBoss
+
+与えられたグループと等級の組み合わせがボス等級であるかどうかをブール値で返します。現在のところ、これは`isboss`成績定義で真である
+
+```lua
+exports.qbx_core:IsGradeBoss(group, grade)
+```
+
+* グループである：`string`
+* のグレードである：`integer`
+
+リターンズ
+
+* 成功した：`boolean`
+
+## GetGroupMembers
+
+指定されたグループとタイプのすべてのシチズンIDと関連するグレードのテーブルを返します。
+
+```lua
+exports.qbx_core:GetGroupMembers(group, type)
+```
+
+* グループである：`string`
+* タイプだ：`job | gang`
+
+リターンズ
+
+* `table<citizenid, number>`
+
+## 車両削除
+
+ゲームの世界から車両のエンティティを削除します。DeleteVehicleは、車両から永続性を削除して削除できるようにするので、ネイティブのDeleteEntity関数よりも好ましい。
+
+```lua
+exports.qbx_core:DeleteVehicle(entity)
+```
+
+* 実体を持つ：`number`
+
+## パーシステンスを有効にする
+
+サーバーによって削除された場合、同じプロパティで車両をリスポーンします。べき乗。
+
+```lua
+exports.qbx_core:EnablePersistence(entity)
+```
+
+* 実体を持つ：`number`
+
+## パーシステンスを無効にする
+
+乗り物から永続属性を削除し、リスポーンせずに削除できるようにする。べき等。車両がまだ永続化されていない場合は、何もしない。
+
+```lua
+exports.qbx_core:DisablePersistence(entity)
+```
+
+* 実体を持つ：`number`
+
+## GetVehicleClass
+
+に相当する。[GetVehicleClass](https://docs.fivem.net/natives/?_0x29439776AAA00A62)クライアントネイティブだが、サーバー用。ランダムにクライアントに全車両モデルとそのクラスを問い合わせ、サーバーがオンラインである間これをキャッシュすることで動作します。
+このため、クエリーを実行するクライアントがいない場合は動作しないことがあります。
+
+```lua
+exports.qbx_core:GetVehicleClass(hash)
+```
+
+* ハッシュ`number`
+
+## サーチプレーヤー
+
+オンラインとオフラインの両方のプレーヤーを一連のフィルターで検索し、すべてのフィルター値に一致するプレーヤーを返します。
+
+フィルター
+
+* license?：ライセンス文字列。
+* job?
+* ギャング？
+* メタデータ？`table<string, number|string|boolean>`
+  * 厳しい？`boolean`もしtrueなら、メタデータの数値は完全に等価である場合にマッチし、そうでなければ、数値がfilterより大きいか等しい場合にマッチする。
+
+```lua
+exports.qbx_core:SearchPlayers(filters)
+```
+
+* フィルターがある：`table<string, any>`
+
+リターンズ
+
+* [`Player[]`](../types/player.mdx#player)
+
+### 使用例
+
+ネストされたメタデータ・キーの値の検索
+
+```lua
+local licensedDrivers = exports.qbx_core:SearchPlayers({
+  metadata = {
+    ['licences.driver'] = true
+  }
+})
+```
+
+## セッションIDの作成
+
+エンティティの sessionId ステートバッグを一意の番号に設定します。
+SessionIdsは、エンティティが削除されたり再作成されたりする可能性があるが、車両の永続化など安定した識別子が必要な場合に便利です。
+
+```lua
+exports.qbx_core:CreateSessionId(entity)
+```
+
+* 実体を持つ：`integer`
+
+リターンズ
+
+* sessionId：`integer`
+
+## ゲットマネー
+
+選手の特定のマネータイプを取得します。
+
+```lua
+exports.qbx_core:GetMoney(identifier, moneyType)
+```
+
+* 識別子`source | citizenid`
+* moneyType：`'cash' | 'bank' | 'crypto'`
+
+リターンズ
+
+* の量だ：`number`無効なマネー・タイプまたはプレーヤーが見つからない場合は偽
+
+## アドマネー
+
+特定のマネータイプをプレーヤーに追加する。
+
+```lua
+exports.qbx_core:AddMoney(identifier, moneyType, amount, reason)
+```
+
+* 識別子`source | citizenid`
+* moneyType：`'cash' | 'bank' | 'crypto'`
+* の量だ：`number`
+* 理由は？`string`
+
+リターンズ
+
+* 成功した：`boolean`
+
+## お金を取り除く
+
+プレーヤーから特定のマネータイプを削除します。
+
+```lua
+exports.qbx_core:RemoveMoney(identifier, moneyType, amount, reason)
+```
+
+* 識別子`source | citizenid`
+* moneyType：`'cash' | 'bank' | 'crypto'`
+* の量だ：`number`
+* 理由は？`string`
+
+リターンズ
+
+* 成功した：`boolean`
+
+## セットマネー
+
+選手の特定のマネータイプを設定します。
+
+```lua
+exports.qbx_core:SetMoney(identifier, moneyType, amount, reason)
+```
+
+* 識別子`source | citizenid`
+* moneyType：`'cash' | 'bank' | 'crypto'`
+* の量だ：`number`
+* 理由は？`string`
+
+リターンズ
+
+* 成功した：`boolean`

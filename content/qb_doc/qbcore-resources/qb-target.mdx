@@ -1,0 +1,927 @@
+---
+description: Always watching you...
+---
+
+# 👁️ qbターゲット
+
+## 導入
+
+qb-targetは、定義済みのエンティティ、モデル、エンティティタイプ、またはポリゾーンとのインタラクションを可能にするターゲティングソリューションです。有効化すると、直感的なデザインに頼ることなく、マーカーや距離チェックを簡単かつ安全に置き換えることができ、playerエクスペリエンスの向上とインタラクションの最適化が可能になります。
+
+### 特徴
+
+* bt-targetとの互換性を維持しながら、ユーティリティとパフォーマンスを向上
+* 最適化され改善されたレイキャスティング機能により、より幅広いエンティティとのインタラクションが可能
+* すべてのプレイヤー、歩行者、車両、またはオブジェクトに適用する一般的なオプションを追加します
+* オプションをクリックした後にイベント、関数、またはコマンドをトリガーし、任意のデータを渡すことができます。
+* ターゲットオプションをトリガーするときに、オプションごとまたは全体で距離を定義します。
+* オプションを再定義または削除し、古いオプションを置き換えずに新しいオプションを追加する機能
+* オプションの距離が変動するターゲットに近づいたり離れたりするときにオプションリストを更新する
+* エンティティボーンのサポート、vehicleドアを開くための組み込みテーブル付き
+* ジョブ、ギャング、市民ID、アイテム、または特定のエンティティのチェックをサポート
+* 活用する`canInteract`任意のトリガーに基づいてオプションを表示または非表示にする高度なチェック機能
+* ペッドスポーナーはペッドを生成し、それらすべてにターゲットオプションを 1 か所で割り当てます。
+
+***
+
+## サークルゾーンを追加
+
+プレイヤーがインタラクトできる円形ゾーンを追加します
+
+* **名前**:`string`
+* **中心**:`vector3`
+* **半径**:`float`
+* **オプション**:`table`
+  * **名前**:`string`
+  * **デバッグポリ**:`boolean`&#x20;
+  * **使用Z**:`boolean`（オプション）
+* **ターゲットオプション**:`table`
+  * **オプション**:`table`
+    * **で**:`number`（オプション）
+    * **タイプ**:`string`
+    * **イベント**:`string`
+    * **アイコン**:`string`
+    * **ラベル**:`string`
+    * **ターゲットアイコン**:`string`（オプション）
+    * **アイテム**:`string`（オプション）
+    * **アクション**:`function`（オプション）
+    * **対話できる**:`function`（オプション）
+    * **仕事**:`string` または `table`（オプション）
+    * **時間**:`string` または `table`（オプション）
+    * **シチズンイド**:`string` または `table`（オプション）
+    * **描画距離**:`number`（オプション）
+    * **描画色**:`table`（オプション）
+    * **成功DrawColor**:`table`（オプション）
+  * **距離**:`float`&#x20;
+
+```lua
+exports['qb-target']:AddCircleZone("police_armory", vector3(452.6, -980.0, 30.6), 1.5, {
+  name = "police_armory",
+  debugPoly = false,
+  useZ = true
+}, {
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "police:openArmory",
+      icon = "fas fa-archive",
+      label = "Open Armory",
+      targeticon = "fas fa-gun",
+      item = "police_badge",
+      action = function(entity)
+        if IsPedAPlayer(entity) then return false end
+        TriggerEvent("police:openArmoryMenu", entity)
+      end,
+      canInteract = function(entity, distance, data)
+        return not IsPedAPlayer(entity)
+      end,
+      job = { ["police"] = 0, ["sheriff"] = 1 },
+      gang = { ["thelostmc"] = 2 },
+      citizenid = { ["JFD98238"] = true, ["HJS29340"] = true },
+      drawDistance = 10.0,
+      drawColor = {255, 255, 255, 255},
+      successDrawColor = {0, 255, 0, 255}
+    }
+  },
+  distance = 2.5
+})
+
+```
+
+***
+
+## ボックスゾーンを追加
+
+プレイヤーがインタラクトできる長方形のゾーンを追加します
+
+* **名前**:`string`
+* **中心**:`vector3`
+* **長さ**:`float`
+* **幅**:`float`
+* **オプション**:`table`
+  * **名前**:`string`
+  * **見出し**:`float`
+  * **デバッグポリ**:`boolean`
+  * **minZ**:`float`
+  * **最大Z**:`float`
+* **ターゲットオプション**:`table`
+  * **オプション**:`table`
+    * **で**:`number`（オプション）
+    * **タイプ**:`string`
+    * **イベント**:`string`
+    * **アイコン**:`string`
+    * **ラベル**:`string`
+    * **ターゲットアイコン**:`string`（オプション）
+    * **アイテム**:`string`（オプション）
+    * **アクション**:`function`（オプション）
+    * **対話可能**:`function`（オプション）
+    * **仕事**:`string` または `table`（オプション）
+    * **時間**:`string` または `table`（オプション）
+    * **シチズンイド**:`string` または `table`（オプション）
+    * **描画距離**:`number`（オプション）
+    * **描画色**:`table`（オプション）
+    * **成功DrawColor**:`table`（オプション）
+  * **距離**:`float`
+
+```lua
+exports['qb-target']:AddBoxZone("bank_counter", vector3(150.1, -1040.5, 29.3), 2.5, 1.2, {
+  name = "bank_counter",
+  heading = 160.0,
+  debugPoly = false,
+  minZ = 28.5,
+  maxZ = 30.5
+}, {
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "bank:openAccountMenu",
+      icon = "fas fa-university",
+      label = "Access Bank",
+      targeticon = "fas fa-building",
+      item = "bank_card",
+      action = function(entity)
+        TriggerEvent("bank:showUI", entity)
+      end,
+      canInteract = function(entity, distance, data)
+        return true
+      end,
+      job = { ["banker"] = 0 },
+      gang = { ["families"] = 1 },
+      citizenid = { ["XYZ123"] = true },
+      drawDistance = 10.0,
+      drawColor = {0, 123, 255, 200},
+      successDrawColor = {0, 255, 0, 255}
+    }
+  },
+  distance = 3.0
+})
+```
+
+***
+
+## ポリゾーンの追加
+
+プレイヤーがインタラクトできるカスタム形状のポリゴンゾーンを追加します
+
+* **名前**:`string`
+* **ポイント**:`table`
+  * リスト`vector2`ポリゴンを定義するポイント (最小 3 個、描画順に並べる必要があります)。
+* **オプション**:`table`
+  * **名前**:`string`
+  * **デバッグポリ**:`boolean`
+  * **minZ**:`float`
+  * **最大Z**:`float`
+* **ターゲットオプション**:`table`
+  * **オプション**:`table`
+    * **で**:`number`（オプション）
+    * **タイプ**:`string`
+    * **イベント**:`string`
+    * **アイコン**:`string`
+    * **ラベル**:`string`
+    * **ターゲットアイコン**:`string`（オプション）
+    * **アイテム**:`string`（オプション）
+    * **アクション**:`function`（オプション）
+    * **対話可能**:`function`（オプション）
+    * **仕事**:`string` または `table`（オプション）
+    * **時間**:`string` または `table`（オプション）
+    * **シチズンイド**:`string` または `table`（オプション）
+    * **描画距離**:`number`（オプション）
+    * **描画色**:`table`（オプション）
+    * **成功DrawColor**:`table`（オプション）
+  * **距離**:`float`&#x20;
+
+```lua
+local points = {
+  vector2(435.1, -981.0),
+  vector2(437.3, -983.5),
+  vector2(439.0, -980.2),
+  vector2(436.6, -978.7)
+}
+
+exports['qb-target']:AddPolyZone("police_parking", points, {
+  name = "police_parking",
+  debugPoly = true,
+  minZ = 29.0,
+  maxZ = 31.5
+}, {
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "police:garageMenu",
+      icon = "fas fa-warehouse",
+      label = "Open Garage",
+      targeticon = "fas fa-car",
+      item = "garage_key",
+      action = function(entity)
+        TriggerEvent("police:garageUI", entity)
+      end,
+      canInteract = function(entity, distance, data)
+        return true
+      end,
+      job = { ["police"] = 0 },
+      gang = { ["lostmc"] = 1 },
+      citizenid = { ["POL123"] = true },
+      drawDistance = 8.0,
+      drawColor = {0, 100, 255, 255},
+      successDrawColor = {0, 255, 0, 255}
+    }
+  },
+  distance = 2.5
+})
+```
+
+***
+
+## コンボゾーンを追加
+
+2 つ以上の PolyZone (CircleZone、BoxZone、または PolyZone) から構成される複合ゾーンを追加し、単一のインタラクティブ領域として扱います。
+
+* **ゾーン**:`table`
+  * ゾーンオブジェクトのリスト（少なくとも2つ必要）（例：`BoxZone:Create(...)`。
+* **オプション**:`table`
+  * **名前**:`string`
+  * **デバッグポリ**:`boolean`
+* **ターゲットオプション**:`table`
+  * **オプション**:`table`
+    * **で**:`number`（オプション）
+    * **タイプ**:`string`
+    * **イベント**:`string`
+    * **アイコン**:`string`
+    * **ラベル**:`string`
+    * **ターゲットアイコン**:`string`（オプション）
+    * **アイテム**:`string`（オプション）
+    * **アクション**:`function`（オプション）
+    * **対話可能**:`function`（オプション）
+    * **仕事**:`string` または `table`（オプション）
+    * **時間**:`string` または `table`（オプション）
+    * **シチズンイド**:`string` または `table`（オプション）
+    * **描画距離**:`number`（オプション）
+    * **描画色**:`table`（オプション）
+    * **成功DrawColor**:`table`（オプション）
+  * **距離**:`float`&#x20;
+
+```lua
+local zone1 = BoxZone:Create(vector3(500.0, 500.0, 100.0), 3.0, 5.0, {
+  name = "zone1",
+  heading = 0,
+  debugPoly = false,
+  minZ = 99.0,
+  maxZ = 101.0
+})
+
+local zone2 = BoxZone:Create(vector3(505.0, 500.0, 100.0), 3.0, 5.0, {
+  name = "zone2",
+  heading = 0,
+  debugPoly = false,
+  minZ = 99.0,
+  maxZ = 101.0
+})
+
+exports['qb-target']:AddComboZone({ zone1, zone2 }, {
+  name = "dual_box_zone",
+  debugPoly = true
+}, {
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "combo:triggerEvent",
+      icon = "fas fa-link",
+      label = "Combo Action",
+      targeticon = "fas fa-crosshairs",
+      item = "multikey",
+      action = function(entity)
+        TriggerEvent("combo:doSomething", entity)
+      end,
+      canInteract = function(entity, distance, data)
+        return true
+      end,
+      job = { ["mechanic"] = 0 },
+      gang = { ["vagos"] = 1 },
+      citizenid = { ["COMBO001"] = true },
+      drawDistance = 12.0,
+      drawColor = {100, 100, 255, 255},
+      successDrawColor = {50, 255, 50, 255}
+    }
+  },
+  distance = 2.0
+})
+
+```
+
+***
+
+## ターゲットボーンの追加
+
+車両の特定のボーンにターゲット可能なインタラクションオプションを追加します
+
+* **骨**:`string` または `table`
+  * 単一のボーン名またはボーン名のリスト (例:`"bonnet"` または `{ "bonnet", "boot" }`）。
+* **パラメータ**:`table`
+  * **オプション**:`table`
+    * **で**:`number`（オプション）
+    * **タイプ**:`string`
+    * **イベント**:`string`
+    * **アイコン**:`string`
+    * **ラベル**:`string`
+    * **ターゲットアイコン**:`string`（オプション）
+    * **アイテム**:`string`（オプション）
+    * **アクション**:`function`（オプション）
+    * **対話できる**:`function`（オプション）
+    * **仕事**:`string` または `table`（オプション）
+    * **時間**:`string` または `table`（オプション）
+    * **シチズンイド**:`string` または `table`（オプション）
+  * **距離**:`float`&#x20;
+
+```lua
+local bones = { "bonnet", "boot" }
+
+exports['qb-target']:AddTargetBone(bones, {
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "vehicle:inspectEngine",
+      icon = "fas fa-tools",
+      label = "Inspect Engine",
+      targeticon = "fas fa-car",
+      item = "wrench",
+      action = function(entity)
+        TriggerEvent("vehicle:diagnostics", entity)
+      end,
+      canInteract = function(entity, distance, data)
+        return IsEntityAVehicle(entity)
+      end,
+      job = { ["mechanic"] = 0 },
+      gang = { ["thelostmc"] = 1 },
+      citizenid = { ["WRENCH123"] = true }
+    }
+  },
+  distance = 2.0
+})
+
+```
+
+### ターゲットボーンの削除
+
+登録されたすべての適用可能なエンティティの1つ以上のボーンからターゲットオプションを削除します。`AddTargetBone`
+
+* **骨**:`string` または `table`&#x20;
+
+```lua
+exports['qb-target']:RemoveTargetBone({ "bonnet", "boot" })
+```
+
+***
+
+## ターゲットエンティティの追加
+
+特定のエンティティ（ped、vehicle、オブジェクトなど）にインタラクション オプションを追加します。
+
+* **実在物**:`number` または `table`
+  * エンティティインスタンスまたはエンティティインスタンスのリスト（`CreatePed`、`CreateVehicle`など）。
+* **パラメータ**:`table`
+  * **オプション**:`table`
+    * **で**:`number`（オプション）
+    * **タイプ**:`string`
+    * **イベント**:`string`
+    * **アイコン**:`string`
+    * **ラベル**:`string`
+    * **ターゲットアイコン**:`string`（オプション）
+    * **アイテム**:`string`（オプション）
+    * **アクション**:`function`（オプション）
+    * **対話可能**:`function`（オプション）
+    * **仕事**:`string` または `table`（オプション）
+    * **時間**:`string` または `table`（オプション）
+    * **シチズンイド**:`string` または `table`（オプション）
+  * **距離**:`float`&#x20;
+
+```lua
+CreateThread(function()
+  local model = `a_m_m_business_01`
+  RequestModel(model)
+  while not HasModelLoaded(model) do Wait(0) end
+  local ped = CreatePed(0, model, 300.0, -500.0, 43.0, 0.0, true, false)
+
+  exports['qb-target']:AddTargetEntity(ped, {
+    options = {
+      {
+        num = 1,
+        type = "client",
+        event = "npc:openDialog",
+        icon = "fas fa-comments",
+        label = "Talk to NPC",
+        targeticon = "fas fa-user",
+        item = "notepad",
+        action = function(entity)
+          TriggerEvent("npc:startConversation", entity)
+        end,
+        canInteract = function(entity, distance, data)
+          return not IsPedAPlayer(entity)
+        end,
+        job = { ["journalist"] = 0 },
+        gang = { ["ballas"] = 0 },
+        citizenid = { ["NPC001"] = true }
+      }
+    },
+    distance = 2.0
+  })
+end)
+
+```
+
+### ターゲットエンティティの削除
+
+ラベルによってエンティティから特定のターゲット オプションを削除します。
+
+* **実在物**:`number` または `table`
+* **ラベル**:`string` または `table`
+
+```lua
+exports['qb-target']:RemoveTargetEntity(ped, "Talk to NPC")
+```
+
+***
+
+## エンティティゾーンの追加
+
+特定のエンティティに動的にアタッチされるターゲットゾーンを追加します。エンティティを移動可能なゾーンのように扱う場合に便利です（例：pedやvehicleにインタラクションをアタッチする）。
+
+* **名前**:`string`
+* **実在物**:`number`
+  * 対象エンティティのID（pedやvehicleなど）`CreatePed` または `CreateVehicle`）。
+* **オプション**:`table`
+  * **名前**:`string`
+  * **デバッグポリ**:`boolean`
+* **ターゲットオプション**:`table`
+  * **オプション**:`table`
+    * **で**:`number`（オプション）
+    * **タイプ**:`string`
+    * **イベント**:`string`
+    * **アイコン**:`string`
+    * **ラベル**:`string`
+    * **ターゲットアイコン**:`string`（オプション）
+    * **アイテム**:`string`（オプション）
+    * **アクション**:`function`（オプション）
+    * **対話可能**:`function`（オプション）
+    * **仕事**:`string` または `table`（オプション）
+    * **時間**:`string` または `table`（オプション）
+    * **シチズンイド**:`string` または `table`（オプション）
+    * **描画距離**:`number`（オプション）
+    * **描画色**:`table`（オプション）
+    * **成功DrawColor**:`table`（オプション）
+  * **距離**:`float`&#x20;
+
+```lua
+CreateThread(function()
+  local model = `s_m_y_cop_01`
+  RequestModel(model)
+  while not HasModelLoaded(model) do Wait(0) end
+  local ped = CreatePed(0, model, 425.1, -979.5, 30.7, 90.0, true, false)
+
+  exports['qb-target']:AddEntityZone("cop_ped", ped, {
+    name = "cop_ped",
+    debugPoly = false
+  }, {
+    options = {
+      {
+        num = 1,
+        type = "client",
+        event = "police:talkToCop",
+        icon = "fas fa-user-shield",
+        label = "Talk to Officer",
+        targeticon = "fas fa-comment-alt",
+        item = "badge",
+        action = function(entity)
+          TriggerEvent("police:startDialog", entity)
+        end,
+        canInteract = function(entity, distance, data)
+          return not IsPedAPlayer(entity)
+        end,
+        job = { ["police"] = 0 },
+        gang = { ["thelostmc"] = 1 },
+        citizenid = { ["COP001"] = true },
+        drawDistance = 6.0,
+        drawColor = {0, 150, 255, 255},
+        successDrawColor = {0, 255, 0, 255}
+      }
+    },
+    distance = 2.0
+  })
+end)
+
+```
+
+### エンティティゾーンの削除
+
+以前に登録したエンティティベースのゾーンを削除します
+
+* **名前**:`string`
+
+```lua
+exports['qb-target']:RemoveEntityZone("cop_ped")
+```
+
+***
+
+## ターゲットモデルの追加
+
+1 つ以上のモデルにインタラクション オプションを追加し、プレイヤーがそれらのモデルのすべてのエンティティ (特定の ped、vehicle、またはプロップ タイプなど) とインタラクトできるようにします。
+
+* **モデル**:`string` または `table`
+  * モデル名またはモデル名のリスト (例:`"prop_atm_01"` または `{ "prop_atm_01", "prop_atm_02" }`）。
+* **パラメータ**:`table`
+  * **オプション**:`table`
+    * **で**:`number`（オプション）
+    * **タイプ**:`string`
+    * **イベント**:`string`
+    * **アイコン**:`string`
+    * **ラベル**:`string`
+    * **ターゲットアイコン**:`string`（オプション）
+    * **アイテム**:`string`（オプション）
+    * **アクション**:`function`（オプション）
+    * **対話可能**:`function`（オプション）
+    * **仕事**:`string` または `table`（オプション）
+    * **時間**:`string` または `table`（オプション）
+    * **シチズンイド**:`string` または `table`（オプション）
+  * **距離**:`float`&#x20;
+
+```lua
+local models = {
+  "prop_atm_01",
+  "prop_atm_02",
+  "prop_fleeca_atm"
+}
+
+exports['qb-target']:AddTargetModel(models, {
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "bank:accessATM",
+      icon = "fas fa-credit-card",
+      label = "Use ATM",
+      targeticon = "fas fa-dollar-sign",
+      item = "bank_card",
+      action = function(entity)
+        TriggerEvent("bank:openATM", entity)
+      end,
+      canInteract = function(entity, distance, data)
+        return true
+      end,
+      job = { ["citizen"] = 0 },
+      gang = { ["none"] = 0 },
+      citizenid = { ["ATMUSER001"] = true }
+    }
+  },
+  distance = 1.5
+})
+
+```
+
+### ターゲットモデルの削除
+
+1 つ以上のモデルからインタラクション オプションを削除します。
+
+* **モデル**:`string` または `table`
+* **ラベル**:`string` または `table`
+
+```lua
+exports['qb-target']:RemoveTargetModel({ "prop_atm_01", "prop_fleeca_atm" }, "Use ATM")
+```
+
+***
+
+## グローバルペッドを追加
+
+ワールド内のすべての歩行者に適用されるインタラクションオプションを追加します。NPCの拘束や識別といった、一般的なインタラクションに役立ちます。
+
+**パラメータ**:`table`
+
+* **オプション**:`table`
+  * **で**:`number`（オプション）
+  * **タイプ**:`string`
+  * **イベント**:`string`
+  * **アイコン**:`string`
+  * **ラベル**:`string`
+  * **ターゲットアイコン**:`string`（オプション）
+  * **アイテム**:`string`（オプション）
+  * **アクション**:`function`（オプション）
+  * **対話可能**:`function`（オプション）
+  * **仕事**:`string` または `table`（オプション）
+  * **時間**:`string` または `table`（オプション）
+  * **シチズンイド**:`string` または `table`（オプション）
+* **距離**:`float`&#x20;
+
+```lua
+exports['qb-target']:AddGlobalPed({
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "police:friskPed",
+      icon = "fas fa-search",
+      label = "Frisk Ped",
+      targeticon = "fas fa-user-check",
+      item = "handcuffs",
+      action = function(entity)
+        if IsPedAPlayer(entity) then return false end
+        TriggerEvent("police:performFrisk", entity)
+      end,
+      canInteract = function(entity, distance, data)
+        return not IsPedAPlayer(entity)
+      end,
+      job = { ["police"] = 0 },
+      gang = { ["ballas"] = 1 },
+      citizenid = { ["PEDGLOBAL01"] = true }
+    }
+  },
+  distance = 2.5
+})
+
+```
+
+### RemoveGlobalPed
+
+すべての ped からグローバル インタラクション オプションを削除します。
+
+* **識別子**:`string`
+
+```lua
+exports['qb-target']:RemoveGlobalPed("Frisk Ped")
+```
+
+***
+
+## グローバル車両の追加
+
+世界中のすべての車両にインタラクション オプションを追加します。
+
+* **パラメータ**:`table`
+
+```lua
+exports['qb-target']:AddGlobalVehicle({
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "vehicle:repair",
+      icon = "fas fa-wrench",
+      label = "Repair Vehicle",
+      action = function(entity)
+        TriggerEvent("mechanic:repairVehicle", entity)
+      end,
+      canInteract = function(entity)
+        return IsEntityAVehicle(entity)
+      end,
+      job = { ["mechanic"] = 0 },
+      gang = { ["thelostmc"] = 1 }
+    }
+  },
+  distance = 3.0
+})
+```
+
+### グローバル車両を削除
+
+すべての車両からグローバル オプションを削除します。
+
+* **ラベル**:`string` または `table`
+
+```lua
+exports['qb-target']:RemoveGlobalVehicle("Repair Vehicle")
+```
+
+***
+
+## グローバルオブジェクトの追加
+
+すべての静的ワールド オブジェクトにグローバルにインタラクション オプションを追加します。
+
+* **パラメータ**:`table`
+
+```lua
+exports['qb-target']:AddGlobalObject({
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "object:inspect",
+      icon = "fas fa-search",
+      label = "Inspect Object",
+      action = function(entity)
+        print("Inspected:", entity)
+      end,
+      canInteract = function(entity)
+        return true
+      end,
+      job = { ["inspector"] = 0 },
+      gang = { ["ballas"] = 1 }
+    }
+  },
+  distance = 2.0
+})
+```
+
+### グローバルオブジェクトの削除
+
+すべてのワールドオブジェクトからグローバル オプションを削除します。
+
+* **ラベル**:`string` または `table`
+
+```lua
+exports['qb-target']:RemoveGlobalObject("Inspect Object")
+```
+
+***
+
+## グローバルプレーヤーを追加
+
+すべての player エンティティにインタラクション オプションをグローバルに追加します
+
+* **パラメータ**:`table`
+
+```lua
+exports['qb-target']:AddGlobalPlayer({
+  options = {
+    {
+      num = 1,
+      type = "client",
+      event = "player:interact",
+      icon = "fas fa-user-friends",
+      label = "Interact with Player",
+      action = function(entity)
+        print("Interacting with player:", entity)
+      end,
+      canInteract = function(entity)
+        return IsPedAPlayer(entity)
+      end,
+      job = { ["medic"] = 0 },
+      gang = { ["vagos"] = 1 }
+    }
+  },
+  distance = 2.5
+})
+```
+
+### グローバルプレーヤーを削除
+
+すべての player エンティティに適用されるグローバル オプションを削除します。
+
+* **ラベル**:`string` または `table`
+
+```lua
+exports['qb-target']:RemoveGlobalPlayer("Interact with Player")
+```
+
+***
+
+## スポーンペッド
+
+オプションのアニメーション、関係、武器、ターゲットを備えた 1 つまたは複数の Ped を生成します。
+
+* データテーブル:`table`
+  * **モデル**:`string`
+  * **座標**:`vector4`
+  * **凍結する**:`boolean`（オプション）
+  * **無敵**:`boolean`（オプション）
+  * **ブロックイベント**:`boolean`（オプション）
+  * **アニメーション辞書**:`string`（オプション）
+  * **六**:`string`（オプション）
+  * **フラグ**:`number`（オプション）
+  * **シナリオ**:`string`（オプション）
+  * **血縁関係**:`table`（オプション）
+    * **グループ名**:`string`
+    * **タウングループ**:`number`
+    * **トッププレーヤー**:`number`
+  * **武器**:`table`（オプション）
+    * **名前**:`string`
+    * **しかし**:`number`
+    * **隠れた**:`boolean`
+  * **ターゲット**:`table`（オプション）
+    * **使用モデル**:`boolean`
+    * **オプション**:`table`
+      * **タイプ**:`string`
+      * **イベント**:`string`
+      * **アイコン**:`string`
+      * **ラベル**:`string`
+    * **距離**:`float`
+  * **アクション**:`function`（オプション）
+
+```lua
+exports['qb-target']:SpawnPed({
+  [1] = {
+    model = 'a_m_m_business_01',
+    coords = vector4(300.0, -500.0, 43.0, 90.0),
+    freeze = true,
+    invincible = true,
+    blockevents = true,
+    animDict = 'amb@world_human_hang_out_street@male_b@base',
+    anim = 'base',
+    flag = 1,
+    scenario = 'WORLD_HUMAN_AA_SMOKE',
+    pedrelations = {
+      groupname = 'AMBIENT_GANG_BALLAS',
+      toowngroup = 0,
+      toplayer = 3
+    },
+    weapon = {
+      name = 'weapon_pistol',
+      ammo = 12,
+      hidden = false
+    },
+    target = {
+      useModel = false,
+      options = {
+        {
+          type = "client",
+          event = "npc:talk",
+          icon = "fas fa-comment",
+          label = "Talk"
+        }
+      },
+      distance = 2.5
+    },
+    action = function(pedData)
+      TriggerEvent('npc:spawned', pedData)
+    end
+  }
+})
+```
+
+### スポーンされたペッドを削除
+
+以前に生成された1つ以上のペッドを削除します`SpawnPed`&#x20;
+
+* **小児科**:`number` または `table`
+
+```lua
+if DoesEntityExist(myPed) then
+  exports['qb-target']:RemoveSpawnedPed({ [1] = myPed })
+end
+```
+
+***
+
+## グローバルタイプオプションの削除
+
+グローバル ターゲット タイプ (歩行者、車両など) からオプションを削除します。
+
+* **タイプ**:`number`（歩行者の場合は1、車両の場合は2、オブジェクトの場合は3、プレイヤーの場合は4）
+* **ラベル**:`string` または `table`
+
+```lua
+exports['qb-target']:RemoveType(1, "Frisk Ped")
+```
+
+***
+
+## ゾーンを削除
+
+以前に追加されたゾーンを削除します`AddCircleZone`、`AddBoxZone`、`AddPolyZone`、 または `AddComboZone`
+
+* **名前**:`string`
+
+```lua
+exports['qb-target']:RemoveZone("shop_zone")
+```
+
+***
+
+## レイキャストカメラ
+
+カメラの視点からレイキャストを実行し、十字線内の最も近いエンティティを検出します。
+
+* **フラグ**:`number`
+* **プレイヤー座標**:`vector3`
+
+```lua
+CreateThread(function()
+  while true do
+    local flag = 30
+    local coords, distance, entity, entityType = exports['qb-target']:RaycastCamera(flag, GetEntityCoords(PlayerPedId()))
+    if entityType > 0 then
+      print("Entity hit:", entity)
+    end
+    flag = (flag == 30 and -1) or 30
+    Wait(100)
+  end
+end)
+```
+
+***
+
+## ターゲティングを許可する
+
+playerのqb-target相互作用を有効または無効にします
+
+* **許可する**:`boolean`
+
+```lua
+if IsEntityDead(PlayerPedId()) then
+  exports['qb-target']:AllowTargeting(false)
+end
+```

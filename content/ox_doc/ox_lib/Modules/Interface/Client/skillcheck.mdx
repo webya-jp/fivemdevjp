@@ -1,0 +1,108 @@
+---
+
+## タイトルスキルチェック
+
+import { Tabs, Tab } from "nextra-theme-docs";
+
+# スキルチェック
+
+## lib.skillCheck
+
+定義された難易度でスキルチェックを行う。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.skillCheck(difficulty, inputs)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.skillCheck(difficulty, inputs);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 難易度が高い：`'easy'`または`'medium'`または`'hard'`または`table`
+  - プリセットの難しさ：
+    - イージー」-。`{ areaSize: 50, speedMultiplier: 1 }`
+    - ミディアム`{ areaSize: 40, speedMultiplier: 1.5 }`
+    - ハード」-。`{ areaSize: 25, speedMultiplier: 1.75 }`
+  - カスタム難易度は、上記のプリセット文字列の代わりにオブジェクトを送信することで設定できます。
+    - areaSize：`number`
+      - サクセスエリアの大きさ（度
+    - speedMultiplier：`number`
+      - インジケーターのスピードの倍率
+- インプット？`string[]`
+  - 各スキルチェックの入力テーブルからランダムなキーが選ばれる。
+  - 入力が定義されていない場合、キーのデフォルトは次のようになる。`e`
+
+## lib.skillCheckActive
+
+スキルチェックが現在有効な場合に真を返す。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.skillCheckActive()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.skillCheckActive()
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## lib.cancelSkillCheck
+
+現在進行中のスキルチェックをキャンセルする。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.cancelSkillCheck()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.cancelSkillCheck()
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 使用例
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}, 'hard'}, {'w', 'a', 's', 'd'})
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    const success = await lib.skillCheck(
+      ['easy', 'easy', { areaSize: 60, speedMultiplier: 2 }, 'hard'],
+      ['w', 'a', 's', 'd']
+    );
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![skillcheck_example](https://i.imgur.com/rgfkn0S.png)

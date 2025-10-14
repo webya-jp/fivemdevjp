@@ -1,0 +1,256 @@
+---
+description: Learn about and how to use common core client events!
+---
+
+# 🎮 クライアント Event リファレンス
+
+### QBCore:Client?:OnPlayerLoaded
+
+* キャラクター選択後のplayerの読み込みを処理します
+
+> \[!INFO]
+> このイベントは、player がサーバーに正常にロードされたことを示すため、コードをトリガーするイベント ハンドラーとして使用できます。
+
+```lua
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    print('Im a client and i just loaded into your server!')
+end)
+```
+
+### QBCore:Client?:OnPlayerUnload
+
+* playerのログインからキャラクター選択まで処理します
+
+> \[!INFO]
+> このイベントは、player が正常にアンロードされたか、サーバーからログアウトしたことを示すため、コードをトリガーするイベント ハンドラーとして使用できます。
+
+```lua
+RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
+    print('Im a client and i just logged out of your server!')
+end)
+```
+
+### QBCore:Client?:Pvpがトグルされました
+
+> \[!INFO]
+> player のロード時に、このイベントチェックは qb-core の設定をチェックして PVP を有効にするか無効にするかを確認した後にトリガーされます。
+
+```lua
+RegisterNetEvent('QBCore:Client:PvpHasToggled', function(pvp_state)
+    print('PVP mode has been set to '..pvp_state..'!')
+end)
+```
+
+### QBCore:コマンド:スポーン車両
+
+| 引数 | タイプ | 必須 | デフォルト |
+| :-----------: | :----: | :------: | :-----: |
+| vehicle モデル | string | yes | none |
+
+> \[!INFO]
+> クライアントの例
+
+```lua
+-- /spawnveh adder
+
+RegisterCommand('spawnveh', function(_, args)
+    local vehicle = QBCore.Shared.Trim(args[1])
+    TriggerEvent('QBCore:Command:SpawnVehicle', vehicle)
+end)
+```
+
+> \[!INFO]
+> サーバーの例
+
+```lua
+-- /spawnveh adder
+
+RegisterCommand('spawnveh', function(source, args)
+    local vehicle = QBCore.Shared.Trim(args[1])
+    TriggerClientEvent('QBCore:Command:SpawnVehicle', source, vehicle)
+end)
+```
+
+### QBCore:コマンド:車両を削除
+
+| 引数 | タイプ | 必須 | デフォルト |
+| :-------: | :--: | :------: | :-----: |
+| なし | なし | いいえ | なし |
+
+> \[!INFO]
+> クライアントの例
+
+```lua
+RegisterCommand('deleteveh', function(_, args)
+    TriggerEvent('QBCore:Command:DeleteVehicle')
+end)
+```
+
+> \[!INFO]
+> サーバーの例
+
+```lua
+RegisterCommand('deleteveh', function(source, args)
+    TriggerClientEvent('QBCore:Command:DeleteVehicle', source)
+end)
+```
+
+### QBCore:Player:SetPlayerData
+
+> \[!INFO]
+> このイベントは、プレイヤーのデータが変更されたことを示すため、コードをトリガーするイベントハンドラーとして使用できます。
+
+```lua
+RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
+    PlayerData = val
+    print(QBCore.Debug(PlayerData))
+end)
+```
+
+### QBCore:通知
+
+| 引数 | タイプ | 必須 | デフォルト |
+| :-------: | :-------------: | :------: | :------------: |
+| メッセージ | string | table | yes | 'プレースホルダ' |
+| タイプ | string | yes | 'プライマリ' |
+| 長さ | number | yes | 5000 |
+
+> \[!INFO]
+> クライアントの例
+
+```lua
+-- /testnotify This is my message, primary, 5000
+
+RegisterCommand('testnotify', function(_, args)
+    local message = {}
+    for i=1, #args do
+        message[#message + 1] = args[i]
+        if string.match(args[i], ',') then
+            local text = table.concat(message, ' '):gsub(",", "")
+            local type = args[i + 1]:gsub(",", "")
+            local length = args[i + 2]
+            TriggerEvent('QBCore:Notify', text, type, length)
+            break
+        end
+    end
+end)
+
+-- Using QBCore's shared functions!
+
+RegisterCommand('testnotify', function(_, args)
+    local message = QBCore.Shared.SplitStr(table.concat(args, ' '), ",")
+    local text = message[1]
+    local type = QBCore.Shared.Trim(message[2])
+    local length = tonumber(message[3])
+    TriggerEvent('QBCore:Notify', text, type, length)
+end)
+```
+
+> \[!INFO]
+> サーバーの例
+
+```lua
+-- /testnotify This is my message, primary, 5000
+
+RegisterCommand('testnotify', function(source, args)
+    local message = {}
+    for i=1, #args do
+        message[#message + 1] = args[i]
+        if string.match(args[i], ',') then
+            local text = table.concat(message, ' '):gsub(",", "")
+            local type = args[i + 1]:gsub(",", "")
+            local length = args[i + 2]
+            TriggerClientEvent('QBCore:Notify', source, text, type, length)
+            break
+        end
+    end
+end)
+
+-- Using QBCore's shared functions!
+
+RegisterCommand('testnotify', function(source, args)
+    local message = QBCore.Shared.SplitStr(table.concat(args, ' '), ",")
+    local text = message[1]
+    local type = QBCore.Shared.Trim(message[2])
+    local length = tonumber(message[3])
+    TriggerClientEvent('QBCore:Notify', source, text, type, length)
+end)
+```
+
+### QBCore:Client?:使用アイテム
+
+| 引数 | タイプ | 必須 | デフォルト |
+| :-------: | :----: | :------: | :-----: |
+| アイテム名 | string | yes | none |
+
+> \[!INFO]
+> クライアントの例（インベントリにアイテムが含まれている必要があります）
+
+```lua
+-- /useitem sandwich 1
+
+RegisterCommand('useitem', function(_, args)
+    local item = {
+        name = args[1],
+        amount = tonumber(args[2])
+    }
+    TriggerEvent('QBCore:Client:UseItem', item)
+end)
+```
+
+> \[!INFO]
+> サーバー例（インベントリにアイテムが存在している必要があります）
+
+```lua
+-- /useitem sandwich 1
+
+RegisterCommand('useitem', function(source, args)
+    local item = {
+        name = args[1],
+        amount = tonumber(args[2])
+    }
+    TriggerClientEvent('QBCore:Client:UseItem', source, item)
+end)
+```
+
+### QBCore:コマンド:ShowMe3D
+
+| 引数 | タイプ | 必須 | デフォルト |
+| :-------: | :----: | :------: | :-----: |
+| player id | number | yes | none |
+| message | string | yes | none |
+
+> \[!INFO]
+> クライアントの例
+
+```lua
+-- /3dtext This is my message
+
+RegisterCommand('3dtext', function(_, args)
+    local message = table.concat(args, ' ')
+    TriggerEvent('QBCore:Command:ShowMe3D', PlayerId(), message)
+end)
+```
+
+> \[!INFO]
+> サーバーの例
+
+```lua
+-- /3dtext This is my message
+
+RegisterCommand('3dtext', function(source, args)
+    local message = table.concat(args, ' ')
+    TriggerClientEvent('QBCore:Command:ShowMe3D', source, message)
+end)
+```
+
+### QBCore:Client?:UpdateObject
+
+> \[!INFO]
+> このイベントは、[共有エクスポート.md](shared-exports.md "mention")リソース内のコアオブジェクトを更新するため
+
+```lua
+RegisterNetEvent('QBCore:Client:UpdateObject', function()
+    QBCore = exports['qb-core']:GetCoreObject()
+end)
+```

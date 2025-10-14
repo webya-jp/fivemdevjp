@@ -1,0 +1,59 @@
+import ResourceLinks from '@components/resource-links';
+import { Steps, Tabs, Tab } from 'nextra-theme-docs';
+import { Callout } from 'nextra/components';
+
+# オックスターゲット
+
+<ResourceLinks repo="https://github.com/communityox/ox_target" />
+
+ox\_inventory、ox\_core、qbx\_core、es\_extended の追加機能を備えた、パフォーマンスが高く柔軟なスタンドアロン ターゲティング リソースまたは「第三の目」です。
+
+## インストール
+
+<Callout type="info">
+  私たちは **強く**参照することをお勧めします[ガイド](../guides)Git、Node.js、pnpm をセットアップします。
+</Callout>
+
+<Steps>
+  ### すべてのリソース依存関係をインストールする
+
+  * [ox\_lib](../ox_lib/)
+
+  ### ダウンロード[リリース](https://github.com/communityox/ox_target/releases)またはソースコードを複製します。
+
+  ```bash
+  git clone https://github.com/communityox/ox_target.git
+  ```
+
+  ### 設定
+
+  リソース構成は以下を使用して処理されます[会話する](https://docs.fivem.net/docs/scripting-reference/convars/)。
+
+  ```bash
+  # Toggle targeting when pressing the hotkey, instead of holding it down.
+  setr ox_target:toggleHotkey 0
+
+  # Change the key to enable targeting (https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard)
+  setr ox_target:defaultHotkey LMENU
+
+  # Draw a sprite (circle) at the centroid of a zone.
+  setr ox_target:drawSprite 1
+
+  # Enable built-in targeting options, e.g. toggling vehicle doors.
+  setr ox_target:defaults 1
+
+  # Enable debugging / testing options, entity outlines, and a raycast indicator.
+  setr ox_target:debug 0
+
+  # Enable / Disable leftclick to select options
+  setr ox_target:leftClick 1
+  ```
+</Steps>
+
+## サポートされているフレームワーク
+
+これらは ox\_target を実行するために必須ではありませんが、追加機能を追加します。
+
+* [ox\_core](https://github.com/communityox/ox_core)
+* [esx](https://github.com/esx-framework/esx-legacy)
+* [qbx\_core](https://github.com/Qbox-project/qbx_core)

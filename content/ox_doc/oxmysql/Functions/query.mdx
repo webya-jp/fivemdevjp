@@ -1,0 +1,89 @@
+---
+
+## タイトル：クエリー
+
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# クエリー
+
+それ以外の場合は、insertId や affectedRows などのデータを返します。
+
+## 約束
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    local response = MySQL.query.await('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', {
+        identifier
+    })
+
+    if response then
+        for i = 1, #response do
+            local row = response[i]
+            print(row.firstname, row.lastname)
+        end
+    end
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    const response = await MySQL.query('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', [
+      identifier
+    ])
+
+    if (response) {
+      response.forEach((row) => {
+        console.log(row.identifier, row.firstname, row.lastname)
+      })
+    }
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Sync.fetchAll`
+- `exports.ghmattimysql.execute`
+- `exports.oxmysql.query_async`
+
+## コールバック
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    MySQL.query('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', {
+        identifier
+    }, function(response)
+        if response then
+            for i = 1, #response do
+                local row = response[i]
+                print(row.firstname, row.lastname)
+            end
+        end
+    end)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    MySQL.query('SELECT `firstname`, `lastname` FROM `users` WHERE `identifier` = ?', [
+      identifier
+    ], (response) => {
+      if (response) {
+        response.forEach((row) => {
+          console.log(row.firstname, row.lastname)
+        })
+      }
+    })
+    ```
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Async.fetchAll`
+- `exports.ghmattimysql.execute`
+- `exports.oxmysql.query`

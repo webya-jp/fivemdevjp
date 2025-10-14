@@ -1,0 +1,75 @@
+***
+
+タイトルカスタムパーミッション
+サイドバーの位置3
+---------
+
+# カスタムパーミッション
+
+Grafana の組織に誰かを招待した時点で、その人はすべてのダッシュボードにアクセスできるようになります。しかし、チームを作成することで、特定のダッシュボードへのアクセスを制限することができます。
+このようにして、ログ検索専用のチームを作ったり、特定の人が見ることができるログを制限したりすることができる。
+
+<Card shadow="tl">
+  <CardImage cardImageUrl="https://media.qbox.re/image/sBZx1BJ9YgBrEUm-CJA57BQUtQZ4SzPVu-tk2BPyJg0wt-.png" style={{ padding: '1rem' }} />
+
+  <CardFooter className="text--center">
+    <div className="avatar">
+      <div className="avatar__intro">
+        <div className="avatar__name">を持つ招待されたユーザーとは何か？`Viewer`を見るだろう。</div>
+      </div>
+    </div>
+  </CardFooter>
+</Card>
+
+ㅤ
+
+まず、すべてのダッシュボードからすべてのロールを削除します。そのためには、各ダッシュボードを手動で開いて`Edit`ボタンをクリックする。そして`Settings`ボタンをクリックします。
+ここで`Permissions`をクリックし、すべてのロールを削除します。これにより、デフォルトでは誰もダッシュボードにアクセスできなくなります。
+
+<ReactPlayer url="https://media.qbox.re/video/Wp3jETbF4jDPYifuwYz9m95xT8x8hiExKbn.mp4" controls={true} width="100%" height="100%" loop={true} playing={true} />
+
+<Card shadow="tl">
+  <CardImage cardImageUrl="https://media.qbox.re/image/9wGnu86mJe3iUKH8sP0HXVZv6fzMLBp1d9Wf.png" style={{ padding: '1rem' }} />
+
+  <CardFooter className="text--center">
+    <div className="avatar">
+      <div className="avatar__intro">
+        <div className="avatar__name">招待されたユーザーには何も表示されない</div>
+      </div>
+    </div>
+  </CardFooter>
+</Card>
+
+ㅤ
+
+次に、ダッシュボードにアクセスできるチームを作成します。そのためには`Administration > Users and access`タブをクリックし`Teams`.をクリックして新しいチームを作成できます。`New team`ボタンをクリックする。
+あとは、わかりやすい名前をつけて、このチームにユーザーを追加してください。
+
+<ReactPlayer url="https://media.qbox.re/video/4AWOu_xVvtdI3UVCUfuqjWW9RC7AL53VJ8.mp4" controls={true} width="100%" height="100%" loop={true} playing={true} />
+
+<Columns>
+  <Column>
+    に戻る。`permissions`タブをクリックし、作成したチームを追加します。この例では、このチームに`Viewer`の役割を果たす。
+  </Column>
+
+  <Column style={{ maxWidth: '300px', minWidth: '250px' }}>
+    <CardImage cardImageUrl="https://media.qbox.re/image/98yyye6YeVKe0S4C8Gwm6L1c0yCnqrX5sv5nlsEufeA3.png" />
+  </Column>
+</Columns>
+
+<Card shadow="tl">
+  <CardImage cardImageUrl="https://media.qbox.re/image/sBZx1BJ9YgBrEUm-CJA57BQUtQZ4SzPVu-tk2BPyJg0wt-.png" style={{ padding: '1rem' }} />
+
+  <CardFooter className="text--center">
+    <div className="avatar">
+      <div className="avatar__intro">
+        <div className="avatar__name">招待されたユーザーは、先ほど作成したチームのメンバーなので、再びダッシュボードを見ることができます。</div>
+      </div>
+    </div>
+  </CardFooter>
+</Card>
+
+ㅤ
+
+このようにして、異なる役割と権限を持つ複数のチームを作成することができます。例えば、すべてのダッシュボードにアクセスできる開発者用のチームと、特定のダッシュボードにのみアクセスできるモデレーター用のチームを作成できます。
+これにより、Grafana 組織で誰が何を見ることができるかを完全に制御することができます。Discordのロールやチャンネルへの追加・削除と同じです。

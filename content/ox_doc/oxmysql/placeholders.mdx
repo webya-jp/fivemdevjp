@@ -1,0 +1,20 @@
+# プレースホルダー
+
+プレースホルダを使用することで、クエリパラメータを安全に実行することができます。[一般的なSQLインジェクションの手法](https://bobby-tables.com/).
+
+パラメータはarrayまたはオブジェクト（名前付きパラメータと呼ばれる）を渡すことができる。
+
+```lua
+local identifier = 'license:abc123'
+local group = 'admin'
+
+MySQL.scalar('SELECT `username` FROM `users` WHERE `identifier` = ? AND `group` = ?', { identifier, group })
+
+-- Named placeholders (deprecated)
+MySQL.scalar('SELECT `username` FROM `users` WHERE `identifier` = @identifier AND `group` = @group', {
+    group = group
+    identifier = identifier
+})
+```
+
+これらは、MySQLサーバーによって処理されるプリペアド・ステートメントとは異なります。`MySQL.prepare`より最適化された安全なクエリのために。

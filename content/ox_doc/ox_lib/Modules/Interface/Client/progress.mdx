@@ -1,0 +1,319 @@
+---
+
+## タイトルプログレス
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# 進捗状況
+
+## lib.progressBar
+
+実行中のプログレスバーを表示します。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.progressBar(data)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.progressBar(data)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 期間である：`number`
+- のラベルが貼られている：`string`
+- useWhileDead?`boolean`
+- allowRagdoll?`boolean`
+- allowSwimming?`boolean`
+- allowCuffed?`boolean`
+- allowFalling?`boolean`
+- canCancel?`boolean`
+- アニメ？`table`(`object`)
+  - ディク？`string`
+    - シナリオまたはディクテーションのいずれかを指定しなければならない
+  - クリップ：`string`
+  - フラッグ？`number`
+    - デフォルト：`49`
+  - ブレンドイン？`float`
+    - デフォルト：`3.0`
+  - ブレンドアウト？`float`
+    - デフォルト：`1.0`
+  - 期間？`number`
+    - デフォルト：`-1`
+  - playbackRate?`number`
+    - デフォルト：`0`
+  - ロック X？`boolean`
+  - ロック Y？`boolean`
+  - lockZ？`boolean`
+  - シナリオ？`string`
+    - シナリオまたはディクテーションのいずれかを指定しなければならない
+  - playEnter?`boolean`
+    - デフォルト：`true`
+- プロップ？`table`(`object`または`array`)
+  - \[複数のプロップを定義したい場合は、個別のテーブル（オブジェクトの配列）として渡すことができます。］
+  - モデルである：`hash`
+  - 骨？`number`
+    - デフォルト：`60309`
+  - ポーズ：`table`
+    - x:`number`
+    - y:`number`
+    - z:`number`
+  - 腐っている：`table`(`object`)
+    - x:`number`
+    - y:`number`
+    - z:`number`
+  - rotOrder?`number`
+    - [ヨー、ピッチ、ロールの順番。](https://docs.fivem.net/natives/?_0xAFBD61CC738D9EB9)
+    - デフォルト：`0`
+- 無効にする？`table`(`object`)
+  - 移動する？`boolean`
+  - 車？`boolean`
+  - コンバット？`boolean`
+  - マウス？`boolean`
+  - スプリント？`boolean`
+
+### 使用例
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    if lib.progressBar({
+        duration = 2000,
+        label = 'Drinking water',
+        useWhileDead = false,
+        canCancel = true,
+        disable = {
+            car = true,
+        },
+        anim = {
+            dict = 'mp_player_intdrink',
+            clip = 'loop_bottle'
+        },
+        prop = {
+            model = `prop_ld_flow_bottle`,
+            pos = vec3(0.03, 0.03, 0.02),
+            rot = vec3(0.0, 0.0, -1.5)
+        },
+    }) then print('Do stuff when complete') else print('Do stuff when cancelled') end
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    <Callout>
+      この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
+    </Callout>
+
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    if (await lib.progressBar({
+      duration: 2000,
+      label: 'Drinking water',
+      useWhileDead: false,
+      canCancel: true,
+      disable: {
+        car: true,
+      },
+      anim: {
+        dict: 'mp_player_intdrink',
+        clip: 'loop_bottle'
+      },
+      prop: {
+        model: `prop_ld_flow_bottle`,
+        pos: {x: 0.03, y: 0.03, z: 0.02},
+        rot: {x: 0.0, y: 0.0, z: -1.5}
+      },
+    })) console.log('Do stuff when complete');
+    else console.log('Do stuff when cancelled')
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![progress_bar](https://i.imgur.com/7ZJgLjl.png)
+
+## lib.progressCircle
+
+に似ている。`lib.progressBar`ただし、円が表示され、位置を定義することができる。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.progressCircle(data)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.progressCircle(data)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- 期間である：`number`
+- ラベル？`string`
+- ポジションは？`'middle'`または`'bottom'`
+  - デフォルト：`'middle'`
+- useWhileDead?`boolean`
+- allowRagdoll?`boolean`
+- allowSwimming?`boolean`
+- allowCuffed?`boolean`
+- allowFalling?`boolean`
+- canCancel?`boolean`
+- アニメ？`table`(`object`)
+  - ディク？`string`
+    - シナリオまたはディクテーションのいずれかを指定しなければならない
+  - クリップ：`string`
+  - フラッグ？`number`
+    - デフォルト：`49`
+  - ブレンドイン？`float`
+    - デフォルト：`3.0`
+  - ブレンドアウト？`float`
+    - デフォルト：`1.0`
+  - 期間？`number`
+    - デフォルト：`-1`
+  - playbackRate?`number`
+    - デフォルト：`0`
+  - ロック X？`boolean`
+  - ロック Y？`boolean`
+  - lockZ？`boolean`
+  - シナリオ？`string`
+    - シナリオまたはディクテーションのいずれかを指定しなければならない
+  - playEnter?`boolean`
+    - デフォルト：`true`
+- プロップ？`table`(`object`または`array`)
+  - \[複数のプロップを定義したい場合は、個別のテーブル（オブジェクトの配列）として渡すことができます。］
+  - モデルである：`hash`
+  - 骨？`number`
+    - デフォルト：`60309`
+  - ポーズ：`table`
+    - x:`number`
+    - y:`number`
+    - z:`number`
+  - 腐っている：`table`(`object`)
+    - x:`number`
+    - y:`number`
+    - z:`number`
+  - rotOrder?`number`
+    - [ヨー、ピッチ、ロールの順番。](https://docs.fivem.net/natives/?_0xAFBD61CC738D9EB9)
+    - デフォルト：`0`
+- 無効にする？`table`(`object`)
+  - 移動する？`boolean`
+  - 車？`boolean`
+  - 戦闘？`boolean`
+  - マウス？`boolean`
+  - スプリント？`boolean`
+
+### 使用例
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    if lib.progressCircle({
+        duration = 2000,
+        position = 'bottom',
+        useWhileDead = false,
+        canCancel = true,
+        disable = {
+            car = true,
+        },
+        anim = {
+            dict = 'mp_player_intdrink',
+            clip = 'loop_bottle'
+        },
+        prop = {
+            model = `prop_ld_flow_bottle`,
+            pos = vec3(0.03, 0.03, 0.02),
+            rot = vec3(0.0, 0.0, -1.5)
+        },
+    }) then print('Do stuff when complete') else print('Do stuff when cancelled') end
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    <Callout>
+      この機能は**非同期**を行う必要がある。`.then`プロミスにコールバックをかけるか、あるいは関数を`async`.
+    </Callout>
+
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    if (await lib.progressCircle({
+      duration: 2000,
+      position: 'bottom',
+      useWhileDead: false,
+      canCancel: true,
+      disable: {
+        car: true,
+      },
+      anim: {
+        dict: 'mp_player_intdrink',
+        clip: 'loop_bottle'
+      },
+      prop: {
+        model: `prop_ld_flow_bottle`,
+        pos: {x: 0.03, y: 0.03, z: 0.02},
+        rot: {x: 0.0, y: 0.0, z: -1.5}
+      },
+    })) console.log('Do stuff when complete')
+    else console.log('Do stuff when cancelled')
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![progress_circle](https://i.imgur.com/2tLbgrW.png)
+
+## lib.progressActive
+
+プログレス・バーが現在アクティブであれば真を返す。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.progressActive()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.progressActive()
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## lib.cancelProgress
+
+プログレス・バーがアクティブで
+プログレスバーがアクティブで、それをキャンセルできる場合は、それをキャンセルする。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.cancelProgress()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.cancelProgress()
+    ```
+
+  </Tags.Tab>
+</Tabs>

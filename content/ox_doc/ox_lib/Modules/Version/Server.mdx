@@ -1,0 +1,31 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+
+# サーバー
+
+## lib.versionCheck
+
+リソースのバージョンを GitHub で公開されている最新のリリースと比較します。\
+[GitHub のリリース API を利用](https://docs.github.com/en/rest/reference/releases)
+
+```lua
+lib.versionCheck(repository)
+```
+
+- リポジトリ`string`
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.versionCheck('communityox/ox_lib')
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/server'
+
+    lib.versionCheck('communityox/ox_lib')
+    ```
+
+  </Tags.Tab>
+</Tabs>

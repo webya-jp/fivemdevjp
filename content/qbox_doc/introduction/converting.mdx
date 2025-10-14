@@ -1,0 +1,85 @@
+---
+title: "Converting from QBCore to Qbox"
+sidebar_label: "Converting"
+sidebar_position: 3
+keywords: [qbox, fivem, conversion, qbcore, migration, upgrade, framework]
+description: Learn how to convert your QBCore server and resources to Qbox. This guide covers the migration process, compatibility considerations, and necessary changes to ensure a smooth transition.
+slug: /converting
+---
+
+# QBCoreからの変換
+
+:::info
+できるだけ多くの問題を回避するために、Qbox はレシピ経由でインストールすることを強くお勧めします。
+詳細な手順については、以下をご覧ください。[インストール](installation)。
+:::
+
+## インストール手順
+
+### 1. サーバー設定ファイルを更新する
+
+レシピ経由でQboxをインストールする場合、`server.cfg`、`ox.cfg`、`permissions.cfg`、 そして `voice.cfg`ファイルは自動的にダウンロードされます。レシピを使用しない場合は、手動で追加/更新する必要があります。
+[Qbox txAdminRecipe リポジトリ](https://github.com/Qbox-project/txAdminRecipe)これらのファイルの最新バージョンについては、
+
+### 2. 職務成績を更新する`qbx_core/shared/jobs.lua`
+
+Qboxではジョブグレードは引用符なしの数値ですが、QBCoreでは文字列です。これらを変更する必要があります。
+
+### 3. ox\_inventoryを設定し、データベースを変換する
+
+まずはバックアップを！（[ox\_inventoryのドキュメントを参照](https://coxdocs.dev/ox_inventory/Frameworks/qb)）
+
+### 4. qbx\_coreのジョブとギャング共有ファイルを更新する
+
+Qboxではジョブとギャングのグレードは引用符なしの数値ですが、QBCoreでは文字列です。これらは変更する必要があります。ジョブとギャングの共有ファイルは以下にあります。`qbx_core/shared/jobs.lua` そして `qbx_core/shared/gangs.lua` それぞれ。
+
+### 5. qbx\_coreの組み込み機能を設定する
+
+Qbox には、マルチキャラクター、キュー、マルチジョブ、そして Discord リッチプレゼンス機能が qbx\_core に組み込まれています。デフォルトでは、これらはすべて有効になっています。これらを無効にしたりカスタマイズしたい場合は、以下の手順を実行してください。
+
+* マルチキャラクタシステムを無効にするには、`qbx_core/config/client.lua`そして設定`useExternalCharacters` に `false`。
+* キューシステムを無効にするには、`server.cfg`ファイルとセット`qbx:enablequeue` に `false`キューシステムをさらにカスタマイズするには、`qbx_core/config/queue.lua`。
+* Discordのリッチプレゼンを無効にしたりカスタマイズするには、`qbx_core/config/client.lua`一番下までスクロールして編集します`discord`table。
+* マルチジョブ/マルチギャングシステムをカスタマイズするには、`server.cfg`ファイルとセット`qbx:max_jobs_per_player` そして `qbx:max_gangs_per_player`希望する値に設定します。この機能は**できない**無効になります。
+  * まず、データベースのplayer.citizenid列に適切な`utf8mb4_unicode_ci`照合順序を確認してください。そうでない場合は変更してください。その後、`qbx_core.sql`新しい player\_groups table を作成するためのファイル。
+  * サーバーを起動して、次のように入力します。`convertjobs`サーバーが実行中になったら、txAdmin カラムに player\_groups table を追加します。
+  * **Qbox との互換性が保証されていない外部のマルチジョブ/マルチギャング リソースを使用しないでください。**&#x4E92;換性のないマルチジョブまたはコアのデータベース テーブルを変更するリソースを使用すると、データが破損する可能性があります。
+
+### 6. qbx\_coreに付属のSQLファイルを実行する
+
+これにより、プレイヤーの table が次のように変更されます。
+
+* 追加する`players`新しい列を追加するにはtable`last_logged_out`
+* players.citizenid列の照合順序を次のように変更します。`utf8mb4_unicode_ci`
+
+*注意: 外部キー制約に違反したというエラーが発生した場合は、他のテーブルの citizenid 列の照合を手動で変更する必要がある場合があります。*
+
+## QBCore から Qbox へのリソースの移行
+
+:::info
+Qbox は既存の QB スクリプトと 99% の互換性があるため、これはオプションです。
+:::
+
+Qbox 内では、コアオブジェクトは存在しなくなりました。代わりに、エクスポート関数とインポートされたモジュールの組み合わせを介してデータにアクセスできます。
+
+1. qbx\_core から必要なモジュールをインポートして、QBCore の関数の代替関数を提供します。
+2. QBCore への呼び出しを、インポートされたモジュールとエクスポートされた関数への呼び出しに一つずつ置き換えます。両方を同時に使用できるため、変換は部分的に行うことも、段階的に行うこともできます。
+
+### 一般的な代替品
+
+```lua
+QBCore.Functions. -> exports.qbx_core:
+QBCore.Functions.GetPlayerData() -> QBX.PlayerData -- requires importing the playerdata module
+QBCore.Functions.GetPlate(vehicle) -> qbx.getVehiclePlate(vehicle) -- requires importing the lib module
+QBCore.Shared.Jobs -> exports.qbx_core:GetJobs()
+QBCore.Shared.Gangs -> exports.qbx_core:GetGangs()
+QBCore.Shared.Vehicles -> exports.qbx_core:GetVehiclesByName()
+QBCore.Shared.Weapons -> exports.qbx_core:GetWeapons()
+QBCore.Shared.Locations -> exports.qbx_core:GetLocations()
+QBCore.Shared.Items -> exports.ox_inventory:Items()
+
+exports['qb-core']:KeyPressed() -> lib.hideTextUI()
+exports['qb-core']:HideText() -> lib.hideTextUI()
+exports['qb-core']:DrawText(text, position) -> lib.showTextUI(text, { position = position })
+exports['qb-core']:ChangeText(text, position) -> lib.hideTextUI() lib.showTextUI(text, { position = position })
+```

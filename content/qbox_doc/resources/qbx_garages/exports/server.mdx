@@ -1,0 +1,41 @@
+***
+
+タイトルサーバー輸出
+sidebar\_label: サーバ
+キーワード\[qbox, fivem, qbx\_garages, エクスポート].
+説明qbx\_garages リソースで利用可能なサーバサイドエクスポートのドキュメント。これらのエクスポートは Qbox フレームワーク内のガレージ管理、車両保管場所、デポの価格設定に対するプログラム制御を提供します。
+--------------------------------------------------------------------------------------------------------------
+
+# サーバー輸出
+
+## ガレージ登録
+
+実行時にガレージを登録する。これはqbx\_garagesコンフィグでガレージを定義する代わりの方法である。
+
+```lua
+exports.qbx_garages:RegisterGarage(name, config)
+```
+
+## 車庫の設定
+
+車両のガレージを設定します。データベースにのみ影響します。
+
+```lua
+exports.qbx_garages:SetVehicleGarage(vehicleId, garageName)
+```
+
+## 車両デポ価格設定
+
+デポから車を出すための価格を設定します。
+
+```lua
+exports.qbx_garages:SetVehicleDepotPrice(vehicleId, depotPrice)
+```
+
+## ガレージ
+
+登録されているガレージを返します。
+
+```lua
+exports.qbx_garages:GetGarages()
+```

@@ -1,0 +1,22 @@
+# 共有
+
+## lib.getNearbyPlayers
+
+座標セットの範囲内にいるすべてのプレーヤーのid、pedハンドル、座標を取得する。
+
+```lua
+lib.getNearbyPlayers(coords, maxDistance, includePlayer)
+```
+
+* コーデ：`vector3`
+  * チェックする座標。
+* maxDistance?`number`
+  * チェックする最大距離。
+  * デフォルト：`2.0`
+* includePlayer？`boolean`
+  * 現在のプレーヤーを含めるかどうか。サーバー上では無視される。
+  * デフォルト：`false`
+
+戻る：
+
+* の選手だ：`{ id: number, ped: number, coords: vector3 }[]`

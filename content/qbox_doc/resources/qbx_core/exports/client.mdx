@@ -1,0 +1,86 @@
+***
+
+タイトルクライアント・エクスポート
+sidebar\_label: クライアント
+キーワード\[qbox, fivem, qbx\_core, エクスポート].
+説明クライアントサイドエクスポートのドキュメント。通知、グループ管理、その他のクライアントサイドユーティリティのための利用可能な関数について学ぶ。
+-------------------------------------------------------------------------
+
+# クライアント・エクスポート
+
+## 通知
+
+:::info
+参照[`lib.notify`]をご覧ください。
+:::
+
+一定時間が経過すると消えるテキストボックスのポップアップ。
+
+```lua
+exports.qbx_core:Notify(text, notifyType, duration, subTitle, notifyPosition, notifyStyle, notifyIcon, notifyIconColor)
+```
+
+* テキスト`table | string`
+  * 通知文。
+  * 文字列、またはテーブル：
+    * テキスト？`string`
+    * キャプションは？`string`
+* notifyType？`'inform' | 'error' | 'success' | 'warning'`
+  * デフォルト：`'inform'`
+* 期間？`integer`
+  * 通知が画面に表示され続ける時間をミリ秒単位で指定します。
+  * デフォルト：`5000`
+* subTitle?`string`
+  * タイトルの下に追加テキスト。
+* notifyPosition?`'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | 'center-right' | 'center-left'`
+  * デフォルト：`top-right`(コンフィグで変更可能）
+* notifyStyle？`table`
+  * カスタムスタイリング。参照[`lib.notify`].
+* notifyIcon？`string`
+  * Font Awesome 6 アイコン名。
+* notifyIconColor？`string`
+  * カスタムカラー`notifyIcon`.
+
+[`lib.notify`]: https://coxdocs.dev/ox_lib/Modules/Interface/Client/notify#libnotify
+
+## ハス・プライマリー・グループ
+
+プレーヤーの現在のJob/Gangまたはcitizensidが、単一のグループ、グループの配列、またはグループ/グレード、またはcitizensidのリストと一致するかどうかをチェックします。プレーヤーが勤務中か非勤務中かはチェックしません。
+
+```lua
+exports.qbx_core:HasPrimaryGroup(filter)
+```
+
+* フィルターにかける：`string`または`string[]`または`table<string, number>`
+  * チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
+
+リターンズ
+
+* 成功した：`boolean`
+
+## ハスグループ
+
+プレーヤーのグループ(Jobs/Gangs)またはcitizensidのリストが、単一のグループ、グループの配列、グループ/グレード、またはcitizensidのリストと一致するかどうかをチェックします。プレーヤーが勤務中か非勤務中かはチェックしません。
+
+```lua
+exports.qbx_core:HasGroup(filter)
+```
+
+* フィルターにかける：`string`または`string[]`または`table<string, number>`
+  * チェックをパスするために必要なグループ/シチズンID、グループ/シチズンIDの配列、またはグループとグレードのペア。
+
+リターンズ
+
+* 成功した：`boolean`
+
+## GetGroups
+
+現在のプレーヤーが現在持っているすべてのグループを結合した表を返す。
+
+```lua
+exports.qbx_core:GetGroups()
+```
+
+リターンズ
+
+* のグループだ：`table<string, number>`

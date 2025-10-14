@@ -1,0 +1,157 @@
+---
+
+## タイトルお知らせ
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# お知らせ
+
+## lib.notify
+
+多くのスタイリングオプションがあるカスタム通知。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    <Tabs items={["Client", "Server"]}>
+      <Tags.Tab>
+        ```lua
+        lib.notify(data)
+        ```
+      </Tags.Tab>
+
+      <Tags.Tab>
+        ```lua
+        TriggerClientEvent('ox_lib:notify', source, data)
+        ```
+      </Tags.Tab>
+    </Tabs>
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.notify(data);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- id？`string`
+  - 設定すると、現在の通知は一意になり、スパム送信時に画面に一度だけ表示されます。
+- タイトル？`string`
+  - 記述がない場合は記入すること
+- という記述がある：`string`
+  - 権原がない場合は提供しなければならない
+  - マークダウン対応
+- 期間？`number`
+  - デフォルト：`3000`
+- showDuration?`boolean`
+  - デフォルト：`true`
+- ポジションは？`'top'`または`'top-right'`または`'top-left'`または`'bottom'`または`'bottom-right'`または`'bottom-left'`または`'center-right'`または`'center-left'`
+  - デフォルト：`'top-right'`
+- タイプ？`'inform'`または`'error'`または`'success'`または`'warning'`
+  - デフォルト：`'inform'`
+- スタイル？`table`(`object`)
+  - React CSS スタイリング形式
+- アイコンは？`string`
+  - Font Awesome 6 アイコン名
+- iconColor?`string`
+  - CSS の法定カラー値
+- iconAnimation?`'spin'` `'spinPulse'` `'spinReverse'` `'pulse'` `'beat'` `'fade'` `'beatFade'` `'bounce'` `'shake'`
+- alignIcon？`'top'`または`'center'`
+  - デフォルト：`'center'`
+- サウンド？`table`(`object`)
+  - 銀行？`string`
+    - 提供されたサウンドセットを含むオーディオバンクの名前
+  - セット：`string`
+    - サウンド名が属するサウンドセット。
+  - と名付けた：`string`
+
+<Callout>
+  セッティング`iconColor`アイコンの色と円形の背景のコントラストを取り除く。
+</Callout>
+
+## 使用例
+
+### スタンダード
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.notify({
+        title = 'Notification title',
+        description = 'Notification description',
+        type = 'success'
+    })
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.notify({
+      title: 'Notification title',
+      description: 'Notification description',
+      type: 'success',
+    });
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![notification](https://i.imgur.com/UOISjlm.png)
+
+### カスタム
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.notify({
+        id = 'some_identifier',
+        title = 'Notification title',
+        description = 'Notification description',
+        showDuration = false,
+        position = 'top',
+        style = {
+            backgroundColor = '#141517',
+            color = '#C1C2C5',
+            ['.description'] = {
+              color = '#909296'
+            }
+        },
+        icon = 'ban',
+        iconColor = '#C53030'
+    })
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.notify({
+      id: 'some_identifier',
+      title: 'Notification title',
+      description: 'Notification description',
+      showDuration: false,
+      position: 'top',
+      style: {
+        backgroundColor: '#141517',
+        color: '#C1C2C5',
+        '.decription': {
+          color: '#909296',
+        },
+      },
+      icon: 'ban',
+      iconColor: '#C53030',
+    });
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+![custom_notification](https://i.imgur.com/1qwsJsH.png)

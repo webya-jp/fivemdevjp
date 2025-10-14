@@ -1,0 +1,99 @@
+# クライアント
+
+シンプルで一元化された距離チェックで、設定された座標の範囲に入ったり、出たり、立ったりする際のコールバックをサポート。
+
+## CPointクラス
+
+以下の特性を持つ点を表す表。
+
+* id.K.である：`number`
+* コーデ：`vector3`
+* 距離だ：`number`
+  * プレイヤーが点の「内側」にいるための距離（点の半径）。
+* 現在の距離`number`
+  * 点の中心からの選手の現在の距離。
+* が最も近いか？`boolean`
+* を取り除く：`function()`
+  * ポ イ ン ト をポ イ ン ト レ ジ ス ト リ か ら 削除 し ます。
+* onEnter？`function(self: CPoint)`
+  * プレーヤーが`distance`点の
+* onExit？`function(self: CPoint)`
+  * プレーヤーが、この機能を超えると発動する機能`distance`点の
+* 近くの？`function(self: CPoint)`
+  * の範囲内にある場合、フレームでトリガーされる。`distance`点の
+
+## lib.points.new
+
+```lua
+lib.points.new(data)
+```
+
+* のデータがある：`table`
+  * コーデ：`vector3`
+  * 距離だ：`number`
+
+リターンズ
+
+* ポイント：`CPoint`
+
+### 使用例
+
+```lua
+local point = lib.points.new({
+    coords = GetEntityCoords(cache.ped),
+    distance = 5,
+    dunak = 'nerd',
+})
+
+function point:onEnter()
+    print('entered range of point', self.id)
+end
+
+function point:onExit()
+    print('left range of point', self.id)
+end
+
+function point:nearby()
+    DrawMarker(2, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0, 200, 20, 20, 50, false, true, 2, false, nil, nil, false)
+
+    if self.currentDistance < 1 and IsControlJustReleased(0, 38) then
+        print('inside marker', self.id, 'dunak is a '.. self.dunak)
+    end
+end
+```
+
+## lib.points.getAllPoints
+
+リソースに作成されたすべてのポイントのテーブルを取得する。
+
+```lua
+lib.points.getAllPoints()
+```
+
+戻る：
+
+* 点である：`CPoint[]`
+
+## lib.points.getNearbyPoints
+
+プレイヤーの範囲内にあるすべてのポイントの配列を取得します。
+
+```lua
+lib.points.getNearbyPoints()
+```
+
+戻る：
+
+* 近くのポイント：`CPoint[]`
+
+## lib.points.getClosestPoint
+
+選手に最も近い地点のデータを取得する。
+
+```lua
+lib.points.getClosestPoint()
+```
+
+戻る：
+
+* clositPoint？`CPoint`

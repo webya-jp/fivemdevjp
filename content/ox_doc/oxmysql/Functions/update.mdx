@@ -1,0 +1,71 @@
+---
+
+## タイトル：アップデート
+
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# 更新
+
+クエリの影響を受けた行の数を返します。
+
+## 約束
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    local affectedRows = MySQL.update.await('UPDATE users SET firstname = ? WHERE identifier = ?', {
+        newName, identifier
+    })
+
+    print(affectedRows)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    const affectedRows = await MySQL.update('UPDATE users SET firstname = ? WHERE identifier = ?', [
+      newName, identifier
+    ])
+
+    console.log(affectedRows)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Sync.execute`
+- `exports.ghmattimysql.executeSync`
+- `exports.oxmysql.update_async`
+
+## コールバック
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    MySQL.update('UPDATE users SET firstname = ? WHERE identifier = ?', {
+        newName, identifier
+    }, function(affectedRows)
+        print(affectedRows)
+    end)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    MySQL.update('UPDATE users SET firstname = ? WHERE identifier = ?', [
+      newName, identifier
+    ], (affectedRows) => {
+      console.log(affectedRows)
+    })
+    ```
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Async.execute`
+- `exports.ghmattimysql.execute`
+- `exports.oxmysql.update`

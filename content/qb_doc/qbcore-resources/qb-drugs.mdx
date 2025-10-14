@@ -1,0 +1,91 @@
+---
+description: Got any of that good stuff?
+---
+
+# 💊 qb-ドラッグ
+
+## 導入
+
+* プレイヤーが交流してアイテムを購入したり、配達の依頼を受けて報酬を獲得できるディーラーを作成しましょう。また、プレイヤーがNPCに設定された価格で薬を販売できる「コーナーセリング」機能も含まれています。
+
+## 構成
+
+### 一般的な
+
+```lua
+Config = {}
+Config.Dealers = {} -- auto-populates on resource start
+Config.MinimumDrugSalePolice = 2 -- minimum police allowed to corner sell
+```
+
+### 製品
+
+```lua
+Config.Products = { -- products availabe to buy from a dealer
+    [1] = {
+        name = "weed_white-widow", -- item name
+        price = 15, -- how much it costs
+        amount = 150, -- amount available in stock
+        info = {}, -- item info (none)
+        type = "item", -- item type
+        slot = 1, -- inventory slot item will show in
+        minrep = 0, -- how much rep needed to buy this item
+    },
+}
+```
+
+### コーナー販売品リスト
+
+```lua
+Config.CornerSellingDrugsList = { -- items available to be corner sold
+    "weed_white-widow",
+    "weed_skunk",
+    "weed_purple-haze",
+    "weed_og-kush",
+    "weed_amnesia",
+    "weed_ak47",
+    "crack_baggy",
+    "cokebaggy",
+    "meth"
+}
+```
+
+### コーナーセール価格
+
+```lua
+Config.DrugsPrice = {
+    ["weed_white-widow"] = { -- item name (reference above)
+        min = 15, -- minimum price could sell for
+        max = 24, -- maximum price could sell for
+    },
+}
+```
+
+### 配達場所
+
+```lua
+Config.DeliveryLocations = { -- List of deliveries players can get from dealers
+    [1] = {
+        ["label"] = "Stripclub", -- delivery location name
+        ["coords"] = vector3(106.24, -1280.32, 29.24), -- delivery location coords
+    },
+}
+```
+
+### 配達報酬
+
+```lua
+Config.DeliveryItems = { -- reward items for deliveries (reference above)
+    [1] = {
+        ["item"] = "weed_brick", -- item name
+        ["minrep"] = 0, -- minimum rep needed to get this item
+    },
+}
+```
+
+## コマンド
+
+* /newdealer - あなたの座標に新しいディーラーを作成します
+* /deletedealer - データベースからディーラーを削除します
+* /dealers - 現在のディーラーのリストを取得します
+* /dealergoto - ディーラーにテレポートする

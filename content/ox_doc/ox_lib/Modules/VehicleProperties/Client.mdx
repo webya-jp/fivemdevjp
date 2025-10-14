@@ -1,0 +1,160 @@
+# クライアント
+
+ほとんどが ESX と QBCore で使用されているフォーマットに従っており、破損/欠落したプロップなどの追加データも含まれている。\
+https://github.com/communityox/ox\_lib/blob/master/resource/vehicleProperties/client.lua#L3
+
+import { Tabs, Tab } from "nextra-theme-docs";
+
+## lib.getVehicleProperties
+
+```ts
+lib.getVehicleProperties(vehicle);
+```
+
+- 車である：`number`
+  - のプロパティを取得するための車両のハンドル。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.getVehicleProperties(GetVehiclePedIsUsing(PlayerPedId()))
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client'
+
+    lib.getVehicleProperties(GetVehiclePedIsUsing(PlayerPedId()))
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## lib.setVehicleProperties
+
+車両のプロパティ（改造、プレートテキストなど）を設定し、クライアントがそのエンティティを所有している場合は true を返す。
+
+```lua
+lib.setVehicleProperties(vehicle, props)
+```
+
+- 車である：`entity`
+- プロップス`table`
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    RegisterNetEvent('ox_lib:setVehicleProperties', function(netid, data)
+        lib.setVehicleProperties(NetToVeh(netid), data)
+    end)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import { setVehicleProperties } from '@communityox/ox_lib/client'
+
+    onNet('ox_lib:setVehicleProperties', (netid, data) => {
+      setVehicleProperties(NetToVeh(netid), data)
+    })
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**リターンズ**
+
+- isEntityOwner：`boolean`
+
+### 推奨使用法
+
+サーバーは、以下のトリガーを使って、プロパティを設定するようにエンティティのオーナーに伝える必要がある。
+
+```lua
+TriggerClientEvent('ox_lib:setVehicleProperties', entityOwner, vehNetId, data)
+```
+
+## 車両特性
+
+- モデル？`number`
+- プレート？`string`
+- plateIndex？`number`
+- bodyHealth？`number`
+- エンジンヘルス？`number`
+- タンクヘルス？`number`
+- fuelLevel?`number`
+- オイルレベル？`number`
+- dirtLevel？`number`
+- color1?`number`または`number[]`
+- color2?`number`または`number[]`
+- pearlescentColor?`number`
+- interiorColor?`number`
+- dashboardColor?`number`
+- wheelColor?`number`
+- wheelWidth?`number`
+- wheelSize?`number`
+- ホイール？`number`
+- windowTint？`number`
+- キセノンカラー？`number`
+- neonEnabled?`boolean[]`
+- ネオンカラー？`number`または`number[]`
+- エキストラ？`table<number | string, 0 | 1>`
+- tyreSmokeColor?`number`または`number[]`
+- modSpoilers？`number`
+- modFrontBumper？`number`
+- modRearBumper？`number`
+- modSideSkirt？`number`
+- modExhaust？`number`
+- modFrame？`number`
+- modGrille？`number`
+- modHood？`number`
+- modFender？`number`
+- modRightFender？`number`
+- modRoof？`number`
+- modEngine？`number`
+- modBrakes？`number`
+- modTransmission？`number`
+- modHorns？`number`
+- modSuspension？`number`
+- modArmor？`number`
+- modNitrous？`number`
+- modTurbo？`number`
+- modSubwoofer？`boolean`
+- modSmokeEnabled？`boolean`
+- modHydraulics?`boolean`
+- modXenon？`boolean`
+- modFrontWheels？`number`
+- modBackWheels？`number`
+- modCustomTiresF？`boolean`
+- modCustomTiresR？`boolean`
+- modPlateHolder?`number`
+- modVanityPlate？`number`
+- modTrimA？`number`
+- modOrnaments？`number`
+- modDashboard？`number`
+- modDial？`number`
+- modDoorSpeaker？`number`
+- modSeats？`number`
+- modSteeringWheel？`number`
+- modShifterLevers？`number`
+- modAPlate？`number`
+- modSpeakers？`number`
+- modTrunk？`number`
+- modHydrolic？`number`
+- modEngineBlock？`number`
+- modAirFilter？`number`
+- modStruts？`number`
+- modArchCover？`number`
+- modAerials？`number`
+- modTrimB？`number`
+- modTank？`number`
+- modWindows？`number`
+- modDoorR？`number`
+- modLivery？`number`
+- modRoofLivery？`number`
+- modLightbar？`number`
+- 窓？`number[]`
+- ドア？`number[]`
+- タイヤ？`table<number | string, 1 | 2>`
+- bulletProofTyres?`boolean`

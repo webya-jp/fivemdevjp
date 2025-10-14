@@ -1,0 +1,168 @@
+---
+description: Installing a QBCore Server on Linux step by step
+---
+
+# 🐧 Linux インストール
+
+## MariaDB
+
+WindowsにはXAMPPが付属していますが、ここではスタンドアロン版のSQLであるMariaDBを使用します。これはシェル経由でインストールします。
+
+パッケージをインストールする前に最初に行うことは、システムを更新することです。これは次のコマンドで行います。
+
+```
+sudo apt-get update
+```
+
+> \[！警告]
+>
+> 必ずsudo権限を持つユーザーを使用してください。Linuxでは、rootアカウントはシステム上のすべての情報にアクセスできます。侵入などのインシデントを防ぐため、特定のユーザーにsudo権限を与え、リモートrootアクセスを無効にすることをお勧めします。Linuxの初期セキュリティ対策については、こちらをご覧ください。[ここ](https://blog.avast.com/secure-your-linux-server-avast)。
+
+システムを更新したら、MariaDBサーバーをインストールします。以下のコマンドを入力してください。
+
+```
+sudo apt-get install mariadb-server
+```
+
+ガイドに従ってセットアップを進めてください。スペースキーで選択するオプションがいくつかあります。インストールが完了したら、以下のコマンドで安全なインストールを実行する必要があります。
+
+```
+sudo mysql_secure_installation
+```
+
+スクリプトは、rootユーザーのパスワード設定、匿名ユーザーの削除、ローカルマシンへのrootユーザーアクセスの制限、テストデータベースの削除を促します。最後に、スクリプトは権限テーブルをリロードし、すべての変更が即座に反映されるようにします。
+
+すべての手順が詳細に説明されており、すべての質問に「Y」(はい) と答えることをお勧めします。
+
+上記のセキュアインストールが完了したら、以下のコマンドでMySQLサービスに接続できます。セキュアインストール時に設定したパスワードを使用して、ローカルのMySQL rootユーザーとしてログインしてください。
+
+```
+mysql -u root -p
+```
+
+> \[！警告]
+>
+> 安全なインストールを行ったが、ルートユーザーのパスワードを忘れてしまった場合、sudo権限を持つユーザーは次のコマンドを実行してmysqlサービスへのログインをバイパスできます。
+>
+> **sudo mysql -u ルート**
+
+### **管理者ユーザーの作成**
+
+上記の手順を完了すると、サーバー上でMariaDBサービスが完全に機能するようになります。おめでとうございます！次に、適切な認証情報を持つユーザーと、QBCoreの設定に使用するデータベースを設定する必要があります。
+
+まず、他のユーザーとデータベースの作成を処理できる管理ユーザーを作成しましょう。MariaDB で行われるすべての操作にアクセスできる標準の root ユーザーではないことを強くお勧めします。
+
+以下のコマンドでMySQLインスタンスを開きます。
+
+```
+mysql -u root -p
+```
+
+コンソールに入ると、こんな感じになります
+
+![MariaDB Command Line](../.gitbook/assets/Terminus_LjifucOy4i.png)
+
+管理者ユーザーアカウントの作成に進みます。以下のコマンドを番号順に入力してください。ユーザー名、パスワード、ホスト名など、いくつかの項目を編集するだけで済みます。
+
+```
+CREATE USER 'user1'@localhost IDENTIFIED BY 'password1';
+(Check the user created by running this line) SELECT User FROM mysql.user;
+GRANT ALL PRIVILEGES ON *.* TO 'user1'@localhost IDENTIFIED BY 'password1';
+FLUSH PRIVILEGES;
+```
+
+> \[！情報]
+>
+> 'user1'、localhost、'password1' の各変数はすべて変更されるはずです。'user1' と
+> 'password1' フィールドの値は、ログイン時に使用する値なので、任意の値に変更できます。
+> localhost は少し複雑です。Linux にはネイティブのデスクトップ環境がないため、ユーザーがリモートでデータベースにアクセスする可能性が高くなります。そのためには、localhost の代わりに % (% は任意のホストを意味します) を入力します。**'ユーザー1'@'%'**&#x4EE5;下では、接続方法と開くポートについて説明します。
+
+### リモートアクセスの許可（DB）
+
+デフォルト設定では、MariaDB と MySQL はどちらもローカルネットワークからの接続のみを許可します。外部ソフトウェア（HeidiSQL など）や PC からデータベースに接続するには、これらの設定を変更する必要があります。
+
+これらの設定を含むファイルは、**/etc/mysql/mariadb.conf.d/50-server.cnf**
+
+このファイルは次のコマンドで開きま&#x3059;**`sudo nano 50-server.cnf`**、コマンドラインテキストファイルエディターが開きます。
+
+以下のスクリーンショットは、変更が必要な行を示しています。デフォルト設定では、バインドアドレスは127.0.0.1に設定されており、ローカルホストからの接続のみが許可されます。これを0.0.0.0に変更し、データベースへのあらゆる接続を許可します。
+
+![50-server.cnf](../.gitbook/assets/Terminus_SOG5oqcssc.png)
+
+nanoでの編集は非常に簡単で、マウスを使わずにメモ帳を使うのと同じです。矢印キーを使ってコード内を移動し、通常の環境と同じようにファイルを編集します。
+
+バインド アドレスを 0.0.0.0 に編集した後、CTRL+X を使用してファイルを終了し、変更を保存するかどうかを確認するメッセージが表示されたら Y を押し、ファイルの保存名を確認するメッセージが表示されたら Enter キーを押します (開いたときと同じファイル名になります)。
+
+![After pressing CTRL+X we press Y to save changes](<../.gitbook/assets/Terminus_Sf4x4s5sbx (1).png>)
+
+![Leave the file name the same and press enter.](<../.gitbook/assets/Terminus_Ot5jFzizkD (1).png>)
+
+その後、以下のコマンドを使用してファイルの変更を確認するためにmariadbサービスを再起動します。
+
+```
+sudo systemctl restart mariadb
+```
+
+以下のコマンドを使用してサービスの状態を確認できます。
+
+```
+sudo systemctl status mariadb
+```
+
+![systemctl status of MariaDB](../.gitbook/assets/Terminus_f7VVyPHkLC.png)
+
+他のすべてのホストからのリモートアクセスを許可しました。これで接続できましたか？まだです。あと一つだけやるべきことがあります。
+
+### ポートを開く
+
+ポートを理解するのは、特に初心者にとっては大変なことです。詳しく見ていきましょう。
+
+ポートは、その背後に特定のものが存在するドアのようなものです。ドアを通過するには、鍵を開ける必要があります。ドアが開いていなければ、トラフィックは当社のサービスを通過できません。
+
+MySQL サービスのデフォルトポートは 3306 です。設定で変更できますが、必ずしも変更する必要はありません。これらのポートを開くには、iptables というファイアウォールソフトウェアを使用します。iptables は通常、Linux の特定のディストリビューションに標準でインストールされています。iptables がインストールされているかどうかは、以下のコマンドで確認できます。
+
+```
+sudo iptables --version
+```
+
+以下のスクリーンショットのような応答が得られれば、iptables がインストールされ、使用できる状態になっています。
+
+![iptables returning its version](../.gitbook/assets/Terminus_8ovVMYD2CK.png)
+
+iptables がインストールされていることを確認したら、次のコマンドを実行して、MySQL 接続用の 3306 ポートを開きます。
+
+```
+sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+```
+
+このウェブサイトを使用してポートが開いていて見ることができるかどうかを確認できます[ここ](https://portchecker.co/)。
+
+## 実行中のアーティファクト
+
+アーティファクトの使用は、サーバーの頭脳とも言えるため、最も重要な部分です。Linuxシステムに標準装備されているツールであるwgetを使用して、CfxのWebページからアーカイブを直接ダウンロードします。[ここ](https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/)Linuxのすべてのアーティファクトのリストですが、最新のものを入手するのが最善です。入手するアーティファクトのバージョンが決まったら、右クリックして「リンクをコピー」を選択してください。これにより、wgetコマンドで使用するアーティファクトへの直接リンクがコピーされます。
+
+ファイルをダウンロードするフォルダに移動します。（私は通常、ArtifactsとFilesを区別するために別々のフォルダを作成します。）以下のコマンドを使用します（リンクはArtifactsのWebサイトから取得したものに置き換えてください）。
+
+```
+wget https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/5742-ded89bc6acf29a720a7686a1de70d28b62c75af8/fx.tar.xz
+```
+
+![Using wget](https://user-images.githubusercontent.com/89489089/179919507-a17cbce0-5307-4a34-9bf1-64acdd68e29c.png)
+
+これが完了すると、現在いるディレクトリにファイルが作成されます。その後、以下のtarコマンドでアーカイブを解凍します。
+
+```
+tar -xf fx.tar.xz
+```
+
+コンソールは少しの間ハングしますが、完了したら、dirコマンドを実行するとディレクトリ内のファイルが表示されます。
+
+![Using tar and dir command](https://user-images.githubusercontent.com/89489089/179920224-e8c933b9-91a2-4dc9-9ba5-71dc7e59484d.png)
+
+後は、実際のアーティファクトを実行するだけです。Windowsでは.exeファイルと.batファイルを使用しますが、Linuxでは.shファイルと呼ばれるファイルを使用してCfxアーティファクトを実行します。先ほど説明した画面が表示されていることを確認し、run.shファイルのあるディレクトリで以下のコマンドを実行してFiveMサーバーを起動してください。
+
+```
+./run.sh
+```
+
+残りのセットアップは比較的簡単です。txAdmin をセットアップしているので、Windows のインストールと全く同じです。Windows セクションのチュートリアルを続けてください。ただし、アーティファクトに関する部分は飛ばし、.exe の実行後に続けてください。[ここ](https://docs.qbcore.org/qbcore-documentation/guides/windows-installation#artifact-and-txadmin)。

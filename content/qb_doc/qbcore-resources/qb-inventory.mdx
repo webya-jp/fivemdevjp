@@ -1,0 +1,699 @@
+---
+description: Store your precious!
+---
+
+# 🎒 qb-inventory
+
+## 導入
+
+* 個人、vehicle、スタッシュ、ドロップなど、playerのすべてのストレージを処理します
+* [qb-shops.md](qb-shops.md "mention")購入可能なすべてのアイテムを表示するための統合
+* 使用可能な自動販売機の組み込みサポート
+
+> \[!警告]
+> 特に指定がない限り、リストされているすべてのエクスポートはサーバー専用です
+
+## 在庫状態
+
+在庫状態は、状態バッグ名を使用して状態バッグによって制御されます。`inv_busy`この状態を使用して、インベントリを開くことができるかどうかを制御できます。
+
+#### 例（サーバー）:
+
+```lua
+RegisterCommand('checkState', function(source)
+    local player = Player(source)
+    local state = player.state.inv_busy
+    print('Inventory current state is', state)
+end, true)
+
+RegisterCommand('lockInventory', function(source)
+    local player = Player(source)
+    player.state.inv_busy = true
+    print('Inventory current state is', state)
+end, true)
+
+RegisterCommand('unlockInventory', function(source)
+    local player = Player(source)
+    player.state.inv_busy = false
+    print('Inventory current state is', state)
+end, true)
+```
+
+#### 例（クライアント）:
+
+```lua
+RegisterCommand('lockInventory', function()
+    LocalPlayer.state:set('inv_busy', true, true)
+end, false)
+
+RegisterCommand('unlockInventory', function()
+    LocalPlayer.state:set('inv_busy', false, true)
+end, false)
+```
+
+## 商品情報
+
+> \[!INFO]
+> これを実現するには、SetItemData を使用します。
+
+アイテムには、`info`属性。この情報は、playerがアイテムにマウスオーバーした際に、キーと値のペアの形式で表示されます。また、特別な属性を追加することもできます。`display`キーワードを false に設定すると、info table 内のすべてのデータが表示されなくなります。
+
+```lua
+RegisterCommand('addItemWithInfo', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    local info = {
+        uniqueData1 = 'uniqueData1',
+        uniqueData2 = 'uniqueData2',
+        uniqueData3 = 'uniqueData3',
+        uniqueData4 = 'uniqueData4',
+    }
+    exports['qb-inventory']:AddItem(source, itemName, 1, false, info, 'qb-inventory:testAdd')
+end, true)
+
+RegisterCommand('editItemWithInfo', function(source)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if not Player then return end
+    local items = Player.PlayerData.items
+    local itemInfo = items[1]
+    print(json.encode(itemInfo, { indent = true }))
+    itemInfo.info = {
+        newInfo = 'New Info'
+    }
+    print(json.encode(itemInfo, { indent = true }))
+    items[1] = itemInfo
+    Player.Functions.SetPlayerData('items', items)
+end, true)
+```
+
+## 在庫のロード
+
+この関数は、playerの在庫をデータベースから取得します。`citizenid`をJSONからデコードし、以下のデータを使用して構造化されたtableアイテムを構築します。`QBCore.Shared.Items`共有アイテムtableに存在しないアイテムが見つかった場合、そのアイテムはスキップされ、コンソールに記録されます。返されるインベントリには、アイテムラベル、重量、画像、使用状況などの詳細情報が含まれます。
+
+* ソース： `number`
+* 市民ID:`string`
+* <mark style="color:yellow;">returns</mark>:`table`
+
+```lua
+RegisterCommand('getInv', function(source)
+    local Player = QBCore.Functions.GetPlayer(source)
+    local citizenId = Player.PlayerData.citizenid
+    local items = exports['qb-inventory']:LoadInventory(source, citizenid)
+    print(json.encode(items, { indent = true }))
+end)
+```
+
+## 在庫保存
+
+playerの現在の在庫を、アイテムデータをJSON形式にシリアル化してデータベースに保存します。オンラインとオフラインの両方のplayerデータをサポートします。
+
+* ソース： `number`
+* オフライン:`boolean`
+
+```lua
+RegisterCommand('saveInv', function(source)
+    exports['qb-inventory']:SaveInventory(source, false)
+end)
+```
+
+## 在庫をクリア
+
+playerのインベントリをクリアします。オプションで特定のアイテムを名前で保存します。playerのデータを更新し、アクションを記録し、該当する場合は現在装備されている武器を削除します。
+
+* ソース： `number`
+* フィルターアイテム:`string | table`
+
+```lua
+RegisterCommand('clearInventoryExcludeItem', function(source, args)
+    local filterItem = args[1]
+    if not filterItem then return end
+    exports['qb-inventory']:ClearInventory(source, filterItem)
+    print('Inventory cleared for player '..source..', excluding item: '..filterItem)
+end, true)
+
+RegisterCommand('clearInventoryExcludeItems', function(source)
+    local filterItems = {'item1', 'item2'}
+    exports['qb-inventory']:ClearInventory(source, filterItems)
+    print('Inventory cleared for player '..source..', excluding items: '..table.concat(filterItems, ', '))
+end, true)
+```
+
+## クリアスタッシュ
+
+指定されたスタッシュインベントリからすべてのアイテムを空にし、クリアされた状態を反映するようにデータベースを更新します。
+
+* 識別子:`string`
+
+```lua
+RegisterCommand("clearstash", function(source, args, raw)
+    local stashId = args[1]
+    exports['qb-inventory']:ClearStash(stashId)
+    print("Stash '" .. stashId .. "' has been cleared.")
+end, false)
+```
+
+## 在庫を閉じる
+
+指定されたインベントリを閉じ、player がビジー状態でなくなったことをマークし、クライアントにインベントリ UI を閉じるように通知します。
+
+* ソース： `number`
+* 識別子:`string`
+
+```lua
+RegisterCommand('closeInventory', function(source)
+    exports['qb-inventory']:CloseInventory(source)
+    print('Inventory closed for player '..source)
+end, true)
+
+RegisterCommand('closeInventoryByName', function(source, identifier)
+    exports['qb-inventory']:CloseInventory(source, identifier)
+    print('Inventory closed for player '..source..' and inventory '..identifier..' set to closed')
+end, true)
+```
+
+## オープンインベントリー
+
+指定されたインベントリ、または識別子が指定されていない場合はplayer自身のインベントリを開きます。インベントリが既に使用されている場合はアクセスを防止し、必要に応じて初期化し、フォーマットされたインベントリデータをクライアントに送信して表示します。
+
+* ソース： `number`
+* 識別子:`string | optional`
+* データ： `table | optional`
+
+```lua
+RegisterCommand('openinv', function(source)
+    exports['qb-inventory']:OpenInventory(source)
+end, true)
+
+RegisterCommand('openinvbyname', function(source, args)
+    local inventoryName = args[1]
+    exports['qb-inventory']:OpenInventory(source, inventoryName)
+end, true)
+
+RegisterCommand('openinvbynamewithdata', function(source, args)
+    local inventoryName = args[1]
+    local data = { label = 'Custom Stash', maxweight = 400000, slots = 500 }
+    exports['qb-inventory']:OpenInventory(source, inventoryName, data)
+end, true)
+```
+
+## 在庫IDで開く
+
+他の player のインベントリを開いて表示または操作し、表示用にデータをフォーマットし、競合を防ぐために状態をビジーとしてマークします。
+
+* ソース： `number`
+* プレイヤーID:`number`
+
+```lua
+RegisterCommand('openplayerinv', function(source, args)
+    local playerId = tonumber(args[1])
+    exports['qb-inventory']:OpenInventoryById(source, playerId)
+end, true)
+```
+
+> \[!INFO] >`OpenInventoryById`対象のプレイヤーのインベントリ（開いている場合）を閉じ、状態によってロックします。その後、オープニングのplayerがインベントリを閉じるとロックが解除されます。
+
+## 在庫の作成
+
+提供された識別子と初期化データを使用して、新しいインベントリがまだ存在しない場合は作成して登録します。
+
+* 識別子:`string`
+* データ： `table`
+
+```lua
+RegisterCommand("createinv", function(source, args)
+    local id = args[1]
+    if not id then
+        print("Usage: /createinv [identifier]")
+        return
+    end
+    exports['qb-inventory']:CreateInventory(id, {
+        label = "Custom Inventory",
+        maxweight = 100000,
+        slots = 30
+    })
+    print("Inventory '" .. id .. "' created.")
+end, false)
+```
+
+## 在庫の削除
+
+指定された識別子に関連付けられたインベントリをメモリ内レジストリから削除します。
+
+* 識別子:`string`
+
+```lua
+RegisterCommand("removeinv", function(source, args)
+    local id = args[1]
+    exports['qb-inventory']:RemoveInventory(id)
+    print("Inventory '" .. id .. "' removed.")
+end, false)
+```
+
+## クリエイトショップ
+
+名前、ラベル、座標、アイテムスロット、入手可能なアイテムなどのデータをグローバルショップレジストリに保存して、1つまたは複数のショップを登録します。
+
+* ショップデータ:`table`&#x20;
+  * 名前： `string`
+  * ラベル:`string`
+  * 座標:`vector3`
+  * スロット:`number`
+  * アイテム:`table`
+
+```lua
+local items = {
+    { name = 'sandwich', amount = 10, price = 5 }
+}
+
+RegisterCommand('createShop', function(source)
+    local playerPed = GetPlayerPed(source)
+    local playerCoords = GetEntityCoords(playerPed)
+    exports['qb-inventory']:CreateShop({
+        name = 'testShop',
+        label = 'Test Shop',
+        coords = playerCoords, -- optional
+        slots = #items,
+        items = items
+    })
+end, true)
+```
+
+> \[!INFO]
+> 渡される座標`createShop`playerの現在の座標と照合されます`OpenShop`座標が与えられた場合に呼び出されます`createShop`>
+
+## オープンショップ
+
+範囲内にいる場合、player のショップインベントリを開き、クライアント表示用にショップデータをフォーマットして、player の現在のインベントリと一緒に送信します。
+
+* ソース： `number`
+* 名前： `string`
+
+```lua
+RegisterCommand('openShop', function(source)
+    exports['qb-inventory']:OpenShop(source, 'testShop')
+end)
+```
+
+## アイテムを追加できます
+
+指定されたアイテムと数量をplayerまたはインベントリに追加できるかどうかを、重量制限とスロットの空き状況の両方をチェックして判定します。制限を超えた場合は、理由とともにfalseを返します。
+
+* ソース： `number`
+* アイテム： `string`
+* 額： `number`
+* <mark style="color:yellow;">returns</mark>:`boolean`
+
+```lua
+RegisterCommand('canAddItem', function(source, args)
+    local itemName = args[1]
+    local amount = tonumber(args[2])
+    if not itemName or not amount then return end
+    local canAdd, reason = exports['qb-inventory']:CanAddItem(source, itemName, amount)
+    if canAdd then
+        print('Can add '..amount..' of item '..itemName)
+    else
+        print('Cannot add '..amount..' of item '..itemName..'. Reason: '..reason)
+    end
+end, true)
+```
+
+## アイテムを追加
+
+重量制限と空きスロットを考慮し、playerまたは特定のインベントリにアイテムを追加します。アクションをログに記録し、成功したかどうかを返します。
+
+* 識別子:`number`
+* アイテム： `string`
+* 額： `number`
+* スロット:`number | boolean`
+* 情報： `table | boolean`
+* 理由： `string`
+* <mark style="color:yellow;">returns</mark>:`boolean`
+
+```lua
+RegisterCommand('addItem', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    exports['qb-inventory']:AddItem(source, itemName, 1, false, false, 'qb-inventory:testAdd')
+end, true)
+```
+
+## アイテムを削除
+
+playerまたはインベントリから、指定された数のアイテムを削除します。オプションで特定のスロットから削除することもできます。データが更新され、削除が記録されます。
+
+* 識別子:`number`
+* アイテム： `string`
+* 額： `number`
+* スロット:`number | boolean`
+* 理由： `string`
+* <mark style="color:yellow;">returns</mark>:`boolean`
+
+```lua
+RegisterCommand('removeItem', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    exports['qb-inventory']:RemoveItem(source, itemName, 1, false, 'qb-inventory:testRemove')
+end, true)
+```
+
+## 在庫設定
+
+指定されたplayer、ドロップ、またはカスタムインベントリのアイテムリストを設定し、メモリ内のデータを更新し、監査目的で変更をログに記録します。
+
+* ソース： `number`
+* アイテム:`table`
+
+```lua
+RegisterCommand('setInventory', function(source)
+    local items = {
+        {
+            name = 'sandwich',
+            amount = 10,
+            type = 'item',
+            info = {},
+            slot = 1
+        },
+        {
+            name = 'water_bottle',
+            amount = 10,
+            type = 'item',
+            info = {},
+            slot = 2
+        }
+    }
+    exports['qb-inventory']:SetInventory(source, items)
+end, true)
+```
+
+## アイテムデータの設定
+
+playerのアイテムデータに特定のキーと値のペアを設定し、playerのインベントリを変更されたアイテムで更新します。スロットnumberが指定されている場合は、そのスロットのアイテムを直接ターゲットとします。そうでない場合は、`GetItemByName`名前で最初に一致するアイテムを検索する
+
+* ソース： `number`
+* アイテム名:`string`
+* 鍵： `string`
+* 値:`string | table`&#x20;
+* スロット:`number`（オプション）
+* <mark style="color:yellow;">returns</mark>:`boolean`
+
+```lua
+RegisterCommand('setItemData', function(source, args)
+    local itemName = args[1]
+    local key = args[2]
+    local val = args[3]
+    if not itemName or not key or not val then return end
+    local success = exports['qb-inventory']:SetItemData(source, itemName, key, val)
+    if success then
+        print('Set data for item '..itemName..': '..key..' = '..val)
+    else
+        print('Failed to set data for item '..itemName)
+    end
+end, true)
+```
+
+#### アイテム情報 使用例:
+
+```lua
+RegisterCommand('setItemData', function(source)
+    local itemName = 'markedbills'
+    local key = 'info'
+    local val = { worth = 1000 }
+    if not itemName or not key or not val then return end
+    local success = exports['qb-inventory']:SetItemData(source, itemName, key, val)
+    if success then
+        print('Set data for item '..itemName..': '..key..' = '..json.encode(val, { indent = true }))
+    else
+        print('Failed to set data for item '..itemName)
+    end
+end, true)
+```
+
+## 使用アイテム
+
+指定された使用可能なアイテムが存在する場合はその使用関数をトリガーし、追加の引数をアイテムのハンドラーに渡します。
+
+* アイテム名:`string`
+* . . . :`function`
+
+```lua
+RegisterCommand('useItem', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    exports['qb-inventory']:Useitem(itemName, function()
+        print('Used item with the name of '..itemName)
+    end)
+end, true)
+```
+
+## アイテムあり
+
+playerが特定のアイテムまたはアイテムセットをインベントリに所有しているかどうかを確認し、オプションで各アイテムの必要量が満たされていることを確認します。
+
+> \[!INFO]
+> このエクスポートはクライアントでも使用できます
+
+* ソース： `number`
+* アイテム:`string | table`
+* 額： `number`
+* <mark style="color:yellow;">returns</mark>:`boolean`
+
+```lua
+RegisterCommand('hasSingleItem', function(source)
+    local item = 'item1'
+    local amount = 5
+    local hasItem = exports['qb-inventory']:HasItem(source, item, amount)
+    if hasItem then
+        print('Player '..source..' has '..amount..' of '..item)
+    else
+        print('Player '..source..' does not have '..amount..' of '..item)
+    end
+end, true)
+
+RegisterCommand('hasMultipleItems', function(source)
+    local items = {'item1', 'item2'}
+    local amount = 5
+    local hasItems = exports['qb-inventory']:HasItem(source, items, amount)
+    if hasItems then
+        print('Player '..source..' has '..amount..' of each item: '..table.concat(items, ', '))
+    else
+        print('Player '..source..' does not have '..amount..' of each item: '..table.concat(items, ', '))
+    end
+end, true)
+
+RegisterCommand('hasMultipleItemsWithAmounts', function(source)
+    local itemsWithAmounts = {item1 = 5, item2 = 10}
+    local hasItemsWithAmounts = exports['qb-inventory']:HasItem(source, itemsWithAmounts)
+    if hasItemsWithAmounts then
+        print('Player '..source..' has the specified items with their amounts')
+    else
+        print('Player '..source..' does not have the specified items with their amounts')
+    end
+end, true)
+```
+
+## フリーウェイトを取得
+
+playerのインベントリの残り重量を計算して返します。playerが見つからないか、ソースが無効な場合は0を返します。
+
+* ソース： `number`
+* <mark style="color:yellow;">returns</mark>:`number`
+
+```lua
+RegisterCommand('getFreeWeight', function(source)
+    local freeWeight = exports['qb-inventory']:GetFreeWeight(source)
+    print('Free Weight: ' .. freeWeight)
+end, true)
+```
+
+## 総重量を取得
+
+在庫にあるすべてのアイテムの合計重量を計算し、アイテムの数量を考慮して返します。
+
+* アイテム:`table`
+* <mark style="color:yellow;">returns</mark>:`number`
+
+```lua
+RegisterCommand("checkweight", function(source, args, raw)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if not Player then return end
+    local inventory = Player.PlayerData.items
+    local totalWeight = exports['qb-inventory']:GetTotalWeight(inventory)
+    print(("Total Inventory Weight: ", totalWeight)
+end, false)
+```
+
+## ゲットスロット
+
+指定された識別子に基づいて、playerのインベントリ、カスタムインベントリ、またはドロップ内の使用済みおよび使用可能なスロットのnumberを返します。
+
+* 識別子:`number | string`
+* <mark style="color:yellow;">returns</mark>:`number`、`number`
+
+```lua
+RegisterCommand('getSlots', function(source, args)
+    local invId = args[1]
+    if not invId then return end
+    local slotsUsed, slotsFree = exports['qb-inventory']:GetSlots(invId)
+    print('Slots Used: ' .. slotsUsed, 'Slots Free: ' .. slotsFree)
+end, true)
+```
+
+## アイテムごとにスロットを取得
+
+指定されたアイテムを含むすべてのインベントリスロットのリストを、大文字と小文字の区別を無視して返します。
+
+* アイテム:`table`
+* アイテム名:`string`
+* <mark style="color:yellow;">returns</mark>:`table`
+
+```lua
+RegisterCommand('getSlots', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    local Player = QBCore.Functions.GetPlayer(source)
+    local items = Player.PlayerData.Items
+    local slots = exports['qb-inventory']:GetSlotsByItem(items, itemName)
+    for _, slot in ipairs(slots) do
+        print(slot)
+    end
+end, true)
+```
+
+## アイテムごとに最初のスロットを取得
+
+大文字と小文字を区別せずに、指定されたアイテムを含むすべてのインベントリスロットを検索して返します。
+
+* アイテム:`table`
+* アイテム名:`string`
+* <mark style="color:yellow;">returns</mark>:`number`
+
+```lua
+RegisterCommand('getFirstSlot', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    local Player = QBCore.Functions.GetPlayer(source)
+    local items = Player.PlayerData.Items
+    local slot = exports['qb-inventory']:GetFirstSlotByItem(items, itemName)
+    if slot then
+        print('First slot containing item '..itemName..' is: '..slot)
+    else
+        print('No slot found containing item '..itemName)
+    end
+end, true)
+```
+
+## スロットごとにアイテムを取得
+
+指定されたスロットのplayerのインベントリからアイテムを取得します。スロットが空の場合、またはplayerが見つからない場合はnilを返します。
+
+* ソース： `number`
+* スロット:`number`
+* <mark style="color:yellow;">returns</mark>:`table`
+
+```lua
+RegisterCommand('getItem', function(source, args)
+    local slot = tonumber(args[1])
+    if not slot then return end
+    local item = exports['qb-inventory']:GetItemBySlot(source, slot)
+    if item then
+        print('Item in slot '..slot..' is: '..item.name)
+    else
+        print('No item found in slot '..slot)
+    end
+end, true)
+```
+
+## 名前でアイテムを取得
+
+playerのインベントリから指定されたアイテムの最初のインスタンスを名前で取得し、見つかった場合はそのデータを返します。
+
+* ソース： `number`
+* アイテム： `string`
+* <mark style="color:yellow;">returns</mark>:`table`
+
+```lua
+RegisterCommand('getItemByName', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    local item = exports['qb-inventory']:GetItemByName(source, itemName)
+    if item then
+        print('First occurrence of item '..itemName..' is in slot: '..item.slot)
+    else
+        print('No item found with name '..itemName)
+    end
+end, true)
+```
+
+## 名前でアイテムを取得
+
+playerのインベントリから指定されたアイテムのすべてのインスタンスを取得し、名前で一致するアイテムのリストを返します。
+
+* ソース： `number`
+* アイテム： `string`
+* <mark style="color:yellow;">returns</mark>:`table`
+
+```lua
+RegisterCommand('getItemsByName', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    local items = exports['qb-inventory']:GetItemsByName(source, itemName)
+    if #items > 0 then
+        print('Items named '..itemName..' found in slots:')
+        for _, item in ipairs(items) do
+            print(item.slot)
+        end
+    else
+        print('No items found with name '..itemName)
+    end
+end, true)
+```
+
+## アイテム数を取得する
+
+player の在庫にある 1 つ以上の指定されたアイテムの合計数量を計算します。単一のアイテム名とアイテム名のテーブルの両方をサポートします。
+
+* ソース： `number`
+* アイテム:`string | table`
+* <mark style="color:yellow;">returns</mark>:`number`
+
+```lua
+RegisterCommand('getItemCount', function(source, args)
+    local itemName = args[1]
+    if not itemName then return end
+    local itemCount = exports['qb-inventory']:GetItemCount(source, itemName)
+    if itemCount and itemCount > 0 then
+        print('You have '..itemCount..' of item: '..itemName)
+    else
+        print('No items found with name '..itemName)
+    end
+end, true)
+
+RegisterCommand('getItemCounts', function(source)
+    local itemNames = {"apple", "banana", "orange"}
+    local itemCount = exports['qb-inventory']:GetItemCount(source, itemNames)
+    if itemCount and itemCount > 0 then
+        print('You have '..itemCount..' of the items: '..table.concat(itemNames, ", "))
+    else
+        print('No items found with the names: '..table.concat(itemNames, ", "))
+    end
+end, true)
+```
+
+## 在庫を取得
+
+指定された識別子に関連付けられたインベントリオブジェクトを取得するか、`nil`見つからない場合
+
+* 識別子:`string`
+* <mark style="color:yellow;">returns</mark>:`table`|`nil`
+
+```lua
+RegisterCommand("getinv", function(source, args)
+    local id = args[1]
+    local inv = exports['qb-inventory']:GetInventory(id)
+    if inv then
+        print("Inventory '" .. id .. "' has " .. tostring(#inv.items) .. " items")
+    else
+        print("Inventory not found")
+    end
+end, false)
+```

@@ -1,0 +1,80 @@
+---
+description: Look up would ya?
+---
+
+# 📱 qb-phone
+
+## 導入
+
+* メールを受信する
+* ツイートを投稿する
+* 広告を掲載する
+* プレイヤーとplayerは通話とテキストメッセージでコミュニケーションをとる
+* 保管されている車両を確認したり、紛失した車両を追跡したり[qb-garages.md](qb-garages.md "mention") アプリ
+* 銀行残高の確認や請求書の支払いは[qb-banking.md](qb-banking.md "mention") アプリ
+* 購入/売却/譲渡[qb-crypto.md](qb-crypto.md "mention") アプリ
+* レースに参加して[qb-lapraces.md](qb-lapraces.md "mention")アプリ
+* 所有物件の内覧と鍵の受け渡し[qb-houses.md](qb-houses.md "mention") アプリ
+* 特定のオンライン求人の数を表示する
+* 写真を撮ってギャラリーで閲覧する
+
+## プレビュー
+
+[![Home](https://camo.githubusercontent.com/8b65eceaf69fb17c2806865c824813a0d6d727482dafdf8ebd8de8b37d2fc003/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3932313637353234353336303932323632352f3932313637353433393738333637333839372f686f6d652e6a7067)](https://camo.githubusercontent.com/8b65eceaf69fb17c2806865c824813a0d6d727482dafdf8ebd8de8b37d2fc003/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3932313637353234353336303932323632352f3932313637353433393738333637333839372f686f6d652e6a7067) &#x20;
+
+## 構成
+
+> \[!警告]
+> 追加のジョブがある場合は、必ず設定画面の請求手数料欄に追加してください。
+
+### 一般的な
+
+```lua
+Config = {}
+Config.MaxSlots = 20 -- maximum amount of home screen application slots
+Config.BillingCommissions = { -- list job names and the commission amount they get
+    mechanic = 0.10 -- commission percentage
+}
+Config.Linux = false -- if using linux operating system (stores date vs time)
+Config.TweetDuration = 12 -- how many hours to load tweets
+Config.RepeatTimeout = 2000 -- timeout in milliseconds before repeating call
+Config.CallRepeats = 10 -- how many times the call will repeat before hanging up
+```
+
+### 電話アプリケーション
+
+```lua
+Config.PhoneApplications = {
+    ["phone"] = { -- phone application name
+        app = "phone", -- phone application name
+        color = "#04b543", -- phone application color
+        icon = "fa fa-phone-alt", -- phone application icon
+        tooltipText = "Phone", -- text that shows when hovering over application
+        tooltipPos = "top", -- location of pop-up text when hovering over app
+        job = false, --
+        blockedjobs = {}, -- block specific jobs from accessing this app
+        slot = 1, -- the slot the app shows in on the home screen
+        Alerts = 0, --
+    },
+}
+```
+
+### アプリケーションストア
+
+> \[!警告]
+> この機能は現在構築中であり、動作しません。
+
+```lua
+Config.StoreApps = {}
+```
+
+## コマンド
+
+> \[!INFO]
+> プレイヤーはゲーム内のキーバインド設定から、電話を開くキーを変更できます。
+
+> \[!警告]
+> 追加のジョブがある場合は、必ず設定画面の請求手数料欄に追加してください。
+
+* /phone - 電話を開く（キーマップ）
+* /bill - プレイヤーが他のプレイヤーに請求できるようにする

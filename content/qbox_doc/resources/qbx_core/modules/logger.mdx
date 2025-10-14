@@ -1,0 +1,53 @@
+***
+
+タイトルロガー
+sidebar\_label: ロガー
+キーワード\[qbox, fivem, qbx\_core, モジュール, logger].
+説明qbx\_core リソースの logger モジュールのドキュメント。このモジュールは、Discord ウェブフックと ox\_lib のロギングシステムの両方に出力できるロギング機能を提供し、様々なログレベルとカスタマイズオプションをサポートします。
+---------------------------------------------------------------------------------------------------------------------------------
+
+# ロガー
+
+:::info
+ox\_lib[ロガー](https://coxdocs.dev/ox_lib/Modules/Logger/Server)詳細はこちら
+:::
+
+Webhookが指定された場合はDiscordに、そうでない場合はox\_libにログを記録するロガーを追加します。
+
+```lua
+local logger = require '@qbx_core.modules.logger'
+
+logger.log(log)
+```
+
+* ログ`table`
+  * ソース`string`
+    * 通常はプレーヤーIDまたはリソース名。
+  * イベントを開催する：`string`
+    * 行動または`event`通常、その名前が何をしているかを表す動詞。
+    * 例`'SpawnVehicle'`
+  * というメッセージを送った：`string`
+    * ログに添付されたメッセージ。
+  * ウェブフック？`string`
+    * Discordのログのみ。
+    * ログを記録するウェブフックのURL。
+  * 色？`string`
+    * Discordのログのみ。
+    * メッセージの色。
+  * タグは？`string[]`
+    * Discordのログのみ。
+    * Discordメッセージに追加するタグ。
+    * 例`{ '<@&roleid>', '<@userid>', '@everyone' }`
+
+## 使用例
+
+```lua
+local logger = require '@qbx_core.modules.logger'
+
+logger.log({
+  source = 'my source',
+  event = 'my event',
+  message = 'my message',
+  tags = { '@everyone' },
+})
+```

@@ -1,0 +1,115 @@
+import { Callout } from 'nextra/components';
+
+# 共有
+
+*このモジュールはデフォルトで常にロードされる。*
+
+## 必要
+
+与えられたモジュールをロードする。この関数は`loaded`を決定する。`modname`がすでにロードされている。もしロードされていれば`require`に格納されている値を返す。`loaded[modname]`.
+
+* モジュール名は、リソースからの相対的なファイルへのパスです。
+* モジュール名は`.lua`ファイル。
+* 用途`.`パス内のディレクトリを区切る。
+* モジュールは`@resource.modname`.
+
+```lua
+require 'modname'
+```
+
+<Callout type="warning">
+  クライアント・モジュールは`file`セクションを参照してください。
+
+  ```lua filename="fxmanifest.lua"
+  file 'modname.lua'
+  -- or
+  files {
+    'modname.lua'
+  }
+  ```
+</Callout>
+
+### 使用例
+
+```
+- resources/
+  - mylib/
+    - import.lua
+    - data/
+      - events.lua
+  - myresource/
+    - server.lua
+```
+
+```lua filename="mylib/import.lua"
+local mylib = {
+  events = require 'data.events'
+}
+
+print('Loaded mylib')
+
+return mylib
+```
+
+```lua filename="mylib/data/events.lua"
+return {
+  disconnect = 'onPlayerDropped',
+}
+```
+
+```lua filename="myresource/server.lua"
+local mylib = require '@mylib.import'
+print(mylib.events.disconnect)
+```
+
+## lib.load
+
+与えられたパスにあるLuaファイルをロードして実行する。requireとは異なり、チャンクはキャッシュされません。
+
+```lua
+lib.load(filePath, env)
+```
+
+* ファイルパス：`string`
+  * Luaファイルへのパス。`require`.
+* env？`table`
+  * グローバル環境として使用するテーブル。`_ENV`.
+
+### 使用例
+
+```lua filename="myresource/import.lua"
+local events = lib.load('data.events')
+
+print('Loaded events')
+```
+
+```lua filename="myresource/data/events.lua"
+return {
+  disconnect = 'onPlayerDropped',
+}
+```
+
+## lib.loadJson
+
+与えられたパスにあるJSONファイルをロードし、それをテーブルとしてデコードする。
+
+```lua
+lib.loadJson(filePath)
+```
+
+* ファイルパス：`string`
+  * Luaファイルへのパス。`require`.
+
+### 使用例
+
+```lua filename="myresource/import.lua"
+local events = lib.loadJson('data.events')
+
+print('Loaded events')
+```
+
+```json filename="myresource/data/events.json"
+{
+  "disconnect": "onPlayerDropped"
+}
+```

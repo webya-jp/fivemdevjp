@@ -1,0 +1,271 @@
+***
+
+タイトルクライアントリブ
+sidebar\_label: クライアント
+キーワード\[qbox, fivem, qbx\_core, モジュール, lib].
+説明qbx\_core リソースのクライアントサイドライブラリ関数のドキュメント。これらの関数は、Qbox フレームワーク内でテキストを描画し、エンティティを処理し、ビークルを管理し、オーディオを再生するためのユーティリティを提供します。
+-----------------------------------------------------------------------------------------------------------------------
+
+# クライアント・リブ
+
+## drawText2d
+
+2D空間のスクリーンにテキストを1フレーム分描画する。
+
+```lua
+qbx.drawText2d(params)
+```
+
+* params：`table`
+  * テキスト`string`
+  * コーデ：`vector2`
+    * 画面上の座標。
+  * スケール？`integer`
+    * デフォルト：`0.35`
+  * フォント？`integer`
+    * デフォルト：`4`
+  * 色？`vector4`
+    * RGBA値。デフォルトは白。
+  * 幅？`number`
+    * デフォルト：`1.0`
+  * 高さ？`number`
+    * デフォルト：`1.0`
+  * enableDropShadow?`boolean`
+    * テキストに黒いドロップシャドウを有効にする。
+  * enableOutline？`boolean`
+    * テキストの黒い輪郭を有効にする。
+
+## drawText3d
+
+3D空間のスクリーンにテキストを1フレーム分描画する。
+
+```lua
+qbx.drawText3d(params)
+```
+
+* params：`table`
+  * テキスト`string`
+  * コーデ：`vector3`
+    * インワールドの座標
+  * スケール？`integer`|`vector2`
+    * 整数を使用して一様にスケーリングするか、vec2を使用してxとyを異なる量にスケーリングする。
+    * デフォルト：`vec2(0.35, 0.35)`
+  * フォント？`integer`
+    * デフォルト：`4`
+  * 色？`vector4`
+    * RGBA値。デフォルトは白。
+  * disableDrawRect?`boolean`
+    * テキストに矩形の背景を描画しない。
+  * enableDropShadow?`boolean`
+    * テキストに黒いドロップシャドウを有効にする。
+  * enableOutline？`boolean`
+    * テキストの黒い輪郭を有効にする。
+
+## GetEntityAndNetIdFromBagName
+
+ステート・バッグ名からエンティティ・ハンドルとネットワーク ID を取得して返します。\
+必ず戻る`0`無効なエンティティーを受信した場合、その両方が対象となる。
+
+```lua
+qbx.getEntityAndNetIdFromBagName(bagName)
+```
+
+* バッグ名：`string`
+
+リターンズ
+
+* 実体を持つ：`integer`
+* netId：`integer`
+
+## エンティティステートハンドラー
+
+エンティティ用に作成されたステートバッグハンドラを返します。
+
+```lua
+qbx.entityStateHandler(keyFilter, cb)
+```
+
+* キーフィルター`string`
+* cb：`fun(entity: number, netId: number, value: any, bagName: string)`
+
+リターンズ`number`
+
+## 車両削除
+
+指定された車両を削除し、それが成功したかどうかを返す。
+
+```lua
+qbx.deleteVehicle(vehicle)
+```
+
+* 車である：`integer`
+
+リターンズ`boolean`
+
+## 車両表示名
+
+指定された車両のモデル名を返します。
+
+```lua
+qbx.getVehicleDisplayName(vehicle)
+```
+
+* 車である：`integer`
+
+リターンズ`string`
+
+## 車両メーカー名
+
+指定された車両のブランド名を返します。
+
+```lua
+qbx.getVehicleMakeName(vehicle)
+```
+
+* 車である：`integer`
+
+リターンズ`string`
+
+## GetVehicleModName
+
+指定された車両の改造タイプ名を返します。
+
+```lua
+qbx.getVehicleModName(vehicle, modType, modIndex)
+```
+
+* 車である：`integer`
+* modType：`integer`
+* modIndex：`integer`
+
+リターンズ`string`
+
+## 車両名
+
+指定された車両のカラーリング名を返します。
+
+```lua
+qbx.getVehicleLiveryName(vehicle, liveryIndex)
+```
+
+* 車である：`integer`
+* liveryIndex：`integer`
+
+リターンズ`string`
+
+## ゲットストリートネーム
+
+指定された座標における道路名と断面名を返します。
+
+```lua
+qbx.getStreetName(coords)
+```
+
+* コーデ：`vector3`
+
+リターンズ
+
+* streetName：`table`
+  * メイン`string`
+  * クロス`string`
+
+## ゾーン名
+
+与えられた座標におけるゾーンの名前を返す。
+
+```lua
+qbx.getZoneName(coords)
+```
+
+* コーデ：`vector3`
+
+リターンズ`string`
+
+## setVehicleExtra
+
+指定された車両にエキストラを設定する。
+
+```lua
+qbx.setVehicleExtra(vehicle, extra, enable)
+```
+
+* 車である：`integer`
+* エクストラ`integer`
+* イネーブル`boolean`
+  * エクストラを有効にするかどうか。
+
+## リセット車両エクストラ
+
+指定された車両のすべてのエキストラを有効にする。
+
+```lua
+qbx.resetVehicleExtras(vehicle)
+```
+
+* 車である：`integer`
+
+## セット・ビークル・エクストラ
+
+指定された車両のすべてのエキストラを設定する。
+
+```lua
+qbx.setVehicleExtra(vehicle, extras)
+```
+
+* 車である：`integer`
+* エキストラ`table<integer, boolean>`
+
+## 手袋をしている
+
+ローカルペッドが手袋をしているかどうかを返す。
+
+```lua
+qbx.isWearingGloves()
+```
+
+リターンズ`boolean`
+
+## isWearingDuffelbag
+
+現地のペッドがダッフルバッグを着用している場合は戻る。
+
+```lua
+qbx.isWearingDuffelbag()
+```
+
+リターンズ`boolean`
+
+## ロード・オーディオ・バンク
+
+オーディオバンクのロードを試み、成功したかどうかを返す。\
+の使用を忘れないこと。`ReleaseScriptAudioBank`10バンクまでしかロードできないからだ。
+
+```lua
+qbx.loadAudioBank(audioBank, timeout)
+```
+
+* オーディオバンク`string`
+* タイムアウト？`number`
+
+リターンズ`boolean`
+
+## プレイオーディオ
+
+指定されたオーディオ名とオーディオ参照番号でサウンドを再生する。\
+もし`returnSoundId`が false または指定されていない場合、soundId は解放される、\
+そうでなければ、この関数はsoundIdを解放せずに返す。
+
+```lua
+qbx.playAudio(params)
+```
+
+* params：`table`
+  * audioName：`string`
+  * audioRef：`string`
+  * returnSoundId?`boolean`
+  * audioSource？`number | vector3`
+    * エンティティハンドルまたはベクトル3座標。
+  * レンジ？`number`
+    * 以下の場合にのみ使用される。`audioSource`はvector3座標である。
+
+リターンズ`number?`

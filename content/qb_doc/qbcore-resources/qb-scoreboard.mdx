@@ -1,0 +1,53 @@
+---
+description: Any cops on?
+---
+
+# 📋 QBスコアボード
+
+## 導入
+
+* 必要な警察の総数の設定に応じて、オンラインのプレイヤーの総数と強盗の可用性を表示するシンプルなスコアボードリソース
+
+> \[!INFO]
+> 強盗スクリプトのいずれかで必要な警察の総数を変更する場合は、このリソースでも必ず編集してください。そうしないと、一致しなくなります。
+
+## プレビュー
+
+![](../.gitbook/assets/serverinfo.png)
+
+## 構成
+
+```lua
+Config = {}
+Config.OpenKey = 'HOME' -- open scoreboard key
+Config.ShowIDforALL = false -- enable any player to see player id's above head
+Config.Toggle = true -- enable/disable toggle mode (hold key or press to show)
+Config.MaxPlayers = GetConvarInt('sv_maxclients', 48) -- max server players
+Config.IllegalActions = {
+    ["storerobbery"] = { -- index is the robbery name
+        minimumPolice = 2, -- minimum police needed for the indexed robbery
+        busy = false, -- dynamically changes, don't edit
+        label = "Store Robbery", -- label shown on the scoreboard UI
+    },
+    ["bankrobbery"] = {
+        minimumPolice = 3,
+        busy = false,
+        label = "Bank Robbery"
+    },
+    ["jewellery"] = {
+        minimumPolice = 3,
+        busy = false,
+        label = "Jewellery"
+    },
+    ["pacific"] = {
+        minimumPolice = 5,
+        busy = false,
+        label = "Pacific Bank"
+    },
+    ["paleto"] = {
+        minimumPolice = 4,
+        busy = false,
+        label = "Paleto Bay Bank"
+    }
+}
+```

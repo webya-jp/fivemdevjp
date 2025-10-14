@@ -1,0 +1,51 @@
+# クライアント
+
+## トリガー・サーバー・コールバック
+
+### トリガーサーバーコールバック
+
+```ts
+triggerServerCallback(eventName, delay, ...args)
+```
+
+* イベント名`string`
+* 遅れている：`number`または`null`
+  * このコールバックが再びトリガーされるまでの時間
+* ...args：`any`
+
+## クライアント・コールバックの登録
+
+### onServerCallback
+
+```ts
+onServerCallback(eventName, cb)
+```
+
+* イベント名`string`
+* cb：`function`(...args：`any`)
+
+## 使用例
+
+この例を完全に理解するためには、次の例を見てください。[サーバー](./Server#usage-example)ページでコールバックされる。
+
+```ts
+import { onServerCallback, triggerServerCallback } from '@communityox/ox_lib/client'
+```
+
+```ts
+onServerCallback('test:client', (...args: [number, number, string]) => {
+  console.log(args);
+  return {
+    clientValue: 'Value from the client',
+  };
+});
+```
+
+```ts
+setTimeout(async () => {
+  const args = [1, null, 3, null, null, 6];
+  const response = await triggerServerCallback<{ serverValue: number }>('test:server', 1, args);
+  if (!response) return;
+  console.log('Response from server', response);
+}, 100);
+```

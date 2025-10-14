@@ -1,0 +1,386 @@
+---
+
+## タイトルコンテキストメニュー
+
+import { Tabs, Tab } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
+
+# コンテキストメニュー
+
+## lib.registerContext
+
+コンテキストメニューの登録に使用します。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.registerContext(context)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.registerContext(context);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- id.K.である：`string`
+  - メニューを開く際に使用されるユニークなメニュー識別子。
+- というタイトルをつけた：`string`
+  - マークダウン対応。
+- メニューは？`string`
+  - メニュー識別子 - 定義されている場合、メニュータイトルの横に戻る矢印が表示され、定義したメニューに移動します。
+- を閉じることができる：`boolean`
+  - false に設定すると、ユーザーはいずれかのボタンを押さなければメニューを終了できなくなる。
+- onExit？`function`
+  - ユーザーが ESC でコンテキストメニューを閉じたときに実行される関数。
+- onBack？`function`
+  - ユーザーが戻るボタンを押して前のメニューに戻ったときに実行される関数。
+- のオプションがある：`table`(`object`または`array`)
+  - アイテム：`key`(`string`または`table`(`object`)
+    - タイトル？`string`
+      - キーを使用しない場合は、ボタンのタイトルを設定します。
+    - 無効ですか？`boolean`
+      - ボタンをグレーアウトし、クリックできないようにする。
+    - readOnly？`boolean`
+      - すべてのホバースタイルとアクティブスタイルを削除し、onSelect が定義されている場合はそれを無効にします。
+    - メニューは？`string`
+      - 矢印の場合、ボタンが移動するメニューの識別子。
+    - を選択する：`function`
+      - ボタンがクリックされたときに実行される関数。
+    - アイコンは？`string`
+      - 左側に表示される FontAwesome アイコンは、通知や textui アイコンと同じように機能します。
+      - また、画像 URL、png、webp ファイルにも対応していますが、font awesome アイコンを超えて使用することはお勧めしません。
+    - iconColor?`string`
+      - 表示されているアイコンの色。
+    - iconAnimation?`'spin'` `'spinPulse'` `'spinReverse'` `'pulse'` `'beat'` `'fade'` `'beatFade'` `'bounce'` `'shake'`
+    - 進捗状況は？`number`
+      - このパーセンテージで満たされたプログレスバーを追加する
+    - colorScheme?`string`
+      - プログレスバーの配色を設定します。現在のオプションはここにあります：
+        - https://v6.mantine.dev/theming/colors/#default-colors
+        - 例えば、こうだ：`blue`または`teal`
+    - 矢？`boolean`
+      - のように右側に矢印が表示される。`menu`イベントからメニューを開くときに便利。false に設定すると非表示になる。
+    - という記述がある：`string`
+      - キーとして定義されたボタンのタイトルの下に表示される説明。
+    - イメージ？`string`
+      - ボタンのメタデータに表示される画像への URL。
+    - メタデータ？`string[]`または`object`または`array`
+      - ボタンホバー時にサイドに表示される情報。
+      - のラベルが貼られている：`string`
+      - 値である：`any`
+      - 進捗状況は？`number`
+        - メタデータにプログレスバーを表示する。
+      - colorScheme?`string`
+        - 上記と同じ。
+    - イベント？`string`
+      - ボタンがトリガーするイベント。
+    - serverEvent?`string`
+      - ボタンがトリガーするサーバーイベント。
+    - 引数？`any`
+      - イベントまたは onSelect 関数に送られる引数。
+
+にはいくつでもコンテキストメニューを登録できます。`lib.registerContext`機能
+を好きなように使うことができる。
+
+メニューは書いた順番に並べることも、アルファベット順に並べることもできる。\
+アルファベット順にメニューを並べ替えるには、ボタン（および/またはメタデータ）をキーとして定義する必要があります。そうでなければ、キーを使用せず、代わりにテーブルを使用すると、メニューはあなたが定義した順序になります。
+
+## lib.showContext
+
+登録されているコンテキストメニューをその ID で開きます。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.showContext(id)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.showContext(id);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- id.K.である：`string`
+
+## lib.hideContext
+
+現在表示されているコンテキストメニューを隠す。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.hideContext(onExit)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.hideContext(onExit);
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- を終了する：`boolean`
+  - メニューの onExit 関数を実行するかどうかを定義します。
+
+## lib.getOpenContextMenu
+
+現在開いているコンテキストメニューの ID を返します。
+
+コンテキストメニューが開いていない場合は`nil`.
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.getOpenContextMenu()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.getOpenContextMenu();
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## 使用例
+
+まず、指定したオプションでメニューを登録し、次にコマンドの show 関数を呼び出す。
+
+<Callout>
+  外部の値に依存しないメニュー（静的メニュー）を常に再登録することは避けてください。
+</Callout>
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.registerContext({
+      id = 'some_menu',
+      title = 'Some context menu',
+      options = {
+        {
+          title = 'Empty button',
+        },
+        {
+          title = 'Disabled button',
+          description = 'This button is disabled',
+          icon = 'hand',
+          disabled = true
+        },
+        {
+          title = 'Example button',
+          description = 'Example button description',
+          icon = 'circle',
+          onSelect = function()
+            print("Pressed the button!")
+          end,
+          metadata = {
+            {label = 'Value 1', value = 'Some value'},
+            {label = 'Value 2', value = 300}
+          },
+        },
+        {
+          title = 'Menu button',
+          description = 'Takes you to another menu!',
+          menu = 'other_menu',
+          icon = 'bars'
+        },
+        {
+          title = 'Event button',
+          description = 'Open a menu from the event and send event data',
+          icon = 'check',
+          event = 'test_event',
+          arrow = true,
+          args = {
+            someValue = 500
+          }
+        }
+      }
+    })
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/client';
+
+    lib.registerContext({
+      id: 'some_menu',
+      title: 'Some context menu',
+      options: [
+        {
+          title: 'Empty button',
+        },
+        {
+          title: 'Disabled button',
+          description: 'This button is disabled',
+          icon: 'hand',
+          disabled: true,
+        },
+        {
+          title: 'Example button',
+          description: 'Example button description',
+          icon: 'circle',
+          onSelect: () => {
+            console.log('Pressed the button!');
+          },
+          metadata: [
+            { label: 'Value 1', value: 'Some value' },
+            { label: 'Value 2', value: 300 },
+          ],
+        },
+        {
+          title: 'Menu button',
+          description: 'Takes you to another menu!',
+          menu: 'other_menu',
+          icon: 'bars',
+        },
+        {
+          title: 'Event button',
+          description: 'Open a menu from the event and send event data',
+          icon: 'check',
+          event: 'test_event',
+          arrow: true,
+          args: {
+            someValue: 500,
+          },
+        },
+      ],
+    });
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+次に`other_menu`
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.registerContext({
+      id = 'other_menu',
+      title = 'Other context menu',
+      menu = 'some_menu',
+      onBack = function()
+        print('Went back!')
+      end,
+      options = {
+        {
+          title = 'Nothing here'
+        }
+      }
+    })
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    lib.registerContext({
+      id: 'other_menu',
+      title: 'Other context menu',
+      menu: 'some_menu',
+      onBack: () => {
+        console.log('Went back!');
+      },
+      options: [
+        {
+          title: 'Nothing here',
+        },
+      ],
+    });
+    ```
+  </Tags.Tab>
+</Tabs>
+
+そして、私たちがこれから実行しようとしているのは、次のようなイベントだ。`some_menu`メニューを開き、別のメニューを開く。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    RegisterNetEvent('test_event', function(args)
+      lib.registerContext({
+        id = 'event_menu',
+        title = 'Event menu',
+        menu = 'some_menu',
+        options = {
+          {
+            title = 'Event value: '..args.someValue,
+          }
+        }
+      })
+
+      lib.showContext('event_menu')
+    end)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    onNet('test_event', (args: { someValue: number }) => {
+      lib.registerContext({
+        id: 'event_menu',
+        title: 'Event menu',
+        menu: 'some_menu',
+        options: [
+          {
+            title: `Event value: ${args.someValue}`,
+          },
+        ],
+      });
+
+      lib.showContext('event_menu');
+    });
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+最後に、テスト・コマンドを登録する。`some_menu`メニューがある。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    RegisterCommand('testcontext', function()
+      lib.showContext('some_menu')
+    end)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    RegisterCommand('testcontext', () => {
+      lib.showContext('some_menu');
+    });
+    ```
+  </Tags.Tab>
+</Tabs>
+
+からのデータである。`args`メニューのテーブルは、登録するイベントの第一引数として渡される。
+
+このイベントを使って、独自のオプションを持つ新しいコンテキストメニューも登録する。
+
+を定義する。`menu`パラメータを最初のメニューの id にすることで、メニュータイトルの横にある戻る矢印ボタンを取得することができます。
+
+![menu_example](https://i.imgur.com/TkaH2P9.png)
+![metadata](https://i.imgur.com/0mMmwgi.png)
+![sub_menu](https://i.imgur.com/RbT1tKX.png)
+![event_menu](https://i.imgur.com/zjIiROj.png)

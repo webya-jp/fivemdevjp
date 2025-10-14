@@ -1,0 +1,43 @@
+---
+title: Using the Debug UI
+---
+
+# デバッグUIの使用
+
+import { Callout } from 'nextra/components';
+
+デバッグUIを使用すると、リソースで実行されたすべてのクエリ、クエリの応答時間、リソースごとの統計情報を簡単に確認することができます。
+この機能を有効にするのは、開発中、もしくはplayerの数が少ない場合のみです。大規模なサーバでは、組み込みのMySQLロギングを使用してください。
+
+UIを使用する前に、まず最初に`mysql_ui`convar を true に設定：
+
+```bash
+set mysql_ui true
+```
+
+また`command`または`command.mysql`エースパーミッションアクセスを使用できるようになります。`mysql`コマンドを実行する。
+
+<Callout type="info">
+  あなた*なかれ*が必要だ。`mysql_debug`デバッグUIを使用するために有効にする。
+</Callout>
+
+## メインページ
+
+メインページには、クエリを実行したリソースが表示され、検索バーで絞り込むことができます。
+を円グラフで表示します。
+
+![oxmysql\_ui\_main](https://i.imgur.com/iQqWELJ.png)
+
+## リソースページ
+
+リソース・ページには、リソースが以前に実行したtable内のすべてのクエリとその実行時間が表示されます、
+選択されたリソースのクエリの総量、実行時間、スロー・クエリも表示されます。
+
+カラムは昇順と降順でソートでき、クエリにカーソルを合わせるとツールチップ内にクエリの全文が表示される。
+
+<Callout type="info">
+  を超えるクエリー`mysql_slow_query_warning`(デフォルト150ms）はオレンジ色で表示される。\
+  デモンストレーションのために`mysql_slow_query_warning`コンバーはここで5に設定された。
+</Callout>
+
+![oxmysql\_ui\_queries](https://i.imgur.com/gZpJoIg.png)

@@ -1,0 +1,227 @@
+# フック
+
+イベントフックにより、サードパーティリソースはインベントリコードを直接修正することなく、新しい動作を定義することができます。
+
+## レジスタフック
+
+```lua
+exports.ox_inventory:registerHook(eventName, function(payload) end, options)
+```
+
+* イベント名`string`
+* ペイロード：`table`
+* オプションは？`table`
+  * プリント？`boolean`
+    * イベントのトリガー時にコンソールに表示する。
+  * itemFilter?`{ [string]: true }`
+    * イベントは、セットのキーとして定義されたアイテムに対してのみトリガーされます。
+  * inventoryFilter?`string[]`
+    * イベントは、以下のいずれかに一致する在庫に対してのみトリガーされます。[パターン](http://www.easyuo.com/openeuo/wiki/index.php/Lua_Patterns_and_Captures_\(Regular_Expressions\))を配列に入れる。
+  * typeFilter?`{ [string]: true }`
+    * イベントは、指定されたタイプ（例：'player'、'stash'）のいずれかを持つインベントリに対してのみトリガーされます。
+
+戻る：
+
+* hookId：`number`
+
+### スワップアイテム
+
+アイテムをスロットから別のスロットに移動するとき、またはアイテムを「与える」ときにトリガーされる。\
+帰国`false`アクションをキャンセルし、インベントリの状態を戻すことができます。
+
+* ペイロード：`table`
+  * ソース`number`
+  * アクションだ：`'move'`または`'stack'`または`'swap'`または`'give'`
+  * fromInventory：`table`または`string`または`number`
+  * toInventory：`table`または`string`または`number`
+  * fromType：`string`
+  * toType：`string`
+  * フロムスロット`table`
+  * toSlot?`table`または`number`
+  * カウントする：`number`
+
+**例**
+
+グローブボックスやトランクへの「水」の出し入れを禁止する。
+
+```lua
+local hookId = exports.ox_inventory:registerHook('swapItems', function(payload)
+    print(json.encode(payload, { indent = true }))
+    return false
+end, {
+    print = true,
+    itemFilter = {
+        water = true,
+    },
+    inventoryFilter = {
+        '^glove[%w]+',
+        '^trunk[%w]+',
+    }
+})
+```
+
+### オープン在庫
+
+* ペイロード：`table`
+  * ソース`number`
+  * inventoryId：`number`または`string`
+  * inventoryType：`string`
+
+プレイヤーがセカンダリー・インベントリを開こうとするとトリガーされる。\
+帰国`false`アクションをキャンセルし、プレイヤーのインベントリを閉じたままにすることができます。
+
+**例**
+
+グローブボックスとトランクを無効にする。
+
+```lua
+local hookId = exports.ox_inventory:registerHook('openInventory', function(payload)
+    print(json.encode(payload, { indent = true }))
+    return false
+end, {
+    print = true,
+    inventoryFilter = {
+        '^glove[%w]+',
+        '^trunk[%w]+',
+    }
+})
+```
+
+### オープンショップ
+
+* ペイロード：`table`
+  * ソース`number`
+  * shopId：`string`
+  * ショップタイプ`string`
+  * のラベルが貼られている：`string`
+  * スロット`integer`
+  * の項目がある：`table`
+  * グループ？`table<string, number>`
+  * コーデ？`vector3`
+  * 距離？`number`または`false`
+
+プレイヤーがショップのインベントリを開こうとするとトリガーされる。\
+帰国`false`その場合、そのアクションをキャンセルし、ショップの在庫をクローズしたままにすることができます。
+
+**例**
+
+一般店舗を無効にする。
+
+```lua
+local hookId = exports.ox_inventory:registerHook('openShop', function(payload)
+    print(json.encode(payload, { indent = true }))
+    return false
+end, {
+    print = true,
+    inventoryFilter = {
+        '^General'
+    }
+})
+```
+
+### 作成項目
+
+* ペイロード：`table`
+  * inventoryId?`number`または`string`
+  * というメタデータがある：`table`
+  * アイテム：`table`
+  * カウントする：`number`
+
+アイテムの購入、AddItemの使用、またはインベントリデータの変換時に、アイテムが作成されたときにトリガーされます。\
+テーブルを返すことで、アイテムに与えられたメタデータを変更したり置き換えたりすることができる。
+
+**例**
+
+water "のラベルを "Mineral Water "に設定する。
+
+```lua
+local hookId = exports.ox_inventory:registerHook('createItem', function(payload)
+    print(json.encode(payload, { indent = true }))
+    local metadata = payload.metadata
+    metadata.label = 'Mineral Water'
+    return metadata
+end, {
+    print = true,
+    itemFilter = {
+        water = true
+    }
+})
+```
+
+### 購入商品
+
+* ペイロード：`table`
+  * ソース`number`
+  * ショップタイプ`string`
+  * shopId：`number`
+  * toInventory：`number`
+  * toSlot：`number`
+  * itemName：`string`
+  * というメタデータがある：`table`
+  * カウントする：`number`
+  * 価格だ：`number`
+  * TotalPrice：`number`
+  * 通貨？`string`
+
+アイテムが購入されそうになるとトリガーされ、戻ることができる`false`を使用して取引を阻止する。
+
+**例**
+
+ジェネラルストアでアイテムを購入できなくなる。
+
+```lua
+local hookId = exports.ox_inventory:registerHook('buyItem', function(payload)
+    print(json.encode(payload, { indent = true, sort_keys = true }))
+    return false
+end, {
+    print = true,
+    itemFilter = {
+        water = true
+	  },
+})
+
+```
+
+### クラフトアイテム
+
+* ペイロード：`table`
+  * ソース`number`
+  * ベンチID`number`|`string`
+  * ベンチインデックス`number`
+  * レシピ`table`
+    * カウントする：`number`
+    * 期間である：`number`
+    * 食材だ：`table<string, number>`
+    * と名付けた：`string`
+    * スロットだ：`number`
+    * 重量である：`number`
+  * toInventory：`number`
+  * toSlot：`number`
+
+**例**
+
+プレイヤーがロックピックを作れないようにする。
+
+```lua
+local hookId = exports.ox_inventory:registerHook('craftItem', function(payload)
+    print(json.encode(payload, { indent = true, sort_keys = true }))
+    return false
+end, {
+    print = true,
+	itemFilter = {
+		lockpick = true
+	},
+})
+
+```
+
+## 削除フック
+
+指定されたidで起動リソースによって作成されたフックを削除します。\
+idが指定されない場合は、リソースによって登録されたすべてのフックが削除される。
+
+```lua
+exports.ox_inventory:removeHooks(id)
+```
+
+* id？`number`

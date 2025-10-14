@@ -1,0 +1,167 @@
+***
+
+タイトルコンバース
+サイドバーのラベル: convars
+サイドバーの位置1
+キーワードqbox, fivem, qbx\_core, convars] \[qbox、fivem、qbx\_core、convars]。
+説明Qboxの設定変数(convars)。利用可能なサーバ設定オプションとその使い方について学ぶ。
+-------------------------------------------------
+
+# コンバース
+
+以下は、qbx\_core内で使用されるconvarのリストである。
+例で示されている値は、各 convar のデフォルト値である。
+
+## イネーブルブリッジ
+
+QBCore リソースと互換性のある qb-core ブリッジを有効または無効にします。
+
+```lua
+setr qbx:enableBridge "true"
+```
+
+タイプ`boolean`
+
+## イネーブルキュー
+
+組み込みの qbx\_core キューイングシステムを有効または無効にする。
+
+```lua
+set qbx:enableQueue "true"
+```
+
+タイプ`boolean`
+
+## バケットロックダウンモード
+
+バケツ 0 のエンティティロックダウンモードを設定する。
+参照[`SET_ROUTING_BUCKET_ENTITY_LOCKDOWN_MODE`](https://docs.fivem.net/natives/?_0xA0F2201F)をご覧ください。
+
+```lua
+set qbx:bucketLockdownMode "inactive"
+```
+
+タイプ`'inactive' | 'relaxed' | 'strict'`
+
+## ディスコードリンク
+
+キックメッセージのDiscordリンクを設定します。
+
+::警告
+このコンバーはqb-coreブリッジでのみ使用され、非推奨の`utils`モジュール
+:::
+
+```lua
+set qbx:discordLink "discord.gg/qbox"
+```
+
+タイプ`string`
+
+## プレーヤーあたりの最大ジョブ数
+
+内蔵のマルチジョブでプレイヤーが持てる最大ジョブ数を設定します。
+
+```lua
+set qbx:max_jobs_per_player 1
+```
+
+タイプ`integer`
+
+## 最大プレーヤ数
+
+プレイヤーが内蔵のマルチギャングで持てるギャングの最大数を設定します。
+
+```lua
+set qbx:max_gangs_per_player 1
+```
+
+タイプ`integer`
+
+## セットジョブ・リプレース
+
+を制御する。`/setjob`コマンドはプレーヤーの仕事を入れ替えたり、追加したりします。
+
+```lua
+set qbx:setjob_replaces "true"
+```
+
+タイプ`boolean`
+
+## セットガング・リプレース
+
+を制御する。`/setgang`コマンドは、選手とギャングの入れ替えや追加を行う。
+
+```lua
+set qbx:setgang_replaces "true"
+```
+
+タイプ`boolean`
+
+## クリーン・プレイヤー・グループ
+
+を制御する。`player_groups`SQL テーブルは、起動時に無効なグループ (ジョブ/ギャング) から自動的にクリーンアップされます。
+
+```lua
+set qbx:cleanPlayerGroups "true"
+```
+
+タイプ`boolean`
+
+## allowMethodOverrides
+
+リソースがプレイヤーオブジェクトの既存のメソッドをオーバーライドする機能を有効または無効にします。
+
+```lua
+set qbx:allowMethodOverrides "true"
+```
+
+タイプ`boolean`
+
+## 無効化警告
+
+プレーヤー オブジェクトの既存のメソッドをオーバーライドするリソースからの警告を有効または無効にします。
+
+```lua
+set qbx:disableOverrideWarning "false"
+```
+
+タイプ`boolean`
+
+## 車両パーシステンスを有効にする
+
+有効にすると、サーバーによって削除されたプレイヤー所有の乗り物で、パーシステンスが有効になっているもの（または`qbx.spawnVehicle`または`exports.qbx_core:EnablePersistence`)の場合、車両が削除されたときと同じプロパティでリスポーンされます。
+これは、車両がランダムに削除されるFiveMのバグを修正したものです。
+
+```lua
+setr qbx:enableVehiclePersistence "false"
+```
+
+タイプ`boolean`
+
+## 車両永続タイプ
+
+full "に設定すると、サーバー再起動後にプレイヤー所有の乗り物もスポーンバックする。
+
+```lua
+setr qbx:vehiclePersistenceType "semi"
+```
+
+タイプ`string`
+
+## 認める
+
+Qbox ドキュメンテーションのコンソールメッセージを有効または無効にします。
+
+```lua
+set qbx:acknowledge "false"
+```
+
+タイプ`boolean`
+
+## モット
+
+ロードイン後にチャットでプレイヤーに表示されるメッセージ。
+
+```lua
+set qbx:motd "<p style='padding: 1rem; background-color: rgb(30, 30, 30); border-radius: 1rem; text-align: center;'><span style='color: rgb(40, 200, 40);'>Welcome to Qbox!</span><br>Learn more at <span id='link' style='color: rgb(100, 100, 255);' onclick='window.invokeNative(\"openUrl\", \"https://docs.qbox.re/\")'>docs.qbox.re</span></p><style>span#link:hover { cursor: pointer; }</style>"
+```

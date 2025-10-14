@@ -1,0 +1,61 @@
+# クライアント
+
+## トリガー・サーバー・コールバック
+
+### lib.callback
+
+レスポンスは別のコルーチンで処理される。
+
+```lua
+lib.callback(name, delay, cb, ...)
+```
+
+* と名付けた：`string`
+* 遅れている：`number`または`false`
+  * このコールバックが再びトリガーされるまでの時間
+* cb：`function`
+* ...:`any`
+
+```lua
+lib.callback('ox_inventory:getItemCount', false, function(count)
+    print(count)
+end, 'water', {type = 'fresh'})
+```
+
+### lib.callback.await
+
+現在のコルーチンは、応答があるまで停止される。
+
+```lua
+lib.callback.await(name, delay, ...)
+```
+
+* と名付けた：`string`
+* 遅れている：`number`または`false`
+  * このコールバックが再びトリガーされるまでの時間
+* ...:`any`
+
+```lua
+local count = lib.callback.await('ox_inventory:getItemCount', false, 'water', {type = 'fresh'})
+print(count)
+```
+
+## クライアント・コールバックの登録
+
+### lib.callback.register
+
+サーバーからのリクエストに応答するためのイベントハンドラを登録します。
+
+```lua
+lib.callback.register(name, cb)
+```
+
+* と名付けた：`string`
+* cb：`function`
+
+```lua
+lib.callback.register('ox:getNearbyVehicles', function(radius)
+    local nearbyVehicles = lib.getNearbyVehicles(GetEntityCoords(cache.ped), radius, true)
+    return nearbyVehicles
+end)
+```

@@ -1,0 +1,71 @@
+---
+
+## タイトル：挿入
+
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# 挿入
+
+新しいエントリをデータベースに挿入し、有効であればその行の挿入 ID を返します。
+
+## 約束
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    local id = MySQL.insert.await('INSERT INTO `users` (identifier, firstname, lastname) VALUES (?, ?, ?)', {
+        identifier, firstName, lastName
+    })
+
+    print(id)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    const id = await MySQL.insert('INSERT INTO `users` (identifier, firstname, lastname) VALUES (?, ?, ?)', [
+      identifier, firstName, lastName
+    ])
+
+    console.log(id)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Sync.insert`
+- `exports.ghmattimysql.executeSync`
+- `exports.oxmysql.insert_async`
+
+## コールバック
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    MySQL.insert('INSERT INTO `users` (identifier, firstname, lastname) VALUES (?, ?, ?)', {
+        identifier, firstName, lastName
+    }, function(id)
+        print(id)
+    end)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```js
+    MySQL.insert('INSERT INTO `users` (identifier, firstname, lastname) VALUES (?, ?, ?)', [
+      identifier, firstName, lastName
+    ], (id) => {
+      console.log(id)
+    })
+    ```
+  </Tags.Tab>
+</Tabs>
+
+**別名**
+
+- `MySQL.Async.insert`
+- `exports.ghmattimysql.execute`
+- `exports.oxmysql.insert`

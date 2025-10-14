@@ -1,0 +1,53 @@
+---
+description: Put the money in the bag!
+---
+
+# 🔫 qb-ストア強盗
+
+## 導入
+
+* playerが街中の多くの店を強盗できるようになります。強盗の際には、レジの鍵を開ける作業を行います。[リンク切れ](broken-reference "mention")両方のレジを通ったら、金庫の暗証番号を記入した付箋紙をもらうことができます。店舗に電子金庫がない場合は、[金庫破り](https://github.com/qbcore-framework/safecracker)ミニゲーム。プレイヤーはレジと金庫の両方で「マークされた請求書」を受け取ります。
+* 警察が呼ばれて、`camid`指定されたカメラを表示するには、その詳細を参照してください[qb-policejob.md](qb-policejob.md "mention")
+
+## 構成
+
+### 一般的な
+
+```lua
+Config.minEarn = 100 -- minimum markedbills worth
+Config.maxEarn = 450 -- max markedbills worth
+Config.RegisterEarnings = math.random(Config.minEarn, Config.maxEarn) -- Randomized earnings
+Config.MinimumStoreRobberyPolice = 2 -- minimum police needed to start the robbery
+Config.resetTime = (60 * 1000) * 30 -- cooldown between robberies in minutes
+Config.tickInterval = 1000 -- the time between register checks
+```
+
+### レジスター
+
+```lua
+Config.Registers = {
+    [1] = {
+        vector3(-47.24,-1757.65, 29.53), -- register location
+        robbed = false, -- dynamically changed, don't edit
+        time = 0, -- dynamically changed, don't edit
+        safeKey = 1, -- index that references the safes table
+        camId = 4 -- alerts the cops with the camera number to view
+    }
+}
+```
+
+### 金庫
+
+> \[!INFO]
+> 金庫の種類がキーパッドの場合、パスワードを入力するためのキーパッドUIが開きます。金庫の種類が南京錠の場合、金庫破りミニゲームのUIが起動します。
+
+```lua
+Config.Safes = {
+    [1] = {
+        vector4(-43.43, -1748.3, 29.42, -- safe location
+        type = "keypad", -- safe type keypad/padlock
+        robbed = false, -- dynamically changed, don't edit
+        camId = 4 -- alerts the cops with the camera number to view
+    }
+}
+```

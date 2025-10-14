@@ -1,0 +1,71 @@
+***
+
+## タイトル"LBフォン"
+
+このガイドでは、Qbox CDNを次のように設定する方法を説明します。[LBフォン](https://store.lbscripts.com/package/5356987)
+
+## CDNドメインのホワイトリスト化
+
+まず、qboxドメインをホワイトリストに登録する必要がある。に移動する。`config > config.lua`を選択し、以下を検索する。`Config.UploadWhitelistedDomains`.
+このテーブルには`qbox.re`をドメインのリストに追加する。以下のようになるはずだ：
+
+```lua
+-- Set to false/empty to disable
+Config.UploadWhitelistedDomains = { -- domains that are allowed to upload images to the phone (prevent using devtools to upload images)
+    "fivemanage.com",
+    "fmfile.com",
+    "qbox.re",
+    "cfx.re" -- lb-upload
+}
+```
+
+## アップロード方法の変更
+
+同じ設定ファイルで`Config.UploadMethod`.これで、すべてのファイルタイプに3つの異なるオプションが表示されます。これらをすべて`qbox`このように：
+
+```lua
+Config.UploadMethod.Video = "Qbox" -- "Fivemanage" or "LBUpload" or "Custom"
+Config.UploadMethod.Image = "Qbox" -- "Fivemanage" or "LBUpload" or "Custom"
+Config.UploadMethod.Audio = "Qbox" -- "Fivemanage" or "LBUpload" or "Custom"
+```
+
+## Qboxアップロードメソッドの追加
+
+これでコンフィグファイルの作成は完了だ。次は`shared > upload.lua`.ここには、様々なサービスの様々なアップロード方法が記載された大きな表があります。
+ここにQbox用のものを追加する予定です。
+::危険
+これを追加する**内部**その`UploadMethods`テーブルで、他のすべてのオプションと並んでいる！
+:::
+
+```lua
+Qbox = {
+    Default = {
+        url = "https://cdn.qbox.re/api/storage/upload",
+        field = "file",
+        headers = {
+            ["Authorization"] = "API_KEY"
+        },
+        success = {
+            path = "url"
+        },
+    },
+},
+```
+
+<details>
+  <summary>完成したテーブルはこのようになる。</summary>
+
+  <CardImage cardImageUrl="https://media.qbox.re/image/i5KoiHvZGwAgAhDJBebLsLSxxwD0ZCu5Xhlek5v.png" />
+</details>
+
+## APIキーの追加
+
+に移動する。`server > apiKeys.lua`.ここに、異なるアップロード方法のすべてのAPIキーが記載された表が表示されます。Qbox CDNダッシュボードで生成したものと同じAPIキーを追加してください。
+
+```lua
+API_KEYS = {
+    Video = "API_KEY_HERE",
+    Image = "API_KEY_HERE",
+    Audio = "API_KEY_HERE",
+}
+```

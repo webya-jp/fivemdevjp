@@ -1,0 +1,56 @@
+import { Steps, Tabs, Tab } from 'nextra-theme-docs';
+
+# 共有
+
+convars セットに基づいて条件付きでコンソールにプリント。
+異なるレベルのプリントには色とラベルが付けられます。
+リソース名は常に含まれる。
+
+## lib.print
+
+```lua
+lib.print.error(...)
+lib.print.warn(...)
+lib.print.info(...)
+lib.print.verbose(...)
+lib.print.debug(...)
+```
+
+* vararg：`any`
+  * コンソールに何を表示するか。テーブルをきれいな印刷形式に変換する。
+
+### 例
+
+```lua
+lib.print.warn("query latency high: ", latency)
+```
+
+### レベル
+
+* エラー
+  * システムの故障を示す。
+
+* ワーン
+  * 予期せぬ状態、または将来エラーを引き起こす可能性のある状態を警告する。
+
+* インフォメーション
+  * ハイレベルで成功したオペレーションに関する情報。
+
+* 詳細
+  * 高レベルの操作の中間ステップを含む、より詳細な情報
+
+* デバッグ
+  * 開発者がシステムを理解するために使用し、詳細なトレース情報を含むことがある。
+    通常、デバッグしていないときはオンにすべきではない。
+
+### コンフィグ
+
+以下のコンバーを使って印刷レベルを設定してください。現在のレベルより低いレベルのプリントは実行されません。
+例えば、レベルを info に設定すると、error、warn、info は表示されるが、verbose や debug は表示されない。設定されていない場合のデフォルトは info です。
+リソース固有の印刷レベルは、グローバルなconvarを上書きします。
+
+```bash
+set ox:printlevel "info"
+set ox:printlevel:ox_inventory "warn"
+set ox:printlevel:<resourceName> "<level>"
+```

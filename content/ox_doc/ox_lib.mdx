@@ -1,0 +1,160 @@
+import { Callout } from "nextra/components";
+import { Tabs, Tab, Steps } from "nextra-theme-docs";
+import ResourceLinks from "@components/resource-links";
+
+# オックスリブ
+
+インポート可能なモジュールおよびエクスポートとして簡単に再利用できるコードを提供するスタンドアロン ライブラリ。
+
+<ResourceLinks repo="https://github.com/communityox/ox_lib" />
+
+## インストール
+
+<Callout type="info">
+  私たちは **強く**参照することをお勧めします[ガイド](../guides)Git、Node.js、pnpm をセットアップします。
+</Callout>
+
+<Steps>
+  ### ダウンロード[リリース](https://github.com/communityox/ox_lib/releases)またはソースコードをビルドします。
+
+  ```bash
+  git clone https://github.com/communityox/ox_lib.git
+  cd ox_lib/web
+  pnpm i
+  pnpm build
+  ```
+
+  ### 設定
+
+  リソース構成は以下を使用して処理されます[会話する](https://docs.fivem.net/docs/scripting-reference/convars/)。
+
+  ```bash
+  # https://v6.mantine.dev/theming/colors/#default-colors
+  setr ox:primaryColor blue
+  setr ox:primaryShade 8
+  setr ox:userLocales 1 # Allow users to select their locales using /ox_lib
+  ```
+
+  また、リソースに ace 権限を付与する必要があります。
+
+  ```bash
+  add_ace resource.ox_lib command.add_ace allow
+  add_ace resource.ox_lib command.remove_ace allow
+  add_ace resource.ox_lib command.add_principal allow
+  add_ace resource.ox_lib command.remove_principal allow
+  ```
+</Steps>
+
+## 使用法
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    リソース内でライブラリを有効にするには、以下を追加するだけです。`@ox_lib/init.lua`shared\_scriptとして`fxmanifest.lua` ファイル。
+
+    ```lua
+    shared_scripts {
+        '@ox_lib/init.lua',
+    }
+    ```
+
+    または、ライブラリが使用する唯一の共有スクリプトである場合は、次のようにします。
+
+    ```lua
+    shared_script '@ox_lib/init.lua'
+    ```
+
+    インポートするモジュールを`fxmanifest.lua`、または動的にロードします。
+
+    ```lua
+    ox_libs {
+        'locale',
+        'math',
+        'table',
+    }
+    ```
+
+    ox\_lib がスクリプトにインポートされると、いくつかの新しいグローバルが使用できるようになります。
+
+    * `lib`スクリプトに ox\_lib モジュールを動的にインポートします。
+    * `require`独自のスクリプトからモジュールをインポートします。
+    * `cache` 見る [ここ](./ox_lib/Modules/Cache/Shared)。
+  </Tags.Tab>
+
+  <Tags.Tab>
+    <Callout>
+      ライブラリのnpmパッケージは**ない**Lua で利用可能なすべての機能をサポートします。
+
+      サポートされているすべての機能は、`resource`lib 内のフォルダー。
+    </Callout>
+
+    npmパッケージを入手できます[ここ](https://npmjs.com/package/@communityox/ox_lib)。
+
+    **使用法：**\
+    そのスコープ (クライアント/サーバー/共有) のすべての関数を含むライブラリ オブジェクト全体をインポートすることも、ライブラリ オブジェクトを分解してその時点で必要な関数をインポートすることもできます。
+
+    ```ts
+    import lib from "@communityox/ox_lib/server";
+    ```
+
+    ```ts
+    import { versionCheck } from "@communityox/ox_lib/server";
+    ```
+  </Tags.Tab>
+</Tabs>
+
+これで、リソース内でライブラリ関数を使用できるようになりました。その使用方法については、ドキュメントの残りの部分を確認してください。
+
+## インターフェース機能にアイコンを使用する
+
+使用されるアイコンライブラリはFont Awesome 6.0です。アイコンにstringのみを定義すると、デフォルトのアイコンタイプは次のようになります。`solid`。\
+別のアイコンタイプ、例えばブランドとしてappleを使用したい場合、アイコンをtableとして定義する必要があります（`array`）の最初の値はアイコンの種類（`fas`、`far`、`fab`) を string として保存し、2 番目にアイコン名を指定します。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    icon = {'fab', 'apple'}
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    icon: ["fab", "apple"];
+    ```
+  </Tags.Tab>
+</Tabs>
+
+## UIの構築
+
+UI要素を編集したい場合は、*ソース*コードを編集し、必要なものを編集してからコンパイルします。
+
+<Callout type="warning">
+  **しないでください**リリース CSS および JS ファイルをバンドル解除して縮小解除し、編集します。
+</Callout>
+
+**要件：**
+
+* [Node.js (LTS)](https://nodejs.org/)
+* pnpm
+
+**Node.js のインストール:**
+
+* Node.js の LTS バージョンをダウンロードします。
+* インストールを実行して、すべての機能がインストールされていることを確認してください。
+* cmdでnode --versionを実行し、numberのバージョンが表示されることを確認してください。表示されない場合は、正しくインストールされていません。
+
+**pnpmのインストール:**
+
+* NodeJSをインストールした後、次のコマンドを実行してpnpmをインストールできます。`npm install -g pnpm`。
+
+**UI の構築:**
+
+* Web ディレクトリに cd します。
+* 走る `pnpm i`依存関係をインストールします。
+* 走る `pnpm build`ソースファイルをビルドします。
+
+<Callout type="info">
+  ブラウザで作業している場合は、`pnpm start`ホットリロードをサポートしているため、
+  ファイルを保存した後でも変更内容を確認できます。
+
+  ゲーム内で作業したい場合は実行できます`pnpm start:game`変更はディスクに書き込まれるので、変更を有効にするにはリソースを再起動するだけです。
+</Callout>

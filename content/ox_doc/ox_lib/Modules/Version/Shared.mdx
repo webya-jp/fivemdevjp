@@ -1,0 +1,32 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+
+# 共有
+
+## lib.checkDependency
+
+リソースが指定されたバージョン以上を使用しているかどうかをチェックし、互換性チェックやエラーの発生を可能にする。
+
+```lua
+lib.checkDependency(resource, version)
+```
+
+- リソースを提供する：`string`
+- バージョンである：`string`
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    if not lib.checkDependency('ox_lib', '1.5.0') then error() end
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import lib from '@communityox/ox_lib/shared'
+    // import { checkDependency } from '@communityox/ox_lib/shared'
+
+    if (!lib.checkDependency('ox_lib', '1.5.0')) error()
+    ```
+
+  </Tags.Tab>
+</Tabs>

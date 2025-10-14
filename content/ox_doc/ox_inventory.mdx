@@ -1,0 +1,262 @@
+import ResourceLinks from '@components/resource-links';
+import { Steps, Tabs, Tab } from 'nextra-theme-docs';
+import { Callout } from 'nextra/components';
+
+# 牛の在庫
+
+<ResourceLinks repo="https://github.com/communityox/ox_inventory" />
+
+「アイテムの一意性」に関するアイテム メタデータを含むスロット ベースのインベントリ。
+
+<Callout type="warning">
+  組み込みフレームワーク インベントリを置き換える場合、互換性エラーが発生します。\
+  非互換性を解決する意思や能力がない場合は、このリソースをインストールしないでください。
+</Callout>
+
+## インストール
+
+<Callout type="info">
+  私たちは **強く**参照することをお勧めします[ガイド](../guides)Git、Node.js、pnpm をセットアップします。
+</Callout>
+
+<Steps>
+  ### すべてのリソース依存関係をインストールする
+
+  * [oxmysql](../oxmysql)
+  * [ox\_lib](../ox_lib/)
+
+  ### ダウンロード[リリース](https://github.com/communityox/ox_inventory/releases)またはソースコードをビルドします。
+
+  ```bash
+  git clone https://github.com/communityox/ox_inventory.git
+  cd ox_inventory/web
+  pnpm i
+  pnpm build
+  ```
+
+  ### オプションの依存関係をインストールする
+
+  これらのリソースは必須ではありませんが、追加機能を提供します。
+
+  * [ox\_target](../ox_target/)
+
+  ### リソースの開始順序
+
+  依存関係の不足によるエラーを防ぐために、リソースを論理的な順序で開始することが重要です。
+
+  ```bash
+  start oxmysql   # this should be one of the first resources
+  start ox_lib
+  start framework # the name of your framework (i.e. ox_core, es_extended, qbx_core)
+  start ox_target
+  start ox_inventory
+  ```
+
+  ### 設定
+
+  リソース構成は以下を使用して処理されます[会話する](https://docs.fivem.net/docs/scripting-reference/convars/)。
+
+  ```bash
+  ### Shared
+
+  # Activate specific event handlers and functions (supported: ox, esx, qbx, nd)
+  setr inventory:framework "esx"
+
+  # Number of slots for player inventories
+  setr inventory:slots 50
+
+  # Maximum carry capacity for players, in grams (frameworks may override this)
+  setr inventory:weight 30000
+
+  # Number of slots for drop inventories
+  setr inventory:dropslots 50
+
+  # Maximum drop capacity, in grams
+  setr inventory:dropweight 30000
+
+  # Integrated support for qtarget/ox_target stashes, shops, etc
+  # Note: qtarget is deprecated, a future update may drop support (ox_target only, or gated features)
+  setr inventory:target false
+
+  # Jobs with access to police armoury, evidence lockers, etc
+  setr inventory:police ["police", "sheriff"]
+
+  # Set dumpsters as networked entities. Not recommended due to CNetObj limits and entity lockdown.
+  setr inventory:networkdumpsters 0
+
+  ### Client
+
+  # The URL to load item images from
+  setr inventory:imagepath "nui://ox_inventory/web/images"
+
+  # Weapons will reload after reaching 0 ammo
+  setr inventory:autoreload false
+
+  # Blur the screen while accessing the inventory
+  setr inventory:screenblur true
+
+  # Default hotkeys to access primary and secondary inventories, and hotbar
+  setr inventory:keys ["F2", "K", "TAB"]
+
+  # Enable control action when inventory is open
+  setr inventory:enablekeys [249]
+
+  # Weapons must be aimed before shooting
+  setr inventory:aimedfiring false
+
+  # Show a list of all nearby players when giving items
+  setr inventory:giveplayerlist false
+
+  # Toggle weapon draw/holster animations
+  setr inventory:weaponanims true
+
+  # Toggle item notifications (add/remove)
+  setr inventory:itemnotify true
+
+  # Toggle weapon item notifications (equip/holster)
+  setr inventory:weaponnotify true
+
+  # Disable drop markers and spawn a prop instead
+  setr inventory:dropprops true
+
+  # Set the default model used for drop props
+  setr inventory:dropmodel "prop_med_bag_01b"
+
+  # Disarm the player if an unexpected weapon is in use (i.e. did not use the weapon item)
+  setr inventory:weaponmismatch true
+
+  # Ignore weapon mismatch checks for the given weapon type (e.g. ['WEAPON_SHOVEL', 'WEAPON_HANDCUFFS'])
+  setr inventory:ignoreweapons []
+
+  # Suppress weapon and ammo pickups
+  setr inventory:suppresspickups 1
+
+  # Disables weapons for all players
+  setr inventory:disableweapons 0
+
+  # Enable /steal command registration
+  setr inventory:enablestealcommand 1
+
+  # Disable inventory setup notification (Inventory is ready to use)
+  setr inventory:disablesetupnotification 0
+
+  ### Server
+
+  # Compare current version to latest release on GitHub
+  set inventory:versioncheck true
+
+  # Stashes will be wiped after remaining unchanged for the given time
+  set inventory:clearstashes "6 MONTH"
+
+  # Stashes will be saved in groups and not individually per query
+  set inventory:bulkstashsave 1
+
+  # Discord webhook url, used for imageurl metadata content moderation (image embeds)
+  set inventory:webhook ""
+
+  # Logging via ox_lib (0: Disable, 1: Standard, 2: Include AddItem/RemoveItem, and all shop purchases)
+  set inventory:loglevel 1
+
+  # Item prices fluctuate in shops
+  set inventory:randomprices true
+
+  # Loot will randomly generate inside unowned vehicles and dumpsters
+  set inventory:randomloot true
+
+  # Minimum job grade to remove items from evidence lockers
+  set inventory:evidencegrade 2
+
+  # Trim whitespace from vehicle plates when checking owned vehicles
+  setr inventory:trimplate true
+
+  # Set the contents of randomly generated inventories
+  # [item name, minimum, maximum, loot chance]
+  set inventory:vehicleloot [
+      ["cola", 1, 1],
+      ["water", 1, 1],
+      ["garbage", 1, 2, 50],
+      ["panties", 1, 1, 5],
+      ["money", 1, 50],
+      ["money", 200, 400, 5],
+      ["bandage", 1, 1]
+  ]
+
+  set inventory:dumpsterloot [
+      ["mustard", 1, 1],
+      ["garbage", 1, 3],
+      ["money", 1, 10],
+      ["burger", 1, 1]
+  ]
+
+  # Set the markers for the various drops, stashes, shops
+  # These all follow the same strucutre, if the json strings are invalid it will fallback to a generic marker
+  setr inventory:dropmarker {
+      "type": 2,
+      "colour": [150, 30, 30],
+      "scale": [0.3, 0.2, 0.15]
+  }
+
+  setr inventory:shopmarker {
+      "type": 29,
+      "colour": [30, 150, 30],
+      "scale": [0.5, 0.5, 0.5]
+  }
+
+  setr inventory:evidencemarker {
+      "type": 2,
+      "colour": [30, 30, 150],
+      "scale": [0.3, 0.2, 0.15]
+  }
+
+  setr inventory:craftingmarker {
+      "type": 2,
+      "colour": [150, 150, 30],
+      "scale": [0.3, 0.2, 0.15]
+  }
+
+  # Set items to sync with framework accounts
+  set inventory:accounts ["money"]
+  ```
+</Steps>
+
+## フレームワークの非互換性
+
+* 独自の組み込みインベントリ、アイテム、または武器システムを持つフレームワークでは、互換性の問題が発生する可能性があります。
+* お金というアイテムは、銀行や口座のシステムと競合する可能性があります。
+  * これらの値は[server.syncInventory](https://github.com/communityox/ox_inventory/blob/aff8ef9e9ee3f93f177ce03b3f37895ff5781800/modules/bridge/nd/server.lua#L64-L77)。
+
+問題を参照[＃1297](https://github.com/communityox/ox_inventory/issues/1297)既知の互換性の問題。
+
+## サポートされていないフレームワークの使用
+
+フレームワークに公式サポートがない場合は、自分で実装する必要があります。\
+既存または組み込みの在庫システムを置き換える場合、これは複雑になる可能性がありますが、それ以外の場合はかなり簡単な作業です。
+
+この設定は非常に独断的で厳格なため、これを機能させるかどうかは開発者自身の能力次第です。
+
+<Steps>
+  ### ブリッジサブモジュールを設定する
+
+  まずターゲット フレームワークを設定する必要があります。これは、名前、頭字語、または単に「カスタム」にすることができます。
+
+  ```bash
+  setr inventory:framework "custom"
+  ```
+
+  コピー`ox`ディレクトリから[橋](https://github.com/communityox/ox_inventory/tree/main/modules/bridge)ディレクトリを作成し、上で使用した名前を付けます。
+
+  ここでは最低限の関数とイベントハンドラが追加されていますが、お使いのフレームワークに合わせて変更する必要があります。ここではサポートできません。他のフレームワークのブリッジを参考にしてください。
+
+  ### データベース参照の設定
+
+  見てみましょう[MySQL](https://github.com/communityox/ox_inventory/blob/main/modules/mysql/server.lua)モジュール。player/vehicleテーブルとID列を参照する必要があります。
+
+  ```lua
+  elseif shared.framework == 'custom' then
+      playerTable = 'characters' -- table storing player / character data
+      playerColumn = 'charid'    -- primary key for identifying the character (i.e. identifier, citizenid, id)
+      vehicleTable = 'vehicles'  -- table storing owned vehicle data
+      vehicleColumn = 'id'       -- primary key for identifying the vehicle (i.e. plate, vin, id)
+  end
+  ```
+</Steps>

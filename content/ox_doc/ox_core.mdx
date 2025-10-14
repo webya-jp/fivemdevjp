@@ -1,0 +1,119 @@
+import { NpmButton } from '@components/button';
+import ResourceLinks from '@components/resource-links';
+import { Callout, Steps, Tab, Tabs } from 'nextra/components';
+
+# オックスコア
+
+<ResourceLinks repo="https://github.com/communityox/ox_core" />
+
+OneSync、ステートバッグ、サーバー側エンティティなどの機能を適切にサポートするように設計された最新の FiveM フレームワーク。
+
+## txAdminレシピ
+
+ox_coreを素早くインストールしてセットアップしたい場合は、[私たちのレシピ](https://github.com/communityox/txAdminRecipe)。
+
+## インストール
+
+<Callout type="info">
+  私たちは
+  **強く**参照することをお勧めします[ガイド](../guides)必要な開発ツールをセットアップします。
+</Callout>
+
+<Steps>
+  ### すべてのリソース依存関係をインストールします。
+
+- [oxmysql](../oxmysql)
+- [ox_lib](../ox_lib/)
+
+### 最新版をダウンロード[リリース](https://github.com/communityox/ox_core/releases/latest)またはソースコードをビルドします。
+
+- 設定 [ギット](../guides/git)、[ノード.js](../guides/nodejs)、 そして [pnpm](../guides/pnpm)。
+- ダウンロードとセットアップ[MariaDB 11.4以上](https://mariadb.com/downloads/community/community-server/)。
+- CLI (ターミナル、コマンド プロンプトなど) で次のコマンドを実行します。
+
+```bash
+git clone https://github.com/communityox/ox_core.git
+cd ox_core
+pnpm i
+pnpm build
+```
+
+### オプションの依存関係をインストールします。
+
+これらのリソースは必須ではありませんが、強く推奨されます。
+
+- [ox_inventory](../ox_inventory/)
+- [障害者](https://github.com/project-error/npwd)
+- [イレニウム出現](https://github.com/iLLeniumStudios/illenium-appearance/archive/refs/heads/main.zip)
+  </Steps>
+
+## リソースでox_coreを使用する
+
+### 二
+
+ox_coreの定義を読み込むには、`@ox_core/lib/init.lua`リソースに追加します。
+
+<Tabs items={['fxmanifest.lua', 'require']}>
+  <Tags.Tab>
+    必要に応じて、client\_script または server\_script にすることができます。
+
+    ```lua
+    shared_script '@ox_core/lib/init.lua'
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ご希望の場合は、[必要とする](../ox_lib/Modules/Require/Shared)関数から[ox\_lib](../ox_lib)。
+
+    ```lua
+    local Ox = require '@ox_core.lib.init'
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+### JavaScript
+
+JavaScript リソースで ox_core を使用するには、TypeScript と Intellisense を完全にサポートする npm パッケージを使用する必要があります。
+
+<NpmButton link="https://www.npmjs.com/package/@communityox/ox_core" />
+
+まずは、[fivem-typescript-ボイラープレート](https://github.com/communityox/fivem-typescript-boilerplate)ox_core パッケージをインストールします。
+
+```bash
+pnpm i @communityox/ox_core
+```
+
+## 設定
+
+リソース構成は以下を使用して処理されます[会話する](https://docs.fivem.net/docs/scripting-reference/convars/)。
+
+### 複製された
+
+これらのconvarsは`setr`クライアントが読み取るコマンド。
+
+- `ox:debug`
+  - デフォルト： `false`
+  - デバッグメッセージとコマンドを有効にします。また、プレイヤーが同じ識別子を持つことを許可します。`pnpm watch`。
+- `ox:characterSlots`
+  - デフォルト： `1`
+  - 文字選択リソース (例: ox_charselect) に使用できる文字スロットの number を設定します。
+- `ox:plateFormat`
+  - デフォルト： `"........"`
+  - 見る [SET_DEFAULT_VEHICLE_NUMBER_PLATE_TEXT_PATTERN](https://docs.fivem.net/natives/?_0x79780FD2)。
+- `ox:deathSystem`
+  - デフォルト： `true`
+  - 組み込みの死亡・復活システムを有効にします。無効にすると、`isDead`playerの状態は引き続き`true`そして`ox:playerDeath`イベントがトリガーされます。
+- `ox:hospitalBlips`
+  - デフォルト： `true`
+  - デフォルトの deathSystem で復活するときに使用する病院のブリップを有効にします。
+- `ox:characterSelect`
+  - デフォルト： `true`
+  - 内蔵キャラクターの登録を有効にし、参加時にそのキャラクターを使用します。
+- `ox:spawnLocation`
+  - デフォルト： `[-258.211, -293.077, 21.6132, 206.0]`
+  - 新しく作成されたキャラクターのデフォルトのスポーン場所を設定します。
+- `ox:defaultVehicleStore`
+  - デフォルト： `'impound'`
+  - リソース開始時に、以前に生成された車両はすべてここに保存されます。空のstringではデータベースは更新されません。

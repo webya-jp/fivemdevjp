@@ -1,0 +1,264 @@
+# クライアント
+
+を使用した輸出はすべて`options`引数は、ターゲット・プロパティを持つテーブルを期待する。[これ](../TargetOptions).
+
+いくつかの例については、以下を参照されたい。[デフォルト.lua](https://github.com/communityox/ox_target/blob/main/client/defaults.lua)または[debug.lua](https://github.com/communityox/ox_target/blob/main/client/debug.lua).
+
+## ターゲットを無効にする
+
+ターゲティングメニューの有無を切り替える。
+
+```lua
+exports.ox_target:disableTargeting(state)
+```
+
+* の状態だ：`boolean`
+  * セッティング`state`への`true`は、ターゲティング・アイがアクティブであればそれをオフにし、次の時間まで再開しないようにする。`state`に設定されている。`false`再び
+
+## addGlobalOption
+
+常に表示される新しいターゲット可能なオプションを作成する。
+
+```lua
+exports.ox_target:addGlobalOption(options)
+```
+
+* のオプションがある：`TargetOptions`
+
+## removeGlobalOption
+
+グローバルオプションリストからオプション名を指定してすべてのオプションを削除する。
+
+```lua
+exports.ox_target:removeGlobalOption(optionNames)
+```
+
+* オプション名：`string`または`string[]`
+
+## addGlobalObject
+
+すべての Object エンティティ・タイプに新しいターゲット可能なオプションを作成します。
+
+```lua
+exports.ox_target:addGlobalObject(options)
+```
+
+* のオプションがある：`TargetOptions`
+
+## removeGlobalObject
+
+グローバル・オブジェクト・リストからオプション名を指定してすべてのオプションを削除する。
+
+```lua
+exports.ox_target:removeGlobalObject(optionNames)
+```
+
+* オプション名：`string`または`string[]`
+
+## アドグローバルペッド
+
+すべてのペッド・エンティティ・タイプ（プレーヤーを除く）に新しいターゲット可能なオプションを作成します。
+
+```lua
+exports.ox_target:addGlobalPed(options)
+```
+
+* のオプションがある：`TargetOptions`
+
+## リムーブグローバルペッド
+
+グローバルPedリストからオプション名を指定してすべてのオプションを削除する。
+
+```lua
+exports.ox_target:removeGlobalPed(optionNames)
+```
+
+* オプション名：`string`または`string[]`
+
+## 追加グローバルプレーヤー
+
+すべての Player エンティティに新しいターゲット可能なオプションを作成する。
+
+```lua
+exports.ox_target:addGlobalPlayer(options)
+```
+
+* のオプションがある：`TargetOptions`
+
+## removeGlobalPlayer
+
+グローバルPlayerリストからオプション名を指定してすべてのオプションを削除する。
+
+```lua
+exports.ox_target:removeGlobalPlayer(optionNames)
+```
+
+* オプション名：`string`または`string[]`
+
+## addGlobalVehicle
+
+すべてのビークル・エンティティ・タイプに新しいターゲット可能なオプションを作成します。
+
+```lua
+exports.ox_target:addGlobalVehicle(options)
+```
+
+* のオプションがある：`TargetOptions`
+
+## removeGlobalVehicle
+
+グローバル・ビークル・リストからオプション名を指定してすべてのオプションを削除する。
+
+```lua
+exports.ox_target:removeGlobalVehicle(optionNames)
+```
+
+* オプション名：`string`または`string[]`
+
+## 追加モデル
+
+特定のモデルまたはモデルのリストに対して新しいターゲット可能なオプションを作成します。
+
+```lua
+exports.ox_target:addModel(models, options)
+```
+
+* のモデルだ：`number`または`string`または`Array<number | string>`
+* のオプションがある：`TargetOptions`
+
+## 削除モデル
+
+モデルリストからオプション名を指定してすべてのオプションを削除する。
+
+```lua
+exports.ox_target:removeModel(models, optionNames)
+```
+
+* のモデルだ：`number`または`string`または`Array<number | string>`
+* オプション名：`string`または`string[]`
+
+## 追加エンティティ
+
+特定のネットワーク ID またはネットワーク ID のリストに対して、新しいターゲット可能なオプションを作成します ([NetworkGetNetworkIdFromEntity](https://docs.fivem.net/natives/?_0x9E35DAB6)).
+
+```lua
+exports.ox_target:addEntity(netIds, options)
+```
+
+* netIds：`number`または`number[]`
+* のオプションがある：`TargetOptions`
+
+## 削除エンティティ
+
+ネットワークエンティティ一覧からオプション名を指定してすべてのオプションを削除する。
+
+```lua
+exports.ox_target:removeEntity(netIds, optionNames)
+```
+
+* netIds：`number`または`number[]`
+* オプション名：`string`または`string[]`
+
+## 追加ローカルエンティティ
+
+特定のエンティティハンドルまたはエンティティハンドルのリストに対して新しいターゲット可能なオプションを作成します。
+
+```lua
+exports.ox_target:addLocalEntity(entities, options)
+```
+
+* エンティティ`number`または`number[]`
+* のオプションがある：`TargetOptions`
+
+## removeLocalEntity
+
+オプション名を持つエンティティリストからすべてのオプションを削除する。
+
+```lua
+exports.ox_target:removeLocalEntity(entities, optionNames)
+```
+
+* 実体がある：`number`または`number[]`
+* オプション名：`string`または`string[]`
+
+## アドスフィアゾーン
+
+新しいtargetableを作成する。[球体ゾーン](../../ox_lib/Modules/Zones/Shared#libzonessphere).
+
+```lua
+exports.ox_target:addSphereZone(parameters)
+```
+
+* パラメータがある：`table`
+  * コーデ：`vector3`
+  * という名前ですか？`string`
+    * ゾーンを参照するためのオプションの名前。`id`.
+  * 半径？`number`
+  * デバッグ？`boolean`
+  * drawSprite？`boolean`
+    * ゾーンの中心にスプライトを描画する。デフォルトは`true`.
+  * のオプションがある：`TargetOptions`
+
+戻る：
+
+* id.K.である：`number`
+
+## アドボックスゾーン
+
+新しいtargetableを作成する。[ボックスゾーン](../../ox_lib/Modules/Zones/Shared#libzonesbox).
+
+```lua
+exports.ox_target:addBoxZone(parameters)
+```
+
+* パラメータがある：`table`
+  * コーデ：`vector3`
+  * という名前ですか？`string`
+    * ゾーンを参照するためのオプションの名前。`id`.
+  * サイズは？`vector3`
+  * 回転？`number`
+  * デバッグ？`boolean`
+  * drawSprite？`boolean`
+    * ゾーンの中心にスプライトを描画する。デフォルトは`true`.
+  * のオプションがある：`TargetOptions`
+
+戻る：
+
+* id.K.である：`number`
+
+## アドポリゾーン
+
+新しいtargetableを作成する。[ポリゾーン](../../ox_lib/Modules/Zones/Shared#libzonespoly).
+
+```lua
+exports.ox_target:addPolyZone(parameters)
+```
+
+* パラメータがある：`table`
+  * 点である：`vector3[]`
+    * ポリゴンの形状を定義する3次元点の配列。
+  * という名前ですか？`string`
+    * ゾーンを参照するためのオプションの名前。`id`.
+  * 厚さ？`number`
+    * ポリゴンの高さ。デフォルトは`4`.
+  * デバッグ？`boolean`
+  * drawSprite？`boolean`
+    * ゾーンの中心にスプライトを描画する。デフォルトは`true`.
+  * のオプションがある：`TargetOptions`
+
+戻る：
+
+* id.K.である：`number`
+
+## 削除ゾーン
+
+指定された id を持つターゲット可能ゾーンを削除します (addBoxZone/addSphereZone によって返されます)。
+
+```lua
+exports.ox_target:removeZone(id)
+```
+
+* ということだ：`number`または`string`
+  * について`number`によって返される[アドスフィアゾーン](#addspherezone),[アドボックスゾーン](#addboxzone)あるいは[アドポリゾーン](#addpolyzone)\
+    **または**
+  * について`string`ゾーンに与えられた名前。

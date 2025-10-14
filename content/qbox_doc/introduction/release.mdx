@@ -1,0 +1,59 @@
+---
+title: "Release Readiness Guidelines"
+sidebar_label: "Release Guidelines"
+sidebar_position: 5
+keywords: [qbox, fivem, development, release, guidelines, quality, standards, stability]
+description: Guidelines and requirements for releasing stable Qbox resources. Learn about code quality standards, database practices, configuration requirements, and release automation.
+slug: /release
+---
+
+# リリース準備
+
+リソースが安定しており、リリースの準備ができていることを示すためのガイドライン。
+
+## コード品質
+
+1. リントエラーは存在しません。
+2. 全て `print`文は次のように置き換えられる`lib.print`。
+3. 可能な場合は、ネイティブを置き換えるために ox\_lib が使用されます。
+4. コードはベストプラクティスを使用し、貢献ガイドラインに従います。
+5. コードは読みやすく、整理されています。
+6. 非推奨の関数は呼び出されていません。
+
+## データベースプラクティス
+
+1. 所有していないテーブルから直接読み取ることはせず、代わりに所有リソースからのエクスポートと関数を使用してデータを取得します。
+2. リソースの指定されたストレージ層に所有するテーブルへの直接データベース呼び出しがあります（`server/storage.lua`qbx\_core 内)。
+
+## 設定の実践
+
+1. Configはconfigフォルダ内にあり、`client.lua`、`shared.lua`、`server.lua`、そしてオプションでさらに複数あります。これらはそれぞれモジュールです（つまり、tableを返します）。
+
+## コアプラクティス
+
+1. クライアント PlayerData には、qbx\_core エクスポートではなく、playerdata モジュールを使用してアクセスします。
+2. Lib モジュールは、DrawText などの重複コードを置き換えるために使用されます。
+
+## リソースの品質
+
+1. リソース機能は、プレイヤー/開発者/所有者/管理者に優れたエクスペリエンスを提供します。
+2. リソースのスコープが適切に設定されています (つまり、分割したり、別のリソースと結合したりしないでください)。
+3. README は古くなっておりません。
+4. 既知のバグはありません。
+
+## 安定性
+
+1. 近い将来に重大な変更は予定されていません。
+2. リソースは、重大なバグが存在しないという確信を持てるほど長期間テストされているか、変更されていません。
+
+## 依存関係
+
+1. 依存関係は次のように宣言され、強制されます。[lib.checkDependency](https://coxdocs.dev/ox_lib/Modules/Version/Shared). fxmanifest の依存関係は意図的に使用する必要があります。リソースを再起動する動作を理解してください。
+2. 依存関係は安定しています。
+
+## リリース自動化とドキュメント
+
+1. サーバーによって実行されるコードの最初の行は[lib.versionCheck](https://coxdocs.dev/ox_lib/Modules/Version/Server#libversioncheck)。
+2. このリソースには`.github`バグ/提案テンプレート、自動バージョンアップデーター、リリース スクリプトを含むフォルダー。
+3. このリソースにはREADMEがあり、リソースとその機能に関するマーケティング資料が含まれています。これは技術文書ではないことにご注意ください。
+4. リソースのパブリック API (イベントとエクスポート) については、技術ドキュメント (こちら) に記載されています。

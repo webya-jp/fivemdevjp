@@ -1,0 +1,482 @@
+import { Callout, Tabs } from 'nextra/components';
+
+# サーバーイベント
+
+<Callout type="warning">
+  これらのイベントは、アクションが発生するとox\_coreによってトリガーされます。他のスクリプトからトリガーしてはいけません。
+</Callout>
+
+## オックス:セーブド・プレーヤーズ
+
+選手がデータベースに保存されるとき。
+
+<Callout type="info">
+  デフォルトではこのイベントがトリガーされる：
+
+  * 10分ごと。
+  * サーバーのシャットダウン時。
+  * いつ[`Ox.SaveAllPlayers`](/ox_core/Functions/server#oxsaveallplayers)と呼ばれる。
+  * コマンド`saveplayers`が使われている。
+</Callout>
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:savedPlayers', function(playersSaved)
+        print(playersSaved)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:savedPlayers', (playersSaved: number) => {
+      console.log(playersSaved);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerSaved：`number`
+
+## ox:setActiveGroup
+
+キャラクターのアクティブグループが変更された場合。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:setActiveGroup', function(playerId, groupName, previousGroupName)
+        print(playerId, groupName, previousGroupName)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:setActiveGroup', (playerId: number, groupName: string, previousGroupName: string | undefined) => {
+      console.log(playersSaved);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* グループ名：`string`
+* previousGroupName：`string | undefined`
+
+## ox:setGroup
+
+キャラクターがグループに追加されたり、グループから削除されたりした場合。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:setGroup', function(playerId, groupName, grade)
+        print(playerId, groupName, grade)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:setGroup', (playerId: number, groupName: string, grade?: number) => {
+      console.log(playerId, groupName, grade);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* グループ名：`string`
+* グレード？`number`
+
+## ox:ライセンス追加
+
+キャラクターが新しいライセンスを取得したとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:licenseAdded', function(playerId, licenseName)
+        print(playerId, licenseName)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:licenseAdded', (playerId: number, licenseName: string) => {
+      console.log(playerId, licenseName);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* ライセンス名`string`
+
+## ox:ライセンス削除
+
+キャラクターのライセンスが剥奪された場合。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:licenseRemoved', function(playerId, licenseName)
+        print(playerId, licenseName)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:licenseRemoved', (playerId: number, licenseName: string) => {
+      console.log(playerId, licenseName);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* ライセンス名`string`
+
+## ox:プレイヤーログアウト
+
+プレイヤーが現在のキャラクターからログアウトしたり、クラッシュしたり、サーバーから切断された場合。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:playerLogout', function(playerId, userId, charId)
+        print(playerId, userId, charId)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:playerLogout', (playerId: number, userId: number, charId: number) => {
+      console.log(playerId, userId, charId);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* userId：`number`
+* charId：`number`
+
+## ox:作成された文字
+
+プレイヤーが新しいキャラクターを作成した場合。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:createdCharacter', function(playerId, userId, charId)
+        print(playerId, userId, charId)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:createdCharacter', (playerId: number, userId: number, charId: number) => {
+      console.log(playerId, userId, charId);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* userId：`number`
+* charId：`number`
+
+## ox:playerLoaded
+
+プレイヤーがキャラクターを選択し、ロードするとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:playerLoaded', function(playerId, userId, charId)
+        print(playerId, userId, charId)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:playerLoaded', (playerId: number, userId: number, charId: number) => {
+      console.log(playerId, userId, charId);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* userId：`number`
+* charId：`number`
+
+## ox:削除された文字
+
+文字が削除された場合。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:deletedCharacter', function(playerId, userId, charId)
+        print(playerId, userId, charId)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:deletedCharacter', (playerId: number, userId: number, charId: number) => {
+      console.log(playerId, userId, charId);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* playerId：`number`
+* userId：`number`
+* charId：`number`
+
+## ox:保存車両
+
+車両がデータベースに保存されるとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:savedVehicles', function(vehiclesSaved)
+        print(vehiclesSaved)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:savedVehicles', (vehiclesSaved: number) => {
+      console.log(vehiclesSaved);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* 車両保存：`number`
+
+## ox:spawnedビークル
+
+(1)の場合[`OxVehicle`](/ox_core/Classes/Server/OxVehicle)が生み出した。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:spawnedVehicle', function(entityId, id)
+        print(entityId, id)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:spawnedVehicle', (entityId: number, id: number) => {
+      console.log(entityId, id);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* entityId：`number`
+* id.K.である：`number`
+
+## Ox:despawn車両
+
+震災前[`OxVehicle`](/ox_core/Classes/Server/OxVehicle)がデスポーンされる。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:despawnVehicle', function(entityId, id)
+        print(entityId, id)
+    end)
+    ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:despawnVehicle', (entityId: number, id: number) => {
+      console.log(entityId, id);
+    });
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+* entityId：`number`
+* id.K.である：`number`
+
+## ox:更新されたバランス
+
+口座の残高が更新されたとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:updatedBalance', function(data)
+        print(json.encode(data))
+    end)
+    ```
+
+    * データ`table`
+      * accountId：`number`
+      * の量だ：`number`
+      * アクションだ：`'add' | 'remove'`
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:updatedBalance', (data: object) => {
+      console.log(data);
+    });
+    ```
+
+    * データ`object`
+      * accountId：`number`
+      * の量だ：`number`
+      * アクションだ：`'add' | 'remove'`
+  </Tabs.Tab>
+</Tabs>
+
+## ox:送金されたお金
+
+口座の資金が送金されるとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:transferredMoney', function(data)
+        print(json.encode(data))
+    end)
+    ```
+
+    * データ`table`
+      * fromAccountId：`number`
+      * toAccountId：`number`
+      * の量だ：`'add' | 'remove'`
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:transferredMoney', (data: object) => {
+      console.log(data);
+    });
+    ```
+
+    * データ`object`
+      * fromAccountId：`number`
+      * toAccountId：`number`
+      * の量だ：`'add' | 'remove'`
+  </Tabs.Tab>
+</Tabs>
+
+## ox:預けたお金
+
+お金が口座に入金されること。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:depositedMoney', function(data)
+        print(json.encode(data))
+    end)
+    ```
+
+    * データ`table`
+      * playerId：`number`
+      * accountId：`number`
+      * の量だ：`number`
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:depositedMoney', (data: object) => {
+      console.log(data);
+    });
+    ```
+
+    * データ`object`
+      * playerId：`number`
+      * accountId：`number`
+      * の量だ：`number`
+  </Tabs.Tab>
+</Tabs>
+
+## ox:お金を引き出した
+
+口座からお金が引き出されるとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:withdrewMoney', function(data)
+        print(json.encode(data))
+    end)
+    ```
+
+    * データ`table`
+      * playerId：`number`
+      * accountId：`number`
+      * の量だ：`number`
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:withdrewMoney', (data: object) => {
+      console.log(data);
+    });
+    ```
+
+    * データ`object`
+      * playerId：`number`
+      * accountId：`number`
+      * の量だ：`number`
+  </Tabs.Tab>
+</Tabs>
+
+## ox:invoicePaid（インボイスペイド
+
+請求書が支払われたとき。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tabs.Tab>
+    ```lua copy
+    AddEventHandler('ox:invoicePaid', function(data)
+        print(json.encode(data))
+    end)
+    ```
+
+    * データ`table`
+      * の量だ：`number`
+      * payerId：`number`
+      * fromAccount：`number`
+      * toAccount：`number`
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ```ts copy
+    on('ox:invoicePaid', (data: object) => {
+      console.log(data);
+    });
+    ```
+
+    * データ`object`
+      * の量だ：`number`
+      * payerId：`number`
+      * fromAccount：`number`
+      * toAccount：`number`
+  </Tabs.Tab>
+</Tabs>

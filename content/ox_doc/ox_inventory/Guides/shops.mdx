@@ -1,0 +1,106 @@
+***
+
+## タイトル店づくり
+
+# 店舗づくり
+
+組み込みショップは[data/shops.lua](https://github.com/communityox/ox_inventory/blob/main/data/shops.lua)そして、内蔵マーカーやゾーン・サポートの恩恵を受けるために、ここにさらに追加することができる。
+
+## ショップの定義
+
+```lua
+{
+    General = {
+        name = 'Shop',
+        blip = {
+          id = 59,
+          colour = 69,
+          scale = 0.8
+        },
+        inventory = {
+            { name = 'burger', price = 10 },
+            { name = 'water', price = 10 },
+            { name = 'cola', price = 10 },
+        },
+        locations = {
+            vec3(25.7, -1347.3, 29.49),
+        },
+        targets = {
+            -- Shop using a BoxZone
+            {
+                loc = vec3(25.06, -1347.32, 29.5),
+                length = 0.7,
+                width = 0.5,
+                heading = 0.0,
+                minZ = 29.5,
+                maxZ = 29.9,
+                distance = 1.5
+            },
+            -- Shop using a ped
+            {
+                ped = `mp_m_shopkeep_01`,
+                scenario = 'WORLD_HUMAN_AA_COFFEE',
+                loc = vec3(24.407, -1347.283, 28.497),
+                heading = 270.311,
+            },
+        }
+    }
+}
+```
+
+* と名付けた：`string`
+  * 開店時に表示するラベル。
+* ピクリともしない：`table`
+  * 与えられた設定でブリップを作成します。未定義のままにすると、ブリップは作成されません。
+  * id.K.である：`number`
+  * 色だ：`number`
+  * の規模である：`number`
+* グループ？`table`
+  * ショップにアクセスするための、ジョブ名と最低グレードのキーと値のペア。
+    * `{["police"] = 0, ["ambulance"] = 2}`
+* インベントリー`table`
+  * と名付けた：`string`
+  * 価格だ：`number`
+  * 通貨？`string`
+    * 通貨として使用する品目。
+  * を数えるのか？`number`
+    * 在庫の量。
+  * ライセンス？`string`
+    * 商品購入に必要なライセンス
+  * メタデータ？`table`
+  * グレード？`number`|`number[]`
+    * 購入に最低限必要なグレード。
+* 場所は？`vector3[]`
+  * マーカーを使用して、ショップ・アーキタイプのユニークなインスタンスを作成するための座標の配列。
+* ターゲット？`table[]`
+  * PedsまたはBoxZones（PolyZoneデータ構造）を使用して、ショップ・アーキタイプのユニークなインスタンスを作成するためのターゲット設定の配列。
+* モデル？`number[]`
+  * 出店を狙える機種がずらり。自動販売機に使用。
+
+ターゲットとモデルは、ox\_targetのようなターゲティングリソースを使用する場合にのみ利用可能です。
+
+## ランタイム中の登録
+
+ショップは`exports.ox_inventory:RegisterShop`しかし、クライアント専用の機能を利用することはできない。
+
+* ブリップ、マーカー、ゾーンは作成されない。
+* アーキタイプを使用する各店舗を定義するには、「ターゲット」ではなく「ロケーション」を使用しなければならない。
+
+### 例
+
+```lua
+exports.ox_inventory:RegisterShop('TestShop', {
+    name = 'Test shop',
+    inventory = {
+        { name = 'burger', price = 10 },
+        { name = 'water', price = 10 },
+        { name = 'cola', price = 10 },
+    },
+    locations = {
+        vec3(223.832962, -792.619751, 30.695190),
+    },
+    groups = {
+        police = 0
+    },
+})
+```

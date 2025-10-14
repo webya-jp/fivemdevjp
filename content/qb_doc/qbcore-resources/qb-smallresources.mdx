@@ -1,0 +1,358 @@
+---
+description: Resource for handling **alot** of misc stuff.
+---
+
+# 📚 qb-smallresources
+
+## 導入
+
+* このリソースはフレームワークの多くの小さなタスクを処理します
+* Discordログ
+* 時間制限のある仕事
+* 消費可能な食品/飲料/ドリンク/医薬品（サンドイッチ、水筒、トスティ、ビール、ウォッカなど）
+* GTAのデフォルトの武器ドロップの削除
+* 薬の効果
+* GTA のデフォルトの vehicle スポーン (飛行機、ヘリコプター、緊急車両など) の削除
+* GTAのデフォルトの緊急サービスNPCの削除
+* GTAのデフォルトの指名手配システムの削除
+* 使える双眼鏡
+* 武器の引き抜きアニメーション（通常/ホルスター）
+* テレポートマーカーを追加する機能（ある場所から別の場所へ）
+* 人質をとる
+* 指で指すアニメーション（「B」を押す）
+* シートベルトとクルーズコントロール
+* 使用可能なパラシュート
+* 使用可能な鎧
+* 武器の反動（武器ごとに異なります）
+* 取り組む
+* 穏やかなAI（NPCの攻撃性を調整）
+* レースハーネス
+* NPC/vehicle/駐車中のvehicleの出現率を調整する
+* 消火器とガソリン缶の弾薬は無限
+* GTA のデフォルトの HUD (武器ホイール、現金など) の削除
+* 花火
+* vehicleを入力すると自動的にエンジンがオンになります
+* Discordのリッチプレゼンス
+* しゃがんでうつ伏せになる
+* AFK検出
+
+## 構成
+
+### 一般的な
+
+> \[!INFO]
+> クロスヘアのようなデフォルトのHUDコンポーネントが必要な場合は、client/hudcomponents.luaでラベル付けされています。
+
+```lua
+Config.MaxWidth = 5.0
+Config.MaxHeight = 5.0
+Config.MaxLength = 5.0
+Config.DamageNeeded = 100.0
+Config.IdleCamera = true -- enable/disable idle camrea
+Config.EnableProne = true -- enable/disable prone
+Config.JointEffectTime = 60 -- how long does getting high affect the player?
+Config.RemoveWeaponDrops = true -- enable/disable native weapon drops
+Config.RemoveWeaponDropsTimer = 25
+Config.DefaultPrice = 20 -- carwash
+Config.DirtLevel = 0.1 -- carwash dirt level
+
+Config.Teleports = {
+    --Elevator @ labs
+    [1] = {
+        [1] = { --First location of the Teleport
+            coords = vector4(3540.74, 3675.59, 20.99, 167.5),
+            ["AllowVehicle"] = false, -- enable/disable vehicle
+            drawText = '[E] Take Elevator Up' -- Drawtext label
+        },
+        [2] = { --Second location of the Teleport
+            coords = vector4(3540.74, 3675.59, 28.11, 172.5),
+            ["AllowVehicle"] = false,
+            drawText = '[E] Take Elevator Down'
+        },
+
+    },
+    [2] = { --New teleport
+        [1] = {
+            coords = vector4(909.49, -1589.22, 30.51, 92.24),
+            ["AllowVehicle"] = false,
+            drawText = '[E] Enter Coke Processing'
+        },
+        [2] = {
+            coords = vector4(1088.81, -3187.57, -38.99, 181.7),
+            ["AllowVehicle"] = false,
+            drawText = '[E] Leave'
+        },
+    },
+}
+
+Config.CarWash = { -- carwash
+    [1] = {
+        ["label"] = "Hands Free Carwash", -- map blip name
+        ["coords"] = vector3(25.29, -1391.96, 29.33), -- map blip location
+    },
+    [2] = {
+        ["label"] = "Hands Free Carwash",
+        ["coords"] = vector3(174.18, -1736.66, 29.35),
+    }
+}
+```
+
+### ped および vehicle モデルのブラックリスト
+
+```lua
+Config.BlacklistedVehs = { -- these vehicles will delete themselves on spawn
+    [`SHAMAL`] = true,
+    [`LUXOR`] = true,
+    [`LUXOR2`] = true,
+    [`JET`] = true,
+    [`LAZER`] = true,
+    [`BUZZARD`] = true,
+    [`BUZZARD2`] = true,
+    [`ANNIHILATOR`] = true,
+    [`SAVAGE`] = true,
+    [`TITAN`] = true,
+}
+
+Config.BlacklistedPeds = { -- these NPCs will delete themslves on spawn
+    [`s_m_y_ranger_01`] = true,
+    [`s_m_y_sheriff_01`] = true,
+    [`s_m_y_cop_01`] = true,
+    [`s_f_y_sheriff_01`] = true,
+    [`s_f_y_cop_01`] = true,
+    [`s_m_y_hwaycop_01`] = true,
+}
+```
+
+## **消耗品** <a href="#blob-path" id="blob-path" />
+
+> \[!警告]
+> 新しい消耗品を追加する場合は、server/consumables.lua を開いて、そのアイテムを`QBCore.Functions.CreateUseableItem`機能の詳細については、[サーバー機能リファレンス.md](../qb-core/server-function-reference.md "mention")
+
+\["itemname"] = math.random(-20, -10) または単一の number で渇きや空腹を増やすこともできます。重要なのは、下の number が最初だということです。
+
+```lua
+ConsumeablesEat = { -- how much hunger is relieved on use
+    ["sandwich"] = math.random(35, 54),
+    ["tosti"] = math.random(40, 50),
+    ["twerks_candy"] = math.random(35, 54),
+    ["snikkel_candy"] = math.random(40, 50),
+}
+
+ConsumeablesDrink = { -- how much thirst is relieved on use
+    ["water_bottle"] = math.random(35, 54),
+    ["kurkakola"] = math.random(35, 54),
+    ["coffee"] = math.random(40, 50),
+}
+
+ConsumeablesAlcohol = { -- how much thirst is relieved on use
+    ["whiskey"] = math.random(20, 30),
+    ["beer"] = math.random(30, 40),
+    ["vodka"] = math.random(20, 40),
+}
+```
+
+## 時間指定ジョブ / Cron
+
+> \[!INFO]
+> 時間指定ジョブは、毎日特定の時間にコードを実行するために使用されます。例えば、毎週月曜日の午前8時20分に関数xを実行するなどです。
+
+### 使用状況（サーバーエクスポート）:
+
+* CreateTimedJob(時: number、分: number、コールバック: 関数)
+
+  > 実際の時間指定ジョブを登録するために使用されます。時間指定ジョブのインデックスを返します。このインデックスを使用して、時間指定ジョブを強制的に実行または停止できます。\
+  > **使用例:**
+  >
+  > ```lua
+  > -- `idx` becomes the index of the timed job.
+  > local idx = exports["qb-smallresources"]:CreateTimedJob(8, 20, function(day, hour, min)
+  >    if day == 1 then -- check if its monday
+  >        print("Its currently 08:20 AM on a monday")
+  >    end
+  > end)
+  > ```
+
+* 強制実行時間指定ジョブ(idx: number)
+
+  > 時刻が正しくない場合でも、指定されたジョブを強制的に実行するために使用します。ただし、実際のコールバックではローカルチェックをバイパスしません。\
+  > **使用例:**
+  >
+  > ```lua
+  > exports["qb-smallresources"]:ForceRunTimedJob(2)
+  > ```
+
+* StopTimedJob(idx: number)
+
+  > 時間指定ジョブを永久に停止します (再度登録しない限り)。\
+  > **使用例:**
+  >
+  > ```lua
+  > exports["qb-smallresources"]:StopTimedJob(3)
+  > ```
+
+## ログ
+
+> \[!INFO]
+> ログはサーバー側に配置され、クライアントからWebhookを隠すことができます。ログはserver/logs.luaにあります。Discord Webhookの作成方法がわからない場合は、こちらをクリックしてください。[ここ](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
+
+```lua
+local Webhooks = {
+    ['default'] = '', --Discord webhooks get put here
+    ['testwebhook'] = '',
+    ['playermoney'] = '',
+    ['playerinventory'] = '',
+    ['robbing'] = '',
+    ['cuffing'] = '',
+    ['drop'] = '',
+    ['trunk'] = '',
+    ['stash'] = '',
+    ['glovebox'] = '',
+    ['banking'] = '',
+    ['vehicleshop'] = '',
+    ['vehicleupgrades'] = '',
+    ['shops'] = '',
+    ['dealers'] = '',
+    ['storerobbery'] = '',
+    ['bankrobbery'] = '',
+    ['powerplants'] = '',
+    ['death'] = '',
+    ['joinleave'] = '',
+    ['ooc'] = '',
+    ['report'] = '',
+    ['me'] = '',
+    ['pmelding'] = '',
+    ['112'] = '',
+    ['bans'] = '',
+    ['anticheat'] = '',
+    ['weather'] = '',
+    ['moneysafes'] = '',
+    ['bennys'] = '',
+    ['bossmenu'] = '',
+    ['robbery'] = '',
+    ['casino'] = '',
+    ['traphouse'] = '',
+    ['911'] = '',
+    ['palert'] = '',
+    ['house'] = '',
+}
+
+local Colors = { -- https://www.spycolor.com/
+    ['default'] = 14423100,
+    ['blue'] = 255,
+    ['red'] = 16711680,
+    ['green'] = 65280,
+    ['white'] = 16777215,
+    ['black'] = 0,
+    ['orange'] = 16744192,
+    ['yellow'] = 16776960,
+    ['pink'] = 16761035,
+    ["lightgreen"] = 65309,
+}
+```
+
+### 例
+
+クライアント
+
+```lua
+RegisterCommand('clientlogtest', function()
+    TriggerServerEvent('qb-log:server:CreateLog', 'testwebhook', 'Test Webhook', 'default', 'Webhook Client Side setup successfully')
+end)
+```
+
+サーバ
+
+```lua
+RegisterCommand('serverlogtest', function()
+    TriggerEvent('qb-log:server:CreateLog', 'testwebhook', 'Test Webhook', 'default', 'Webhook Client Side setup successfully')
+end
+```
+
+## Discordのリッチプレゼンス
+
+> \[!INFO]
+> これに関する詳細なドキュメントは以下をご覧ください。[ここ](https://support.discord.com/hc/en-us/articles/115001557452-Game-Invites-and-Detailed-Status-Rich-Presence-)この設定はclient/discord.luaにあります。
+
+```lua
+CreateThread(function()
+    while true do
+        -- This is the Application ID (Replace this with you own)
+	SetDiscordAppId()
+
+        -- Here you will have to put the image name for the "large" icon.
+	SetDiscordRichPresenceAsset('logo_name')
+
+        -- (11-11-2018) New Natives:
+
+        -- Here you can add hover text for the "large" icon.
+        SetDiscordRichPresenceAssetText('This is a lage icon with text')
+
+        -- Here you will have to put the image name for the "small" icon.
+        SetDiscordRichPresenceAssetSmall('logo_name')
+
+        -- Here you can add hover text for the "small" icon.
+        SetDiscordRichPresenceAssetSmallText('This is a lsmall icon with text')
+
+        QBCore.Functions.TriggerCallback('smallresources:server:GetCurrentPlayers', function(result)
+            SetRichPresence('Players: '..result..'/64')
+        end)
+
+        -- (26-02-2021) New Native:
+
+        --[[
+            Here you can add buttons that will display in your Discord Status,
+            First paramater is the button index (0 or 1), second is the title and
+            last is the url (this has to start with "fivem://connect/" or "https://")
+        ]]--
+        SetDiscordRichPresenceAction(0, "First Button!", "fivem://connect/localhost:30120")
+        SetDiscordRichPresenceAction(1, "Second Button!", "fivem://connect/localhost:30120")
+
+        -- It updates every minute just in case.
+	Wait(60000)
+    end
+end)
+```
+
+## ロックスターエディター
+
+### コマンド
+
+* /editor - ロックスターエディターを起動します
+* /record - 録音を開始します
+* /clip- クリップの録画を開始します
+* /saveclip - クリップを保存する
+* /delclip - クリップを削除する
+
+## アイテム
+
+* ウォッカ - 消費財
+* ビール - 消費財
+* ウイスキー - 消費財
+* サンドイッチ - 消費財
+* twerks\_candy - 消耗品
+* snikkel\_candy - 消耗品
+* トスティ - 消耗品
+* water\_bottle - 消耗品
+* コーヒー - 消費財
+* 作業中 - 消耗品
+* ジョイント - 薬物
+* cokebaggy - ドラッグ
+* crack\_baggy - ドラッグ
+* xtcbaggy - ドラッグ
+* オキシ - 薬物
+* メタンフェタミン - 薬物
+* 鎧 - 使用すると鎧が付与されます
+* heavyarmor - 使用すると鎧が付与されます
+* 双眼鏡 - 遠くを見るのに使える双眼鏡
+* パラシュート - playerにパラシュートを追加して空中で展開できるようにします
+* 花火1 - 爆発させる
+* firework2 - もっと花火
+* firework3 - たくさんの花火
+* firework4 - 素敵ですね
+* ロックピック - トリガーに使用するアイテム[リンク切れ](broken-reference "mention")
+* advancedlockpick - トリガーとして使用される別のアイテム[リンク切れ](broken-reference "mention")
+
+## コマンド
+
+* /resetparachute - パラシュートをplayerに戻します
+* /resetarmor- 鎧を外して重装甲を戻します

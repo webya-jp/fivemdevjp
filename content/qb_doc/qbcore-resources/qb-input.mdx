@@ -1,0 +1,122 @@
+---
+description: Enter stuff here
+---
+
+# 📝 qb入力
+
+## 導入
+
+その**QB入力**システムは、Webベースのインターフェースと統合されたインタラクティブなLuaベースのユーザー入力フォームを提供します。
+
+### 特徴
+
+* 複数の入力タイプ（テキスト、パスワード、number、ラジオ、選択、チェックボックス、色）
+* カスタマイズ可能なフォーム送信
+* 設定によるダイナミックなスタイリング
+* 使いやすいLuaとJavaScriptの統合
+
+## 入力を表示
+
+入力フォームを表示し、ユーザー入力データを返します。
+
+* データ： `table`
+  * ヘッダー:*`string`（オプション）*
+  * 送信テキスト:*`string`（オプション）*
+  * 入力:`table`
+    * タイプ： *`string`*
+    * 名前： *`string`*
+    * 文章： *`string`*
+    * デフォルト： *`any`（オプション）*
+    * が必要です： *`boolean`（オプション）*
+    * オプション:*`table`（オプション）*
+      * 文章： *`string`*
+      * 価値： *`string`*
+      * チェック済み:*`boolean`（オプション）*
+
+```lua
+RegisterCommand('testinput', function()
+    local dialog = exports['qb-input']:ShowInput({
+        header = "Test",
+        submitText = "Bill",
+        inputs = {
+            {
+                text = "Citizen ID (#)",
+                name = "citizenid",
+                type = "text",
+                isRequired = true,
+                default = "CID-1234",
+            },
+            {
+                text = "Secret Code (Give to Nobody)",
+                name = "code",
+                type = "password",
+                isRequired = true,
+                default = "password123",
+            },
+            {
+                text = "Bill Price ($)",
+                name = "billprice",
+                type = "number",
+                isRequired = false,
+                default = 1,
+            },
+            {
+                text = "Bill Type",
+                name = "billtype",
+                type = "radio",
+                options = {
+                    { value = "bill", text = "Bill" },
+                    { value = "cash", text = "Cash" },
+                    { value = "bank", text = "Bank" }
+                },
+                default = "cash",
+            },
+            {
+                text = "Include Tax?",
+                name = "taxincl",
+                type = "checkbox",
+                options = {
+                    { value = "gst", text = "10% incl."},
+                    { value = "business", text = "35% incl.", checked = true },
+                    { value = "othertax", text = "15% incl."}
+                }
+            },
+            {
+                text = "Some Select",
+                name = "someselect",
+                type = "select",
+                options = {
+                    { value = "none", text = "None" },
+                    { value = "other", text = "Other"},
+                    { value = "other2", text = "Other2" },
+                    { value = "other3", text = "Other3" },
+                    { value = "other4", text = "Other4" },
+                    { value = "other5", text = "Other5" },
+                    { value = "other6", text = "Other6" },
+                },
+                default = "other3",
+            },
+            {
+                text = "Favorite Color",
+                name = "favoritecolor",
+                type = "color",
+                default = "#ff0000",
+            }
+        }
+    })
+
+    if dialog ~= nil then
+        for k,v in pairs(dialog) do
+            print(k .. " : " .. v)
+        end
+    end
+end, false)
+```
+
+## メニューを閉じる
+
+メニューを閉じる
+
+```lua
+exports['qb-input']:CloseMenu()
+```

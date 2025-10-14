@@ -1,0 +1,210 @@
+---
+description: How many lives will you save?
+---
+
+# 🚑 qb-救急車求人
+
+## 導入
+
+このリソースは、救急車の職種に関するすべての職務機能とその他の機能を処理します。
+
+含まれるもの:
+
+* 病院ベッドチェックインシステム（[https://github.com/ElusionPDX/mythic\_hospital](https://github.com/ElusionPDX/mythic_hospital)）
+* フルダメージ/出血システム（[https://github.com/ElusionPDX/mythic\_hospital](https://github.com/ElusionPDX/mythic_hospital)）
+* 出勤/退勤、ジョブショップ、vehicleスポナー
+
+## 構成
+
+```lua
+Config = {}
+Config.MinimalDoctors = 2 -- How many players with the ambulance job to prevent the hospital check-in system from being used
+Config.WipeInventoryOnRespawn = true/false -- Enable or disable removing all the players items when they respawn at the hospital
+Config.Locations = {} -- Edit the various interaction points for players or create new ones
+Config.AuthorizedVehicles = {} -- Vehicles players can use based on their ambulance job grade level
+Config.Helicopter = "polmav" -- Helicopter model that players with the ambulance job can use
+Config.Items = {} -- Items found in the ambulance shop for players with the ambulance job to purchase
+Config.BillCost = 2000 -- Price that players are charged for using the hospital check-in system
+Config.DeathTime = 300 -- How long the timer is for players to bleed out completely and respawn at the hospital
+Config.PainkillerInterval = 60 -- Set the length of time painkillers last (per one)
+Config.HealthDamage = 5 -- Minumum damage done to health before checking for injuries
+Config.ArmorDamage = 5 -- Minumum damage done to armor before checking for injuries
+Config.ForceInjury = 35 -- Maximum amount of damage a player can take before limb damage & effects are forced to occur
+Config.AlwaysBleedChance = 70 -- Set the chance out of 100 that if a player is hit with a weapon, that also has a random chance, it will cause bleeding
+Config.MessageTimer = 12 -- How long it will take to display limb/bleed message
+Config.AIHealTimer = 20 -- How long it will take to be healed after checking in, in seconds
+Config.BleedTickRate = 30 -- How much time, in seconds, between bleed ticks
+Config.BleedMovementTick = 10 -- How many seconds is taken away from the bleed tick rate if the player is walking, jogging, or sprinting
+Config.BleedMovementAdvance = 3 -- How much time moving while bleeding adds
+Config.BleedTickDamage = 8 -- The base damage that is multiplied by bleed level everytime a bleed tick occurs
+Config.FadeOutTimer = 2 -- How many bleed ticks occur before fadeout happens
+Config.BlackoutTimer = 10 -- How many bleed ticks occur before blacking out
+Config.AdvanceBleedTimer = 10 -- How many bleed ticks occur before bleed level increases
+Config.HeadInjuryTimer = 30 -- How much time, in seconds, do head injury effects chance occur
+Config.ArmInjuryTimer = 30 -- How much time, in seconds, do arm injury effects chance occur
+Config.LegInjuryTimer = 15 -- How much time, in seconds, do leg injury effects chance occur
+Config.HeadInjuryChance = 25 -- The chance, in percent, that head injury side-effects get applied
+Config.LegInjuryChance = { -- The chance, in percent, that leg injury side-effects get applied
+    Running = 50,
+    Walking = 15
+}
+Config.MajorArmoredBleedChance = 45 -- The chance, in percent, that a player will get a bleed effect when taking heavy damage while wearing armor
+Config.DamageMinorToMajor = 35 -- How much damage would have to be applied for a minor weapon to be considered a major damage event. Put this at 100 if you want to disable it
+Config.AlertShowInfo = 2 -- How many injuries a player must have before being alerted about them
+Config.WeaponClasses = {} -- Define gta weapon classe numbers
+Config.MinorInjurWeapons = {} -- Define which weapons cause small injuries
+Config.MajorInjurWeapons = {} -- Define which weapons cause large injuries
+Config.AlwaysBleedChanceWeapons = {} -- Define which weapons will always cause bleedign
+Config.ForceInjuryWeapons = {} -- Define which weapons will always cause injuries
+Config.CriticalAreas = {} -- Define body areas that will always cause bleeding if wearing armor or not
+Config.StaggerAreas = {} -- Define body areas that will always cause staggering if wearing armor or not
+Config.WoundStates = {} -- Translate wound alerts
+Config.BleedingStates = {} -- Translate bleeding alerts
+Config.MovementRate = {} -- Set the player movement rate based on the level of damage they have
+Config.Bones = {} -- Correspond bone hash numbers to their label
+Config.BoneIndexes = {} -- Correspond bone labels to their hash number
+Config.Weapons = {} -- Correspond weapon names to their class number
+Config.VehicleSettings = {} -- Enable or disable vehicle extras when pulling them from the ambulance job vehicle spawner
+```
+
+## アイテム
+
+* ifaks - playerのストレスを軽減し、+ 10回復します
+* 包帯 - playerを+10回復し、出血レベルを1段階除去する確率は50%
+* 応急処置 - ラストスタンド状態にある限り、最も近いplayerを完全に回復します。
+* 鎮痛剤 - 一時的に出血を止めるが、時間が経つと効果がなくなる
+
+## イベント
+
+このイベントを呼び出すと、プレイヤーの isdead メタデータが渡された bool (true/false) に変更されます。
+
+```lua
+-- Server event
+RegisterNetEvent('hospital:server:SetDeathStatus', function(isDead)
+
+-- Example
+TriggerServerEvent('hospital:server:SetDeathStatus', true)
+```
+
+このイベントを呼び出すと、プレイヤーの inlaststand メタデータが渡されたブール値 (true/false) に変更されます。
+
+```lua
+-- Server event
+RegisterNetEvent('hospital:server:SetLaststandStatus', function(bool)
+
+-- Example
+TriggerServerEvent('hospital:server:SetLaststandStatus', true)
+```
+
+このイベントを呼び出すと、救急車の職種名を持つすべてのプレイヤーに通知が送信されます。
+
+```lua
+-- Server event
+RegisterNetEvent('hospital:server:ambulanceAlert', function(text)
+
+-- Example
+TriggerServerEvent('hospital:server:ambulanceAlert', 'I need help')
+```
+
+このイベントを呼び出すと、playerが無料で復活するか、真のブール値で有料で復活します。
+
+> \[!INFO]
+> 課金型の蘇生スポット/pedに使用できる
+
+> \[!警告]
+> このイベントは、常にソース player から救急キットを削除します。
+
+```lua
+-- Server event
+RegisterNetEvent('hospital:server:RevivePlayer', function(playerId, isOldMan)
+
+-- Example
+local player, distance = QBCore.Functions.GetClosestPlayer()
+local playerId = GetPlayerServerId(player)
+TriggerServerEvent('hospital:server:RevivePlayer', playerId, true)
+```
+
+## コールバック
+
+このコールバックを使用すると、救急車の仕事にオンラインのプレイヤーのnumberが返されます。
+
+```lua
+QBCore.Functions.CreateCallback('hospital:GetDoctors', function(source, cb)
+
+-- Example
+QBCore.Functions.TriggerCallback('hospital:GetDoctors', function(cb)
+    print('The number of doctors online is '..cb)
+end)
+```
+
+## コマンド
+
+<details>
+  <summary>/911e \[message] - sends a message to EMS</summary>
+
+  ジョブ「救急車」を持つ EMS プレイヤーにメッセージを送信します。
+
+  **権限レベル:**&#x30E6;ーザー
+
+  * **メッセージ**- (必須) 送信するメッセージ
+</details>
+
+<details>
+  <summary>/status - check the status of the nearest player</summary>
+
+  これにより、最も近いplayerが見つかり、その健康状態がチェックされます。
+
+  **権限レベル:**&#x30E6;ーザー
+</details>
+
+<details>
+  <summary>/heal - heals the nearest player</summary>
+
+  これにより、最も近いplayerが見つかり、回復します
+
+  **権限レベル:**&#x30E6;ーザー
+</details>
+
+<details>
+  <summary>/revivep - revives the nearest player</summary>
+
+  これにより、最も近いplayerが見つかり、復活します。
+
+  **権限レベル:**&#x30E6;ーザー
+</details>
+
+<details>
+  <summary>/revive - revive yourself</summary>
+
+  完全な健康状態まで回復します
+
+  **権限レベル:**&#x7BA1;理者
+</details>
+
+<details>
+  <summary>/setpain \[opt: id] - sets the pain level to the player</summary>
+
+  痛みのレベルをplayerに設定します。`id`ID が指定されていない場合は自分自身に送信されます。
+
+  **権限レベル:**&#x7BA1;理者
+</details>
+
+<details>
+  <summary>/kill \[opt: id] - kills the player</summary>
+
+  指定されたplayerを強制終了します`id`または、ID が指定されていない場合は自殺します。
+
+  **権限レベル:**&#x7BA1;理者
+
+  * **id**- (オプション) player ID
+</details>
+
+<details>
+  <summary>/aheal \[opt: id] - heals a player</summary>
+
+  与えられたplayerを回復する`id`または、ID が指定されていない場合は自分自身を回復します。
+
+  **権限レベル:**&#x7BA1;理者
+
+  * **id**- (オプション) player ID
+</details>

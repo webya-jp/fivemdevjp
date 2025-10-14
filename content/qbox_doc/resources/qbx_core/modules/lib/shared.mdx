@@ -1,0 +1,183 @@
+***
+
+タイトル共有リブ
+sidebar\_label: 共有
+キーワード\[qbox, fivem, qbx\_core, モジュール, lib].
+説明qbx\_core リソースの共有ライブラリ関数のドキュメント。これらの関数は、文字列操作、数学演算、テーブル処理、車両関連機能のための共通ユーティリティを提供し、クライアントサイドとサーバーサイドの両方で使用することができます。
+---------------------------------------------------------------------------------------------------------------------
+
+# シェアード・リブ
+
+## armsWithoutGloves.male
+
+グローブのない男性胴体のドローイング可能なバリエーションセット。\
+使用目的[`qbx.isWearingGloves`](./client#iswearinggloves)そして後方互換性。
+
+```lua
+qbx.armsWithoutGloves.male
+```
+
+タイプ`table<integer, true>`
+
+## armsWithoutGloves.female
+
+グローブのない女性トルソーのドローイング可能なバリエーションセット。\
+使用目的[`qbx.isWearingGloves`](./client#iswearinggloves)そして後方互換性。
+
+```lua
+qbx.armsWithoutGloves.female
+```
+
+タイプ`table<integer, true>`
+
+## 文字列.トリム
+
+指定した文字列の末尾の空白を削除して返します。
+
+```lua
+qbx.string.trim(str)
+```
+
+* スト：`string`
+
+リターンズ`string`
+
+## 文字列を大文字にする
+
+指定された文字列の最初の文字を大文字にして返します。
+
+```lua
+qbx.string.capitalize(str)
+```
+
+* スト：`string`
+
+リターンズ`string`
+
+## 数学ラウンド
+
+与えられた数値を丸めて返す。
+
+```lua
+qbx.math.round(num, decimalPlaces)
+```
+
+* num：`number`
+* decimalPlaces?`integer`
+
+リターンズ`number`
+
+## テーブルサイズ
+
+テーブル内の項目数を返します。配列でないテーブルに有用。
+
+```lua
+qbx.table.size(tbl)
+```
+
+* tbl：`table`
+
+リターンズ`integer`
+
+## テーブル.mapBySubfield
+
+与えられたテーブルの値を、与えられたサブフィールドでマッピングして返す。
+
+```lua
+qbx.table.mapBySubfield(tbl, subfield)
+```
+
+* tbl：`table`
+* サブフィールド`any`
+
+リターンズ`table<any, table[]>`
+
+```lua
+local tble = {
+  {
+    myCategory = 'first',
+    someValue = 1,
+  },
+  {
+    myCategory = 'second',
+    someValue = 2,
+  },
+}
+
+local mapped = qbx.table.mapBySubfield(tble, 'myCategory')
+
+print(json.encode(mapped))
+-- Output: { "first": [{ myCategory: "first", someValue: 1 }], "second": [{ myCategory: "second", someValue: 2 }] }
+```
+
+## 車両プレート
+
+指定された車両のナンバープレートを返します。`nil`車両またはプレートが存在しない場合。
+
+```lua
+qbx.getVehiclePlate(vehicle)
+```
+
+* 車である：`integer`
+
+リターンズ`string?`
+
+## ランダムプレート生成
+
+指定されたパターンの乱数プレートを生成して返します。\
+なお、生成されたプレートは、既存の車両ですでに使用されている場合もあれば、そうでない場合もある。
+
+:::info
+パターンについての詳細は[`lib.string.random`](https://coxdocs.dev/ox_lib/Modules/String/Shared#stringrandom)from ox\_lib.
+:::
+
+```lua
+qbx.generateRandomPlate(pattern)
+```
+
+* パターン？`string`
+
+リターンズ`string`
+
+## GetCardinalDirection
+
+指定されたエンティティが見つめている方角を返します。
+
+```
+                North
+    45°           0°           315°
+      \    .- - - - - - -.    /
+         X                 X
+       .'   \           /   '.
+      |        \     /        |
+West  |           X           |  East
+      |        /     \        |
+       '.   /           \   .'
+         X                 X
+      /    '- - - - - - -'    \
+    135°                      225°
+                South
+```
+
+(にインスパイアされたアート）。[`SET_PED_TURNING_THRESHOLDS`](https://github.com/citizenfx/fivem/blob/0b61c93a3308360ea70d443398eab17f47453e11/code/components/extra-natives-five/src/PedExtraNatives.cpp#L390-L400))
+
+```lua
+qbx.getCardinalDirection(entity)
+```
+
+* 実体を持つ：`integer`
+
+リターンズ`'North' | 'South' | 'East' | 'West'`
+
+## array.contains
+
+与えられた配列が与えられた値を含む場合に true を返します。
+
+```lua
+qbx.array.contains(arr, value)
+```
+
+* アール：`table`
+* 値である：`any`
+
+リターンズ`boolean`

@@ -1,0 +1,113 @@
+***
+
+タイトルクライアントイベント
+sidebar\_label: クライアント
+キーワード\[qbox, fivem, qbx\_core, イベント].
+説明このドキュメントはQbox Coreフレームワークのクライアントサイドイベントの包括的なドキュメントを提供します。このドキュメントでは、クライアント上でトリガーされる非ネットワークイベントとネットワークイベントの両方について概説し、その目的、使用方法、関連するデータ構造（タイプ）の詳細を提供します。
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 顧客イベント
+
+::警告
+これらのイベント**禁止**他のスクリプトによってトリガーされる。
+:::
+
+:::info
+これらのイベントの中には、カスタム・タイプを使用するものがあります。
+これらについては、このリソースのタイプセクションを参照してください。
+:::
+
+## ネットワーク外のイベント
+
+### OnPlayerLoaded
+
+プレイヤーがスポーンし終わるとトリガーされる。
+
+```lua
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function() end)
+```
+
+## ネットワークイベント
+
+### セットデューティ
+
+選手の職務が更新されたときにトリガーされる。
+
+```lua
+RegisterNetEvent('QBCore:Client:SetDuty', function(onDuty) end)
+```
+
+* 勤務中：`boolean`
+
+### OnPermissionUpdate
+
+選手のパーミッションが更新されたときにトリガーされます。\
+Qbox経由で設定されたパーミッションに対してのみ機能します。
+
+```lua
+RegisterNetEvent('QBCore:Client:OnPermissionUpdate', function() end)
+```
+
+### プレイヤーログアウト
+
+プレイヤーがログアウトし、qbx\_coreのメモリに存在しなくなったときにトリガーされます。
+
+```lua
+RegisterNetEvent('qbx_core:client:playerLoggedOut', function() end)
+```
+
+### オンジョブ更新
+
+選手の仕事が更新されたときにトリガーされる。
+
+```lua
+RegisterNetEvent('QBCore:Client:OnJobUpdate', function(job) end)
+```
+
+* 仕事だ：[`PlayerJob`](../types/player.mdx#playerjob)
+
+### OnGangUpdate
+
+選手のギャングが更新されたときにトリガーされる。
+
+```lua
+RegisterNetEvent('QBCore:Client:OnGangUpdate', function(gang) end)
+```
+
+* 一味だ：[`PlayerGang`](../types/player.mdx#playergang)
+
+### グループ更新
+
+プレーヤーのグループが更新されたときにトリガーされます。グレードがnilの場合、グループは削除され、そうでない場合、グループは追加されます。
+
+```lua
+RegisterNetEvent('qbx_core:client:onGroupUpdate', function(groupName, groupGrade) end)
+```
+
+* グループ名：`string`
+* groupGrade?`number`
+
+### オンマネーチェンジ
+
+プレーヤーの現金/銀行残高が更新されたときにトリガーされる。
+
+```lua
+RegisterNetEvent('QBCore:Client:OnMoneyChange', function(moneytype, amount, operation, reason) end)
+```
+
+* moneyType：`'cash' | 'bank' | 'crypto'`
+* の量だ：`number`
+* オペレーションを行う：`'add' | 'remove' | 'set'`
+* 理由`string`
+
+### onSetMetaData
+
+player.Functions.setMetaData() が使用されたときにトリガーされます。
+
+```lua
+RegisterNetEvent('qbx_core:client:onSetMetaData', function(key, oldValue, newValue) end)
+```
+
+* キーだ：`string`
+* oldValue：`any`
+* newValue：`any`

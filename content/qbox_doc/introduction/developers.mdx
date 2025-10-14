@@ -1,0 +1,43 @@
+---
+title: "Developer's Guide"
+sidebar_label: "Developer's Guide"
+sidebar_position: 4
+keywords: [qbox, fivem, development, api, framework, lua, programming, scripting]
+description: Comprehensive guide for developers working with the Qbox framework. Learn best practices, API usage, and how to create high-quality resources for Qbox.
+slug: /developers
+---
+
+# 開発者ガイド
+
+このガイドは、qbx\_core を使用してスクリプトを作成する方を対象としています。
+これらの原則に従うことで、将来のアップデートでスクリプトが動作しなくなる可能性が低くなります。
+
+## コアが所有するデータベーステーブルにアクセスしない
+
+将来データベーススキーマが変更された場合、スクリプトが動作しなくなります。
+必要なデータがqbx\_core/qbx\_vehiclesエクスポートを使用して読み書きできない場合は、
+GitHubで問題を作成して、問題を解決してください。
+
+## コアコードを変更しない
+
+これを行うと、将来の更新が困難になり、カスタムの変更が原因であるかどうかわからない問題をデバッグするときに混乱が生じます。
+
+柔軟性を考慮して設計するよう努めました。\
+ただし、コア部分の変更が本当に必要だと感じる場合は、まず GitHub で Issue を報告してください。
+イベントをトリガーしたり、設定値を表示したり、必要な柔軟性を実現するために何かを再設計したりできるかどうか検討します。
+
+## 非推奨の関数/イベントは使用しないでください
+
+これらは将来のアップデートで削除される可能性があります。
+
+## 所有している vehicle を生成するときにステートバッグを設定する
+
+playerが所有するvehicleを生成する場合、vehicleのvehicleidステートバッグはplayer\_vehicles tableのIDに設定する必要があります。これにより、他のリソースは安定した識別子を使用してデータベース内のvehicleの情報を参照できるようになります。
+
+## vehicleを生成するときにvehicleプロパティを設定するには、プロパティをspawnVehicle関数に渡します。
+
+vehicle が作成された後にプロパティを手動で設定しないでください。これはアンチパターンであり、クライアントがエンティティの所有者でない場合は問題が発生する可能性があります。
+
+## バージョン管理されていない/リリースされていないリソースに依存しない
+
+これらのリソースは急激な変更や不具合が生じる可能性について保証いたしません。また、安定的ではありません。

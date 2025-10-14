@@ -1,0 +1,54 @@
+---
+description: Buy & customize your dream home!
+---
+
+# 🏡 QBハウス
+
+## 導入
+
+* プレイヤーは不動産業の職を持つ人が建てた家を購入できる。家を飾ったり、個人ガレージを所有したり、友達と鍵を共有したりできる。
+
+> \[!INFO]
+> デフォルトでは、このリソースは以下にある16個の無料シェルを使用します。[qb-interior.md](qb-interior.md "mention")
+
+## プレビュー
+
+![Viewing a house will bring up this UI which shows the cost and buy/cancel buttons](https://camo.githubusercontent.com/c5c5874ac7afb5cadd01e0d0bc89ce1ec253603b2ccf357d4a757ced724f625e/68747470733a2f2f696d6775722e636f6d2f3465516e5271412e706e67)
+
+![Use the radial menu to set locations in your house such as stash and outfit access](https://camo.githubusercontent.com/ac17292df498da4a01df3e5362d4d37c110c43a7896f5fa161d79aaba078738c/68747470733a2f2f696d6775722e636f6d2f475470616c59572e706e67)
+
+![Personalize your house by using the in-game decorator](https://camo.githubusercontent.com/fc66647c3b51a173e277dfd20cf5265146a66ee7b470e37d1ea5713fa34008d4/68747470733a2f2f696d6775722e636f6d2f666d563067504d2e706e67)
+
+## 構成
+
+### ジェネリック
+
+```lua
+Config = {}
+Config.MinZOffset = 30 -- how far under the ground shells will spawn
+Config.RamsNeeded = 2 -- how many stormram items are needed to raid a house
+Config.UnownedBlips = false -- enable/disable unowned house blips on the map
+Config.Houses = {} -- populates automatically on server start
+Config.Targets = {} -- populates automatically on server start
+Config.Furniture = {} -- pre-filled with tons of options
+```
+
+### 貝殻
+
+* qb-houses/client/main.lua の 697 行目にあります
+
+```lua
+local function getDataForHouseTier(house, coords)
+```
+
+## コマンド
+
+* /decorate - playerが家を飾ることを許可する
+* /createhouse \[価格] \[段階] - 家を作成し、データベースに保存します
+* /addgarage - 近くの家にガレージを追加します
+* /enter - 近くの家に入る
+* /ring - 近くの家のベルを鳴らす
+
+## アイテム
+
+* police\_stormram - 勤務中の警察官がplayerの自宅に入り、捜索することを許可する

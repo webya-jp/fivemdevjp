@@ -1,0 +1,109 @@
+***
+
+タイトル共有エクスポート
+sidebar\_label: 共有
+キーワード\[qbox, fivem, qbx\_core, エクスポート].
+説明共有エクスポートのドキュメント。すべてのジョブ、ギャング、...のようなデータを取得するための利用可能な関数について学ぶ。
+---------------------------------------------------------------
+
+# シェアード・エクスポート
+
+## ゲットジョブズ
+
+ジョブテーブルを返します。
+
+```lua
+exports.qbx_core:GetJobs()
+```
+
+リターンズ[`table<string, Job>`](../types/job.mdx)
+
+## ゲットギャングス
+
+ギャングのテーブルを返す。
+
+```lua
+exports.qbx_core:GetGangs()
+```
+
+リターンズ[`table<string, Gang>`](../types/gang.mdx)
+
+## ゲットジョブ
+
+指定されたジョブが存在すればそれを返します。
+
+```lua
+exports.qbx_core:GetJob(jobName)
+```
+
+* ジョブ名`string`
+
+リターンズ[`Job?`](../types/job.mdx)
+
+## ゲットギャング
+
+指定されたギャングが存在すればそれを返す。
+
+```lua
+exports.qbx_core:GetGang(gangName)
+```
+
+* gangName：`string`
+
+リターンズ[`Gang?`](../types/gang.mdx)
+
+## GetVehiclesByName
+
+車両名と車両の対応表を返す。
+
+```lua
+exports.qbx_core:GetVehiclesByName(vehicle)
+```
+
+* 車？`string`
+
+リターンズ[`table<string, Vehicle>`](../types/vehicle.mdx#vehicle)
+
+## GetVehiclesByHash
+
+車両ハッシュと車両の対応表を返す。
+
+```lua
+exports.qbx_core:GetVehiclesByHash(vehicle)
+```
+
+* 車？`number`
+
+リターンズ[`table<number, Vehicle>`](../types/vehicle.mdx#vehicle)
+
+## GetVehiclesByCategory
+
+車両カテゴリーと車両の対応表を返します。
+
+```lua
+exports.qbx_core:GetVehiclesByCategory()
+```
+
+リターンズ[`table<string, Vehicle[]>`](../types/vehicle.mdx#vehicle)
+
+## 武器入手
+
+武器テーブルを返します。
+
+```lua
+exports.qbx_core:GetWeapons(weapon)
+```
+
+* 武器？`number`
+
+リターンズ`table<number, Weapon>`
+
+## ゲットロケーション
+
+ロケーションテーブルを返す。
+
+```lua
+exports.qbx_core:GetLocations()
+```
+
+リターンズ`table<string, vector4>`

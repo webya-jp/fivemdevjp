@@ -1,0 +1,87 @@
+# クライアント
+
+## lib.scaleform:new
+
+scaleform クラスの新しいインスタンスを作成します。
+
+```lua
+lib.scaleform:new(data)
+```
+
+* のデータがある：`table | string`
+  * と名付けた：`string`
+  * fullScreen？`boolean`
+  * x?:`number`
+  * y?:`number`
+  * 幅？`number`
+  * 高さ？`number`
+  * renderTarget?`table`
+    * と名付けた：`string`
+    * モデルである：`string | number`
+
+リターンズ
+
+* スケールフォーム：`Scaleform`
+
+  * スケールフォーム：`number`
+  * ドロー：`boolean`
+  * ターゲット`number`
+  * targetName：`string`
+  * sfHandle?`number`
+  * フルスクリーン`boolean`
+
+  方法：
+
+  * コールメソッド：`function`(名前）：`string`引数：`(number | string | boolean)[]`returnValue?`string`)
+  * setFullScreen：`function`(isFullscreen：`boolean`)
+  * プロパティを設定する：`function`(x:`number`, y:`number`幅：`number`身長：`number`)
+  * setRenderTarget：`function`(名前）：`string`モデル`string | number`)
+  * isDrawing：`function`
+  * ドロー：`function`
+  * 描画を開始する：`function`
+  * stopDrawing：`function`
+  * 廃棄する：`function`
+
+### 使用例
+
+```lua
+local scaleform = lib.scaleform:new({
+  name = 'scaleform',
+  fullScreen = boolean,
+  x = 1.0,
+  y = 1.0,
+  width = 2.0,
+  height = 2.0,
+  renderTarget = {
+    name = 'target',
+    model = `model_name`
+  }
+})
+
+-- Call a Scaleform Method
+scaleform:callMethod('method', { 1, 2, 3 })
+
+-- Set Fullscreen Scaleform
+scaleform:setFullScreen(false)
+
+-- Set Scaleform Properties (x, y, width, height)
+scaleform:setProperties(1.0, 1.0, 2.0, 2.0)
+
+-- Set Scaleform Render Target
+scaleform:setRenderTarget('target', `model_name`)
+
+-- Get Drawing State
+local state = scaleform:isDrawing()
+
+-- Draw
+scaleform:draw()
+
+-- Start Drawing
+scaleform:startDrawing()
+
+-- Stop Drawing
+scaleform:stopDrawing()
+
+-- Dispose of Scaleform
+scaleform:dispose()
+```

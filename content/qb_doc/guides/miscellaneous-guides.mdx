@@ -1,0 +1,264 @@
+---
+description: Extra guides and tools are listed here
+---
+
+# 📑 その他のガイド
+
+## キーマッピング
+
+<details>
+  <summary>What is Keymapping?</summary>
+
+  撮影できます**登録済み**コマンドを使用して[レジスタコマンド](https://docs.fivem.net/natives/?_0x5FA79B0F)ネイティブアプリにキーバインドを適用します。チャットでスラッシュコマンドを入力する代わりに、キーを1つ押すだけで実行できます。これは`QBCore.Commands.Add`。
+</details>
+
+#### 例
+
+`RegisterKeyMapping('togglelocks', 'Toggle Vehicle Locks', 'keyboard', 'L')`
+
+このシステムの目的は、プレイヤーがサーバー上での体験を完全にカスタマイズでき、ハードコードされたキーバインドに左右されないようにすることです。
+
+<details>
+  <summary><em>How to change a bind</em></summary>
+
+  * ゲーム内の一時停止メニューを開く
+  * 設定に移動
+  * 設定を選択 -> キーバインド
+  * FiveMを選択
+  * キーを変更するコマンドを見つけて選択します。
+  * 希望するキーを押すだけで完了です
+</details>
+
+## 武器ライセンス
+
+市役所では、市民IDと運転免許証のみがデフォルトで交付対象となります。playerが武器の許可証を取得するには、警察官に相談する必要があります。`/grantlicense [id] weapon`その player に市役所へのアクセスが「許可」される必要があります。
+
+警察もできる`/revoke [id] [licenseType]`プレイヤーの購入権を取り消す**ハードコピー**指定されたライセンスの。ライセンスを取り消すと、**ない**プレイヤーのインベントリからハードコピーを削除すると（ハードコピーがある場合）、新しいものを購入できなくなるだけです。
+
+プレイヤーにデフォルトで許可を与えたい場合は、次のコードセットを探してください。`qb-core/server/player.lua`
+
+```etlua
+PlayerData.metadata["licences"] = PlayerData.metadata["licences"] ~= nil and PlayerData.metadata["licences"] or {
+    ["driver"] = true,
+    ["business"] = false,
+    ["weapon"] = false
+}
+```
+
+そして変化`["weapon"] = false` に `["weapon"] = true`
+
+playerが武器のライセンスを取得すると、そのライセンスを持つ銃砲店から武器を購入できるようになります。`requiresLicense`変数を`true`武器販売を武器ライセンスを持つ個人に制限するには、以下の設定例を参照してください。`qb-shops/config.lua`
+
+```etlua
+[4] = {
+    name = "weapon_pistol",
+    price = 2500,
+    amount = 5,
+    info = {},
+    type = "item",
+    slot = 4,
+    requiresLicense = true
+},
+```
+
+## ワンシンクインフィニティ
+
+Onesync-infinityはデフォルトで有効になっていますが、有効にする必要がある場合は、`set onesync on`server.cfg で
+
+<details>
+  <summary><strong>Adapting Your Scripts</strong></summary>
+
+  これはコードが変化するため、説明が簡単ではありません。そのため、時には独自の判断をしなければなりません。無限大を有効にすると、「スコープ」と呼ばれるものがあり、クライアント（player/あなた）には「スコープ範囲」があります。この範囲内にあるものはすべてクライアントのマシン経由でロードされますが、スコープ外にあるものについてはクライアントは認識しません。最も簡単な例としては、私が街にいて、別のplayerがパレトに立っている場合、私のマシンはplayerがそこにいることを全く認識しません。つまり、playerへのテレポートが設定されていない場合、playerのところへ行こうとすると、他のプレイヤーの座標が取得できないため、自分自身の座標へ移動してしまいます。サーバーはプレイヤーの座標を認識しているので、開発者として必要なのは、サーバーからその情報を収集し、クライアント側に送信することです。また、もう 1 つの大きな問題は、明らかに、私たちのスコープ外のプレイヤーについてはわからないため、サーバー内のプレイヤーの完全なリストが必要な場合は、その情報もサーバーから取得する必要があることです。
+</details>
+
+<details>
+  <summary><strong>Getting The Coords</strong></summary>
+
+  これは比較的簡単です。サーバー側でネイティブのGetEntityCoords関数を使用し、それをイベントまたはコールバックに渡すことができます。このネイティブ関数の使い方について詳しく知りたい場合は、こちらをご覧ください。[ここ](https://docs.fivem.net/natives/?_0x3FEF770D40960D5A)
+</details>
+
+#### プレイヤーを獲得する
+
+サーバー上のプレイヤーのリストを取得するには、次のようなネイティブ関数を使用する必要があります。
+
+```etlua
+for _, player in ipairs(GetActivePlayers()) do
+local ped = GetPlayerPed(player)
+-- do stuff
+end
+```
+
+QB関数を使用すると次のように実行できます
+
+```etlua
+for _, player in pairs(QBCore.Functions.GetPlayers()) do
+local ped = GetPlayerPed(player)
+-- do stuff
+end
+```
+
+**遠くから車両をスポーンする**
+
+> \[！情報]
+>
+> 無限スコープ外の距離にvehicleを作成する必要があるスクリプトがある場合は、サーバー側で以下のようなコードを使用する必要があります。
+
+```lua
+local SpawnPoints = {
+vector4(-1327.479736328, -86.045326232910, 49.31, 52),
+vector4(-2075.888183593, -233.73908996580, 21.10, 52),
+vector4(-972.1781616210, -1530.9045410150, 4.890, 52),
+vector4(798.18426513672, -1799.8173828125, 29.33, 52),
+vector4(1247.0718994141, -344.65634155273, 69.08, 52),
+}
+QBCore.Functions.CreateCallback('qb-truckrobbery:server:spawntruck', function(source, cb)
+local coords = SpawnPoints[math.random(#SpawnPoints)]
+local CreateAutomobile = GetHashKey("CREATE_AUTOMOBILE")
+local truck = Citizen.InvokeNative(CreateAutomobile, GetHashKey('stockade'), coords, coords.w, true, false)
+while not DoesEntityExist(truck) do
+    Wait(25)
+end
+if DoesEntityExist(truck) then
+    local netId = NetworkGetNetworkIdFromEntity(truck)
+    cb(netId)
+else
+    cb(0)
+end
+end)
+```
+
+> \[!WORNING]
+>
+> これによりエンティティが生成され、エンティティIDがコールバックされます。このIDはクライアント側でエンティティの存在を確認するために使用できます。クライアント(player)がエンティティの有効範囲内に入るまで、エンティティは存在しません。クライアントが有効範囲内にいない間は、サーバーがエンティティを「所有」します。つまり、クライアントが無限大範囲内に入ると、そのエンティティの所有権を取得し、クライアントが使用できるようになります。これは少し分かりにくいかもしれませんが、うまく説明できる方法がありません。
+
+## データベース接続
+
+> \[！情報]
+>
+> txAdminは既にこれを自動的に行っていますが、必要であればserver.cfgにこれを追加し、正しい情報を入力してください。データベースラッパーの場合[oxmysql](https://github.com/overextended/oxmysql)&#x20;
+
+### インストール[​](https://overextended.github.io/docs/oxmysql/#installation) <a href="#installation" id="installation" />
+
+* ダウンロード[最新ビルド](https://github.com/overextended/oxmysql/releases/latest)oxmysql の (ソースコードではありません)。
+* アーカイブの内容をリソース フォルダーに抽出します。
+* リソースをリソースの一番上近くから開始します`server.cfg`。
+* ストリーミングされるアセットが多数ある場合は、接続のタイムアウトを防ぐために最初にそれらをロードします。
+
+### 構成[​](https://overextended.github.io/docs/oxmysql/#configuration) <a href="#configuration" id="configuration" />
+
+設定は、convarsを使用して変更することができます。`server.cfg`接続オプションの設定方法については、以下を参照してください。接続とデータベースの設定に合わせて、以下のいずれかの行を追加する必要があります。
+
+```
+set mysql_connection_string "mysql://root:12345@localhost/qbcore?charset=utf8mb4"
+```
+
+特定の特殊文字は予約またはブロックされており、パスワードに使用すると問題が発生する可能性があります。\
+より詳細な設定（複数のステートメントなど）については、以下を参照してください。[プール.d.ts](https://github.com/sidorares/node-mysql2/blob/master/typings/mysql/lib/Pool.d.ts#L10) そして [接続.d.ts](https://github.com/sidorares/node-mysql2/blob/master/typings/mysql/lib/Connection.d.ts#L8)。
+
+クエリをテストするときに追加情報が必要な場合は、次の convars を追加することもできます。
+
+```
+set mysql_slow_query_warning 150set mysql_debug true
+```
+
+#### UIの使用[​](https://overextended.github.io/docs/oxmysql/#using-the-ui) <a href="#using-the-ui" id="using-the-ui" />
+
+UIを使用する前に、まず`mysql_ui`convar を true に設定:
+
+```
+set mysql_ui true
+```
+
+また、以下の点もご確認ください`command`ACE権限アクセスがあれば、`mysql`ゲーム内でコマンドを実行して UI を開き、クエリ データを表示します。
+
+## サーバー.cfg
+
+server.cfgの設定は非常に簡単で、txAdminレシピのインストールが成功すれば既に完了しています。サーバー設定ファイルに関する追加情報もご覧ください。[**ここ**](https://docs.fivem.net/docs/server-manual/setting-up-a-server/)**。**&#x624B;動でインストールする場合は、ここに使用するテンプレートがあります
+
+```bash
+#   ____  ____   _____
+#  / __ \|  _ \ / ____|
+# | |  | | |_) | |     ___  _ __ ___
+# | |  | |  _ <| |    / _ \| '__/ _ \
+# | |__| | |_) | |___| (_) | | |  __/
+#  \___\_\____/ \_____\___/|_|  \___|
+
+## You CAN edit the following:
+{{serverEndpoints}}
+sv_maxclients {{maxClients}}
+set steam_webApiKey "none"
+sets tags "default, deployer, qbcore, qb-core"
+
+## You MAY edit the following:
+sv_licenseKey "{{svLicense}}"
+sv_hostname "{{serverName}} built with {{recipeName}} by {{recipeAuthor}}!"
+sets sv_projectName "[{{recipeName}}] {{serverName}}"
+sets sv_projectDesc "{{recipeDescription}}"
+sets locale "en-US"
+load_server_icon myLogo.png
+set sv_enforceGameBuild 2372
+set mysql_connection_string "{{dbConnectionString}}"
+
+# Voice config
+setr voice_useNativeAudio true
+setr voice_useSendingRangeOnly true
+setr voice_defaultCycle "GRAVE"
+setr voice_defaultVolume 0.3
+setr voice_enableRadioAnim 1
+setr voice_syncData 1
+
+# QBCore locale config
+setr qb_locale "en"
+
+# QBCore UseTarget
+setr UseTarget false
+
+# These resources will start by default.
+ensure mapmanager
+ensure chat
+ensure spawnmanager
+ensure sessionmanager
+ensure basic-gamemode
+ensure hardcap
+ensure baseevents
+
+# QBCore & Extra stuff
+ensure qb-core
+ensure [qb]
+ensure [standalone]
+ensure [voice]
+ensure [defaultmaps]
+
+## Permissions ##
+add_ace group.admin command allow # allow all commands
+#add_principal identifier.{{principalMasterIdentifier}} qbcore.god <- doesn't exist yet, change the generated one below to qbcore.god
+{{addPrincipalsMaster}}
+
+# Resources
+add_ace resource.qb-core command allow # Allow qb-core to execute commands
+
+# Gods
+add_ace qbcore.god command allow # Allow all commands
+
+# Inheritance
+add_principal qbcore.god group.admin # Allow gods access to the main admin group used to get all default permissions
+add_principal qbcore.god qbcore.admin # Allow gods access to admin commands
+add_principal qbcore.admin qbcore.mod # Allow admins access to mod commands
+```
+
+## GitHub プルリクエスト
+
+* 変更を提案したいリソースにアクセスしてください
+* そのリソース内の正確なファイルに移動します
+* 鉛筆アイコンをクリックすると、コードを編集できるようになります。
+* 編集内容に満足したら、「変更を提案」というボックスまでスクロールします。
+* 変更内容のタイトルと簡単な説明を記入してください
+* 記入が完了したら、緑色の「変更を提案」ボタンを押してください。
+* 既存のコードと比較した編集内容を示す画面が表示されます。
+* 表示された編集内容に満足したら、緑色の「プルリクエストを作成」ボタンを押してください。
+* 必要に応じてタイトルと説明を入力してください
+* 緑色の「プルリクエストを作成」ボタンをクリックすると完了です。
+
+> \[！注記]
+>
+> メール通知が有効になっている場合は、プルリクエストの更新がメールで届きます。

@@ -1,0 +1,124 @@
+***
+
+タイトルサーバーイベント
+sidebar\_label: サーバ
+キーワード\[qbox, fivem, qbx\_core, イベント].
+説明このドキュメントはQbox Coreフレームワークのサーバサイドイベントに関する包括的なドキュメントを提供します。クライアント上でトリガーされる非ネットワークイベントとネットワークイベントの両方の概要を説明し、それらの目的、使用方法、関連するデータ構造（タイプ）の詳細を提供します。
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+# サーバーイベント
+
+::警告
+これらのイベント**禁止**他のスクリプトによってトリガーされる。
+:::
+
+:::info
+これらのイベントの中には、カスタム・タイプを使用するものがあります。
+これらについては、このリソースの「タイプ」セクションを参照してください。
+:::
+
+## ネットワーク外のイベント
+
+### OnPlayerUnload
+
+プレーヤーがログアウトを開始したときにトリガーされる。\
+このイベントがトリガーされた時点で、qbx\_coreのメモリ内にプレーヤーがまだ存在しているという保証はありません。
+
+```lua
+AddEventHandler('QBCore:Server:OnPlayerUnload', function(source) end)
+```
+
+* ソース`integer`
+
+### OnPermissionUpdate
+
+選手のパーミッションが更新されたときにトリガーされます。\
+QBパーミッション機能によって作成されたパーミッションにのみ適用されます。
+
+```lua
+AddEventHandler('QBCore:Server:OnPermissionUpdate', function(source) end)
+```
+
+* ソース`integer`
+
+### オンジョブ更新
+
+選手の仕事が更新されたときにトリガーされる。
+
+```lua
+AddEventHandler('QBCore:Server:OnJobUpdate', function(source, job) end)
+```
+
+* ソース`integer`
+* 仕事だ：[`PlayerJob`](../types/player.mdx#playerjob)
+
+### OnGangUpdate
+
+選手のギャングが更新されたときにトリガーされる。
+
+```lua
+AddEventHandler('QBCore:Server:OnGangUpdate', function(source, gang) end)
+```
+
+* ソース`integer`
+* 一味だ：[`PlayerGang`](../types/player.mdx#playergang)
+
+### セットデューティ
+
+選手の職務が更新されたときにトリガーされる。
+
+```lua
+AddEventHandler('QBCore:Server:SetDuty', function(source, onDuty) end)
+```
+
+* ソース`integer`
+* 勤務中：`boolean`
+
+### グループ更新
+
+プレーヤーのグループが更新されたときにトリガーされます。グレードがnilの場合、グループは削除され、そうでない場合、グループは追加されます。
+
+```lua
+AddEventHandler('qbx_core:server:onGroupUpdate', function(source, groupName, groupGrade) end)
+```
+
+* ソース`integer`
+* グループ名：`string`
+* groupGrade?`number`
+
+### オンマネーチェンジ
+
+プレーヤーの現金/銀行残高が更新されたときにトリガーされる。
+
+```lua
+AddEventHandler('QBCore:Server:OnMoneyChange', function(source, moneyType, amount, operation, reason) end)
+```
+
+* ソース`integer`
+* moneyType：`'cash' | 'bank' | 'crypto'`
+* の量だ：`number`
+* オペレーションを行う：`'add' | 'remove' | 'set'`
+* 理由`string`
+
+### onSetMetaData
+
+player.Functions.setMetaData() が使用されたときにトリガーされます。
+
+```lua
+AddEventHandler('qbx_core:server:onSetMetaData', function(key, oldValue, newValue, source) end)
+```
+
+* キーだ：`string`
+* oldValue：`any`
+* newValue：`any`
+* ソース`number`
+
+## ネットワークイベント
+
+### OnPlayerLoaded
+
+選手のロードが終了したときにトリガーされる。
+
+```lua
+RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function() end)
+```

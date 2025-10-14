@@ -1,0 +1,337 @@
+# 共有
+
+## lib.array
+
+Arrayクラスのプロトタイプとして使用されるテーブル。関数は、クラスメソッドまたは標準関数として使用できます。
+
+### lib.array:new
+
+指定された要素を含む Array のインスタンスを構築します。
+
+* ...:`any`
+
+```lua
+lib.array:new(...)
+```
+
+**リターンズ**
+
+* アール：`Array`
+
+### lib.array.from
+
+イテレート可能な値から新しい配列を作成します。
+
+* イター`function`|`table`|`string`
+  * string.gmatchのようなイテレーター関数は、配列を構築するのに使うことができる。
+
+```lua
+lib.array.from(iter)
+```
+
+**リターンズ**
+
+* アール：`Array`
+
+### lib.array.at
+
+指定したインデックスの要素を返します。負数は配列の末尾から逆に数えます。
+
+* というインデックスがある：`integer`
+
+```lua
+lib.array.at(index)
+```
+
+**リターンズ**
+
+* 要素である：`unknown`
+
+### lib.array.merge
+
+2つ以上の配列の要素を新しい配列に結合する。
+
+* ...:`Array`
+
+```lua
+lib.array.merge(...)
+```
+
+**リターンズ**
+
+* 配列
+
+### lib.array.every
+
+配列のすべての要素が、指定したテスト関数を通過するかどうかを調べます。
+
+* アール：`Array`
+* testFn：`function(element: unknown): boolean`
+
+```lua
+lib.array.every(arr, testFn)
+```
+
+**リターンズ**
+
+* 成功した：`boolean`
+
+### lib.array.fill
+
+範囲内のすべての要素を指定された値に設定し、変更後の配列を返します。
+
+* アール：`Array`
+* 値である：`any`
+* スタート？`integer`
+* endIndex?`integer`
+
+```lua
+lib.array.fill(arr, value, start, endIndex)
+```
+
+**リターンズ**
+
+* アール：`Array`
+
+### lib.array.filter
+
+指定したテスト関数に合格した配列の要素を含む新しい配列を作成します。
+
+* アール：`Array`
+* testFn：`function(element: unknown): boolean`
+
+```lua
+lib.array.filter(arr, testFn)
+```
+
+**リターンズ**
+
+* newArr：`Array`
+
+### lib.array.find
+
+指定したテスト関数をパスした配列の最初の要素を返します。
+
+* アール：`Array`
+* testFn：`function(element: unknown): boolean`
+* 逆？`boolean`
+  * 配列を逆順に繰り返す。
+
+```lua
+lib.array.find(arr, testFn, reverse)
+```
+
+**リターンズ**
+
+* 要素である：`unknown`
+
+### lib.array.findIndex
+
+指定したテスト関数をパスした配列の最初の要素のインデックスを返します。
+
+* アール：`Array`
+* testFn：`function(element: unknown): boolean`
+* 逆？`boolean`
+  * 配列を逆順に繰り返す。
+
+```lua
+lib.array.findIndex(arr, testFn, reverse)
+```
+
+**リターンズ**
+
+* というインデックスがある：`integer`
+
+### lib.array.indexOf
+
+指定した値にマッチする配列の最初の要素のインデックスを返します。
+
+* アール：`Array`
+* 値である：`any`
+* 逆？`boolean`
+  * 配列を逆順に繰り返す。
+
+```lua
+lib.array.indexOf(arr, value, reverse)
+```
+
+**リターンズ**
+
+* というインデックスがある：`integer`
+
+### lib.array.forEach
+
+指定された関数を、配列の各要素に対して実行します。
+
+* アール：`Array`
+* cb：`function(element: unknown)`
+
+```lua
+lib.array.forEach(arr, cb, reverse)
+```
+
+**リターンズ**
+
+* というインデックスがある：`integer`
+
+### lib.array.join
+
+配列のすべての要素を、カンマあるいは指定したセパレータで区切って文字列に連結する。
+
+* アール：`Array`
+* セパレーター？`string`
+
+```lua
+lib.array.join(arr, seperator)
+```
+
+**リターンズ**
+
+* スト：`string`
+
+### lib.array.map
+
+配列の各要素に対して指定された関数をコールした結果を含む新しい配列を作成する。
+
+* fn：`function(element: unknown, index: integer, arr: Array): unknown`
+
+```lua
+lib.array.map(arr, fn)
+```
+
+**リターンズ**
+
+* newArr：`Array`
+
+### lib.array.pop
+
+配列から最後の要素を削除し、その値を返します。
+
+* アール：`Array`
+
+```lua
+lib.array.pop(arr)
+```
+
+**リターンズ**
+
+* 要素である：`unknown`
+
+### lib.array.push
+
+指定した要素を配列の末尾に追加し、新しい配列の長さを返します。
+
+* アール：`Array`
+* ...:`any`
+
+```lua
+lib.array.push(arr, ...)
+```
+
+**リターンズ**
+
+* の長さだ：`integer`
+
+### lib.array.shift
+
+配列から最初の要素を削除し、その値を返します。
+
+* アール：`Array`
+
+```lua
+lib.array.shift(arr)
+```
+
+**リターンズ**
+
+* 要素である：`unknown`
+
+### lib.array.slice
+
+配列の一部を新しい配列として浅くコピーします。
+
+* アール：`Array`
+* スタート？`integer`
+* 終了？`integer`
+
+```lua
+lib.array.slice(arr, start, finish)
+```
+
+**リターンズ**
+
+* newArr：`Array`
+
+### lib.array.toReversed
+
+指定した配列とは要素の順番を逆にした新しい配列を作成します。
+
+* アール：`Array`
+
+```lua
+lib.array.toReversed(arr)
+```
+
+**リターンズ**
+
+* newArr：`Array`
+
+### lib.array.unshift
+
+配列の先頭に新しい要素を挿入し、新しい配列の長さを返します。
+
+* アール：`Array`
+* ...:`any`
+
+```lua
+lib.array.unshift(arr, ...)
+```
+
+**リターンズ**
+
+* の長さだ：`integer`
+
+### lib.array.reduce
+
+reducer "関数は、配列の各要素に適用され、前の結果はアキュムレータとして機能する。\
+初期値が指定された場合は、それが最初のインデックスのアキュムレータとして使用される。そうでない場合は、最初のインデックスをアキュムレータとして、2番目のインデックスから反復が開始される。
+
+* アール：`Array`
+* レデューサーである：`function(accumulator: unknown, element: unknown, index?: integer)`
+* initialValue?`any`
+
+```lua
+lib.array.reduce(arr, reducer)
+```
+
+**リターンズ**
+
+* アキュムレーター：`unknown`
+
+### lib.array.reverse
+
+配列内の要素の順序を逆にする。
+
+* アール：`Array`
+
+```lua
+lib.array.reverse(arr)
+```
+
+**リターンズ**
+
+* アール：`Array`
+
+### lib.isArray
+
+与えられたテーブルが Array のインスタンスか、配列のようなテーブルかを判定します。
+
+* tbl：`table`
+
+```lua
+lib.array.isArray(tbl)
+```
+
+**リターンズ**
+
+* isArrayである：`boolean`

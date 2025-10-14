@@ -1,0 +1,65 @@
+***
+
+タイトル: フック
+sidebar\_label: フック
+キーワード\[qbox, fivem, qbx\_core, モジュール, フック].
+説明qbx\_core リソースの hooks モジュールのドキュメント。このモジュールはイベントフックを登録、管理する機能を提供し、サードパーティリソースがリソースのコードを直接変更することなく動作を変更できるようにします。
+-----------------------------------------------------------------------------------------------------------------
+
+# ホック
+
+イベントフックは、サードパーティのリソースが、あなたのリソースを直接修正することなく、新しい振る舞いを定義することを可能にします。
+
+## レジスタフック
+
+リソースによってトリガーされるコールバック関数を登録します。コールバック関数からfalseを返すと、イベントはキャンセルされます。
+
+```lua
+exports.my_resource:registerHook(eventName, cb)
+```
+
+* イベント名`string`
+* ペイロード：`table`
+
+戻る：
+
+* hookId：`number`
+
+## 削除フック
+
+以前に登録されたフックをidで指定して削除する。
+idが指定されない場合は、リソースによって登録されたすべてのフックが削除されます。
+
+```lua
+exports.my_resource:removeHooks(id)
+```
+
+* id？`number`
+
+## 使用方法
+
+フックの設定例
+
+```lua
+local triggerEventHooks = require '@qbx_core.modules.hooks' -- Import triggerEventHooks function from hooks module
+
+-- Example of some sort of event that could be in your resource
+RegisterNetEvent('your_resource:server:check_condition', function(source)
+    -- Checks to see if any registered hooks return false
+	if not triggerEventHooks('checkCondition', {source = source, myNumber = 10}) then return end 
+    -- Do stuff
+end)
+```
+
+サードパーティのリソースは、あなたのコードを変更することなく、あなたのリソースの動作を変更することができる。
+
+```lua
+exports.qbx_core:registerHook('checkCondition', function(payload)
+  -- payload contains everything passed into triggerEventHooks, which will depend on the resource to document
+  if payload.myNumber == 10 then
+    return true -- Continue as normal
+  else
+    return false -- Stop execution
+  end
+end)
+```

@@ -1,0 +1,154 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+
+サーバーが優先言語を設定し、モジュールを使っているリソースにロケールファイルを読み込もうとすることを許可します。
+ロケールファイルは[ISO 言語コード](http://www.lingoes.net/en/translator/langcode.htm)として保存される。`./locales/langcode.json`
+
+## セットアップ
+
+優先言語を英語から変更するには、convar を server.cfg に追加し、次のように変更します。`en`を希望の言語コードに変更する。
+
+```yaml
+setr ox:locale en
+```
+
+locales ディレクトリを作成し、あなたの言語のファイルを作成します。
+
+```json filename="locales/en.json"
+{
+  "grand_theft_auto": "grand theft auto",
+  "male": "male",
+  "female": "female",
+  "suspect_sex": "suspect is %s"
+}
+```
+
+```json filename="locales/fr.json"
+{
+  "grand_theft_auto": "vol de voiture",
+  "male": "homme",
+  "female": "femme",
+  "suspect_sex": "le suspect est %s"
+}
+```
+
+```lua filename="fxmanifest.lua"
+files {
+  'locales/*.json'
+}
+```
+
+## 使用方法
+
+リソース内のロケールモジュールを初期化する（1 回）。
+
+<Tabs items={["Lua", "JS"]}>
+  <Tags.Tab>
+    ```lua
+    lib.locale()
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import {initLocale} from '@communityox/ox_lib/shared'
+
+    initLocale()
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+新しいロケールグローバルで文字列をフォーマットする。
+ロケール出力をフォーマットするために追加の引数を送ることができます。
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    locale(str, ...)
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import { locale } from '@communityox/ox_lib/shared'
+
+    locale(str, ...)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+- スト：`string`
+- vararg?`string`または`number`
+
+<u>**例**</u>
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    -- Load the locale module
+    lib.locale()
+
+    SetInterval(function()
+        print(locale('grand_theft_auto'))
+        print(locale('suspect_sex', locale('male')))
+    end, 5000)
+    ```
+
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import { initLocale, locale } from '@communityox/ox_lib/shared
+
+    // Load the locale module
+    initLocale()
+
+    setInterval(() => {
+      console.log(locale('grand_theft_auto'))
+      console.log(locale('suspect_sex', locale('male')))
+    }, 5000)
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## フレーズ
+
+locale を何度も呼び出すのではなく、他のロケールを参照してフレーズを構成するロケール文字列を作成することができます。
+
+```json
+{
+  "hello": "hello %s",
+  "my_name_is": "my name is %s",
+  "hello_my_name_is": "${hello}! ${my_name_is}."
+}
+```
+
+<Tabs items={['Lua', 'JS']}>
+  <Tags.Tab>
+    ```lua
+    print(locale('hello_my_name_is', 'doka', 'linden'))
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    ```ts
+    import { locale } from '@communityox/ox_lib/shared'
+
+    console.log(locale('hello_my_name_is', 'doka', 'linden'))
+    ```
+
+  </Tags.Tab>
+</Tabs>
+
+## lib.getLocale
+
+他のリソースからロケール文字列を取得し、それを dict に追加します。
+
+```lua
+lib.getLocale(resource, key)
+```
+
+- リソースを提供する：`string`
+- キーだ：`string`

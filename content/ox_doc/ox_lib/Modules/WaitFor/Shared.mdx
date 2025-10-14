@@ -1,0 +1,23 @@
+# 共有
+
+## lib.waitFor
+
+nilでない値を受け取るまで、あるいはタイムアウトするまで、関数を繰り返し呼び出す。\
+そして関数の結果が返される。
+
+```lua
+lib.waitFor(cb, errMessage, timeout)
+```
+
+* cb：`function`
+  * フレームごとに呼び出す関数。
+* errMessage?`string`
+  * 関数がタイムアウトした場合に表示するエラーメッセージ。
+* タイムアウト？`number | false`
+  * に設定されていない限り、デフォルトは1000msです。`false`.
+
+```lua
+local value --[['abc']] = lib.waitFor(function()
+    if math.random(0, 1) == 1 then return 'abc' end
+end)
+```

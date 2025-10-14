@@ -1,0 +1,100 @@
+---
+description: Ya'll got doritos?
+---
+
+# 🏪 QBショップ
+
+## 導入
+
+* 連携して動作する[qb-inventory.md](qb-inventory.md "mention")プレイヤーがアイテムを購入できるようにする
+* ショップの在庫を補充しながらプレイヤーがお金を稼ぐための配達システムが含まれています
+
+## ショップの作成
+
+> \[!警告]
+> 黄色で強調表示されているオプションはオプションです。
+
+### 製品の定義
+
+複数のオプションが利用可能な、ユニークな商品リスト内に、table のアイテムを定義できます。table のアイテムのインデックスは、後で使用するユニークな商品リスト名となるので、必ず異なる名前にしてください。それでは、商品リストに含めるべきものを見ていきましょう。
+
+* 製品リスト:`string`
+* 名前： `string`
+* 額： `number`
+* <mark style="color:yellow;">info</mark>:`table`
+* <mark style="color:yellow;">requiredJob</mark>:`table | string`
+* <mark style="color:yellow;">requiredGang</mark>:`table | string`
+* <mark style="color:yellow;">requiredGrade</mark>:`number`
+* <mark style="color:yellow;">requiredLicense</mark>:`table | string`&#x20;
+
+#### 使用例:
+
+```lua
+['normal'] = {
+    { name = 'sandwich',      price = 2,   amount = 50, },
+    { name = 'water_bottle',  price = 2,   amount = 50, info = { quality = 100 } },
+    { name = 'kurkakola',     price = 2,   amount = 50, requiredJob = 'police' },
+    { name = 'twerks_candy',  price = 2,   amount = 50, requiredGang = 'ballas' },
+    { name = 'kurkakola',     price = 2,   amount = 50, requiredJob = { 'police', 'ambulance' } },
+    { name = 'twerks_candy',  price = 2,   amount = 50, requiredGang = { 'ballas', 'lostmc' } },
+    { name = 'snikkel_candy', price = 2,   amount = 50, requiredGrade = 3 },
+    { name = 'sandwich',      price = 2,   amount = 50, requiredLicense = 'weapon' },
+    { name = 'sandwich',      price = 2,   amount = 50, requiredLicense = { 'weapon', 'driver' } },
+},
+```
+
+> \[!警告]
+> 要件に table を使用する場合、要件はどちらか一方であり、両方ではありません。つまり、警察と救急車を要件に追加した場合、両方のジョブが必要になるわけではなく、どちらか一方だけが必要になります。
+
+### 場所の定義
+
+一意の識別子でインデックスされたショップのリストを定義できます。これらの識別子はそれぞれ異なる必要があります。これは、true に設定されている場合、ショップの在庫補充を可能にするためです。
+
+* ラベル:`string`
+* 製品： `table`
+* 座標:`vector`
+* 配達： `vector`
+* <mark style="color:yellow;">ped</mark>:`string`
+* <mark style="color:yellow;">scenario</mark>:`string`
+* <mark style="color:yellow;">radius</mark>:`float`
+* <mark style="color:yellow;">targetIcon</mark>:`string`
+* <mark style="color:yellow;">targetLabel</mark>:`string`
+* <mark style="color:yellow;">showblip</mark>:`boolean`
+* <mark style="color:yellow;">blipsprite</mark>:`number`
+* <mark style="color:yellow;">blipscale</mark>:`float`
+* <mark style="color:yellow;">blipcolor</mark>:`number`
+* <mark style="color:yellow;">radius</mark>:`float`
+* <mark style="color:yellow;">useStock</mark>:`boolean`
+* <mark style="color:yellow;">requiredJob</mark>:`string | table`
+* <mark style="color:yellow;">requiredGang</mark>:`string | table`
+* <mark style="color:yellow;">requiredItem</mark>:`string | table`
+
+使用例:
+
+```lua
+['247supermarket'] = {
+    ['label'] = '24/7 Supermarket',
+    ['products'] = Config.Products['normal'],
+    ['coords'] = vector4(24.47, -1346.62, 29.5, 271.66),
+    ['delivery'] = vector4(26.45, -1315.51, 29.62, 0.07),
+    ['ped'] = 'mp_m_shopkeep_01',
+    ['scenario'] = 'WORLD_HUMAN_STAND_MOBILE',
+    ['targetIcon'] = 'fas fa-shopping-basket',
+    ['targetLabel'] = 'Open Shop',
+    ['showblip'] = true,
+    ['blipsprite'] = 52,
+    ['blipscale'] = 0.6,
+    ['blipcolor'] = 0,
+    ['radius'] = 1.5,
+    ['useStock'] = true,
+    ['requiredJob'] = 'police', -- string
+    ['requiredJob'] = { ['mechanic'] = 4 }, -- table
+    ['requiredGang'] = 'ballas', -- string
+    ['requiredGang'] = { ['ballas'] = 4 }, -- table
+    ['requiredItem'] = 'lockpick', -- string
+    ['requiredItem'] = { 'lockpick', 'sandwich' } -- table
+},
+```
+
+> \[!警告]
+> 設定する際は`requiredJob`、`requiredGang` または `requiredItem`string と table の両方のメソッドを使用しないでください。どちらか 1 つだけを選択してください。

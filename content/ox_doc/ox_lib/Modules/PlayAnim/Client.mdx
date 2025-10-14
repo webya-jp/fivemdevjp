@@ -1,0 +1,41 @@
+# クライアント
+
+## lib.playAnim
+
+与えられた引数でアニメーションを再生する。この関数は、与えられたアニメーション辞書のロードとアンロードも自動的に行うので、それを管理する必要はありません。
+この関数は、TaskPlayAnimを直接置き換えることができます。
+
+```lua
+lib.playAnim(ped, animDictionary, animationName, blendInSpeed, blendOutSpeed, duration, animFlags, startPhase, phaseControlled, controlFlags, overrideCloneUpdate)
+```
+
+* ペダル`number`
+  * アニメーションを再生するペダル
+* animDictionary：`string`
+  * アニメーション辞典。
+* アニメーション名：`string`
+  * 辞書内のアニメーションの名前。
+* blendInSpeed？`number`
+  * アニメーションをブレンドする速度。
+  * デフォルト：`8.0`
+* blendOutSpeed？`number`
+  * アニメーションをブレンドする速度。
+  * デフォルト：`8.0`
+* 期間？`number`
+  * アニメーションを再生するミリ秒数。キャンセルされるまで-1。
+  * デフォルト：`-1`
+* animFlags?`AnimationFlags`
+  * アニメーションの旗。これらは[これ](https://github.com/communityox/ox_lib/blob/master/imports/playAnim/client.lua#L1-L33)
+  * デフォルト：`0`
+* startPhase?`number`
+  * アニメーションの何パーセントから開始するか。(0.0から1.0の間の数値)
+  * デフォルト：`0.0`
+* phaseControlled?`boolean`
+  * startPhaseを使用するかどうか。
+  * デフォルト：`false`
+* controlFlags?`ControlFlags`
+  * キャラクターがアニメーションによってどのように制御されるかを操作するためのフラグです。これらは[これ](https://github.com/communityox/ox_lib/blob/master/imports/playAnim/client.lua#L35-L50)
+  * デフォルト：`0`
+* overrideCloneUpdate?`boolean`
+  * trueを指定すると、他のクライアントからは、たとえそのペッドがクライアント自身でなくても、そのペッドで再生されているアニメーションが見えなくなります。
+  * デフォルト：`false`

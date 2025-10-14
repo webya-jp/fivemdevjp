@@ -1,0 +1,71 @@
+---
+description: Installing a QBCore server step by step.
+---
+
+# 🪟 Windows インストール
+
+## データベース構成
+
+インストール [MariaDB](https://mariadb.org/download)そして [ハイジSQL](https://www.heidisql.com/download.php)
+
+## MariaDB
+
+## ハイジSQL
+
+* HeidiSQLを開き、プラス記号の付いた緑色の円をクリックして名前を付けます。
+
+> \[!INFO]
+> 名前は何でも構いません。好きな名前を付けてください。
+
+![Press new to create a session](https://i.imgur.com/gMahSUE.png)
+
+![Rename this to whatever you'd like and press open](https://i.imgur.com/IOmBame.png)
+
+## アーティファクトとtxAdmin
+
+デスクトップに新しいフォルダを作成し、好きな名前を付けて、**最新のおすすめ**FiveM[遺物](https://runtime.fivem.net/artifacts/fivem/build_server_windows/master/)作成したフォルダに解凍します
+
+![The webpage for downloading an artifact version](https://i.imgur.com/XxSPtRk.png)
+
+FXServer.exeをダブルクリックして実行します。読み込まれると、Webブラウザのページが開きます。
+
+![txAdmin is already bundled in with the FiveM artifacts so running the server starter will launch it](https://i.imgur.com/ZVOCx11.png)
+
+FiveMアカウントをリンクしたら（自動的に行われるはずです）、パスワードを設定してください。その後、以下の手順が表示されます。
+
+![txAdmin starting page after logging in](https://i.imgur.com/TdgvshI.png)
+
+number 3のステップに到達したら、「Popular Template」をクリックし、「QBCore Framework」をクリックします。
+
+![Choosing a deployment type](https://i.imgur.com/pexfo3C.png)
+
+![Selecting QBCore from the templates](https://i.imgur.com/VN1xRo8.png)
+
+サーバーデータを保存するフォルダーを選択します。
+
+![It is suggested to use the path txAdmin suggests](https://i.imgur.com/tyRX3I3.png)
+
+一番下までスクロールしてレシピデプロイヤーを実行します
+
+![Click on next](https://i.imgur.com/n2QKiOS.png)
+
+へ移動[キーマスター](https://keymaster.fivem.net/)キーを生成します。その情報を正しく入力してください。
+
+> \[!INFO]
+> Keymaster キーは初回起動時にのみ IP アドレスを必要とし、その後は生成されたキーを任意の IP アドレスで使用できます。
+
+プロンプトが表示されたら、Keymaster キーを貼り付けます。
+
+![Entering your CFX key](https://i.imgur.com/uNgCHnv.png)
+
+次に「レシピを実行」をクリックします。
+
+![After you let the recipe install you will be greeted with a screen like this.](https://i.imgur.com/MZyiPmg.png)
+
+> \[!警告]
+> 上記のメッセージが表示されず、エラーメッセージが表示された場合は、公式の[QBCore ディスコード](https://discord.gg/qbcore)投稿する[fivemサポート](https://discord.com/channels/831626422232678481/1006299568314527895)
+
+> \[!警告]
+> 初回起動時には、yarn のインストールを完了させてください。
+
+これが完了したら、[設定権限.md](setting-permissions.md "mention")昇格した権限を与えたいプレイヤーを指定して server.cfg を構成します。

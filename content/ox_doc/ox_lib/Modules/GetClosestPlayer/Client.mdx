@@ -1,0 +1,24 @@
+# クライアント
+
+## lib.getClosestPlayer
+
+座標セットに最も近いプレーヤーのID、ペッドハンドル、座標を取得します。
+
+```lua
+lib.getClosestPlayer(coords, maxDistance, includePlayer)
+```
+
+* コーデ：`vector3`
+  * チェックする座標。
+* maxDistance?`number`
+  * チェックする最大距離。
+  * デフォルト：`2.0`
+* includePlayer？`boolean`
+  * 現在のプレーヤーを含めるかどうか。
+  * デフォルト：`false`
+
+戻る：
+
+* playerId?`number`
+* playerPed?`number`
+* playerCoords?`vector3`

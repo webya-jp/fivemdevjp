@@ -1,0 +1,79 @@
+---
+
+## タイトル ESX
+
+import { Tabs, Tab } from "nextra-theme-docs";
+
+# イーエスエックス
+
+- が必要である。[ESX レガシーの互換バージョン](https://github.com/esx-framework/esx_core)(1.6.0 以上）。
+- で選手のインベントリを変換できます。`convertinventory esx`.
+- データベース内の全アイテムが内部アイテムデータに移行されます。
+  - アイテムの移行時には、必ずリソースを再起動します！
+
+## 互換性
+
+Ox Inventory は、既存のアイテム、インベントリ、武器システムを完全に置き換えるものであり、ESX やデフォルトの動作に依存するリソースとは本質的に互換性がない。
+
+- ロードアウトは存在せず、武器はアイテムとして扱われる。
+- 標準的なショップと隠し場所（esx_shops、esx_weaponshop、esx_policejob）。
+- デフォルトの esx インベントリを変更したり、UI を提供するリソース (esx_trunkinventory や esx_inventoryhud など)。
+
+## インストール
+
+- 互換性のある[ESX レガシー](https://github.com/esx-framework/esx-legacy)(1.6.0+).
+- を修正する。`server.cfg`es_extended の直後に ox_inventory を開始する。
+
+```yaml
+start oxmysql
+start ox_lib
+start es_extended
+start qtarget
+start ox_inventory
+```
+
+## ESX インベントリデータの変換
+
+- サーバーを起動し`convertinventory esx`をサーバーコンソールに入力する。
+- オプションで`convertinventory esxproperty`をサーバーコンソールに入力する。
+- 変換が完了したらサーバーを再起動する。
+
+## オプションの最適化
+
+xPlayer のアイテムに関連するすべての関数。`xPlayer.getInventoryItem`しかし、これらは非推奨とされている。
+
+理由はいたって簡単で、関数の参照とオーバーヘッドが増えたからだ。幸いなことに、新しい Inventory 関数は直接使用することができ、旧関数よりも大幅に改善されている。
+
+詳しくは機能のセクションを読んでほしいが、以下のセクションを読めば、だいたいのことはわかるだろう。
+
+<Tabs items={["ESX", "Ox Inventory"]}>
+  <Tags.Tab>
+    ```lua
+    if xPlayer.getInventoryItem('acetone').count > 2 and xPlayer.getInventoryItem('antifreeze').count > 4 and xPlayer.getInventoryItem('sudo').count > 9 then
+        xPlayer.removeInventoryItem("acetone", 3)
+        xPlayer.removeInventoryItem("antifreeze", 5)
+        xPlayer.removeInventoryItem("sudo", 10)
+    end
+    ```
+  </Tags.Tab>
+
+  <Tags.Tab>
+    リソースのどこかに以下のコードを追加し、エクスポート・メタテーブルをキャッシュする。
+
+    ```lua
+    local ox_inventory = exports.ox_inventory
+    ```
+
+    エクスポートを通じて公開された関数を参照できるようになる。
+
+    ```lua
+    local items = ox_inventory:Search(source, 'count', {'acetone', 'antifreeze', 'sudo'})
+    if items and items.acetone > 2 and items.antifreeze > 4 and items.sudo > 9 then
+        ox_inventory:RemoveItem(source, 'acetone', 3)
+        ox_inventory:RemoveItem(source, 'antifreeze', 5)
+        ox_inventory:RemoveItem(source, 'sudo', 10)
+    end
+    ```
+
+  </Tags.Tab>
+</Tabs>

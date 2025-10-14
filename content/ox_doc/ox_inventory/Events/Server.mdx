@@ -1,0 +1,41 @@
+import { Callout } from 'nextra/components';
+
+# サーバー
+
+これはイベントの包括的なリストではなく、内部使用のみを目的としたイベントの欠落です。
+
+## ハンドラー
+
+<Callout type="warning">
+  これらのイベント**べきではない**他のスクリプトによってトリガーされる。
+</Callout>
+
+### ox\_inventory:openedInventory（オープン・インベントリー
+
+プレイヤーがインベントリを開いた後にトリガーされる。
+
+```lua
+AddEventHandler('ox_inventory:openedInventory', function(playerId, inventoryId) end)
+```
+
+* playerId：`number`
+* inventoryId：`string`
+
+### ox\_inventory:closedインベントリ
+
+インベントリがプレイヤーによって閉じられた後にトリガーされる。
+
+```lua
+AddEventHandler('ox_inventory:closedInventory', function(playerId, inventoryId) end)
+```
+
+### ox\_inventory:usedItem
+
+```lua
+AddEventHandler('ox_inventory:usedItem', function(playerId, name, slotId, metadata) end)
+```
+
+* playerId：`number`
+* と名付けた：`string`
+* slotId：`number`
+* メタデータ？`table`
