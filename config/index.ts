@@ -47,7 +47,7 @@ export default {
    * Nextra Layout component configuration
    */
   nextraLayout: {
-    docsRepositoryBase: 'https://github.com/your-username/fivemdevjp/tree/main/app/docs/',
+    docsRepositoryBase: 'https://github.com/webya-jp/fivemdevjp/tree/main/content',
     sidebar: {
       defaultMenuCollapseLevel: 1,
     },
@@ -71,9 +71,9 @@ export default {
    * This information is used to fetch the releases from the GitHub API.
    */
   gitHub: {
-    repo: 'your-username/fivemdevjp',
+    repo: 'webya-jp/fivemdevjp',
     apiUrl: 'https://api.github.com',
-    releasesUrl: 'https://api.github.com/repos/your-username/fivemdevjp/releases',
+    releasesUrl: 'https://api.github.com/repos/webya-jp/fivemdevjp/releases',
   },
 
   /**
@@ -81,7 +81,7 @@ export default {
    * This is used to link the release notes in the app.
    */
   releaseNotes: {
-    url: 'https://github.com/your-username/fivemdevjp/releases',
+    url: 'https://github.com/webya-jp/fivemdevjp/releases',
     maxReleases: 10,
   },
 
