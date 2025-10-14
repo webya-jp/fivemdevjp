@@ -1,8 +1,6 @@
----
-
 ## タイトルオックスアカウント
 
-import { Tabs, Tab } from "nextra-theme-docs";
+import { Tab, Tabs } from 'nextra/components';
 
 ## オックスアカウント
 
@@ -55,9 +53,18 @@ account.addBalance(data)
   - 成功した：`boolean`
   - というメッセージを送った：`'amount_not_number'`|`'no_balance'`|`'something_went_wrong'`
 
-<Tabs items={["Lua"]}>
+<Tabs items={['Lua']}>
   <Tags.Tab>
-    ```lua account.addBalance({((amount = 1000), (message = "Paycheck"))}) ```
+    ```lua 
+    account.addBalance( -- Add $1000 to the account
+      {
+        (
+          (amount = 1000), -- The amount to add
+          (message = 'Paycheck') -- Optional message (shown in logs
+        )
+      }
+    )
+    ```
   </Tags.Tab>
 </Tabs>
 
@@ -83,10 +90,19 @@ account.removeBalance(data)
   - 成功した：`boolean`
   - というメッセージを送った：`'amount_not_number'`|`'no_balance'`|`'something_went_wrong'`
 
-<Tabs items={["Lua"]}>
+<Tabs items={['Lua']}>
   <Tags.Tab>
-    ```lua account.removeBalance(
-    {((amount = 1000), (message = "Impound"), (overdraw = true))}) ```
+    ```lua
+    account.removeBalance(
+      {
+        (
+          (amount = 1000), -- The amount to remove
+          (message = 'Impound'), -- Optional message (shown in logs)
+          (overdraw = true) -- Allow the balance to go negative
+        )
+      }
+    )
+    ```
   </Tags.Tab>
 </Tabs>
 

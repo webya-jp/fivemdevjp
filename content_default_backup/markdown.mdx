@@ -1,8 +1,8 @@
-import { Callout } from 'nextra/components'
+import { Callout } from 'nextra/components';
 
 # Markdown MDX overview
 
-`nextra-theme-docs` and `nextra-theme-blog` support replacing
+`nextra/components` and `nextra-theme-blog` support replacing
 [GitHub alert syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)
 with `<Callout>` component for `.md`/`.mdx` files.
 
@@ -57,7 +57,7 @@ with `<Callout>` component for `.md`/`.mdx` files.
 If you want to benefit this feature with your own theme and your own `<Callout>`
 component:
 
-import { Steps } from 'nextra/components'
+import { Steps } from 'nextra/components';
 
 <Steps>
 
@@ -75,11 +75,11 @@ The `type` prop can be one of the following:
 `'note' | 'tip' | 'important' | 'warning' | 'caution'{:ts}`.
 
 ```jsx
-import { withGitHubAlert } from 'nextra/components'
+import { withGitHubAlert } from 'nextra/components';
 
 const Blockquote = withGitHubAlert(({ type, ...props }) => {
-  return <MyCalloutComponent type={type} {...props} />
-}, MyBlockquoteComponent)
+  return <MyCalloutComponent type={type} {...props} />;
+}, MyBlockquoteComponent);
 ```
 
 ### Provide `<Blockquote>` to `useMDXComponents`
@@ -91,12 +91,12 @@ To make the `<Blockquote>` component available, you should integrate it into the
 export function useMDXComponents(components) {
   return {
     blockquote: Blockquote,
-    ...components
-  }
+    ...components,
+  };
 }
 ```
+
 </Steps>
 
 You can learn more about the Nextra components in the
 [Nextra documentation](https://nextra.site/docs/built-ins).
-
